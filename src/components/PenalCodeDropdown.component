@@ -1,0 +1,10 @@
+<apex:component access="global">
+	<apex:attribute name="penalCodeList" description="Penal Code List" type="Penal_Code__c[]" />
+	<select class="selectpicker" data-live-search="true" title="Select Charge...">
+	    <apex:repeat var="code" value="{!penalCodeList}">
+	        <option data-subtext="{!code.Description__c}" data-score="{!code.Top_Charge_Calculation__c}" data-exclusion="{!code.SRP_Exclusion__C}" value="{!code.id}">
+	        {!code.Name}
+	        </option>
+	    </apex:repeat>
+	</select>
+</apex:component>

@@ -1,0 +1,51 @@
+<apex:page title="CEP Intakes" controller="cepIntakeContainerConUCP" id="pgInterview" sidebar="True">
+    
+   
+    <apex:outputPanel id="opTitleHeader">
+        <apex:sectionHeader subtitle="{!c.FirstName} {!c.LastName} / {!c.Intake_Case__r.Name}" title="CEP Screening Process" />
+        <br />
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="flowWrapper">
+    
+        <apex:outputPanel id="flowPanel">
+            <flow:interview name="CEP_Basic_Client_Data" buttonLocation="bottom" 
+            finishLocation="{!courtPortalURL}" rendered="{!stage='BasicClientData'}">
+                <apex:param name="contactId" value="{!contactId}"/>   
+                <apex:param name="accountId" value="{!accountId}"/>  
+                <apex:param name="intakeCaseId" value="{!intakeCaseId}"/>         
+            </flow:interview>
+            <flow:interview name="CEP_Attorney_Consent" buttonLocation="bottom" 
+            finishLocation="{!courtPortalURL}" rendered="{!stage='Attorney'}">
+                <apex:param name="contactId" value="{!contactId}"/>   
+                <apex:param name="accountId" value="{!accountId}"/>  
+                <apex:param name="intakeCaseId" value="{!intakeCaseId}"/>         
+            </flow:interview>
+            <flow:interview name="CEP_Interview" buttonLocation="bottom" 
+            finishLocation="{!courtPortalURL}" rendered="{!stage='Interview'}">
+                <apex:param name="contactId" value="{!contactId}"/>   
+                <apex:param name="accountId" value="{!accountId}"/>  
+                <apex:param name="intakeCaseId" value="{!intakeCaseId}"/>         
+            </flow:interview>
+            <flow:interview name="CEP_Intake" buttonLocation="bottom" 
+            finishLocation="{!addChargesURL}" rendered="{!stage='Intake'}">
+                <apex:param name="contactId" value="{!contactId}"/>   
+                <apex:param name="accountId" value="{!accountId}"/>  
+                <apex:param name="intakeCaseId" value="{!intakeCaseId}"/>         
+            </flow:interview>
+            <flow:interview name="CEP_Stopped_Tracking" buttonLocation="bottom" 
+            finishLocation="{!courtPortalURL}" rendered="{!stage='StopTracking'}">
+                <apex:param name="contactId" value="{!contactId}"/>   
+                <apex:param name="accountId" value="{!accountId}"/>  
+                <apex:param name="intakeCaseId" value="{!intakeCaseId}"/>         
+            </flow:interview>                                                
+        </apex:outputPanel>   
+
+    </apex:outputPanel>  
+    
+    <script>
+        // Prevent Calendar Popup in Flows and Pages
+        function setFocusOnLoad() { }
+    </script>
+    
+</apex:page>

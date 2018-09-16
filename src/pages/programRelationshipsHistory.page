@@ -1,0 +1,175 @@
+<apex:page title="Provider History" controller="programRelationshipsHistoryController" id="pgMain" sidebar="true">
+   
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191, '/jQueryUI-1.10.3/ui/jquery-ui.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/corners/jquery.corner.js')}" /> 
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/css/ui-lightness/jquery-ui-1.8.13.custom.css')}" />
+
+<apex:outputPanel id="opScripts">
+
+<style>
+
+    span.topContainer {
+        margin: 1px; 
+        margin-bottom: 10px;
+        background: #BEE3F8; 
+        padding: 5px;
+        border:0; 
+        float: left;
+        width: auto;
+        clear: both;
+        white-space: nowrap;
+    }
+    
+    td.searchLabel {
+        vertical-align: middle;
+        width: 25%; 
+    }
+    
+    input.searchCriteria {
+        width: 200px;
+    
+    }
+    
+    .fsBorders {
+        border-color:#1797C0;
+        border-style: solid;
+        border-width: 1px;
+    }
+    
+    .criteriaInput {width: 100px; }
+        
+
+</style>
+
+<script>
+function setFocusOnLoad() {}
+</script> 
+
+<script>
+    
+    ////////////////////////////
+    // Always declare another instance of jQuery as not to conflict with SF''s instance
+    ////////////////////////////
+    var j$ = jQuery.noConflict();
+    
+    ////////////////////////////
+    // Standard JS Functions
+    ////////////////////////////
+    function statusShow() {
+        //j$( "#dialog-modal" ).dialog( "open" );
+        document.getElementById('loadingGif').style.display = '';
+    }
+
+    function statusHide() {
+        //j$( "#dialog-modal" ).dialog( "close" );
+        document.getElementById('loadingGif').style.display = 'none';
+    }
+    
+    function criteriaFieldGrouping() {
+    
+        return true;
+    
+    }    
+     
+     
+    function checkFields()  {
+        if(criteriaFieldGrouping() == true) {
+            afSubmitSave();
+            return true;
+        } else {
+            return false;
+        }
+    } 
+    
+</script>
+
+<script>
+    function setFocusOnLoad(){
+    }
+</script>
+
+</apex:outputPanel>
+
+    <apex:outputPanel id="opTitleHeader">
+        <apex:sectionHeader subtitle="{!thisContact.FirstName} {!thisContact.LastName} / {!thisContact.P_C_ID__c}" />
+        <br />
+    </apex:outputPanel>
+
+<apex:form id="frmMain">
+
+    <apex:actionStatus id="asShowInterstitial" onstart="statusShow();" onstop="statusHide();" />
+    <apex:actionFunction name="afSubmitSave" action="{!savePRs}" status="asShowInterstitial"/>
+
+    <apex:outputPanel id="opFields">
+
+        <apex:pageMessages />
+        
+        <apex:outputPanel styleClass="topContainer" id="opInput2">
+        
+            <fieldset id="fsCriteria2" class="fsBorders">                 
+                            
+                            <table border="0" cellPadding="2" cellSpacing="2">
+                            
+                                <thead>
+                                    <tr>
+                                        <th>Provider</th>
+                                        <th>Start Date</th>
+                                        <th>End Date (blank if current)</th>
+                                        <th>Treatment</th>
+                                        <th>Service</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!lstPrograms}" var="pr">                         
+                                        <tr>
+                                            <td align="left">
+                                                <apex:inputField styleClass="criteriaInput" value="{!pr.Program__c}" />
+                                            </td>
+                                            <td align="left">
+                                                <apex:inputField styleClass="criteriaInput" value="{!pr.Program_Start_Date__c}"/>
+                                            </td>
+                                            <td align="left">
+                                                <apex:inputField styleClass="criteriaInput" value="{!pr.Discharge_Date_Phone_Visit__c}" />
+                                            </td>
+                                            <td align="left">
+                                                <apex:inputField styleClass="criteriaInput" value="{!pr.Treatment_Type_CIRT__c}" />
+                                            </td>                                             
+                                            <td align="left">
+                                                <apex:inputField styleClass="criteriaInput" value="{!pr.Service_Type_CIRT__c}" />
+                                            </td>                                                                                                                                                                             
+                                        </tr> 
+                                   </apex:repeat> 
+                                 <td align="left" style="vertical-align: bottom;">
+                                     <apex:commandButton id="cmdSave" value="Save" action="{!doNothing}" onclick="return checkFields();" 
+                                     rerender="emptyRerender"/>
+                                     <apex:commandButton id="cmdCancel" value="Return to Portal" action="{!goPortal}" 
+                                     rerender="opScripts, opFields" />
+                                 </td>                               
+                                </tbody>                                                                                                                              
+                            </table>              
+            
+            </fieldset>
+        
+        </apex:outputPanel>                  
+        
+        <div id="loadingGif" title="Processing Search" style="display:none;">
+            <p align="center">
+                Please wait while the search is processed...<br />
+                <br />
+                <img src="{!URLFOR($Resource.CasesLogo)}" /><br />
+                <br />
+                <img src="{!URLFOR($Resource.loading)}" />
+            </p>
+        </div>          
+        
+    </apex:outputPanel>
+
+</apex:form>
+
+<apex:outputPanel id="opEmpty">
+    
+</apex:outputPanel>
+        
+
+</apex:page>

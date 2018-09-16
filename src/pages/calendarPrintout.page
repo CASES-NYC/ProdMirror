@@ -1,0 +1,95 @@
+<apex:page controller="calendarClient" id="pgClientCalendar" title="Client Calendar" renderAs="{!renderPageAs}">
+
+    <head>
+        <style>
+            @page{
+                margin:0.25in;
+            }
+        </style>
+    </head> 
+    
+    <apex:repeat value="{!contactsForDisplay}" var="thisContact">
+    
+        <hr />
+        <div width="100%">
+            <h1>Client Calendar - {!thisContact.client.Calendar_Display_Name__c}</h1>
+        </div>
+        <hr />
+        
+        <div width="900px" style="{!IF(thisContact.lastClient=true, '', 'page-break-after:always;')}">
+            <table cellPadding="2" cellSpacing="0" width="100%" style="border-style: solid; border-width: 1px">
+                <tr>
+                    <td >
+                        <strong>Case Coordinator:</strong>&nbsp;&nbsp;
+                        <apex:outputText value="{!thisContact.client.Case_Coordinator__r.FirstName + ' ' + thisContact.client.Case_Coordinator__r.LastName}" /><br />
+                        <br />
+                        <strong>Printed On:</strong>&nbsp;&nbsp;
+                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                            <apex:param value="{!TODAY()}" /> 
+                        </apex:outputText><br />
+                    </td>
+                    <td vAlign="top">
+                        <strong>Start Date:</strong>&nbsp;&nbsp;
+                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                            <apex:param value="{!dummyEvt_Start.ActivityDate}" /> 
+                        </apex:outputText><br />
+                        <br />
+                        <strong>End Date:</strong>&nbsp;&nbsp;
+                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                            <apex:param value="{!dummyEvt_End.ActivityDate}" /> 
+                        </apex:outputText><br />
+                    </td>
+                </tr>
+            </table><br />
+            <br />
+            <table cellPadding="5" cellSpacing="0" width="100%" style="font-size: 10pt;">
+                <thead> 
+                    <tr valign="bottom"> 
+                        <th style="border-top: solid; border-bottom: solid; border-left: solid; border-width: 1px; background-color: #d3d3d3;">Date</th>   
+                        <th style="border-top: solid; border-bottom: solid; border-left: solid; border-width: 1px; background-color: #d3d3d3;">Start<br/>Time</th>     
+                        <th style="border-top: solid; border-bottom: solid; border-left: solid; border-width: 1px; background-color: #d3d3d3;">End<br/>Time</th>  
+                        <th style="border-top: solid; border-bottom: solid; border-left: solid; border-width: 1px; background-color: #d3d3d3;">Assigned&nbsp;To</th>       
+                        <th style="border-top: solid; border-bottom: solid; border-left: solid; border-width: 1px; background-color: #d3d3d3;">Subject</th>
+                        <th style="border-top: solid; border-bottom: solid; border-right: solid; border-left: solid; border-width: 1px; background-color: #d3d3d3;">Instructions</th>
+                     </tr>  
+                </thead>
+                 
+                <tbody> 
+                    <apex:repeat value="{!thisContact.eventsForDisplay}" var="thisEvent" >
+                        <tr valign="top">   
+                            <td style="border-bottom: solid; border-left: solid; border-width: 1px">{!thisEvent.ActivityDay}<br/>{!thisEvent.ActivityDate}</td>
+                            <td style="border-bottom: solid; border-left: solid; border-width: 1px">{!thisEvent.StartTime}</td>
+                            <td style="border-bottom: solid; border-left: solid; border-width: 1px">{!thisEvent.EndTime}</td>
+                            <td style="border-bottom: solid; border-left: solid; border-width: 1px">{!thisEvent.evt.Owner.Name}</td>
+                            <td width="25%" style="border-bottom: solid; border-left: solid; border-width: 1px">{!thisEvent.evt.Subject}</td>
+                            <td width="25%" style="border-bottom: solid; border-right: solid; border-left: solid; border-width: 1px">{!thisEvent.evt.Instructions__c}</td>
+                        </tr>       
+                    </apex:repeat>
+    
+                    
+                </tbody> 
+            </table>
+            
+            <br /><br /><br />
+            <table>
+                <tr>
+                    <td><b>Signature:</b></td>
+                    <td>_____________________________________&nbsp;&nbsp;</td>
+                    <td><b>Date:</b></td>
+                    <td>_____________________________________&nbsp;&nbsp;</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{!thisContact.client.Calendar_Display_Name__c}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            
+        </div><br />
+        
+    </apex:repeat>
+    
+    <br />  
+
+</apex:page>

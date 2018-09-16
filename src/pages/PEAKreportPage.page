@@ -1,0 +1,277 @@
+<apex:page controller="PEAKreportController" id="pgMain" cache="false" 
+action="{!saveLogin}">
+<script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/style.css')}" rel="stylesheet"/> 
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/css/theme.default.css')}" rel="stylesheet"/>
+<style type="text/css">  
+   .fsBorders {
+        border-color:#1797C0;
+        border-style: solid;
+        border-width: 2px;
+        height: 20px;        
+    }
+</style>
+
+
+<script> 
+  function setFocusOnLoad() 
+   {
+   }
+</script>
+
+ <script>
+        var j$ = jQuery.noConflict();
+function sortIt()     {         
+              
+                j$("#infoTable").tablesorter(
+                
+                    {
+                        widgets: ['zebra'],
+                        
+                        headers: { 
+                            5: { sorter: false },
+                        }
+                    }
+                );      
+            }
+</script>
+<script>
+     function bindSelectOption(){
+     var elDetails = document.getElementById('{!$Component.pgMain:frmMain:pg:pbReport}');
+     var elEmpl = document.getElementById('{!$Component.pgMain:frmMain:pg:pbReport:note}');
+     var elFrom = document.getElementById('{!$Component.pgMain:frmMain:from}');
+
+     var elPrint = document.getElementById('{!$Component.pgMain:frmMain:printRep}');
+//            var elTeam = document.getElementById('{!$Component.pgMain:frmMain:plt}');
+     }  
+     
+</script>  
+<script>
+     function bindBoro(){
+            var elBoro = document.getElementById('{!$Component.pgMain:frmMain:plboro}');
+     }  
+     
+</script>
+     
+
+  
+
+
+<style type="text/css">
+    .col1 {width:350px;height:600px}
+    .col2 {width:500px;height:600px}
+</style>
+<!--   <apex:image id="theImage" value="{!$Resource.cases_small}" rendered="{!Chooserender!=null}"/>-->
+<span id="theText" style="font-style:italic; font-size:16px;font-bold:true;">PEAK monthly progress reports</span>
+
+ 
+
+<script>  
+        function loadingApps(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('loadingGifData').style.display = '';
+            } else {
+                document.getElementById('loadingGifData').style.display = 'none';
+            }
+        } 
+</script>    
+<apex:form id="frmMain">   
+<apex:pageMessages id="mess"/>
+
+<apex:outPutPanel >
+ <apex:outPutPanel >
+ <table>
+   <tr>
+     <td>
+       <fieldset class="fsBorders">
+         <legend style="color:blue" >
+         <table>
+           <tr>
+             <td>
+      Boro:
+      <apex:selectList size="1" required="false" value="{!BoroValue}" style="width:90px" id="plboro" >
+             <apex:selectOptions value="{!BoroItems}" />   
+         </apex:selectList>
+         
+&nbsp;&nbsp; 
+       <apex:selectList size="1" required="false" value="{!monthValue}"  
+                 style="width:150px"  id="plmonth" >
+                      <apex:selectOptions value="{!monthItems}"   />  
+        </apex:selectList>  
+&nbsp;&nbsp;
+       <apex:selectList size="1" required="false" value="{!yearValue}" title="year of 'date from'"
+          style="width:80px"  id="plyear">
+           <apex:selectOptions value="{!yearItems}" />  
+        </apex:selectList>  
+      &nbsp;&nbsp; 
+     &nbsp;&nbsp;   
+     </td>
+     <td>
+   <apex:commandButton value="Go" action="{!changeDates}" accesskey="" status="selectData"
+    rerender="pg,from,to,rt" styleClass="btn"/>  
+
+   &nbsp;&nbsp;
+   <apex:outPutText value="{!repDate}"  id="rt"  style="font-size:16px"/>
+   <!--  
+   &nbsp;
+         <apex:outPutText value="{!sDateFrom}"  id="from"  style="font-size:12px"/>
+      <apex:outPutText value="-" />   
+      <apex:outPutText value="{!sDateTo}" id="to" style="font-size:12px"/>
+     -->
+          </td>
+   </tr>
+   </table>
+   </legend>
+   </fieldset>
+   </td>
+   <td>
+      <span id="loadingGifData" style="display:none;">
+           Processing.Please wait...
+                            <apex:image value="/img/loading32.gif" />
+   </span>
+   </td>
+   </tr>
+   </table>
+ </apex:outPutPanel>  
+    <apex:actionStatus startText=""  stopText="" id="selectData" onstart="loadingApps('1');" onstop="loadingApps('0');"/>   
+   <apex:actionStatus startText=""  stopText="" id="selectData1" onstart="loadingAppsFTA('1');" onstop="loadingAppsFTA('0');"/>
+   
+   
+<apex:panelGrid columns="2" id="pg"  columnClasses="col1,col2" cellpadding="0" cellspacing="0">
+   <apex:pageBlock id="pbClient">
+   <apex:outputPanel id="Clients" layout="block" style="overflow:scroll;width:350px;height:590px;">   
+      <table id="infoTable" class="tablesorter"   >
+               <thead> 
+                  <tr> 
+                 <th><FONT SIZE="2">#</FONT></th>    
+                 <th><FONT SIZE="2">Client Name</FONT></th>    
+                 <th><FONT SIZE="2">Action</FONT></th>    
+                  </tr>  
+               </thead> 
+               <apex:repeat value="{!clientsShow}" var="m" id="infoTableRepead"> 
+                <tr>
+                  <td>
+                   <apex:outPutLabel value="{!m.rowNumb}" />
+                  </td>
+                  <td >
+                  <apex:outputLink value="/{!m.clientId}" id="dd" target="_blank"> 
+                      <apex:outputLabel value="{!m.name}" style="font-size:16px" title="{!m.title}"/> 
+   <apex:outputText value="*" style="font-size:20px;color:red;font-weight:bold"
+        rendered="{!m.exited}"/> 
+       
+                 </apex:outputLink>
+                 </td>
+                 <td>                 
+                   <apex:commandButton value="Notes" onClick="openNotes('{!m.clientId}')"/>
+<script>
+  function openNotes(c){
+  //  alert('client; ' + c); 
+    window.open('/apex/viewProgressNotes?clientID='+c, target='_blank');
+   }
+</script>
+       <apex:CommandButton style="background-image:none;background-color:{!m.statusBackColor};
+      font-size:9px;width:40px;" id="cmdAction" rerender="pbReport,pnClient,note,narrative,rd"
+     value="{!m.repStatus}" action="{!showClientInfo}" status="selectData">
+       <apex:param name="selectedclient" assignTo="{!selectedclient}"  value="{!m.clientId}" />
+      </apex:CommandButton>       
+         </td>
+                </tr>
+                </apex:repeat>
+               </table>
+                  <script type="Text/javascript">
+                j$("#infoTable").tablesorter(
+                    {
+                        widgets: ['zebra'],
+                        headers: { 
+                                // assign the first column (we start counting zero) 
+                                0: { sorter: false},
+                                1: { sorter: true},
+                                2: { sorter: false},
+               
+                               }                               
+                        }
+                );    
+         </script>  
+   </apex:outputPanel>
+              </apex:pageBlock> 
+<apex:pageBlock id="pbReport"  > &nbsp;
+ <apex:outPutPanel id="pnClient" layout="block" style="overflow:scroll;width:540px;height:590px;" >
+ <table cellspacing="0" cellpadding="7" id="tbClient">
+    <tr>
+      <td width="460px">
+         <apex:outPutLabel value="{!repDate}"  id="r"  style="font-size:14px;color:blue;font-weight:bold;"
+         rendered="{!lname<>null&&lname<>''}"/>
+   &nbsp;&nbsp;  
+         <apex:outputLabel value="Report Date:" rendered="{!lname<>null&&lname<>''}" />
+         <apex:inputField value="{!proxyObject.Verification_Date__c}" 
+           id="rd" rendered="{!lname<>null&&lname<>''}">
+              <apex:actionSupport event="onChange" />
+         </apex:inputField>
+    
+ &nbsp;&nbsp;&nbsp;
+ 
+ <apex:commandLink value="Print" id="cmdPrint" 
+ onclick="printPDF('{!selectedclient}','{!sDateFrom}','{!sDateTo}')" 
+        rendered="{!lname<>null&&lname<>''&&canPrint}"  rerender="mess">
+    </apex:commandLink>
+    
+    <script>   
+    function printPDF(c,dFrom,dTo){
+   window.open('/apex/peakReportPrint?passclient='+c+'&passFrom='+dFrom+
+   '&passTo='+dTo+'&output='+'pdf', target='_blank');
+   }
+</script> 
+   </td>
+     </tr>
+     <tr>
+     <td>
+         <apex:outputLabel value="{!fname}" rendered="{!lname<>null&&lname<>''}" style="font-size:14px;font-weight:bold;"/>
+     &nbsp;
+            <apex:outputLabel value="{!lname}" rendered="{!lname<>null&&lname<>''}" style="font-size:14px;font-weight:bold;"/> 
+    
+    &nbsp;
+ 
+    </td>
+    </tr>
+       <tr>
+     <td>
+  <apex:outputLabel value="Employment:" rendered="{!lname<>null&&lname<>''}"/>
+    </td>
+    </tr>
+    
+    <tr>
+     <td> 
+     <apex:inputTextArea value="{!employment}" id="note" rendered="{!lname<>null&&lname<>''}"
+                 style="height:100px;width:440px;font-size:13px;background-color:white;"/>
+     </td>
+     <td>
+ 
+      <apex:commandButton value="Save" 
+     action="{!saveInfo}" rendered="{!lname<>null&&lname<>''}" status="selectData"
+     rerender="rd,mess,cmdAction">
+     </apex:commandButton>
+ 
+     
+     </td>
+    </tr>
+     <tr>
+     <td>
+  <apex:outputLabel value="NOTE:" rendered="{!lname<>null&&lname<>''}"/>
+    </td>
+    </tr>
+    <tr>
+     <td>
+      <apex:inputTextArea value="{!narrative}" id="narr" rendered="{!lname<>null&&lname<>''}"
+                 style="height:150px;width:440px; font-size:13px;background-color:white;"/>
+     </td> 
+    </tr>
+    </table>
+  </apex:outPutPanel>      
+</apex:pageBlock> 
+</apex:panelGrid>
+</apex:outPutPanel>
+ </apex:form>
+</apex:page>

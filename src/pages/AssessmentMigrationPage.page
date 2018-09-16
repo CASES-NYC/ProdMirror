@@ -1,0 +1,32 @@
+<apex:page controller="AssessmentMigration" cache="false">
+<script>  
+        function loadingApps(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('loadingGifData').style.display = '';
+            } else {
+                document.getElementById('loadingGifData').style.display = 'none';
+            }
+        } 
+</script> 
+<apex:form > 
+<apex:outputlabel value="records:" id="n"/>&nbsp;
+
+<apex:outputlabel value="{!numbers}" id="numb"/>
+<table><tr><td>
+           <span id="loadingGifData" style="display:none;" >
+           Processing.Please wait...
+                            <apex:image value="/img/loading32.gif" />
+   </span>
+   </td></tr></table>
+    <apex:actionStatus startText=""  stopText="" id="selectData" onstart="loadingApps('1');" onstop="loadingApps('0');"/>
+
+     <apex:selectList size="1" required="false" value="{!aValue}" id="lstAss" style="width:200px;" >
+                 <apex:selectOptions value="{!Items}" id="i" />
+               </apex:selectList> 
+     &nbsp;&nbsp;          
+     <apex:commandButton value="Go" action="{!doMigration}"  status="selectData" 
+     rerender="numb"/>  
+     <!--disabled="{!inProcess==true}"-->        
+</apex:form>
+</apex:page>

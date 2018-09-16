@@ -1,0 +1,388 @@
+<apex:page title="Legal History" controller="legalHistoryController" id="pgMain" sidebar="true">
+   
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191, '/jQueryUI-1.10.3/ui/jquery-ui.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/corners/jquery.corner.js')}" /> 
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/css/ui-lightness/jquery-ui-1.8.13.custom.css')}" />
+
+<apex:outputPanel id="opScripts">
+
+<style>
+
+    span.topContainer {
+        margin: 1px; 
+        margin-bottom: 10px;
+        background: #BEE3F8; 
+        padding: 5px;
+        border:0; 
+        float: left;
+        width: auto;
+        clear: both;
+        white-space: nowrap;
+    }
+    
+    td.searchLabel {
+        vertical-align: middle;
+        width: 25%; 
+    }
+    
+    input.searchCriteria {
+        width: 200px;
+    
+    }
+    
+    .fsBorders {
+        border-color:#1797C0;
+        border-style: solid;
+        border-width: 1px;
+    }
+    
+    .criteriaInput {width: 100px; }
+        
+
+</style>
+
+<script>
+function setFocusOnLoad() {}
+</script> 
+
+<script>
+    
+    ////////////////////////////
+    // Always declare another instance of jQuery as not to conflict with SF''s instance
+    ////////////////////////////
+    var j$ = jQuery.noConflict();
+    
+    ////////////////////////////
+    // Standard JS Functions
+    ////////////////////////////
+    function statusShow() {
+        //j$( "#dialog-modal" ).dialog( "open" );
+        document.getElementById('loadingGif').style.display = '';
+    }
+
+    function statusHide() {
+        //j$( "#dialog-modal" ).dialog( "close" );
+        document.getElementById('loadingGif').style.display = 'none';
+    }
+    
+    function criteriaFieldGrouping() {
+    
+        var elFelony = document.getElementById('{!$Component.pgMain:frmMain:intFelony}');
+        var elMisdemeanor = document.getElementById('{!$Component.pgMain:frmMain:intMisdemeanor}'); 
+        var elViolPck = document.getElementById('{!$Component.pgMain:frmMain:pckPriorViolent}'); 
+        var elViolDate = document.getElementById('{!$Component.pgMain:frmMain:dtePriorViolent}'); 
+        var elViolCharge = document.getElementById('{!$Component.pgMain:frmMain:lkpPriorViolent}');                         
+        
+        // Validation
+        if(j$(elFelony).val() == '' || j$(elMisdemeanor).val() == '') {
+            alert('Please enter the number of past convictions. Enter 0 if none.');
+            return false;
+        } else if((j$(elViolCharge).val() != '' || j$(elViolDate).val() != '') 
+        && j$(elViolPck).val() != 'Yes'){
+            alert('Select Yes from the picklist if the client was convicted on a violent charge.');
+            return false;           
+        } else {
+            return true;
+        }
+    
+    }    
+     
+     
+    function checkFields()  {
+        if(criteriaFieldGrouping() == true) {
+            afSubmitSave();
+            return true;
+        } else {
+            return false;
+        }
+    } 
+    
+</script>
+
+<script>
+    function setFocusOnLoad(){
+    }
+</script>
+
+</apex:outputPanel>
+
+    <apex:outputPanel id="opTitleHeader">
+        <apex:sectionHeader subtitle="{!thisContact.FirstName} {!thisContact.LastName} / {!thisContact.P_C_ID__c}" />
+        <br />
+    </apex:outputPanel>
+
+<apex:form id="frmMain">
+
+    <apex:actionStatus id="asShowInterstitial" onstart="statusShow();" onstop="statusHide();" />
+    <apex:actionFunction name="afSubmitSave" action="{!saveLegalInfo}" status="asShowInterstitial"/>
+
+    <apex:outputPanel id="opFields">
+
+        <apex:pageMessages />
+
+        <apex:outputPanel styleClass="topContainer" id="opInputTop">
+        
+            <fieldset class="fsBorders">
+
+                <legend>Intake Case</legend>             
+                <table width="350px" border="0" cellPadding="2" cellSpacing="2">
+                    <tr>
+                        <td width="100%">                      
+                            <table width="30%" border="0" cellPadding="2" cellSpacing="2">
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Arrest Date" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" 
+                                        value="{!thisCase.Arrest_Date__c}" id="dteArrest" />
+                                    </td>          
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Arrest #" />
+                                    </td>                                                                                                                                    
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" 
+                                        value="{!thisCase.Arrest_Number__c}" id="intArrest" />
+                                    </td>                                      
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Arrest Charge" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" 
+                                        value="{!arrestCharge.Charge__c}" id="lkpArrestCharge" />
+                                    </td>
+                                </tr>
+                                <tr>                                                                                                                                                 
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Indictment #" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" 
+                                        value="{!thisCase.Indictment__c}" id="intIndictment" />
+                                    </td>                                                                       
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Inmate Location?" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" 
+                                        value="{!thisContact.Inmate_Location__c}" id="pckLocation" />
+                                    </td>   
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Arraignment Charge" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" rendered="{!bolArrChargeMissing}"
+                                        value="{!arraignmentCharge.Charge__c}" id="lkpArraignmentCharge" />
+                                        <apex:outputText value="{!strArrCharge} included in DOC file" 
+                                        rendered="{!NOT(bolArrChargeMissing)}"/>
+                                    </td>                                                                                                  
+                                </tr>                                                                                                                                
+                            </table>
+                        </td>
+                    </tr>
+                </table> 
+            </fieldset>
+        </apex:outputPanel>        
+        <apex:outputPanel styleClass="topContainer" id="opInputMiddle">
+        
+            <fieldset class="fsBorders">                
+                <legend>Legal History</legend>             
+                <table width="350px" border="0" cellPadding="2" cellSpacing="2">
+                    <tr>                                         
+                        <td>
+                            <legend>Convictions<br></br>&nbsp;</legend>                        
+                            <table width="30%" border="0" cellPadding="2" cellSpacing="2">                        
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Prior Felony Convictions" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.Prior_Felony_Convictions__c}" id="intFelony" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Prior Misdemeanor Convictions" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.Prior_Misdemeanor_Convictions__c}" id="intMisdemeanor" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Parole/Probation?" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.Criminal_Justice_Involvement__c}" id="txtParole" />
+                                    </td>
+                                </tr>                                  
+                            </table>
+                        </td>
+                        <td>                                                     
+                            <legend>Violent Convictions<br></br>&nbsp;</legend>             
+                            <table width="350px" border="0" cellPadding="2" cellSpacing="2">
+                                                                                   
+                                <tr>                                                                        
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Prior Violent Conviction?" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.Prior_Violent_Conviction__c}" id="pckPriorViolent" />
+                                    </td>                                                                       
+                                </tr>   
+                                <tr>                               
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Violent Conviction Date" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.Prior_Violent_Conviction_Date__c}" id="dtePriorViolent" />
+                                    </td>                                                                      
+                                </tr>
+                                <tr>                                   
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Violent Conviction Charge" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.Prior_Violent_Conviction_Charge__c}" id="lkpPriorViolent" />
+                                    </td>                                   
+                                </tr>      
+                            </table>                                                                                                                                
+                        </td>
+                        <td>
+                            <legend>True Name Different<br></br>Than Court Paperwork?</legend>
+                            <table width="30%" border="0" cellPadding="2" cellSpacing="2">                           
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="First" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.True_First_Name__c}" />
+                                    </td> 
+                                </tr>                            
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Middle" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.True_Middle_Name__c}"/>
+                                    </td> 
+                                </tr>                            
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Last" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.True_last_name__c}" />
+                                    </td> 
+                                </tr>                                                                                                                                                                    
+                            </table>
+                        </td>
+                        <td>
+                            <legend>Aliases<br></br>&nbsp;</legend>
+                            <table width="30%" border="0" cellPadding="2" cellSpacing="2">                           
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="AKA 1" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.AKA_1__c}" id="txtAKA1" />
+                                    </td> 
+                                </tr>                            
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="AKA 2" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.AKA_2__c}" id="txtAKA2" />
+                                    </td> 
+                                </tr>                            
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="AKA 3" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.AKA_3__c}" id="txtAKA3" />
+                                    </td> 
+                                </tr>                                                                                                                                                                    
+                            </table>
+                        </td>                        
+                    </tr>
+                </table>                
+            </fieldset>                
+        </apex:outputPanel> 
+        
+        <apex:outputPanel styleClass="topContainer" id="opInputBottom">
+        
+            <fieldset class="fsBorders">                  
+             <legend>Other Open Cases</legend>
+                            
+                            <table border="0" cellPadding="2" cellSpacing="2">
+                            
+                                <thead>
+                                    <tr>
+                                        <th width="50px">Docket #</th>
+                                        <th width="50px">Indictment #</th>
+                                        <th width="50px">Attorney</th>
+                                        <th width="50px">Top Arrest Charge</th>
+                                        <th>Case Status</th>
+                                        <th>Next Court Date</th>
+                                        <th>Part</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!lstCases}" var="h">                         
+                                        <tr>
+                                            <td width="50px" align="left">
+                                                <apex:inputField styleClass="criteriaInput" value="{!h.hCase.Name}" />
+                                            </td>
+                                            <td width="50px" align="left">
+                                                <apex:inputField styleClass="criteriaInput" value="{!h.hCase.Indictment__c}"/>
+                                            </td>
+                                            <td width="50px" align="left">
+                                                <apex:inputField styleClass="criteriaInput" value="{!h.hCase.Defense_Attorney_Law_Guardian__c}" />
+                                            </td>
+                                            <td width="50px" align="left">
+                                                <apex:inputField styleClass="criteriaInput" value="{!h.hCharge.Charge__c}" />
+                                            </td>
+                                            <td align="left">
+                                                <apex:inputField styleClass="criteriaInput" value="{!h.hCase.Complaint__c}" />
+                                            </td>
+                                            <td align="left">
+                                                <apex:inputField styleClass="criteriaInput" value="{!h.hCourtDate.ActivityDate}" />
+                                            </td>
+                                            <td align="left">
+                                                <apex:inputField styleClass="criteriaInput" value="{!h.hCourtDate.Part__c}" />
+                                            </td>                                                                                       
+                                        </tr> 
+                                   </apex:repeat> 
+                                 <td align="left" style="vertical-align: bottom;">
+                                     <apex:commandButton id="cmdSave" value="Save" action="{!doNothing}" onclick="return checkFields();" rerender="emptyRerender"/>
+                                 </td>
+                                </tbody>                                                                                                                              
+                            </table>              
+            
+            </fieldset>
+        
+        </apex:outputPanel>                  
+        
+        <div id="loadingGif" title="Processing Search" style="display:none;">
+            <p align="center">
+                Please wait while the search is processed...<br />
+                <br />
+                <img src="{!URLFOR($Resource.CasesLogo)}" /><br />
+                <br />
+                <img src="{!URLFOR($Resource.loading)}" />
+            </p>
+        </div>          
+        
+    </apex:outputPanel>
+
+</apex:form>
+
+<apex:outputPanel id="opEmpty">
+    
+</apex:outputPanel>
+        
+
+</apex:page>

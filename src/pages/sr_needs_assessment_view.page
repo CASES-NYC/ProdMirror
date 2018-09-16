@@ -1,0 +1,156 @@
+<apex:page standardcontroller="SR_Intake_Needs_Assessment__c" extensions="SrNeedsAssessExt" action="{!initialize}">
+<apex:messages />
+    <apex:sectionheader title="{!$ObjectType.SR_Intake_Needs_Assessment__c.label} Detail" subtitle="{!SR_Intake_Needs_Assessment__c.Participant__r.Name}"/>
+    <chatter:feedwithfollowers entityId="{!SR_Intake_Needs_Assessment__c.Id}"/>
+    <apex:form >
+        <apex:pageblock mode="maindetail" title="{!$ObjectType.SR_Intake_Needs_Assessment__c.label} Detail">
+            <apex:pageblockbuttons >
+                <apex:commandbutton value="Edit" action="{!Edit}"/>
+                <apex:commandbutton value="Delete" action="{!Delete}"/>
+                <apex:commandbutton value="Cancel" action="{!Cancel}"/>                
+            </apex:pageblockbuttons>
+
+            <!-- **********   [Record Type : Master ]   **********  -->
+            <apex:outputpanel >
+                <apex:pageblocksection title="Information" showheader="false" collapsible="false" columns="2">
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Name}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Participant__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.AssessmentID__c}"/>
+
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Community Ties" showheader="true" collapsible="true" columns="2">
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Address_Type__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Street__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Building_No__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Zip__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Apt_No__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.State__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.City__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Home_Phone__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Relation_to_client__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Contact_Person__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Relation_to_Client_Other__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Contact_Work_Phone__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Support_needed_for_medical_issues__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Cell_Phone__c}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Email__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Social Support" showheader="false" collapsible="false" columns="2">
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.How_safe_do_you_feel__c}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Level_of_Social_Support__c}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Other_legal_issues__c}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Reliable_Access_Food__c}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Reliable_Access_Clothing__c}"/>
+                    <apex:pageblocksectionitem />
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Mental Health" showheader="true" collapsible="true" columns="2">
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Psychiatric_Diagnosis_Information__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.MH_Ever_Hospitalized__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Currently_seeing_psych__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Currently_seeing_therapist__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Satisfied_with_psych__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Psychiatrist__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Psychiatrist_Agency__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Psychiatrist_Address__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Psychiatrist_Phone__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Satisfied_with_therapist__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Taking_Meds_for_MH__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Therapist__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Therapist_Agency__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Therapist_Address__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Therapist_Phone__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Hurt_others__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Hurt_Self__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Hurt_others_when__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Hurt_Self_What_going_on__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Hurt_others_What_going_on__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Hurt_Self_What_you_do__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Hurt_Others_What_you_do__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Hurt_self_when__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Hurt_Others_happening_now__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Hurt_Self_happening_now__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Substance Abuse" showheader="true" collapsible="true" columns="2">
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.SA_in_treatment__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.SA_satisfied_with_support__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.SA_looking_for_support__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Smoke_cigarettes__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.SA_overdose__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Cutting_down__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.SA_caused_legal_problems__c}"/>
+                    <apex:pageblocksectionitem />
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Medical Status" showheader="true" collapsible="true" columns="2">
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Health_Insurance__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Medicaid_Sequence_Number__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Primary_Care_Physician__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.PCP_Clinic__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Last_Physical_Exam__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Physician_Address__c}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Physician_Phone__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Ask Women Only" showheader="false" collapsible="false" columns="2">
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Last_Pap_Smear__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.OBGYN_Clinic__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.OBGYN_Address__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.OBGYN_Phone__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Educational Attainment" showheader="true" collapsible="true" columns="2">
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Ed_currently_enrolled__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Educational_Goals__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Current_School_Enrollment__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Employment_Goals__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Highest_Level_of_Education__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Ed_continue_studies__c}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Ed_vocational_training__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Needs Assessment" showheader="true" collapsible="true" columns="2">
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Food_stamps__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Need_medical_referrals__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Have_case_worker__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Health_home_care_coordinator__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Case_Worker__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Primary_caregiver__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Case_Worker_Agency__c}"/>
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Case_Worker_Address__c}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Case_Worker_Phone__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Immediate Needs" showheader="true" collapsible="true" columns="1">
+                    <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.Immediate_Needs__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="System Information" showheader="false" collapsible="false" columns="2">
+                    <apex:pageblocksectionitem >
+                        <apex:outputlabel value="Created By"/>
+                        <apex:outputpanel >
+                            <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.CreatedById}"/>&nbsp;, 
+                            <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.CreatedDate}"/>
+                        </apex:outputpanel>
+                    </apex:pageblocksectionitem>
+                    <apex:pageblocksectionitem >
+                        <apex:outputlabel value="Last Modified By"/>
+                        <apex:outputpanel >
+                            <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.LastModifiedById}"/>&nbsp;, 
+                            <apex:outputfield value="{!SR_Intake_Needs_Assessment__c.LastModifiedDate}"/>
+                        </apex:outputpanel>
+                    </apex:pageblocksectionitem>
+                </apex:pageblocksection>
+            </apex:outputpanel>
+        </apex:pageblock>
+    </apex:form>
+
+    <!-- **********   [Related Lists for Record Type : Master ]   **********  -->
+    <apex:outputpanel >
+    </apex:outputpanel>
+    <center><br/>
+        <i style="font-size:10px;color:#aaa;">Generated By LAYOUT PAGE <a href="http://www.clerisoft.com" target="_blank">[http://www.clerisoft.com]</a> (2008-2014) : Mon Mar 28 2016 12:26:22 GMT-0400 (Eastern Daylight Time)</i>
+    </center><br/>
+</apex:page>

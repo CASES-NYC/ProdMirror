@@ -1,0 +1,1929 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>CIRT_Eligible_Cycle__c</fullName>
+        <description>End Date is null and Track End Date is in the past  or End Date later than Track End Date</description>
+        <externalId>false</externalId>
+        <formula>OR((Track_End_Date__c &lt; End_Date__c),AND(ISBLANK(End_Date__c),Track_End_Date__c &lt; Today()))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CIRT Eligible Cycle</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>City_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>City End Date</label>
+        <summarizedField>Tier__c.End_Date__c</summarizedField>
+        <summaryFilterItems>
+            <field>Tier__c.City_Percentage__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Tier__c.Program_Cycle__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>City_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>City Start Date</label>
+        <summarizedField>Tier__c.Start_Date__c</summarizedField>
+        <summaryFilterItems>
+            <field>Tier__c.City_Percentage__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Tier__c.Program_Cycle__c</summaryForeignKey>
+        <summaryOperation>min</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Client__c</fullName>
+        <externalId>false</externalId>
+        <label>Client</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Program Cycles</relationshipLabel>
+        <relationshipName>Program_Cycles</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Closing_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Closing Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Compliance_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Compliance Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Current_Tier_Old__c</fullName>
+        <externalId>false</externalId>
+        <label>Current Tier Old</label>
+        <summarizedField>Tier__c.Tier_Number__c</summarizedField>
+        <summaryFilterItems>
+            <field>Tier__c.Most_Recent_Tier__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Tier__c.Program_Cycle__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Current_Tier__c</fullName>
+        <externalId>false</externalId>
+        <formula>text(Most_Recent_Tier__r.Tier__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Current Tier</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cycle_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Cycle Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Intake</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Track Change</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transferred In</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Voluntary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Day_60_Date__c</fullName>
+        <description>Date the client hits their 60 Day mark</description>
+        <externalId>false</externalId>
+        <formula>IF(Start_Date__c+60 &gt; End_Date__c, NULL, Start_Date__c + 60)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Day 60 Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Days_Sessions_Remaining__c</fullName>
+        <externalId>false</externalId>
+        <formula>value(if( isblank(Mandatory_Sessions_Required__c), &quot;&quot;, text(max(0, Mandatory_Sessions_Required__c - Mandatory_Sessions_Completed__c))))</formula>
+        <label>Days/Sessions Remaining</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Exit_Reason_Other__c</fullName>
+        <externalId>false</externalId>
+        <label>Exit Reason (Other)</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Exit_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Exit Reason</label>
+        <picklist>
+            <controllingField>Exit_Type__c</controllingField>
+            <picklistValues>
+                <fullName>7/30 Evaluation</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Alternative Services Found</fullName>
+                <default>false</default>
+                <controllingFieldValues>Successful Exit</controllingFieldValues>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Deceased</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+                <controllingFieldValues>Voluntary</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FTA</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hospitalized - Long Term</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+                <controllingFieldValues>Voluntary</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Incarcerated - Long Term</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+                <controllingFieldValues>Voluntary</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lost to Follow-Up</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+                <controllingFieldValues>Voluntary</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Met Program Objectives/Graduation</fullName>
+                <default>false</default>
+                <controllingFieldValues>Successful Exit</controllingFieldValues>
+                <controllingFieldValues>Voluntary</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Moved out of area</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+                <controllingFieldValues>Voluntary</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New Arrest</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New VFO Re-Arrest</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New Warrant</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-compliance</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+                <controllingFieldValues>Voluntary</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recipient Requests Discharge</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Treatment Failure</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed Probation</fullName>
+                <default>false</default>
+                <controllingFieldValues>Successful Exit</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Loss to Follow-Up/No Show for Extended Period</fullName>
+                <default>false</default>
+                <controllingFieldValues>Unsuccessful Exit</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Exit_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Exit Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Administrative Discharge</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ICM Step-Up</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Successful Exit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unsuccessful Exit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Track Change</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transferred Out</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Voluntary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Extension__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Extension?</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_Mandated_Session_Admin__c</fullName>
+        <description>Used to populate the end date for CCM cycles after the exit type is selected manually.</description>
+        <externalId>false</externalId>
+        <label>Last Mandated Session (Admin)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Legacy_Database_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Legacy Database Id</label>
+        <length>25</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Locked_Admin__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Locks a cycle that was imported for a historical client so that the mandate counter is set and cannot be changed by events (therefore the exit date, type and reason are locked too).</description>
+        <externalId>false</externalId>
+        <label>Locked? (Admin)</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Mandate_Modified__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Mandate Modified?</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Mandatory_Sessions_Completed__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Days/Sessions Completed</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mandatory_Sessions_Required__c</fullName>
+        <externalId>false</externalId>
+        <label>Mandated Days/Sessions</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MostRecentProgramCycleOld__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Most Recent Program Cycle OLD</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Most_Recent_Mandated_Cycle_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>Client__r.Most_Recent_Mandated_Cycle__c = Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Most Recent Mandated Cycle?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Most_Recent_Mandated_Cycle_Old__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Most Recent Mandated Cycle? Old</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Most_Recent_Program_Cycle_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>Client__r.Most_Recent_Program_Cycle__c = Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Most Recent Program Cycle?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Most_Recent_Tier__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Most Recent Tier</label>
+        <referenceTo>Tier__c</referenceTo>
+        <relationshipLabel>Program Cycles</relationshipLabel>
+        <relationshipName>Program_Cycles</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Next_Class_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Next Class Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Days_in_Program_Cycle__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Days in Program</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OCFS_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>OCFS End Date</label>
+        <summarizedField>Tier__c.End_Date__c</summarizedField>
+        <summaryFilterItems>
+            <field>Tier__c.OCFS_Percentage__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Tier__c.Program_Cycle__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>OCFS_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>OCFS Start Date</label>
+        <summarizedField>Tier__c.Start_Date__c</summarizedField>
+        <summaryFilterItems>
+            <field>Tier__c.OCFS_Percentage__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Tier__c.Program_Cycle__c</summaryForeignKey>
+        <summaryOperation>min</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>OldId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Old ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Second_BIllable__c</fullName>
+        <description>First date past the Expected End Date where a billable encounter took place.</description>
+        <externalId>false</externalId>
+        <label>Second BIllable</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>TRP_Class_Status_RPT__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(and(ispickval(TRP_Class_Status__c, &apos;Scheduled&apos;), Next_Class_Date__c &lt;= Today()), &apos;Needs to be Verified&apos;, text(TRP_Class_Status__c))</formula>
+        <label>Class Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TRP_Class_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Class Status (Admin)</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Needs to be Scheduled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Successful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unsuccessful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Today__c</fullName>
+        <defaultValue>Today()</defaultValue>
+        <externalId>false</externalId>
+        <label>Today</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Track_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Track__c, 
+&quot;Misdemeanor ATD&quot;, Start_Date__c + 30,
+&quot;Misdemeanor ATI&quot;, Start_Date__c + 90,
+&quot;Felony ATD&quot;, Start_Date__c + 120,
+&quot;Felony ATI&quot;, Start_Date__c + 190,
+NULL)</formula>
+        <label>Track End Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Track__c</fullName>
+        <externalId>false</externalId>
+        <label>Track</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Felony ATD</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Felony ATI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Misdemeanor ATD</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Misdemeanor ATI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Voluntary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Program Cycle</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>PC-{00000}</displayFormat>
+        <label>Program Cycle Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Program Cycles</pluralLabel>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>CCI_START_Cycle</fullName>
+        <active>true</active>
+        <label>CCI START Cycle</label>
+        <picklistValues>
+            <picklist>Cycle_Type__c</picklist>
+            <values>
+                <fullName>Intake</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Alternative Services Found</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deceased</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FTA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitalized - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incarcerated - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lost to Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Met Program Objectives%2FGraduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Moved out of area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New VFO Re-Arrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recipient Requests Discharge</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>Successful Exit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred Out</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful Exit</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TRP_Class_Status__c</picklist>
+            <values>
+                <fullName>Needs to be Scheduled</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>CCM_Program_Cycle</fullName>
+        <active>true</active>
+        <label>CCM Program Cycle</label>
+        <picklistValues>
+            <picklist>Cycle_Type__c</picklist>
+            <values>
+                <fullName>Intake</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred In</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Alternative Services Found</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deceased</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FTA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitalized - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incarcerated - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lost to Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Met Program Objectives%2FGraduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Moved out of area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New VFO Re-Arrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recipient Requests Discharge</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>Successful Exit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful Exit</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TRP_Class_Status__c</picklist>
+            <values>
+                <fullName>Needs to be Scheduled</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>CCM_Voluntary_Program_Cycle</fullName>
+        <active>true</active>
+        <label>CCM Voluntary Program Cycle</label>
+        <picklistValues>
+            <picklist>Cycle_Type__c</picklist>
+            <values>
+                <fullName>Voluntary</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Alternative Services Found</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deceased</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FTA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitalized - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incarcerated - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lost to Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Met Program Objectives%2FGraduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Moved out of area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New VFO Re-Arrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recipient Requests Discharge</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>Voluntary</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TRP_Class_Status__c</picklist>
+            <values>
+                <fullName>Needs to be Scheduled</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>CEO_Program_Cycle</fullName>
+        <active>true</active>
+        <label>CEO Program Cycle</label>
+        <picklistValues>
+            <picklist>Cycle_Type__c</picklist>
+            <values>
+                <fullName>Intake</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Alternative Services Found</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deceased</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FTA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitalized - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incarcerated - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lost to Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Met Program Objectives%2FGraduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Moved out of area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New VFO Re-Arrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recipient Requests Discharge</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>Successful Exit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful Exit</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TRP_Class_Status__c</picklist>
+            <values>
+                <fullName>Needs to be Scheduled</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>CIRT_Program_Cycle</fullName>
+        <active>true</active>
+        <label>CIRT Program Cycle</label>
+        <picklistValues>
+            <picklist>Cycle_Type__c</picklist>
+            <values>
+                <fullName>Intake</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Track Change</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>7%2F30 Evaluation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FTA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Arrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New VFO Re-Arrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Warrant</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment Failure</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>Administrative Discharge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successful Exit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Track Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful Exit</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TRP_Class_Status__c</picklist>
+            <values>
+                <fullName>Needs to be Scheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successful</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Track__c</picklist>
+            <values>
+                <fullName>Felony ATD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Felony ATI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Misdemeanor ATD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Misdemeanor ATI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voluntary</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Choices_Program_Cycle</fullName>
+        <active>true</active>
+        <label>Choices Program Cycle</label>
+        <picklistValues>
+            <picklist>Cycle_Type__c</picklist>
+            <values>
+                <fullName>Intake</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Alternative Services Found</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deceased</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FTA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitalized - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incarcerated - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Met Program Objectives%2FGraduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Moved out of area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New VFO Re-Arrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recipient Requests Discharge</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>ICM Step-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successful Exit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred Out</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful Exit</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TRP_Class_Status__c</picklist>
+            <values>
+                <fullName>Needs to be Scheduled</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>DTC_Program_Cycle</fullName>
+        <active>true</active>
+        <label>DTC Program Cycle</label>
+        <picklistValues>
+            <picklist>Cycle_Type__c</picklist>
+            <values>
+                <fullName>Intake</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voluntary</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Alternative Services Found</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deceased</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FTA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitalized - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incarcerated - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Met Program Objectives%2FGraduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Moved out of area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New VFO Re-Arrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recipient Requests Discharge</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>Successful Exit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful Exit</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TRP_Class_Status__c</picklist>
+            <values>
+                <fullName>Needs to be Scheduled</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>ONE_Program_Cycle</fullName>
+        <active>true</active>
+        <label>ONE Program Cycle</label>
+        <picklistValues>
+            <picklist>Cycle_Type__c</picklist>
+            <values>
+                <fullName>Intake</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Track Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voluntary</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>7%2F30 Evaluation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Alternative Services Found</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deceased</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FTA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitalized - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incarcerated - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lost to Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Met Program Objectives%2FGraduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Moved out of area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Arrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New VFO Re-Arrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Warrant</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recipient Requests Discharge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment Failure</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>Administrative Discharge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ICM Step-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successful Exit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Track Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful Exit</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TRP_Class_Status__c</picklist>
+            <values>
+                <fullName>Needs to be Scheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successful</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Track__c</picklist>
+            <values>
+                <fullName>Felony ATD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Felony ATI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Misdemeanor ATD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Misdemeanor ATI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voluntary</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>PEAK_Program_Cycle</fullName>
+        <active>true</active>
+        <label>PEAK Program Cycle</label>
+        <picklistValues>
+            <picklist>Cycle_Type__c</picklist>
+            <values>
+                <fullName>Intake</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Alternative Services Found</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed Probation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deceased</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitalized - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incarcerated - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Loss to Follow-Up%2FNo Show for Extended Period</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Met Program Objectives%2FGraduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Moved out of area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recipient Requests Discharge</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>Successful Exit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred Out</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful Exit</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TRP_Class_Status__c</picklist>
+            <values>
+                <fullName>Needs to be Scheduled</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>SRP_Program_Cycle</fullName>
+        <active>true</active>
+        <description>May not need another record type, but for right now users need to create so less confusing</description>
+        <label>SRP Program Cycle</label>
+        <picklistValues>
+            <picklist>Cycle_Type__c</picklist>
+            <values>
+                <fullName>Intake</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Track Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voluntary</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Alternative Services Found</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deceased</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FTA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitalized - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incarcerated - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lost to Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Met Program Objectives%2FGraduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Moved out of area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Arrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New VFO Re-Arrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Warrant</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recipient Requests Discharge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Treatment Failure</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>Administrative Discharge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successful Exit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Track Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful Exit</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TRP_Class_Status__c</picklist>
+            <values>
+                <fullName>Needs to be Scheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successful</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Track__c</picklist>
+            <values>
+                <fullName>Felony ATD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Felony ATI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Misdemeanor ATD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Misdemeanor ATI</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>TRP_Program_Cycle</fullName>
+        <active>true</active>
+        <label>TRP Program Cycle</label>
+        <picklistValues>
+            <picklist>Cycle_Type__c</picklist>
+            <values>
+                <fullName>Intake</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Alternative Services Found</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deceased</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FTA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitalized - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incarcerated - Long Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Met Program Objectives%2FGraduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Moved out of area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New VFO Re-Arrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recipient Requests Discharge</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>Successful Exit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful Exit</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TRP_Class_Status__c</picklist>
+            <values>
+                <fullName>Needs to be Scheduled</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successful</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Client__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Current_Tier__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Most_Recent_Program_Cycle_Formula__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Most_Recent_Tier__c</lookupDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Edit_End_Date</fullName>
+        <active>true</active>
+        <description>If Program Cycle record type = SRP, it is editable only if the user&apos;s profile has Edit Program Cycle End Date = True</description>
+        <errorConditionFormula>IF(AND(RecordType.DeveloperName = &quot;SRP_Program_Cycle&quot;, $User.Edit_Program_Cycle_End_Date__c = False, ISCHANGED(End_Date__c)), True, false)</errorConditionFormula>
+        <errorMessage>You do not have permission to edit the Program Cycle End Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Must_Enter_Mandatory_Sessions_Required</fullName>
+        <active>false</active>
+        <errorConditionFormula>and( or(RecordTypeId = &quot;012J00000008gv0&quot;, RecordTypeId = &quot;012J00000008gv5&quot;),  ispickval(Client__r.Client_Status__c, &quot;Active&quot;), not(ispickval(Cycle_Type__c, &quot;Voluntary&quot;)), isblank(Mandatory_Sessions_Required__c))
+/*RecordTypes are for DCP and TCM*/</errorConditionFormula>
+        <errorDisplayField>Mandatory_Sessions_Required__c</errorDisplayField>
+        <errorMessage>You must enter the number of Mandatory Sessions Required, unless the Cycle Type is voluntary.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>PEAK_Cycle_Exit_Reason_Other</fullName>
+        <active>true</active>
+        <description>If Program Cycle Record Type = PEAK Program Cycle,  Exit Reason = Other, and Exit Reason(Other) is Blank, display error message: : If Exit Reason is Other, please enter the reason in the Exit Reason(Other) text box.</description>
+        <errorConditionFormula>IF((AND(RecordType.Name=&quot;PEAK Program Cycle&quot;,  TEXT( Exit_Reason__c ) = &quot;Other&quot;, ISBLANK(Exit_Reason_Other__c )      )), True, False)</errorConditionFormula>
+        <errorDisplayField>Exit_Reason_Other__c</errorDisplayField>
+        <errorMessage>If Exit Reason is Other, please enter the reason in the Exit Reason(Other) text box</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>PEAK_Exit_reason_end_date</fullName>
+        <active>true</active>
+        <description>If Program Cycle Record Type = PEAK Program Cycle, and Exit Type is NOT blank, and End Date IS blank, display error message: You must enter an End Date in order to enter an Exit Type</description>
+        <errorConditionFormula>IF(AND(RecordType.Name=&quot;PEAK Program Cycle&quot;,(ISBLANK( End_Date__c )), NOT(ISBLANK(TEXT( Exit_Type__c )))), True, False)</errorConditionFormula>
+        <errorDisplayField>End_Date__c</errorDisplayField>
+        <errorMessage>You must enter an End Date in order to enter an Exit Type</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>PEAK_not_transfer_end_date_exit_reason</fullName>
+        <active>true</active>
+        <description>If Program Cycle Record Type = PEAK Program Cycle, and Exit Type is NOT transfer, and End Date is NOT blank, and Exit Reason is blank, display error message: You must enter an Exit Reason</description>
+        <errorConditionFormula>IF((AND(RecordType.Name=&quot;PEAK Program Cycle&quot;, NOT(
+ISPICKVAL(Exit_Type__c, &quot;Transfer&quot;)), NOT(ISBLANK( End_Date__c )), ISBLANK(TEXT( Exit_Reason__c )))), True, False)</errorConditionFormula>
+        <errorDisplayField>Exit_Reason__c</errorDisplayField>
+        <errorMessage>If Exit Type is Successful Exit or Unsuccessful Exit, you must enter an Exit Reason</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Program_Cycle_Validation_Rule</fullName>
+        <active>true</active>
+        <description>If Program Cycle Record Type = PEAK Program Cycle, and End Date is NOT blank, and Exit Type is blank, display error message: You must enter an Exit Type in order to enter an End Date</description>
+        <errorConditionFormula>IF(AND(RecordType.Name=&quot;PEAK Program Cycle&quot;, (ISBLANK(Text(Exit_Type__c))), NOT(ISBLANK(End_Date__c))), True, False)</errorConditionFormula>
+        <errorDisplayField>Exit_Type__c</errorDisplayField>
+        <errorMessage>You must enter an Exit Type in order to enter an End Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Unsuccessful_exit_validation</fullName>
+        <active>false</active>
+        <errorConditionFormula>and(ispickval(Exit_Type__c, &quot;Unsuccessful Exit&quot;),
+or(
+/*DTC*/
+and( or(RecordType.DeveloperName = &quot;DTC Program Cycle&quot;, RecordType.DeveloperName = &quot;CCM Program Cycle&quot;),
+Days_Sessions_Remaining__c = 0),
+
+/*TRP*/
+and( RecordType.DeveloperName = &quot;TRP Program Cycle&quot;, 
+ TRP_Class_Status_RPT__c = &quot;Successful&quot;)
+)
+)</errorConditionFormula>
+        <errorDisplayField>Exit_Type__c</errorDisplayField>
+        <errorMessage>You cannot mark a client as unsuccessfully exited if they have completed their mandate.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Zero_sessions_remaining_for_success_exit</fullName>
+        <active>false</active>
+        <errorConditionFormula>and(ispickval(Exit_Type__c, &quot;Successful Exit&quot;),
+or(
+/*DTC*/
+and( or(RecordType.DeveloperName = &quot;DTC Program Cycle&quot;, RecordType.DeveloperName = &quot;CCM Program Cycle&quot;),
+Days_Sessions_Remaining__c &gt; 0),
+
+/*TRP*/
+and( RecordType.DeveloperName = &quot;TRP Program Cycle&quot;, 
+ TRP_Class_Status_RPT__c != &quot;Successful&quot;)
+)
+)</errorConditionFormula>
+        <errorDisplayField>Exit_Type__c</errorDisplayField>
+        <errorMessage>You cannot mark a client as successfully exited if they have not completed their mandate.</errorMessage>
+    </validationRules>
+</CustomObject>

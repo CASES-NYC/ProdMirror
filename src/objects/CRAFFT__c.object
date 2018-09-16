@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>AssessmentContainerId__c</fullName>
+        <externalId>false</externalId>
+        <label>AssessmentContainerId</label>
+        <referenceTo>AssessmentContainer__c</referenceTo>
+        <relationshipName>CRAFFTs</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Assessment_Recommended__c</fullName>
+        <externalId>false</externalId>
+        <formula>Total_Score__c &gt; 1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Assessment Recommended?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Assessment_Result__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Assessment_Recommended__c, &apos;Referral Recommended&apos;,&apos;&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Assessment Result</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRAFFT_A1_Drink_any_alcohol__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>During the past 12 months, did you drink any alcohol (more than a few sips)? (Do not count sips of alcohol taken during family or religious events.)&quot;</inlineHelpText>
+        <label>Drink any alcohol?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CRAFFT_A2_Smoke_any_marijuana_or_hashish__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>During the past 12 months, did you smoke any marijuana or hashish?</inlineHelpText>
+        <label>Smoke any marijuana or hashish</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CRAFFT_A3_Use_anything_else_to_get_high__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>During the past 12 months, did you use anything else to get high? (anything else includes illegal drugs, over the counter and prescription drugs, and things that you sniff or huff)</inlineHelpText>
+        <label>Use anything else to get high?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CRAFFT_B1_In_CAR_driven_by_someone_high__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever ridden in a CAR driven by someone (including yourself) who was “high” or had been using alcohol or drugs?</inlineHelpText>
+        <label>In CAR driven by someone high?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CRAFFT_B2_Use_drugs_or_alcohol_to_RELAX__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you ever use alcohol or drugs to RELAX, feel better about yourself, or fit in?</inlineHelpText>
+        <label>Use drugs or alcohol to RELAX</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CRAFFT_B3_Use_drugs_or_alcohol_ALONE__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you ever use alcohol or drugs while you are by yourself, or ALONE?</inlineHelpText>
+        <label>Use drugs or alcohol ALONE?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CRAFFT_B4_Ever_FORGET_what_you_did__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you ever FORGET things you did while using alcohol or drugs?</inlineHelpText>
+        <label>Ever FORGET what you did</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CRAFFT_B5_FAMILY_FRIENDS_say_to_cut_down__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Do your FAMILY or FRIENDS ever tell you that you should cut down on your drinking or drug use?</inlineHelpText>
+        <label>FAMILY/FRIENDS say to cut down</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CRAFFT_B6_In_TROUBLE_while_using_drugs__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever gotten into TROUBLE while you were using alcohol or drugs?</inlineHelpText>
+        <label>In TROUBLE while using drugs</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CRAFFT_Yes_in_Part_A__c</fullName>
+        <externalId>false</externalId>
+        <formula>or(ispickval(CRAFFT_A1_Drink_any_alcohol__c ,&quot;Yes&quot;), 
+ispickval(CRAFFT_A2_Smoke_any_marijuana_or_hashish__c ,&quot;Yes&quot;), 
+ispickval(CRAFFT_A3_Use_anything_else_to_get_high__c ,&quot;Yes&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Yes in Part A?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Legacy_Database_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Legacy Database Id</label>
+        <length>25</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(ispickval(CRAFFT_B1_In_CAR_driven_by_someone_high__c ,&quot;Yes&quot;),1,0) 
++ if(ispickval(CRAFFT_B2_Use_drugs_or_alcohol_to_RELAX__c ,&quot;Yes&quot;),1,0)
++ if(ispickval(CRAFFT_B3_Use_drugs_or_alcohol_ALONE__c ,&quot;Yes&quot;),1,0) 
++ if(ispickval(CRAFFT_B4_Ever_FORGET_what_you_did__c ,&quot;Yes&quot;),1,0) 
++ if(ispickval(CRAFFT_B5_FAMILY_FRIENDS_say_to_cut_down__c ,&quot;Yes&quot;),1,0) 
++ if(ispickval(CRAFFT_B6_In_TROUBLE_while_using_drugs__c ,&quot;Yes&quot;),1,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>aCRAFFT</label>
+    <nameField>
+        <displayFormat>A-{000}</displayFormat>
+        <label>CRAFFT Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>aCRAFFTs</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

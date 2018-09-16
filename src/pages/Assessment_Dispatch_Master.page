@@ -1,0 +1,4 @@
+<apex:page standardController="Assessment__c" extensions="assessmentDispatchExt" action="{!initialize}" showHeader="true" sidebar="true">
+<!-- extensions="srpNeedsMasterExt" -->
+    What fools these mortals be!
+</apex:page>

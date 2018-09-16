@@ -1,0 +1,262 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="EDpage" >
+ <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+  <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+<br/>
+ <apex:outPutPanel id="op" styleclass="span.resultContainer">
+  <apex:pageblock id="pbEdit" rendered="{!isEdit==true}">
+  <apex:pageblocksection columns="1">
+		<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+              Education Assessment Scores (STAR and/or GED)</span> 
+            </apex:facet>  		
+					<apex:inputfield value="{!Educ.Education_Section_1__c}"  styleclass="textshortedit"/>
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="1">
+				<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+               Assessment Notes-Education</span> 
+            </apex:facet>
+            
+					<apex:inputfield value="{!Educ.Education_Section_2__c}"  styleclass="textshortedit" />
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="2">
+				<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+               Data Capture-Education</span> 
+            </apex:facet>
+				
+					<apex:inputfield value="{!Educ.School_GED_Enrollment_at_Intake__c}"  />
+					<apex:inputfield value="{!Educ.Update_School_GED_Enrollment_at_Intake__c}"  />
+					<apex:inputfield value="{!Educ.Diploma_Status_at_Intake__c}"  />
+					<apex:inputfield value="{!Educ.Update_Diploma_Status_at_Intake__c}"  />
+					<apex:inputfield value="{!Educ.Current_School_Enrollment__c}"  />
+					<apex:inputfield value="{!Educ.School_Start_Date__c}"  />
+					<apex:inputfield value="{!Educ.Last_School_Attended__c}"  />
+					<apex:inputfield value="{!Educ.School_End_Date__c}"  />
+					<apex:inputfield value="{!Educ.School_Institution_Hours_from_and_to__c}"  />
+					<apex:inputfield value="{!Educ.Reason_for_Leaving_School__c}"  />
+					<apex:inputfield value="{!Educ.How_many_credits_have_you_earned__c}"  />
+					<apex:inputfield value="{!Educ.Update_No_of_High_School_Credits__c}"  />
+					<apex:inputfield value="{!Educ.What_grade_are_you_currently_in__c}"  />
+					<apex:inputfield value="{!Educ.Update_Current_Grade__c}"  />
+					<apex:inputfield value="{!Educ.What_is_the_last_grade_you_completed__c}"  />
+					<apex:inputfield value="{!Educ.Update_Last_Grade_Completed__c}"  />
+					<apex:inputfield value="{!Educ.Diploma_Type__c}"  />
+					<apex:inputfield value="{!Educ.Present_past_school_suspension__c}"  />
+					<apex:inputfield value="{!Educ.Diploma_Date__c}"  />
+					<apex:inputfield value="{!Educ.Received_a_Superintendent_s_suspension__c}"  />
+					<apex:inputfield value="{!Educ.Best_time_to_reach_parents_at_home__c}"  />
+					<apex:inputfield value="{!Educ.In_Special_Education__c}"  />
+					<apex:inputfield value="{!Educ.Did_you_pass_any_Regent_s_exams_in_HS__c}"  />
+					<apex:inputfield value="{!Educ.Who_is_the_guidance_counselor__c}"  />
+					<apex:inputfield value="{!Educ.No_schools_attended_in_the_last_5_yrs__c}"  />
+					<apex:inputfield value="{!Educ.OSIS_No__c}"  />
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="1">
+				<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+               Assessment notes-Family and Peers</span> 
+            </apex:facet>
+					<apex:inputfield value="{!Educ.Family_Peers_Section_1__c}" styleclass="textshortedit" />
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="1">
+	<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+               Assessment Notes-Employment</span> 
+            </apex:facet>				
+					<apex:inputfield value="{!Educ.Employment_Section_1__c}" styleclass="textshortedit"/>
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="1">
+				<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+               Assessment Notes-Substance Abuse</span> 
+            </apex:facet>	
+					<apex:inputfield value="{!Educ.Substance_Abuse_Section_1__c}"  styleclass="textshortedit"/>
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="2">
+						<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+               Document Information</span> 
+            </apex:facet>	
+					<apex:inputfield value="{!Educ.Required_Documents__c}"  />
+					<apex:inputfield value="{!Educ.Update_Required_Documents__c}"  />
+					<apex:inputfield value="{!Educ.Optional_Documents_Needed__c}"  />
+					<apex:inputfield value="{!Educ.Update_Optional_Documents_Needed__c}"  />
+					<apex:inputfield value="{!Educ.Optional_Documents_Collected__c}"  />
+					<apex:inputfield value="{!Educ.Update_Optional_Documents_Collected__c}"  />
+				</apex:pageblocksection>
+  </apex:pageblock>
+
+  <apex:pageblock id="pbView" rendered="{!isEdit==false}">
+  		<apex:pageblocksection columns="1">
+		<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+              Education Assessment Scores (STAR and/or GED)</span> 
+            </apex:facet>  		
+		          <apex:pageblocksectionItem >
+                   <apex:outputlabel value="Education Section 1" for="p1"/>
+           
+                          <apex:outputtext value="{!substitute(substitute(JSENCODE(Educ.Education_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="p1"  />
+           
+            </apex:pageblocksectionItem>
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="1">
+				<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+               Assessment Notes-Education</span> 
+            </apex:facet>
+              <apex:pageblocksectionItem >
+                  <apex:outputlabel value="Education Section 2" for="e1"/>
+                    <apex:outputtext value="{!substitute(substitute(JSENCODE(Educ.Education_Section_2__c),'\\n','<br/>'),'\\r','')}" 
+            escape="false" style="color:blue;width:700px;background-color:white;" id="e1"  />
+            </apex:pageblocksectionItem>
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="2">
+				<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+               Data Capture-Education</span> 
+            </apex:facet>
+				 
+					<apex:inputtext value="{!Educ.School_GED_Enrollment_at_Intake__c}" styleclass="text200regular" disabled="true" />
+					<apex:inputtext value="{!Educ.Update_School_GED_Enrollment_at_Intake__c}" styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Diploma_Status_at_Intake__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Update_Diploma_Status_at_Intake__c}" styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Current_School_Enrollment__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.School_Start_Date__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Last_School_Attended__c}" styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.School_End_Date__c}" styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.School_Institution_Hours_from_and_to__c}" styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Reason_for_Leaving_School__c}" styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.How_many_credits_have_you_earned__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Update_No_of_High_School_Credits__c}" styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.What_grade_are_you_currently_in__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Update_Current_Grade__c}" styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.What_is_the_last_grade_you_completed__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Update_Last_Grade_Completed__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Diploma_Type__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Present_past_school_suspension__c}" styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Diploma_Date__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Received_a_Superintendent_s_suspension__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Best_time_to_reach_parents_at_home__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.In_Special_Education__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Did_you_pass_any_Regent_s_exams_in_HS__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.Who_is_the_guidance_counselor__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.No_schools_attended_in_the_last_5_yrs__c}"  styleclass="text200regular" disabled="true"  />
+					<apex:inputtext value="{!Educ.OSIS_No__c}" styleclass="text200regular" disabled="true"  />
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="1">
+				<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+               Assessment notes-Family and Peers</span> 
+            </apex:facet>
+       <apex:pageblocksectionItem >
+                            <apex:outputlabel value="Family & Peers Section 1" for="e2"/>
+                    <apex:outputtext value="{!substitute(substitute(JSENCODE(Educ.Family_Peers_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+             escape="false" style="color:blue;width:700px;background-color:white;" id="e2"  />
+            </apex:pageblocksectionItem>				</apex:pageblocksection>
+				<apex:pageblocksection columns="1">
+	<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+               Assessment Notes-Employment</span> 
+            </apex:facet>				
+				        <apex:pageblocksectionItem >
+                            <apex:outputlabel value="Employment Section 1" for="e3"/>
+                    <apex:outputtext value="{!substitute(substitute(JSENCODE(Educ.Employment_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+             escape="false" style="color:blue;width:700px;background-color:white;" id="e3"  />
+            </apex:pageblocksectionItem>
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="1">
+				<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+               Assessment Notes-Substance Abuse</span> 
+            </apex:facet>	
+            		        <apex:pageblocksectionItem >
+                            <apex:outputlabel value="Substance Abuse Section 1" for="e4"/>
+                    <apex:outputtext value="{!substitute(substitute(JSENCODE(Educ.Substance_Abuse_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+             escape="false" style="color:blue;width:700px;background-color:white;" id="e4"  />
+            </apex:pageblocksectionItem>
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="2">
+						<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+               Document Information</span> 
+            </apex:facet>	
+            		        <apex:pageblocksectionItem >
+                            <apex:outputlabel value="Required Documents	" for="r1"/>
+                    <apex:outputtext value="{!substitute(substitute(JSENCODE(Educ.Required_Documents__c),'\\n','<br/>'),'\\r','')}" 
+             escape="false" style="color:blue;width:400px;background-color:white;" id="r1"  />
+            </apex:pageblocksectionItem>
+ <apex:pageblocksectionItem >
+                            <apex:outputlabel value="Update Required Documents" for="r2"/>
+                    <apex:outputtext value="{!substitute(substitute(JSENCODE(Educ.Update_Required_Documents__c),'\\n','<br/>'),'\\r','')}" 
+             escape="false" style="color:blue;width:400px;background-color:white;" id="r2"  />
+            </apex:pageblocksectionItem>
+ <apex:pageblocksectionItem >
+                    <apex:outputlabel value="Optional Documents Needed" for="r3"/>
+                    <apex:outputtext value="{!substitute(substitute(JSENCODE(Educ.Optional_Documents_Needed__c),'\\n','<br/>'),'\\r','')}" 
+             escape="false" style="color:blue;width:400px;background-color:white;" id="r3"  />
+            </apex:pageblocksectionItem>
+	 <apex:pageblocksectionItem >
+	                <apex:outputlabel value="Update Optional Documents Needed" for="r4"/>
+                    <apex:outputtext value="{!substitute(substitute(JSENCODE(Educ.Update_Optional_Documents_Needed__c),'\\n','<br/>'),'\\r','')}" 
+             escape="false" style="color:blue;width:400px;background-color:white;" id="r4"  />
+            </apex:pageblocksectionItem>
+	 <apex:pageblocksectionItem >
+	                <apex:outputlabel value="Optional Documents Collected" for="r5"/>
+                    <apex:outputtext value="{!substitute(substitute(JSENCODE(Educ.Optional_Documents_Needed__c),'\\n','<br/>'),'\\r','')}" 
+             escape="false" style="color:blue;width:400px;background-color:white;" id="r5"  />
+            </apex:pageblocksectionItem>
+					 <apex:pageblocksectionItem >
+	            <apex:outputlabel value="Update Optional Documents Collected" for="r6"/>
+                    <apex:outputtext value="{!substitute(substitute(JSENCODE(Educ.Update_Optional_Documents_Collected__c),'\\n','<br/>'),'\\r','')}" 
+             escape="false" style="color:blue;width:400px;background-color:white;" id="r6"  />
+            </apex:pageblocksectionItem>
+				</apex:pageblocksection>
+
+  </apex:pageblock>
+</apex:outPutPanel> 
+
+	<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>               	
+				
+<br/> 
+	</apex:form>
+</apex:page>

@@ -1,0 +1,87 @@
+<apex:page title="START Interview" controller="STARTInterviewPage1Controller" id="pgInterview">
+    
+<style type="text/css">
+/*
+    input.btn[name="del"] {
+        display: none;
+    }
+    input.btn[name="edit"] {
+        display: none;
+    }
+*/
+</style>
+    
+    <apex:outputPanel id="opTitleHeader">
+        <apex:sectionHeader subtitle="{!cHeader.FirstName} {!cHeader.LastName} / {!cHeader.P_C_ID__c}" title="START Program Interview Wizard" />
+        <br />
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="opStep1Wrapper">
+    
+        <apex:outputPanel id="opStep1" rendered="{!IF(strStepProgress = '' || strStepProgress = 'Flow 1',TRUE,FALSE)}">
+            <flow:interview name="Start_Screening_Part_1" buttonLocation="bottom" interview="{!flStartPart1}" finishLocation="{!strFlow1EndPage}">
+                <apex:param name="G_AccountId" value="{!$CurrentPage.parameters.G_AccountId}"/>
+                <apex:param name="docketName" value="{!$CurrentPage.parameters.DocketName}"/>
+            </flow:interview>
+        </apex:outputPanel>   
+
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="opDocketWrapper">
+    
+        <apex:outputPanel id="opCaseInfo" rendered="{!IF(strStepProgress = 'Case Information Detail',TRUE,FALSE)}">
+        
+            <apex:form id="frmCaseInfo">
+                <apex:outputText value="When you have completed updating this Client's Case Information, press Continue to move to the next step." /><br />
+                <apex:commandButton id="cmdCaseInfoComplete" value="Continue" action="{!moveToCharges}" />
+            </apex:form>
+        
+            <apex:detail subject="{!strDocketId}" relatedList="false" title="false" inlineEdit="true" rerender="opDocketWrapper,opStep2Wrapper,opTest" />
+            
+        </apex:outputPanel>
+        
+        <apex:outputPanel id="opDocket" rendered="{!IF(strStepProgress = 'Charges Page',TRUE,FALSE)}">
+        
+            <apex:form id="frmCharges">
+                <apex:outputText value="When you have completed updating this Client's Charges Information, press Continue to move to the next step." /><br />
+                <apex:commandButton id="cmdChargesComplete" value="Continue" action="{!moveToFlow2}" />
+            </apex:form>
+           
+            <!--  <c:addChargesComponent SelectedDocket="{!strDocketId}" /> -->
+            <c:addchargescomponent />
+            
+        </apex:outputPanel>
+    
+    </apex:outputPanel>
+
+    
+    <apex:outputPanel id="opStep2Wrapper" 
+        rendered="{!IF(OR(CONTAINS(strStepProgress, 'Flow 2'), CONTAINS(strStepProgress, 'Complete')),TRUE,FALSE)}">
+    
+        <apex:outputPanel id="opStep2" rendered="{!IF(strDocketId != null, TRUE,FALSE)}">
+            <flow:interview name="Start_Screening_Part_2" buttonLocation="bottom" interview="{!flStartPart2}" finishLocation="{!strFlow2EndPage}">
+                <apex:param name="Program" value="{!strProgram}"/>
+                <apex:param name="ProgramCycleId" value="{!strProgramCycleId}"/>
+                <apex:param name="ContactId" value="{!strContactId}"/>
+                <apex:param name="DocketID" value="{!strDocketID}"/>
+                <apex:param name="addressId" value="{!straddressId}"/>
+                <apex:param name="G_AccountId" value="{!strG_AccountId}"/>
+            </flow:interview>
+        </apex:outputPanel>   
+
+    </apex:outputPanel>
+
+    <!--    
+    <apex:outputPanel id="opFinalWrapper" rendered="{!IF(or(strStepProgress = 'Screening Complete', strStepProgress = 'Intake Complete'),TRUE,FALSE)}">
+    
+        If you see this message, this Client has already been completed through this wizard.  Please click <a href="/{!strContactId}">HERE</a> to be redirected to their Client record.
+    
+    </apex:outputPanel>
+    -->
+    
+    <script>
+        // Prevent Calendar Popup in Flows and Pages
+        function setFocusOnLoad() { }
+    </script>
+    
+</apex:page>

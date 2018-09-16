@@ -1,0 +1,51 @@
+<apex:page title="START Flow Container" controller="STARTFlowContainerController" id="pgInterview">
+    
+   
+    <apex:outputPanel id="opTitleHeader">
+        <apex:sectionHeader subtitle="{!cHeader.FirstName} {!cHeader.LastName} / {!cHeader.P_C_ID__c}" title="START Search Portal" />
+        <br />
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="reinstatementWrapper">
+    
+        <apex:outputPanel id="reinstatementPanel" rendered="{!IF(strFlow = 'Reinstatement' && !bolComplete,TRUE,FALSE)}">
+            <flow:interview name="START_Reinstatement_Flow" buttonLocation="bottom" interview="{!flReinstatement}">
+                <apex:param name="ContactId" value="{!$CurrentPage.parameters.ContactId}"/>
+                <apex:param name="docketId" value="{!$CurrentPage.parameters.docketId}"/>            
+            </flow:interview>
+        </apex:outputPanel>   
+
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="voluntaryWrapper">
+    
+        <apex:outputPanel id="voluntaryPanel" rendered="{!IF(strFlow = 'Voluntary' && !bolComplete, TRUE,FALSE)}">
+            <flow:interview name="START_Enroll_in_Voluntary" buttonLocation="bottom" interview="{!flVoluntary}">
+                <apex:param name="ContactId" value="{!$CurrentPage.parameters.ContactId}"/>
+            </flow:interview>
+        </apex:outputPanel>   
+
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="orientationWrapper">
+    
+        <apex:outputPanel id="orientationPanel" rendered="{!IF(strFlow = 'Orientation' && !bolComplete, TRUE,FALSE)}">
+            <flow:interview name="START_Intake_Flow" buttonLocation="bottom" interview="{!flOrientation}">
+                <apex:param name="ContactId" value="{!$CurrentPage.parameters.ContactId}"/>
+            </flow:interview>
+        </apex:outputPanel>   
+
+    </apex:outputPanel>    
+    
+    <apex:outputPanel id="opFinalWrapper" rendered="{!bolComplete}">
+        <br />
+        Complete! <a href="/{!strContactId}">Go to the contact page</a>
+    
+    </apex:outputPanel>
+    
+    <script>
+        // Prevent Calendar Popup in Flows and Pages
+        function setFocusOnLoad() { }
+    </script>
+    
+</apex:page>

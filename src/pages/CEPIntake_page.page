@@ -1,0 +1,159 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="CEPpage" >
+ <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+  <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+ <apex:outPutPanel id="op" styleclass="span.resultContainer">
+ <apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+   <apex:pageblocksection showheader="true" columns="1">
+    <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Residence/Family</span> 
+    </apex:facet> 
+     <apex:inputtextarea value="{!CEPINT.Family_Background__c}" styleclass="text700edit"/>
+      
+  </apex:pageblocksection>
+    <apex:pageblocksection showheader="true" columns="1">
+    <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Education</span> 
+    </apex:facet> 
+    <apex:inputtextarea value="{!CEPINT.Education_Section_1__c}" styleclass="text700edit"/>
+  </apex:pageblocksection> 
+
+  <apex:pageblocksection showheader="true" columns="1">
+    <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Employment</span> 
+    </apex:facet> 
+    <apex:inputtextarea value="{!CEPINT.Employment_Section_1__c}" styleclass="text700edit"/>
+  </apex:pageblocksection>
+ <apex:pageblocksection showheader="true" columns="1">
+    <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Peers/Leisure</span> 
+    </apex:facet> 
+    <apex:inputtextarea value="{!CEPINT.Leisure_Recreation_Notes__c}" styleclass="text700edit"/>
+  </apex:pageblocksection>
+ <apex:pageblocksection showheader="true" columns="1">
+    <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Health and Well Being</span> 
+    </apex:facet> 
+    <apex:inputtextarea value="{!CEPINT.Health__c}" styleclass="text700edit"/>
+  </apex:pageblocksection>
+
+<apex:pageblocksection showheader="true" columns="1">
+    <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Legal</span> 
+    </apex:facet> 
+    <apex:inputtextarea value="{!CEPINT.Legal__c}" styleclass="text700edit"/>
+  </apex:pageblocksection> 
+  
+</apex:pageblock>
+
+<apex:pageblock id="pbViev" rendered="{!isEdit==false}"> 
+  <apex:pageblocksection showheader="true" columns="1">
+    <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Residence/Family</span> 
+    </apex:facet> 
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Family Background" for="f1"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CEPINT.Family_Background__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f1"/>
+    </apex:pageblocksectionItem>
+    
+  </apex:pageblocksection> 
+    <apex:pageblocksection showheader="true" columns="1">
+    <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Education</span> 
+    </apex:facet> 
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Education Section" for="f2"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CEPINT.Education_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f2"/>
+    </apex:pageblocksectionItem>
+  </apex:pageblocksection> 
+
+  <apex:pageblocksection showheader="true" columns="1">
+    <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Employment</span> 
+    </apex:facet> 
+      <apex:pageblocksectionItem >
+      <apex:outputlabel value="Employment Section" for="f3"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CEPINT.Employment_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f3"/>
+    </apex:pageblocksectionItem>
+  </apex:pageblocksection>
+
+ <apex:pageblocksection showheader="true" columns="1">
+    <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Peers/Leisure</span> 
+    </apex:facet> 
+      <apex:pageblocksectionItem >
+      <apex:outputlabel value="Leisure/Recreation Notes" for="f4"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CEPINT.Leisure_Recreation_Notes__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f4"/>
+    </apex:pageblocksectionItem>
+  </apex:pageblocksection>
+ <apex:pageblocksection showheader="true" columns="1">
+    <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Health and Well Being</span> 
+    </apex:facet> 
+     <apex:pageblocksectionItem >
+      <apex:outputlabel value="Health" for="f5"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CEPINT.Health__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f5"/>
+    </apex:pageblocksectionItem>
+ 
+  </apex:pageblocksection>
+
+<apex:pageblocksection showheader="true" columns="1">
+    <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Legal</span> 
+    </apex:facet> 
+    <apex:pageblocksectionItem >
+      <apex:outputlabel value="Legal" for="f6"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CEPINT.Legal__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f6"/>
+    </apex:pageblocksectionItem>
+  </apex:pageblocksection>
+
+</apex:pageblock>
+ </apex:outPutPanel>
+ 
+<br/>
+<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+  <table>
+    <tr>
+      <td width="400px" align="left">
+	    <apex:outputLabel value="Created by:"/>&nbsp;
+		<apex:outputLabel value="{!createdInfo}"/>					
+      </td>
+      <td width="400px"  align="right">
+	    <apex:outputLabel value="Last modified by:" />&nbsp;
+		<apex:outputLabel value="{!LastModifiedInfo}"/>
+      </td>
+    </tr>
+  </table> 
+</apex:outPutPanel>
+</apex:form>
+</apex:page>

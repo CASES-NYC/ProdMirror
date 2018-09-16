@@ -1,0 +1,375 @@
+<apex:page controller="AssessmentController" >    
+<apex:form id="DSMVpage" > 
+  <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+<apex:outPutPanel id="op" styleclass="span.resultContainer">
+<!--                      EDIT BLOCK-->  
+<apex:pageblock id="pbEdit" rendered="{!isEdit==true}">   
+ <apex:pageblocksection columns="2">
+   <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Information</span> 
+    </apex:facet> 
+   <apex:outputfield value="{!DSM_V.UC_Category_B_Present__c}"/>
+   <apex:outputfield value="{!DSM_V.UC_Reaction_Category_B_Sum__c}" style="width:40px" /> 
+   <apex:outputfield value="{!DSM_V.UC_Category_C_Present__c}"/>
+   <apex:outputfield value="{!DSM_V.UC_Reaction_Category_C_Sum__c}" style="width:40px"/>
+   <apex:outputfield value="{!DSM_V.UC_Category_D_Present__c}"/>
+   <apex:outputfield value="{!DSM_V.UC_Reaction_Category_D_Sum__c}" style="width:40px"/>
+   <apex:outputfield value="{!DSM_V.UC_Category_E_Present__c}"/>
+   <apex:outputfield value="{!DSM_V.UC_Reaction_Category_E_Sum__c}" style="width:40px"/> 
+  
+   </apex:pageblocksection>
+    <apex:pageblocksection columns="1">
+   <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Trauma History Profile</span> 
+    </apex:facet> 
+       <apex:inputtextarea value="{!DSM_V.UC_Trauma_History_Profile_Summary__c}" 
+       styleclass="textareashortedit" />
+   </apex:pageBlockSection>     
+   <apex:pageBlockSection columns="1">
+     <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Self-Report Trauma History</span> 
+    </apex:facet>
+    <apex:inputtextarea value="{!DSM_V.UC_SelfRpt_Q01_History__c}" styleclass="textareashortedit"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="2">
+ 
+    <apex:inputfield value="{!DSM_V.UC_SelfRpt_Q02_disaster__c}" />
+    <apex:inputfield value="{!DSM_V.UC_SelfRpt_Q03_accident__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_SelfRpt_Q04_war__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_SelfRpt_Q05_Hit_hard__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_SelfRpt_Q06_family_member__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_SelfRpt_Q07_school__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_SelfRpt_Q08_someone_beaten__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_SelfRpt_Q09_dead_body__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_SelfRpt_Q10_touch__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_SelfRpt_Q11_loved_one__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_SelfRpt_Q12_medical_treatment__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_SelfRpt_Q13_Forced_sex__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_SelfRpt_Q14_Died__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_SelfRpt_Q15_Anything_else__c}"/>
+     </apex:pageBlockSection>
+     
+      <apex:outputLabel value="If the answer is YES to MORE THAN ONE QUESTION, choose the thing that BOTHERS YOU THE MOST NOW "/>
+   &nbsp; <apex:outputLabel value="and place the question number in this blank {!DSM_V.UC_SelfRpt_Most_Impacted_By__c}"/>
+  <apex:pageblocksection >
+  <apex:inputtext value="{!DSM_V.UC_SelfRpt_Age_Impacted__c}" styleclass="txt60edit"/>
+       
+      <apex:inputtextarea value="{!DSM_V.UC_SelfRpt_Clinician_Description__c}" 
+      styleclass="textareashortedit"/>                    
+   </apex:pageblocksection> 
+     
+   <apex:pageBlockSection columns="2">        
+          <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">How Much of the Time During the Past Month   (0- None    1-Little    2- Some    3- Much    4- Most) </span> 
+    </apex:facet>
+    
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q01__c}" />
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q02__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q03__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q04__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q05__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q06__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q07__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q08__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q09__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q10__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q11__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q12__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q13__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q14__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q15__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q16__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q17__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q18__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q19__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q20__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q21__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q22__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q23__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q24__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q25__c}"/>     
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q26__c}"/>
+    <apex:inputfield value="{!DSM_V.UC_Reaction_Q27__c}"/>   
+       </apex:pageblocksection>
+  
+   <br/>
+      <apex:outputText value="With Dissociative Symptoms (Dissocative Subtype)" style="font-size:14px;font-weight:bold;"/>
+            <apex:pageblocksection columns="2">  
+      <apex:inputfield value="{!DSM_V.UC_Reaction_Q28__c}"/>
+                    <apex:inputfield value="{!DSM_V.UC_Reaction_Q29__c}"/>
+                    <apex:inputfield value="{!DSM_V.UC_Reaction_Q30__c}"/>                    
+                    <apex:inputfield value="{!DSM_V.UC_Reaction_Q31__c}"/>
+     
+     </apex:pageblocksection>
+  
+   
+     <apex:pageblocksection columns="1">
+                         <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Clinically Significant Distress or Functional Impairment</span> 
+    </apex:facet>
+       <apex:inputfield value="{!DSM_V.UC_Clinical_Distress_Q1__c}" />
+</apex:pageblocksection>
+ 
+<br/><br/>
+                <apex:outputLabel value="Clinically Significant Functional Impairment:" 
+                style="font-size:14px;font-weight:bold;font-style: italic;"/>
+     <br/> <br/>
+                <apex:outputLabel value="HOME" style="font-size:14px;font-weight:bold;text-decoration:underline"/> 
+      <br/>   
+              <apex:pageblocksection columns="2">
+                    <apex:inputfield value="{!DSM_V.UC_Clinical_Home_Q1__c}"/>    
+                    <apex:inputfield value="{!DSM_V.UC_Clinical_Home_Q2__c}"/>                    
+                    <apex:inputfield value="{!DSM_V.UC_Clinical_Home_Q3__c}"/>
+                      
+         <apex:inputfield value="{!DSM_V.UC_Clinical_Home_Describe__c}" styleclass="textareashortedit"/>
+        </apex:pageblocksection>
+    <hr/>
+          <br/>
+                <apex:outputLabel value="SCHOOL" style="font-size:14px;font-weight:bold;text-decoration:underline"/>
+       <br/>
+         <apex:pageblocksection columns="2">
+
+                    <apex:inputfield value="{!DSM_V.UC_Clinical_School_Q1__c}"/>
+                    <apex:inputfield value="{!DSM_V.UC_Clinical_School_Q2__c}"/>
+       <br/>  
+        <apex:inputtextarea value="{!DSM_V.UC_Clinical_School_Describe__c}" styleclass="textareashortedit"/>
+</apex:pageblocksection>
+<hr/>
+<br/>
+  <apex:pageblocksection columns="2">
+  
+    <apex:inputfield value="{!DSM_V.UC_Clinical_Peer_Q1__c}"  />
+    <apex:inputtextarea value="{!DSM_V.UC_Clinical_Peer_Describe__c}" styleclass="textareashortedit"/>
+  </apex:pageblocksection>
+  <hr/>
+        <apex:outputLabel value="DEVELOPMENTAL PROGRESSION" style="font-size:14px;font-weight:bold;text-decoration:underline"/>
+     <br/><br/>
+        <apex:pageblocksection columns="2" >
+      <apex:inputfield value="{!DSM_V.UC_Clinical_Developmental_Q1__c}"/>
+     <apex:inputTextarea value="{!DSM_V.UC_CD2_OTHER_Describe__c}" styleclass="textareashortedit"/>
+</apex:pageblocksection>
+
+
+</apex:pageblock>
+
+<!--                     VIEW BLOCK  --> 
+
+<apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+ <apex:pageblocksection columns="2">
+   <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Information</span> 
+    </apex:facet> 
+   <apex:outputfield value="{!DSM_V.UC_Category_B_Present__c}"/>
+   <apex:outputfield value="{!DSM_V.UC_Reaction_Category_B_Sum__c}" style="width:40px" /> 
+   <apex:outputfield value="{!DSM_V.UC_Category_C_Present__c}"/>
+   <apex:outputfield value="{!DSM_V.UC_Reaction_Category_C_Sum__c}" style="width:40px"/>
+   <apex:outputfield value="{!DSM_V.UC_Category_D_Present__c}"/>
+   <apex:outputfield value="{!DSM_V.UC_Reaction_Category_D_Sum__c}" style="width:40px"/>
+   <apex:outputfield value="{!DSM_V.UC_Category_E_Present__c}"/>
+   <apex:outputfield value="{!DSM_V.UC_Reaction_Category_E_Sum__c}" style="width:40px"/> 
+  
+   </apex:pageblocksection>
+    <apex:pageblocksection columns="1">
+   <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Trauma History Profile</span> 
+    </apex:facet> 
+    <apex:pageblocksectionItem ><apex:outputlabel value="Trauma History Profile Summary" for="t1"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(DSM_V.UC_Trauma_History_Profile_Summary__c),'\\n','<br/>'),'\\r','')}" 
+       escape="false" style="color:blue;width:700px;background-color:white;" id="t1"/></apex:pageblocksectionItem>
+   	</apex:pageblocksection>
+
+   <apex:pageBlockSection columns="1">
+     <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Self-Report Trauma History</span> 
+    </apex:facet>
+      <apex:pageblocksectionItem ><apex:outputlabel value="Provide brief description of what happen" for="t2"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(DSM_V.UC_SelfRpt_Q01_History__c),'\\n','<br/>'),'\\r','')}" 
+       escape="false" style="color:blue;width:700px;background-color:white;" id="t2"/></apex:pageblocksectionItem> 
+    </apex:pageBlockSection>
+
+    <apex:pageBlockSection columns="2">
+ 
+    <apex:outputfield value="{!DSM_V.UC_SelfRpt_Q02_disaster__c}" />
+    <apex:outputfield value="{!DSM_V.UC_SelfRpt_Q03_accident__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_SelfRpt_Q04_war__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_SelfRpt_Q05_Hit_hard__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_SelfRpt_Q06_family_member__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_SelfRpt_Q07_school__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_SelfRpt_Q08_someone_beaten__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_SelfRpt_Q09_dead_body__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_SelfRpt_Q10_touch__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_SelfRpt_Q11_loved_one__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_SelfRpt_Q12_medical_treatment__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_SelfRpt_Q13_Forced_sex__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_SelfRpt_Q14_Died__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_SelfRpt_Q15_Anything_else__c}"/>
+     </apex:pageBlockSection>
+     
+      <apex:outputLabel value="If the answer is YES to MORE THAN ONE QUESTION, choose the thing that BOTHERS YOU THE MOST NOW "/>
+   &nbsp; <apex:outputLabel value="and place the question number in this blank {!DSM_V.UC_SelfRpt_Most_Impacted_By__c}"/>
+  <apex:pageblocksection >
+     <apex:pageblocksectionItem ><apex:outputlabel value="How old when this bad thing happened?" for="t2"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(DSM_V.UC_SelfRpt_Age_Impacted__c),'\\n','<br/>'),'\\r','')}" 
+       escape="false" style="color:blue;width:100px;background-color:white;" id="t2"/></apex:pageblocksectionItem> 
+       
+     <apex:pageblocksectionItem ><apex:outputlabel value="What is most bothersome now" for="t3"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(DSM_V.UC_SelfRpt_Clinician_Description__c),'\\n','<br/>'),'\\r','')}" 
+       escape="false" style="color:blue;width:600px;background-color:white;" id="t3"/></apex:pageblocksectionItem> 
+   </apex:pageblocksection> 
+
+   <apex:pageBlockSection columns="2">        
+          <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">How Much of the Time During the Past Month   (0- None    1-Little    2- Some    3- Much    4- Most) </span> 
+    </apex:facet>
+    
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q01__c}" style="width:30px;font-size:14px;color:red"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q02__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q03__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q04__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q05__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q06__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q07__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q08__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q09__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q10__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q11__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q12__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q13__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q14__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q15__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q16__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q17__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q18__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q19__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q20__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q21__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q22__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q23__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q24__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q25__c}"/>     
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q26__c}"/>
+    <apex:outputfield value="{!DSM_V.UC_Reaction_Q27__c}"/>   
+       </apex:pageblocksection>
+  
+   <br/>
+      <apex:outputText value="With Dissociative Symptoms (Dissocative Subtype)" style="font-size:14px;font-weight:bold;"/>
+            <apex:pageblocksection columns="2">  
+      <apex:outputfield value="{!DSM_V.UC_Reaction_Q28__c}"/>
+                    <apex:outputfield value="{!DSM_V.UC_Reaction_Q29__c}"/>
+                    <apex:outputfield value="{!DSM_V.UC_Reaction_Q30__c}"/>                    
+                    <apex:outputfield value="{!DSM_V.UC_Reaction_Q31__c}"/>
+     </apex:pageblocksection>
+     <apex:pageblocksection columns="1"><apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Clinically Significant Distress or Functional Impairment</span> 
+    </apex:facet>
+       <apex:inputtext value="{!DSM_V.UC_Clinical_Distress_Q1__c}" disabled="true" styleclass="txt60"/>
+	</apex:pageBlockSection>
+ <br/><br/>
+       <apex:outputLabel value="Clinically Significant Functional Impairment:" 
+                style="font-size:14px;font-weight:bold;font-style: italic;"/>
+     <br/> <br/>
+          <apex:outputLabel value="HOME" style="font-size:14px;font-weight:bold;text-decoration:underline"/> 
+      <br/>   
+          <apex:pageblocksection columns="2">
+        <apex:inputtext value="{!DSM_V.UC_Clinical_Home_Q1__c}" disabled="true" 
+           styleclass="txt60"/>
+        <apex:inputtext value="{!DSM_V.UC_Clinical_Home_Q2__c}" disabled="true" 
+           styleclass="txt60"/>
+        <apex:inputtext value="{!DSM_V.UC_Clinical_Home_Q3__c}" disabled="true" 
+           styleclass="txt60"/>
+         <apex:inputtextarea value="{!DSM_V.UC_Clinical_Home_Describe__c}" 
+         styleclass="textareashort" readonly="true" />
+        </apex:pageblocksection>
+  <hr/>
+         <apex:outputLabel value="SCHOOL" style="font-size:14px;font-weight:bold;text-decoration:underline"/>
+  <br/>
+    <apex:pageblocksection columns="2">
+         <apex:inputtext value="{!DSM_V.UC_Clinical_School_Q1__c}" disabled="true" styleclass="txt60"/>
+     <apex:inputtext value="{!DSM_V.UC_Clinical_School_Q2__c}" disabled="true" styleclass="txt60"/>           
+        <apex:outputlabel value="" />
+        <apex:inputtextarea value="{!DSM_V.UC_Clinical_School_Describe__c}" styleclass="textareashort"
+        readonly="true"/>
+</apex:pageblocksection>
+<hr/> 
+     <apex:outputLabel value="PEER RELATIONSHIPS" style="font-size:14px;font-weight:bold;text-decoration:underline"/> 
+  <apex:pageblocksection columns="2">
+    <apex:inputtext value="{!DSM_V.UC_Clinical_Peer_Q1__c}" disabled="true" 
+           styleclass="txt60"/>
+    <apex:inputtextarea value="{!DSM_V.UC_Clinical_Peer_Describe__c}" readonly="true" 
+           styleclass="textareashort"/>
+  </apex:pageblocksection>
+  <hr/>
+        <apex:outputLabel value="DEVELOPMENTAL PROGRESSION" style="font-size:14px;font-weight:bold;text-decoration:underline"/>
+     <br/><br/>
+        <apex:pageblocksection columns="2" >
+            <apex:inputtext value="{!DSM_V.UC_Clinical_Developmental_Q1__c}" disabled="true" styleclass="txt60"/> 
+    <apex:inputTextarea value="{!DSM_V.UC_CD2_OTHER_Describe__c}" readonly="true" 
+           styleclass="textareashort"/>
+</apex:pageblocksection>
+</apex:pageblock>
+<apex:pageblock id="opaction1" >
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an1" 
+   style="font-size:14px;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad1" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed1" rendered="{!isEdit==true}"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}" status="selectData"
+ id="btnEdit1" rerender="opaction,op,pbEdit,opaction1,pbEdit1" immediate="true"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel1" rerender="aPage,m,opaction,op,pbEdit,opaction1,pbEdit1" />
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave1" rendered="{!isedit}" action="{!saveAssessment}" rerender="opaction,op" status="selectData">
+ </apex:commandButton>
+
+
+</apex:pageblock>  
+<br/>
+		<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>
+        
+
+</apex:outPutPanel>
+    
+
+</apex:form>
+</apex:page>

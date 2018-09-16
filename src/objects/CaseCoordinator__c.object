@@ -1,0 +1,1193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>AssessmentContainerId__c</fullName>
+        <externalId>false</externalId>
+        <label>AssessmentContainerId</label>
+        <referenceTo>AssessmentContainer__c</referenceTo>
+        <relationshipLabel>aCaseCoordinators</relationshipLabel>
+        <relationshipName>aCaseCoordinators</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Current_Employment__c</fullName>
+        <description>Copied from Contact when Assessment saved until completion</description>
+        <externalId>false</externalId>
+        <label>Current Employment</label>
+        <length>200</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_School_Enrollment__c</fullName>
+        <description>Copied from Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>Current School Enrollment</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Diploma_Date__c</fullName>
+        <description>Copied from Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>Diploma Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Diploma_Status_at_Intake__c</fullName>
+        <description>Copied to Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>Diploma Status at Intake</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Diploma_Type__c</fullName>
+        <description>Copied from Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>Diploma Type</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Do_you_have_Insurance__c</fullName>
+        <description>Copied from Contact when Assessment saved until completion</description>
+        <externalId>false</externalId>
+        <label>Do you have Insurance?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Drugs_Used_Other__c</fullName>
+        <description>Copied to Contact when assessment complete: Substance AbuseCopied from Contact when Assessment saved until completion: Psychosocial</description>
+        <externalId>false</externalId>
+        <label>Drugs Used (Other)</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Drugs_Used__c</fullName>
+        <description>Copied to Contact when assessment complete: Substance AbuseCopied from Contact when Assessment saved until completion: Psychosocial</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check any substances ever used by participant.</inlineHelpText>
+        <label>Drugs Used</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Alcohol</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Alcohol - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Alcohol - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Alcohol - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Amphetamines</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Amphetamines - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Amphetamines - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Amphetamines - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Benzodiazepines</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Benzodiazepines - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Benzodiazepines - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Benzodiazepines - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cocaine</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cocaine - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cocaine - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cocaine - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Crack Cocaine</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Crack Cocaine - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Crack Cocaine - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Crack Cocaine - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ecstasy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ecstasy - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ecstasy - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ecstasy - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hallucinogens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hallucinogens - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hallucinogens - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hallucinogens - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inhalants</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inhalants - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inhalants - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inhalants - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>K2/Synthetic - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>K2/Synthetic - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>K2/Synthetic - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marijuana</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marijuana - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marijuana - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marijuana - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Methadone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Methadone - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Methadone - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Methadone - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opiates</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opiates - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opiates - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opiates - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PCP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PCP - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PCP - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PCP - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prescription drugs - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prescription drugs - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prescription drugs - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sedatives</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sedatives - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sedatives - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sedatives - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tobacco - Mild</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tobacco - Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tobacco - Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Education_Plan__c</fullName>
+        <description>Renamed from &quot;Education Section 2&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Staff Recommendations and Plan</inlineHelpText>
+        <label>Education Plan</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Education_Section_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Education Section 1</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Employed_at_Intake__c</fullName>
+        <externalId>false</externalId>
+        <label>Employed at Intake</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Employed P/T</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employed F/T</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unemployed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Employer__c</fullName>
+        <description>Copied from Contact when Assessment saved until completion</description>
+        <externalId>false</externalId>
+        <label>Employer</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Employment_Section_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Employment Section 1</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Ever_recvd_counseling_other_MH_services__c</fullName>
+        <externalId>false</externalId>
+        <label>Ever recvd counseling other MH services?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Currently</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In the last 5 years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 5 years ago</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Expecting_a_Child__c</fullName>
+        <description>Copied to Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>Expecting a Child?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Family_Peers_Section_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Family &amp; Peers Section 1</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Gang_Involvement__c</fullName>
+        <description>Copied to Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>Gang Involvement?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Hospitalized_resd_prgm_for_MH_reasons__c</fullName>
+        <externalId>false</externalId>
+        <label>Hospitalized/resd prgm for MH reasons?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Hourly_Pay__c</fullName>
+        <description>Copied from Contact when Assessment saved until completion</description>
+        <externalId>false</externalId>
+        <label>Hourly Pay</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>How_many_children__c</fullName>
+        <description>Copied to Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>How many children?</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>How_many_credits_have_you_earned__c</fullName>
+        <description>Copied from Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>How many credits have you earned?</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Incarcerated_Family_Members__c</fullName>
+        <description>Copied to Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>Incarcerated Family Members?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Current</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Past Only</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No Incarcerated Family Members</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Indication_of_Phys_Health_Problem__c</fullName>
+        <description>Copied from Contact when Assessment saved until completion</description>
+        <externalId>false</externalId>
+        <label>Indication of Phys Health Problem</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Allergies</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Asthma</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Diabetes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hepatitis C</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tuberculosis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Insurance_Number__c</fullName>
+        <description>Copied from Contact when Assessment saved until completion</description>
+        <externalId>false</externalId>
+        <label>Insurance Number</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Insurance_Provider__c</fullName>
+        <description>Copied from Contact when Assessment saved until completion</description>
+        <externalId>false</externalId>
+        <label>Insurance Provider</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Job_Title__c</fullName>
+        <description>Copied from Contact when Assessment saved until completion</description>
+        <externalId>false</externalId>
+        <label>Job Title</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_School_Attended__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Copied from Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>Last School Attended</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>CCAssessments2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Mental_Health_Issues_at_Interview__c</fullName>
+        <description>Copied from Contact when Assessment saved until completion</description>
+        <externalId>false</externalId>
+        <label>Mental Health Issues at Interview</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mental_Health_Section_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Mental Health Section 1</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Other_Phys_Health_Problem__c</fullName>
+        <description>Copied from Contact when Assessment saved until completion</description>
+        <externalId>false</externalId>
+        <label>Other Phys Health Problem</label>
+        <length>200</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parent_Guardian__c</fullName>
+        <externalId>false</externalId>
+        <label>Parent/Guardian</label>
+        <length>200</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Physical_Health_Section_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Health Section 1</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Prescribe_take_med_to_treat_MH_problem__c</fullName>
+        <externalId>false</externalId>
+        <label>Prescribe/take med to treat MH problem?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Currently</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In the last 5 years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 5 years ago</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_Leaving_School_Other__c</fullName>
+        <description>Copied from Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>Reason for Leaving School (Other)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_for_Leaving_School__c</fullName>
+        <description>Copied from Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>Reason for Leaving School</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Relation_To_Client__c</fullName>
+        <externalId>false</externalId>
+        <label>Relation To Client</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Mother</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Father</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grandparent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spouse/CL</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aunt/Uncle</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Relative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Friend</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Girl/Boy Friend</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>School_End_Date__c</fullName>
+        <description>Copied from Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>School End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>School_GED_Enrollment_at_Intake__c</fullName>
+        <description>Copied from Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>School/HSE Enrollment at Intake</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Attended in Past Two Months</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Enrolled but Not Attending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Enrolled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>School_Institution_Hours_from_and_to__c</fullName>
+        <description>Copied from Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>School/Institution Hours (from and to)</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>School_Start_Date__c</fullName>
+        <description>Copied from Contact until assessment complete</description>
+        <externalId>false</externalId>
+        <label>School Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <description>Copied from Contact when Assessment saved until completion</description>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Substance_Abuse_Section_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Substance Abuse Section 1</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Substance_Abuse_at_Interview__c</fullName>
+        <description>Copied from Contact when Assessment saved until completion</description>
+        <externalId>false</externalId>
+        <label>Substance Abuse at Interview</label>
+        <length>25</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_Current_Grade__c</fullName>
+        <description>Copied to Contact when assessment complete</description>
+        <externalId>false</externalId>
+        <label>Update Current Grade</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_Diploma_Status_at_Intake__c</fullName>
+        <description>Copied to Contact when assessment complete</description>
+        <externalId>false</externalId>
+        <label>Update Diploma Status at Intake</label>
+        <picklist>
+            <picklistValues>
+                <fullName>High School Diploma</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IEP Diploma</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Associate&apos;s Degree</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No High School/HSE Diploma</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HSE Diploma</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Update_Employed_at_Intake__c</fullName>
+        <description>Copied to Contact when assessment complete</description>
+        <externalId>false</externalId>
+        <label>Update Employed  at Intake</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Employed P/T</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employed F/T</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unemployed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Update_Has_Insurance__c</fullName>
+        <description>Copied to Contact when assessment complete</description>
+        <externalId>false</externalId>
+        <label>Update Has Insurance</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Update_Indication_of_Phys_Health_Problem__c</fullName>
+        <description>Copied to Contact when assessment complete</description>
+        <externalId>false</externalId>
+        <label>Update Indication of Phys Health Problem</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Allergies</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Asthma</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tuberculosis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hepatitis C</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Diabetes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Update_Insurance_Number__c</fullName>
+        <description>Copied to Contact when assessment complete</description>
+        <externalId>false</externalId>
+        <label>Update Insurance Number</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_Insurance_Provider__c</fullName>
+        <description>Copied to Contact when assessment complete</description>
+        <externalId>false</externalId>
+        <label>Update Insurance Provider</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_Last_Grade_Completed__c</fullName>
+        <description>Copied to Contact when assessment complete</description>
+        <externalId>false</externalId>
+        <label>Update Last Grade Completed</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_No_of_High_School_Credits__c</fullName>
+        <description>Copied to Contact when assessment complete</description>
+        <externalId>false</externalId>
+        <label>Update No. of High School Credits</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_Other_Phys_Health_Problem__c</fullName>
+        <description>Copied to Contact when assessment complete</description>
+        <externalId>false</externalId>
+        <label>Update Other Phys Health Problem</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Update_School_GED_Enrollment_at_Intake__c</fullName>
+        <description>Copied to Contact when assessment complete</description>
+        <externalId>false</externalId>
+        <label>Update School/HSE Enrollment at Intake</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Attended in past two months</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Enrolled but not attending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Enrolled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>What_grade_are_you_currently_in__c</fullName>
+        <description>Copied to Contact when assessment completed</description>
+        <externalId>false</externalId>
+        <label>What grade are you currently in?</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>What_is_the_last_grade_you_completed__c</fullName>
+        <description>Copied to Contact when assessment completed</description>
+        <externalId>false</externalId>
+        <label>What is the last grade you completed?</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Work_Hours_from_and_to__c</fullName>
+        <description>Copied from Contact when Assessment saved until completion</description>
+        <externalId>false</externalId>
+        <label>Work Hours (from and to)</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>aCaseCoordinator</label>
+    <nameField>
+        <label>aCaseCoordinator Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>aCaseCoordinators</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

@@ -1,0 +1,94 @@
+<apex:page sidebar="false" controller="allCourtsController" cache="false" renderAs="pdf"
+     applyBodyTag="false"> 
+<head> 
+<style>
+      @page {
+            size: letter;
+               margin: 10mm;
+               position: absolute;
+               top: 0;
+                @top-center {
+                    content: "Clients with Court dates {!from_to}";
+                }
+                @top-right {
+                    content: "Page " counter(page) " of " counter(pages);
+                }
+                @bottom-left {
+                    content: "Printed:  {!currentDate}";
+                }
+            
+             .pagenumber:before {
+                content: counter(page);
+            }
+            
+            .pagecount:before {
+                content: counter(pages - 1);
+            }
+         
+       }
+                     
+     
+     </style> 
+</head>   
+<style>
+.even{
+   background-color: #fcefa1;
+}
+.odd{
+   background-color: #f7f7f7;
+}
+</style>
+ 
+<apex:form id="frm2"> 
+<!--  <apex:outPutLabel value="Records:  {!numbers}" />&nbsp;&nbsp;-->
+  <apex:outPutLabel value="Boro: {!BoroValue}" id="lblCourt" />&nbsp;&nbsp; 
+ <!-- <apex:outPutLabel value="Selected Team: {!teamValue}" id="lblTeam" />-->
+  <apex:outPutLabel value="Court Representative:" rendered="{!crValue<>'All'}"/>
+ <apex:outPutLabel value="Case Coordinator:" rendered="{!ccValue<>'All'}"/>&nbsp;
+  <apex:outPutLabel value="{!staffName}" rendered="{!crValue<>'All'||ccValue<>'All'}"/> 
+
+<!--<apex:pageBlock >-->
+<apex:variable var="cnt" value="{!0}" /> 
+
+  <apex:repeat value="{!mainnodes}" var="parent1" id="nodes" >
+ <!--   <apex:outputLabel value="{!parent1.d.courtdate}" />--> 
+    <br/>
+    <apex:repeat value="{!parent1.e}" var="child" id="clients" >
+      <apex:outPutPanel rendered="{!child.activitydate==parent1.d.activitydate}">
+      <apex:dataTable value="{!child}" var="t"  columns="8" cellspacing="0" 
+      columnsWidth="70,100px,185px,40px,80px,100px,65px,60px" cellPadding="5"
+      width="100%" border="0.1">
+     <apex:column >
+       <apex:outputtext value="{!t.courtdate}" style="border-color:Lightgray; font-size:14px;"/>
+     </apex:column>
+     <apex:column >
+       <apex:outputText value="{!t.courtcode}" />&nbsp;
+       <apex:outputText value="{!t.courtpart}" rendered="{!child.activitydate==parent1.d.activitydate}"
+         style="border-color:Lightgray; font-size:14px;font-weight:bold;"/>
+       </apex:column> 
+     <apex:column >
+       <apex:outputText value="{!t.clientname}" style="border-color:Lightgray; font-size:14px;" />
+     </apex:column> 
+     <apex:column >
+       <apex:outputText value="{!t.pcid}" style="border-color:Lightgray; font-size:14px;" />
+     </apex:column>             
+   <apex:column >
+     <apex:outputText value="{!t.cnysid}" style="border-color:Lightgray; font-size:14px;" />
+   </apex:column>             
+   <apex:column >
+     <apex:outputText value="{!t.documentname}" style="border-color:Lightgray; font-size:14px;"/>
+   </apex:column>             
+   <apex:column >
+     <apex:outputText value="{!child.btnProblemCaption}" rendered="{!child.btnProblemCaption!=''}"
+            style="border-color:Lightgray; font-size:14px;"/>
+   </apex:column>
+   <apex:column >
+     <apex:outPutText value="{!child.statusCaption}" rendered="{!child.statusCaption!=''}"
+         style="border-color:Lightgray;font-size:14px;"/>
+   </apex:column>
+ </apex:dataTable>
+ </apex:outPutPanel>
+  </apex:repeat>
+  </apex:repeat>
+</apex:form>
+</apex:page>

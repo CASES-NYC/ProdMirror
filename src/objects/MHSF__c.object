@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>AssessmentContainerId__c</fullName>
+        <externalId>false</externalId>
+        <label>AssessmentContainerId</label>
+        <referenceTo>AssessmentContainer__c</referenceTo>
+        <relationshipLabel>aMHSFs</relationshipLabel>
+        <relationshipName>aMHSFs</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q01_Talked_to_psychiatrist__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever talked to a psychiatrist, psychologist, therapist, social worker, or counselor about an emotional problem?</inlineHelpText>
+        <label>MHSF Q01 Talked to psychiatrist?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q02_Felt_you_needed_help__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever felt you needed help with your emotional problems, or have you had people tell you that you should get help?</inlineHelpText>
+        <label>MHSF Q02 Felt you needed help?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q03_Ever_been_advised_to_take_meds__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever been advised to take medication for anxiety, depression, hearing voices, or for any other emotional problem?</inlineHelpText>
+        <label>MHSF Q03 Ever been advised to take meds?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q04_Been_hospitalized_for_psych__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever been seen in a psychiatric emergency room or been hospitalized
+for psychiatric reasons?</inlineHelpText>
+        <label>MHSF Q04 Been hospitalized for psych?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q05_Heard_voices__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever heard voices no one else could hear or seen objects which others
+could not see?</inlineHelpText>
+        <label>MHSF Q05 Heard voices?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q06a_Been_depressed__c</fullName>
+        <externalId>false</externalId>
+        <label>MHSF Q06a Been depressed?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q06b_Ever_attempt_to_kill_yourself__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did you ever attempt to kill yourself?</inlineHelpText>
+        <label>MHSF Q06b Ever attempt to kill yourself</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q07_Have_you_ever_had_nightmares__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever had nightmares or flashbacks as a result of being involved in a
+traumatic/terrible event?</inlineHelpText>
+        <label>MHSF Q07 Have you ever had nightmares?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q08_Experienced_any_strong_fears__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever experienced any strong fears? For example, heights, insects,
+animals, dirt, attending social events, etc?</inlineHelpText>
+        <label>MHSF Q08 Experienced any strong fears?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q09_Given_in_to_an_aggressive_urge__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever given in to an aggressive urge or impulse, on more than one occasion, that resulted in serious harm to others or led to the destruction of property?</inlineHelpText>
+        <label>MHSF Q09 Given in to an aggressive urge?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q10_People_are_against_you__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever felt that people had something against you, without them
+necessarily saying so, or that someone or some group may be trying to influence
+your thoughts or behaviors?</inlineHelpText>
+        <label>People are against you?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q11_Emotional_problems_with_sex__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever experienced any emotional problems associated with your sexual
+interests, your sexual activities, or your choice of sexual partner?</inlineHelpText>
+        <label>Emotional problems with sex</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q12_Worried_about_gaining_weight__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Was there ever a period in your life when you spent a lot of time thinking and
+worrying about gaining weight, becoming fat, or controlling your eating?</inlineHelpText>
+        <label>Worried about gaining weight?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q13_Full_of_energy__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever had a period of time when you were so full of energy and your
+ideas came very rapidly, when you talked nearly non-stop, when you moved
+quickly from one activity to another, and believed you could do almost anything?</inlineHelpText>
+        <label>Full of energy</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q14_Attacks_of_anxiety__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever had spells or attacks when you suddenly felt anxious, frightened,
+uneasy to the extent that you began sweating, your heart began to beat rapidly, you were shaking or trembling, your stomach was upset, or you felt dizzy or unsteady?</inlineHelpText>
+        <label>Attacks of anxiety</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q15_Persistent_repetitive_impulse__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever had a persistent, lasting thought or impulse to do something over
+and over that caused you considerable distress and interfered with normal
+routines, work, or your social relations?</inlineHelpText>
+        <label>Persistent, repetitive impulse</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q16_Gambling_impulse__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever lost considerable sums of money through gambling or had
+problems at work, in school, with your family and friends as a result of your
+gambling?</inlineHelpText>
+        <label>Gambling impulse</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q17_Special_Learning_Problem__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever been told by teachers, guidance counselors, or others that you have
+a special learning problem?</inlineHelpText>
+        <label>Special Learning Problem</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q1_Talked_to_psychiatrist__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever talked to a psychiatrist, psychologist, therapist, social worker, or counselor about an emotional problem?</inlineHelpText>
+        <label>Talked to psychiatrist?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q2_Felt_you_needed_help__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever felt you needed help with your emotional problems, or have you had people tell you that you should get help?</inlineHelpText>
+        <label>Felt you needed help?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q3_Ever_been_advised_to_take_meds__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever been advised to take medication for anxiety, depression, hearing voices, or for any other emotional problem?</inlineHelpText>
+        <label>Ever been advised to take meds?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q4_Been_hospitalized_for_psych__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever been seen in a psychiatric emergency room or been hospitalized
+for psychiatric reasons?</inlineHelpText>
+        <label>Been hospitalized for psych?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q5_Heard_voices__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever heard voices no one else could hear or seen objects which others
+could not see?</inlineHelpText>
+        <label>Heard voices?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q6a_Been_depressed__c</fullName>
+        <externalId>false</externalId>
+        <label>Been depressed?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q6b_Ever_attempt_to_kill_yourself__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did you ever attempt to kill yourself?</inlineHelpText>
+        <label>Ever attempt to kill yourself</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q7_Have_you_ever_had_nightmares__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever had nightmares or flashbacks as a result of being involved in a
+traumatic/terrible event?</inlineHelpText>
+        <label>Have you ever had nightmares?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q8_Experienced_any_strong_fears__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever experienced any strong fears? For example, heights, insects,
+animals, dirt, attending social events, etc?</inlineHelpText>
+        <label>Experienced any strong fears?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Q9_Given_in_to_an_aggressive_urge__c</fullName>
+        <externalId>false</externalId>
+        <label>Given in to an aggressive urge</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MHSF_Total_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(ispickval( MHSF_Q1_Talked_to_psychiatrist__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q2_Felt_you_needed_help__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q3_Ever_been_advised_to_take_meds__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q4_Been_hospitalized_for_psych__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q5_Heard_voices__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q6a_Been_depressed__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q6b_Ever_attempt_to_kill_yourself__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q7_Have_you_ever_had_nightmares__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q8_Experienced_any_strong_fears__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q9_Given_in_to_an_aggressive_urge__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q10_People_are_against_you__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q11_Emotional_problems_with_sex__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q12_Worried_about_gaining_weight__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q13_Full_of_energy__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q14_Attacks_of_anxiety__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q15_Persistent_repetitive_impulse__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q16_Gambling_impulse__c , &quot;Yes&quot;), 1, 0) + 
+if(ispickval( MHSF_Q17_Special_Learning_Problem__c  , &quot;Yes&quot;), 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>MHSF Total Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>aMHSF</label>
+    <nameField>
+        <displayFormat>A{0000}</displayFormat>
+        <label>aMHSF Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>aMHSFs</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

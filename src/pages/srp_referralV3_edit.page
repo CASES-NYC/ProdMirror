@@ -1,0 +1,419 @@
+<apex:page standardcontroller="Referral__c" sidebar="false" extensions="referralExtension" >
+<apex:messages />
+    <apex:sectionheader title="{!$ObjectType.Referral__c.label} Detail" subtitle="{!Referral__c.Firstname__c + ' ' + Referral__c.Lastname__c}"/>
+    <chatter:feedwithfollowers entityId="{!Referral__c.Id}"/>
+    <apex:form >
+        <apex:pageblock mode="edit" title="{!$ObjectType.Referral__c.label} Edit/New">
+            <apex:pageblockbuttons >
+                <apex:commandbutton value="Save" action="{!Save}" />                          
+                <apex:commandbutton value="Cancel" action="{!Cancel}"/>
+            </apex:pageblockbuttons>
+            <apex:outputpanel >
+                <apex:pageblocksection title="Eligibility & Status" showheader="true" columns="1" >
+                    <apex:panelGrid columns="4" columnClasses="colstyle" width="800px">
+                        <apex:outputLabel value="Eligibility"/>
+                        <apex:outputField value="{!Referral__c.Ineligible__c}"/>
+                        <apex:outputLabel >Screening Stage</apex:outputLabel>
+                        <apex:outputField value="{!Referral__c.Screening_Stage_Calc__c}"/>
+                    </apex:panelGrid>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Referral" showheader="true" columns="3">
+                    <apex:outputText value="Referral Date" style="font-size:1.2em; border-style: solid; border-width:thin; padding:3px"/> 
+                    <apex:outputText value="Referred By"  style="font-size:1.2em; border-style: solid; border-width:thin; padding:3px"/>
+                    <apex:outputText value="Screening Date"  style="font-size:1.2em; border-style: solid; border-width:thin; padding:3px"/>
+                        <apex:pageBlockSectionItem ><apex:inputField value="{!Referral__c.Referral_Date__c}" /></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:inputField value="{!Referral__c.ReferredBy__c}" /></apex:pageBlockSectionItem>                      
+                        <apex:pageBlockSectionItem ><apex:inputField value="{!Referral__c.Screening_Date__c}"/> </apex:pageBlockSectionItem> 
+                    <apex:outputText value="Court"  style="font-size:1.2em; border-style: solid; border-width:thin; padding:3px"/>
+                    <apex:outputText value="Part"  style="font-size:1.2em; border-style: solid; border-width:thin; padding:3px"/>
+                    <apex:outputText value="Borough"  style="font-size:1.2em; border-style: solid; border-width:thin; padding:3px"/>
+                        <apex:pageBlockSectionItem ><apex:inputField value="{!Referral__c.Court__c}" /></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:inputField value="{!Referral__c.Court_Part_global__c}" /></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:inputField value="{!Referral__c.Court_Borough__c}" /></apex:pageBlockSectionItem>
+                    <apex:outputText value="Court Representative"  style="font-size:1.2em; border-style: solid; border-width:thin; padding:3px"/>
+                    <apex:outputText value="Shift"  style="font-size:1.2em; border-style: solid; border-width:thin; padding:3px"/>
+                    <apex:outputText value="" />
+                        <apex:pageBlockSectionItem ><apex:inputField value="{!Referral__c.Court_Representative__c}" /></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:inputField value="{!Referral__c.Shift__c}" /></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>                                                                
+                </apex:pageblocksection>
+                 
+                <apex:pageblocksection title="Candidate Information" showheader="true" columns="4">
+                    <apex:outputText value="First Name" style="font-size:1.2em; border-style: solid; border-width:thin; padding:3px"/> 
+                    <apex:outputText value="Last Name"  style="font-size:1.2em; border-style: solid; border-width:thin; padding:3px"/>
+                    <apex:outputText value="Date of Birth"  style="font-size:1.2em; border-style: solid; border-width:thin; padding:3px"/>
+                    <apex:outputText value="NYSID"  style="font-size:1.2em; border-style: solid; border-width:thin; padding:3px"/>                 
+                        <apex:pageBlockSectionItem ><apex:inputField value="{!Referral__c.Firstname__c}" required="true"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:inputField value="{!Referral__c.Lastname__c}"  required="true"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:inputField value="{!Referral__c.DOB__c}"  required="true"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:inputField value="{!Referral__c.NYSID__c}" style="text-transform:uppercase" required="true"/></apex:pageBlockSectionItem>
+                </apex:pageblocksection>
+
+
+                <apex:pageBlockSection title="Charges" showHeader="true"/>
+                    <table style="width:100%" id="docketTable" columns="4" border="2">
+                        <tr>
+                            <th>Docket 1</th>                            
+                            <th>Docket 2</th>
+                            <th>Docket 3</th>
+                            <th>Docket 4</th>
+                        </tr>
+                        <tr>
+                            <td width="25%">
+                                <apex:panelGrid columns="2">
+                                    <apex:outputText value="Docket #: "/>
+                                    <apex:outputText value="Indictment #: "/>      
+                                    <apex:inputField value="{!Referral__c.Docket__c}" style="width:110px" required="false"/>
+                                    <apex:inputField value="{!Referral__c.Indictment__c}" style="width:110px" required="false"/>
+                                    <apex:outputText value="Arrest Date:"/>
+                                    <apex:inputField value="{!Referral__c.Arrest_Date__c}"  required="false"/>
+                                    <apex:outputText value="Arrest #:" />
+                                    <apex:inputField value="{!Referral__c.Arrest_Number__c}"  required="false"/>
+                                    <apex:outputText value="Complaint:" />
+                                    <apex:inputField value="{!Referral__c.Complaint_1__c}" style="width:210px"/>
+                                    <apex:outputText value="Charge 1:" />
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_A1__c}" />             
+                                    </apex:outputPanel>
+                                    
+                                    <apex:outputText value="Charge 2:" />
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_A2__c}" />             
+                                    </apex:outputPanel>
+
+                                    <apex:outputText value="Charge 3:" />
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_A3__c}" />             
+                                    </apex:outputPanel>
+
+                                    <apex:outputText value="Charge 4:" />
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_A4__c}" />             
+                                    </apex:outputPanel>
+
+                                    <apex:outputText value="Charge 5:" />
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_A5__c}" />             
+                                    </apex:outputPanel>
+
+                                    <apex:outputText value="Notes:" />
+                                    <apex:inputField value="{!Referral__c.Notes_1__c}" style="width:210px"/>
+                                </apex:panelGrid>
+                            </td>
+                            <td width="25%">
+                                <apex:panelGrid columns="1">
+                                    <apex:outputText value="Docket #: "/>
+                                    <apex:inputField value="{!Referral__c.Docket2__c}" style="width:110px" />                        
+                                    <apex:inputField value="{!Referral__c.Arrest_Date2__c}" />
+                                    <apex:inputField value="{!Referral__c.Arrest_Number2__c}" />
+                                    <apex:inputField value="{!Referral__c.Complaint_2__c}" style="width:210px"/>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_B1__c}" />             
+                                    </apex:outputPanel>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_B2__c}" />             
+                                    </apex:outputPanel>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_B3__c}" />             
+                                    </apex:outputPanel>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_B4__c}" />             
+                                    </apex:outputPanel>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_B5__c}" />             
+                                    </apex:outputPanel>                                    
+                                    <apex:inputField value="{!Referral__c.Notes_2__c}" style="width:210px"/>
+                                </apex:panelGrid>
+                            </td>
+                            <td width="25%">
+                                <apex:panelGrid columns="1">
+                                    <apex:outputText value="Docket #: "/>
+                                    <apex:inputField value="{!Referral__c.Docket3__c}" style="width:110px"/>                        
+                                    <apex:inputField value="{!Referral__c.Arrest_Date3__c}" />
+                                    <apex:inputField value="{!Referral__c.Arrest_Number3__c}" />
+                                    <apex:inputField value="{!Referral__c.Complaint_3__c}" style="width:210px"/>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_C1__c}" />             
+                                    </apex:outputPanel>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_C2__c}" />             
+                                    </apex:outputPanel>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_C3__c}" />             
+                                    </apex:outputPanel>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_C4__c}" />             
+                                    </apex:outputPanel>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_C5__c}" />             
+                                    </apex:outputPanel>
+
+                                    <apex:inputField value="{!Referral__c.Notes_3__c}" style="width:210px"/>
+                                </apex:panelGrid>
+                            </td>
+                            <td  width="25%">
+                                <apex:panelGrid columns="1">
+                                    <apex:outputText value="Docket #: "/>
+                                    <apex:inputField value="{!Referral__c.Docket4__c}" style="width:110px"/>                        
+                                    <apex:inputField value="{!Referral__c.Arrest_Date4__c}" />
+                                    <apex:inputField value="{!Referral__c.Arrest_Number4__c}" />
+                                    <apex:inputField value="{!Referral__c.Complaint_4__c}" style="width:210px"/>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_D1__c}" />             
+                                    </apex:outputPanel>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_D2__c}" />             
+                                    </apex:outputPanel>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_D3__c}" />             
+                                    </apex:outputPanel>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_D4__c}" />             
+                                    </apex:outputPanel>
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!Referral__c.Charge_D5__c}" />             
+                                    </apex:outputPanel>
+                                    <apex:inputField value="{!Referral__c.Notes_4__c}" style="width:210px"/>
+                                </apex:panelGrid>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <apex:outputLabel >Do charges include domestic violence?&nbsp;&nbsp;</apex:outputLabel>
+                                <apex:inputField value="{!Referral__c.Domestic_Violence_Charges__c}" />
+                            </td>
+                        </tr>
+                    </table>
+                <apex:pageblocksection title="MOCJ Risk Assessment" showheader="true" columns="1">
+                    <apex:outputField value="{!Referral__c.MOCJ_Risk_Category__c}" /> 
+                    <apex:outputField value="{!Referral__c.Age_at_Arrest_Calc__c}"/>
+                    <apex:selectRadio value="{!Referral__c.RA_Open_Cases__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>
+                    <apex:selectRadio value="{!Referral__c.RA_First_Arrest__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>
+                    <apex:selectRadio value="{!Referral__c.Warrant_last_4yrs__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>
+                    <apex:selectRadio value="{!Referral__c.RA_Misdemeanor_last_1yr__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>                    
+                    <apex:selectRadio value="{!Referral__c.RA_Felony_last_9yrs__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>
+                    <apex:selectRadio value="{!Referral__c.RA_Drug_last_9yrs__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>
+                    <apex:selectRadio value="{!Referral__c.RA_CJA_Fulltime_Activity__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>
+                </apex:pageblocksection> 
+                <apex:outputPanel layout="block" style="text-align:center">
+                    <hr/>
+                    <apex:commandLink action="{!reloadPage}" value="CLICK TO REFRESH PAGE" id="reload1" style="color:#0000FF"/>
+                    <hr/>                
+                </apex:outputPanel>
+</apex:outputPanel>
+<apex:outputPanel rendered="false" >                
+                    <apex:pageblocksection title="Charge Information" showheader="true" columns="2">
+                    <apex:inputfield value="{!Referral__c.Top_arraignment_charge_Court_Docs__c}"/>
+                    <apex:outputfield value="{!Referral__c.Charge_Information_Court_Docs__c}" / >
+                    <hr/>
+                    <tr class="topArraignment">
+
+                        <th class="labelCol vfLabelColTextWrap">Top Arraignment Charge CC</th>
+                        <td>
+                            <p>No arraignment selected</p>
+                            <apex:inputHidden value="{!Referral__c.Top_Arraignment_Charge_CC_lu__c}" />
+                        </td>
+                    </tr>                   
+                    
+
+                    <apex:outputfield styleClass="chargeInfo" value="{!Referral__c.Charge_Information__c}" / >                    
+                    <apex:outputfield styleClass="chargeExcludes" value="{!Referral__c.Charge_Excludes_SRP__c}" / > 
+                    <apex:inputField value="{!Referral__c.CJA_Score__c}"  required="false"/>                            
+                </apex:pageblocksection>
+                <apex:outputPanel layout="block" style="text-align:center">
+                    <hr/>
+                    <apex:commandLink action="{!reloadPage}" value="CLICK TO REFRESH PAGE" id="reload2" style="color:#0000FF"/>
+                    <hr/>                
+                </apex:outputPanel>                                                                                  
+
+                <apex:pageblocksection title="Criminal History" showheader="true" columns="2"/>
+                    <apex:panelGrid columns="2" cellspacing="15" style="align:top">
+                        <apex:panelGroup style="align:top">
+                            <table columns="3" border="2" cellpadding="5px" align="top">
+                                <tr><th></th><th>Prior Arrests</th><th>Prior Convictions</th></tr>
+                                <tr><td>Felony</td><td><apex:inputField value="{!Referral__c.Prior_Arrests_Felony__c}"/></td><td><apex:inputField value="{!Referral__c.Prior_Convictions_Felony__c}"/></td></tr>
+                                <tr><td>Misdemeanor</td><td><apex:inputField value="{!Referral__c.Prior_Arrests_Misdemeanor__c}"/></td><td><apex:inputField value="{!Referral__c.Prior_Convictions_Misdemeanor__c}"/></td></tr>
+                                <tr><td>Total:</td><td><apex:outputField value="{!Referral__c.Prior_Arrests_Total__c}"/></td><td><apex:outputField value="{!Referral__c.Prior_Convictions_Total__c}"/></td></tr>
+                                <tr><td colspan="2"># of convictions in the past 12 months:</td><td><apex:inputField value="{!Referral__c.Convictions_in_past_12_months__c}"/></td></tr>
+                            </table>
+                        </apex:panelGroup>
+                        <apex:panelGroup >
+                            <apex:panelGrid columns="2" border="2" cellpadding="10px">
+                                <apex:outputLabel value="# of FTA/Warrants"/>
+                                <apex:inputField value="{!Referral__c.FTA_Warrants_Num__c}" />
+                                <apex:outputLabel value="Prior conviction(s) for violence"/>
+                                <apex:selectRadio value="{!Referral__c.Prior_Conviction_Violence__c}" styleClass="radioClass">
+                                    <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                    <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                                </apex:selectRadio>    
+                                <apex:outputLabel value="If yes, enter date of conviction(s) and PL code(s)"/>
+                                <apex:inputField value="{!Referral__c.Convictions_Violence__c}" />
+                                <apex:outputLabel value="730 Evaluation"/>
+                                <apex:selectRadio value="{!Referral__c.X730_Evaluation_pl__c}" styleClass="radioClass">
+                                    <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                    <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                                </apex:selectRadio>                                
+                            </apex:panelGrid>
+                        </apex:panelGroup>
+                    </apex:panelGrid>
+
+                <apex:pageblocksection title="Case Information - Misc." showheader="true" columns="2">
+                    <apex:inputField value="{!Referral__c.BookCaseNumber__c}" />
+
+                    <apex:inputField value="{!Referral__c.Judge__c}" />
+                </apex:pageblocksection>                             
+                <apex:pageblocksection title="Parole/Probation" showheader="true" columns="2">
+                    <apex:selectRadio value="{!Referral__c.Current_Parole_Probation__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="None Currently" itemvalue="None Currently"/>
+                        <apex:selectoption itemLabel="Parole" itemvalue="Parole"/>
+                        <apex:selectoption itemLabel="Probation" itemvalue="Probation"/>                    
+                    </apex:selectRadio>                
+                    <!-- apex:inputField value="{!Referral__c.Current_Parole_Probation__c}" / -->
+                    <apex:inputField value="{!Referral__c.Parole_Probation_Officer__c}" />
+                    <apex:inputField value="{!Referral__c.MaxExpDate_Parole_Probation__c}" />
+                    <!-- apex:inputField value="{!Referral__c.Contacted_Officer__c}" / -->
+                    <apex:selectRadio value="{!Referral__c.Contacted_Officer__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                  
+                    </apex:selectRadio>                     
+                </apex:pageblocksection>
+                <apex:pageblocksection title="If Officer does not exist in Salesforce, enter here, but need to add later then)" showheader="true" columns="1">
+                    <apex:inputField value="{!Referral__c.Officer_Name_Phone__c}" />
+                </apex:pageblocksection>
+                
+                <apex:pageblocksection title="Consent" showheader="true" columns="2">
+                    <apex:selectRadio value="{!Referral__c.Client_Consent_to_Screening__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>                     
+                    <apex:pageblocksectionitem />
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Attorney" showheader="true" columns="2">
+                    <apex:inputField value="{!Referral__c.Attorney_lu__c}" />
+                    <apex:selectRadio value="{!Referral__c.Attorney_Consent__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>                        
+                    <apex:pageblocksectionitem />
+                </apex:pageblocksection>                
+                <apex:pageblocksection title="Referral Outcome" showheader="true" columns="1" >
+                    <apex:panelGrid columns="4" columnClasses="colstyle" width="1000px">
+                        <apex:outputLabel value="Eligibility"/>
+                        <apex:outputField value="{!Referral__c.Ineligible__c}"/>
+                        <apex:outputLabel >Arraignment Outcome</apex:outputLabel>
+                        <apex:inputField value="{!Referral__c.Arraignment_Outcome__c}"/>
+                    </apex:panelGrid>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Referral Outcome" showheader="false" columns="2">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Screening Outcome"/>
+                        <apex:inputField value="{!Referral__c.Referral_is_Ineligible__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel >Reason (if other)</apex:outputLabel>
+                        <apex:inputField value="{!Referral__c.Ineligible_Reason__c}"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageblocksection>                
+                <apex:pageblocksection title="System Information" showheader="true" columns="2">
+                    <apex:outputField value="{!Referral__c.Name}"/>
+                    <apex:outputField value="{!Referral__c.OwnerId}"/>
+                </apex:pageblocksection>
+            </apex:outputpanel>
+        </apex:pageblock>
+    </apex:form>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<script>
+function setFocusOnLoad() {}
+
+function calculateTopArraignment() {
+    var max = -1; var exclusion = false;
+    var id; var name;
+    $('.selectpicker option:selected').each(function() {
+        var $this = $(this),
+        $id = $this.attr('value'),
+        $name = $this.text(),
+        score = parseFloat($this.attr('data-score')),
+        $exclusion = $this.attr('data-exclusion') == "true";
+        if ($exclusion) exclusion = true;
+        
+        if ($id != undefined && (!exclusion || $exclusion) && max < score) {
+            max = score; id = $id; name = $name;
+            $('th:contains("Charge Information") + td').html($this.attr('data-subtext'));
+            $('th:contains("Charge Excludes SRP") + td').html(($exclusion) ? 'Yes' : '');
+            $('th:contains("Ineligible?")').css('width', 90);
+            $('th:contains("Ineligible?") + td').html(($exclusion) ? 'Yes' : '');
+
+        }
+
+    });
+    if (id != null) {
+        $('.topArraignment input[type=hidden]').val(id);
+        $('.topArraignment p').html(name).attr('title', max);
+    }
+    
+}
+$(document).ready(function() {
+    $(".selectpicker").on('change', function() {
+        var val = $(this).val();
+        $(this).closest('.chargePanel').find('input[type=hidden]').val(val);
+        calculateTopArraignment();
+    });
+
+
+});
+</script>
+<style type="text/css"> 
+    #docketTable th, #docketTable td {padding:8px;}
+   .colstyle {width:15%}   
+    input[type=radio] { margin-left: 20px;}
+    .radioClass { margin-left: -20px; font-weight:normal;}
+</style>
+</apex:page>

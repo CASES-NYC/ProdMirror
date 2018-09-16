@@ -1,0 +1,351 @@
+<apex:page controller="courseEnrollment" title="Enrollment" action="{!init}">
+
+<!-- 
+    <apex:includeScript value="{!URLFOR($Resource.jQueryUI,'/js/jquery-1.6.2.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQueryUI, 'js/jquery-ui-1.8.15.custom.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.jQuery,'/jQuery/jquery.tablesorter.min.js')}" />
+    <apex:stylesheet id="style1" value="{!URLFOR($Resource.jQuery,'/jQuery/style.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.jQueryUI,'/css/redmond/jquery-ui-1.8.15.custom.css')}" />
+-->
+
+    <script src="{!URLFOR($Resource.jQuery_191,'jQueryUI-1.10.3/jquery-1.9.1.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191, 'jQueryUI-1.10.3/ui/jquery-ui.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />  
+    
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/style.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQueryUI-1.10.3/css/redmond/jquery-ui-1.8.15.custom.css')}" />
+    
+    <apex:sectionHeader title="Class Enrollment" />
+    <script> function setFocusOnLoad() {} </script>
+    
+    <script>
+    
+        
+        function stopEnter(ev) {
+        
+            if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+                afSubmitSearch();
+                return false;
+             } else {
+                  return true;
+             }
+
+        }
+        
+        function reloadClients() {
+            afSubmitSearch();
+        }
+        
+        function changeSearchType() {
+            afRerenderPbsSearch();
+        }
+        
+        ////////////////////////////////////////
+        // jQuery Functions
+        ////////////////////////////////////////
+
+        var j$ = jQuery.noConflict();        
+        var intCheckCount = 0;
+    
+        j$(function() {
+        
+            //j$( "#divLoading" ).dialog( "close" );
+            
+            /////////////////////////////////
+            // jQuery Modal Dialog - LOADING STATUS
+            /////////////////////////////////
+            
+            j$( "#divLoading" ).dialog({
+                autoOpen: false,
+                height: 180,
+                modal: true,
+                resizable: false,
+                draggable: false,
+            });
+            
+            j$('.EnrollChk').change(function() {
+                
+                if(j$(this).is(":checked")) {
+                    intCheckCount += 1;
+                } else {
+                    intCheckCount += -1;
+                }
+
+                if(intCheckCount > {!intMaxEnrollment}) {
+                    alert('It is recommended to only enroll {!intMaxEnrollment} Clients at once.  When you have reached this number, please submit these {!intMaxEnrollment} Clients and wait for the system to complete the action before selecting additional Clients.');
+                }
+                
+            });
+            
+        });
+        
+        function statusShow() {
+            j$( "#divLoading" ).dialog( "open" );
+        }
+        
+        function statusHide() {
+            j$( "#divLoading" ).dialog( "close" );
+        }        
+    
+    </script>
+    
+    <apex:pageBlock >
+    
+        <apex:pageBlockSection collapsible="false" title="Class Information">
+            <table border="0" cellPadding="3" cellSpacing="0" width="900px">
+                <tr>
+                    <td width="33%">
+                        <strong>Area:</strong> {!clCurrent.AreaRPT__c}<br />
+                        
+                    </td>
+                    <td width="33%">
+                        <strong>Class:</strong> {!clCurrent.Class_Title__c}<br />
+                    </td>
+                    <td width="33%">
+                        <strong>Max Suggested Size:</strong> {!clCurrent.Suggested_Max_Size__c}
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <strong>Category:</strong> {!clCurrent.CategoryRPT__c}
+                    </td>
+                    <td>
+                        <strong>Instructor:</strong>  {!clCurrent.Instructor_1__r.Name}
+                    </td>
+                    <td>
+                        <table cellpadding="0" cellspacing="0">
+                        <tr><td>
+                            <strong>Weekly Schedule:</strong>
+                        </td></tr>
+                        <tr>
+                            <apex:outputText value="{!strSchedule}" escape="false" />
+                        </tr>
+                        </table>
+                    </td>
+                    
+                                    
+                </tr>               
+            </table>
+        </apex:pageBlockSection>
+        
+        <apex:form id="frmCriteria">
+        <apex:actionFunction name="afSubmitSearch" action="{!doNothing}" rerender="opEnrollees" status="counterStatus"/>
+        <apex:actionFunction name="afRerenderPbsSearch" action="{!changeSearchType}" rerender="pbsSearch" />
+        
+            
+        <apex:pageBlockSection collapsible="false" title="Period of Enrollment" columns="1">
+            <apex:outputPanel id="sessionInfo">
+            <table border="0" cellPadding="3" cellSpacing="0" width="900px">
+                <tr>
+                    <td>
+                        <strong>Starting Session:</strong>&nbsp;
+                        <apex:selectList id="slSessionStart" value="{!strSessionStart}" size="1" onchange="reloadClients();">
+                            <apex:selectOptions value="{!SessionStart}" />
+                        </apex:selectList>
+                    </td>
+                    <td>
+                        <strong><apex:outputText value="Session End:" /></strong>&nbsp;
+                        <apex:selectList id="slSessionEnd" value="{!intSessionEnd}" size="1" disabled="{!not(bolShowSessionEnd)}">
+                            <apex:selectOptions value="{!SessionEnd}" />
+                        </apex:selectList>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <br/>Note: Starting Session will be the date selected student will start attending the class. Session End will be the last date they are scheduled to attend the class.
+                    </td>
+                </tr>
+            </table>
+            </apex:outputPanel>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection collapsible="false" title="Search Criteria" id="pbsSearch" columns="1">
+            <apex:outputPanel id="opTest">
+            <table border="0" cellPadding="3" cellSpacing="0" width="900px">
+                <tr>
+                    <td colspan="3">
+                        <apex:selectRadio id="slSearchType" value="{!strSearchType}" onclick="changeSearchType();">
+                            <apex:selectOptions value="{!soSearchType}" />
+                        </apex:selectRadio>
+                        <br />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td width="30%">
+                        <apex:actionStatus startText=""  stopText="" id="counterStatus" onstart="statusShow();" onstop="statusHide();"/>
+                        <strong>Name:</strong><br />
+                        <apex:inputField value="{!evtSearch.Closed_By__c}" onkeypress="return stopEnter(event);" />
+                        <br />
+
+                        <apex:outputPanel id="opPotentialEnrollees" rendered="{!strSearchType='AllFilters'}">
+                            <strong>Potential Enrollees</strong><br />
+                            <apex:selectList id="slSearchOptions" value="{!intEnrollees}" size="1">
+                                <apex:selectOptions value="{!SearchOptions}" />
+                            </apex:selectList>&nbsp;
+                        </apex:outputPanel>
+
+                        <br/><br/><br/><br/><br/>
+                        <apex:commandLink id="cmdSearch" status="counterStatus" action="{!doNothing}" styleClass="btn" value="Search Clients" rerender="opEnrollees"/><br />
+                        
+                    </td>
+
+                    <td>
+                        <apex:outputPanel id="opProgramsServed" rendered="{!strSearchType='AllFilters'}">
+                            <strong>Program(s) Served</strong><br />
+                            <apex:inputField id="mslProgramsServed" value="{!clSearchClass.Programs_Served__c}" /><br/>
+                            Note: If no values selected, all Clients will be searched
+                        </apex:outputPanel>
+                    </td>
+                    
+                    <td width="20%">
+                        <div align="right">
+                            <apex:commandLink id="cmdPrintRoster" action="{!printRoster}" styleClass="btn" target="_blank" value="Print Roster" /><br />
+                            <br />
+                            <apex:commandLink id="cmdViewConflicts" action="{!viewConflicts}" styleClass="btn" value="View Conflicts" /><br />
+                            <br />
+                            <!-- apex:commandLink id="cmdVerificationPage" action="{!verificationPage}" styleClass="btn" value="Verify Attendance" /><br / -->                         
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            </apex:outputPanel>
+        </apex:pageBlockSection>
+
+        <apex:pageBlockSection collapsible="false" title="Click on a column heading to sort" columns="1">
+        
+            <apex:outputPanel id="opEnrollees">
+            
+                <span id="loadingGif"  style="display:none;">
+                    <table border="0">
+                        <tr>
+                            <td valign="center">
+                                <img src="{!$Resource.loading}" /> 
+                            </td>
+                            <td valign="center">
+                                Loading new data...
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </span>
+                
+                <div align="right">
+                    <font color="red">{!strConflictMessage}</font>&nbsp;&nbsp;
+                    <apex:commandButton id="cmdEnrollTop" action="{!enrollandCheckConflicts}" value="Save" rerender="opEnrollees" status="counterStatus" />&nbsp;&nbsp;
+                    <apex:commandButton id="cmdCancelTop" action="{!cancelAndReturn}" value="Cancel" />
+                </div>
+                
+                <apex:pageBlockTable value="{!Clients}" var="thisClient"
+                headerClass="border-width:1px;border-style:solid;border-color:light grey;background:light blue;">
+                
+                    <apex:column headerValue="Client" 
+                    style="border-width:1px;border-style:solid;border-color:light grey;background:{!thisClient.strBGColor};">
+                    <apex:outputLink value="/{!thisClient.con.Id}" target="_blank">{!thisClient.con.Name}</apex:outputLink>
+                    </apex:column>
+                    
+                    <apex:column value="{!thisClient.con.P_C_ID__c}" headervalue="P/C ID" 
+                    style="border-width:1px;border-style:solid;border-color:light grey;background:{!thisClient.strBGColor};">
+                    </apex:column>
+                    
+                    <apex:column headervalue="Enroll" 
+                    style="border-width:1px;border-style:solid;border-color:light grey;background:{!thisClient.strBGColor};" >
+                        <div align="center">
+                            <apex:inputCheckbox styleClass="EnrollChk" value="{!thisClient.chk}" rendered="{!thisClient.bolEnrolled}" />
+                            <apex:outputText value="Enrolled" rendered="{!thisClient.bolEnrolled == false}" />
+                        </div>                  
+                    </apex:column>
+                    
+                    <apex:column headerValue="Verify Attendance" rendered="{!clCurrent.Record_Type_RPT__c == 'Single'}" 
+                    style="border-width:1px;border-style:solid;border-color:light grey;background:{!thisClient.strBGColor};">
+                        <div align="center">
+                            <apex:inputField value="{!thisClient.evtForSingleClass.Verification_Status__c}" rendered="{!thisClient.bolEnrolled}"/>
+                            <apex:OutputText value="{!thisClient.evtForSingleClass.Verification_Status__c}" rendered="{!thisClient.bolEnrolled == false}"/>
+                        </div>
+                    </apex:column>
+                    
+                    <apex:column headerValue="Case Coordinator" value="{!thisClient.con.Case_Coordinator__r.Name}" 
+                    style="border-width:1px;border-style:solid;border-color:light grey;background:{!thisClient.strBGColor};">
+                    </apex:column>
+                                        
+                    <apex:column headerValue="Exit Date" 
+                    style="border-width:1px;border-style:solid;border-color:light grey;background:{!thisClient.strBGColor};">
+                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                            <apex:param value="{!thisClient.con.Current_Exit_Date__c}" /> 
+                        </apex:outputText>                  
+                    </apex:column>
+                    
+                    <apex:column headerValue="Proj Exit Date" 
+                    style="border-width:1px;border-style:solid;border-color:light grey;background:{!thisClient.strBGColor};">
+                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                            <apex:param value="{!thisClient.con.Current_Projected_Exit_Date__c}" /> 
+                        </apex:outputText>                  
+                    </apex:column>                  
+                </apex:pageBlockTable>
+                
+<!--                <table id="myTable" class="tablesorter" width="900px"> 
+                    <thead> 
+                        <tr> 
+                            <th>Client</th>   
+                            <th>P/C ID</th>   
+                            <th>Enroll</th>
+                            <th>Case Coordinator</th>     
+                            <th>Exit Date</th>     
+                            <th>Proj Exit Date</th> 
+                         </tr>  
+                    </thead> 
+                    <tbody> 
+                        <apex:repeat value="{!Clients}" var="thisClient" >
+                            <tr>   
+                                <td style="background: {!thisClient.strBGColor};"><a href="/{!thisClient.con.Id}" target="_blank">{!thisClient.con.Name}</a></td>
+                                <td style="background: {!thisClient.strBGColor};">{!thisClient.con.P_C_ID__c}</td>
+                                <td style="background: {!thisClient.strBGColor};">
+                                    <div align="center">
+                                        <apex:inputCheckbox styleClass="EnrollChk" value="{!thisClient.chk}" rendered="{!thisClient.bolEnrolled}" />
+                                        <apex:outputText value="Enrolled" rendered="{!thisClient.bolEnrolled == false}" />
+                                    </div>
+                                </td>
+                                <td style="background: {!thisClient.strBGColor};">{!thisClient.con.Case_Coordinator__r.Name}</td>
+                                <td style="background: {!thisClient.strBGColor};">
+                                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!thisClient.con.Current_Exit_Date__c}" /> 
+                                    </apex:outputText>
+                                </td>
+                                <td style="background: {!thisClient.strBGColor};">
+                                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!thisClient.con.Current_Projected_Exit_Date__c}" /> 
+                                    </apex:outputText>
+                                </td>
+                            </tr>       
+                        </apex:repeat>
+                    </tbody> 
+                </table>
+-->
+                
+                <div align="right">
+                    <font color="red">{!strConflictMessage}</font>&nbsp;&nbsp;
+                    <apex:commandButton id="cmdEnrollBottom" action="{!enrollandCheckConflicts}" value="Save" rerender="opEnrollees" status="counterStatus" />&nbsp;&nbsp;
+                    <apex:commandButton id="cmdCancelBottom" action="{!cancelAndReturn}" value="Cancel" />
+                </div>
+                
+                <strong>Default for Active:  All Instances from Selected Start Date until each Client's Projected Exit Date</strong>
+            
+            </apex:outputPanel>
+            
+        </apex:pageBlockSection>
+        </apex:form>
+        
+    </apex:pageBlock>
+    
+    <!---------------------------------------------  
+    -- "divCopyTask" is the modal pop-up for copying
+    -- a scheduled event to another resource
+    ----------------------------------------------->
+    
+    <div id="divLoading" title="Loading Page...">
+        <p>Please wait a moment while the system processes your request...</p>
+    </div>
+    
+    
+</apex:page>

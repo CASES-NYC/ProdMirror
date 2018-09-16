@@ -1,0 +1,537 @@
+<apex:page standardcontroller="SR_Intake_Needs_Assessment__c" extensions="SrNeedsAssessExt" action="{!initialize}">
+<apex:pageMessages />
+    <apex:variable var="srNeeds" value="{!SR_Intake_Needs_Assessment__c}" />
+    <apex:sectionheader title="{!$ObjectType.SR_Intake_Needs_Assessment__c.label} Edit" 
+    subtitle="{!IF(!ISNULL(SR_Intake_Needs_Assessment__c.Name), srNeeds.Participant__r.Name,SR_Intake_Needs_Assessment__c.Name)}"/>
+    <apex:form id="theForm">
+        <apex:pageblock mode="edit" title="{!$ObjectType.SR_Intake_Needs_Assessment__c.label} Edit" id="thePageBlock">
+        <div id="InternalDiv" style="width:1000px;">
+            <apex:pageblockbuttons >
+                <apex:commandbutton value="Save" action="{!Save}"/>
+                <apex:commandbutton value="Cancel" action="{!Cancel}"/>
+            </apex:pageblockbuttons>
+            <apex:outputpanel layout="block" >
+                <apex:pageblocksection title="Information" showheader="true" columns="2">
+                    <apex:inputfield value="{!srNeeds.Name}"/>
+                    <apex:outputfield value="{!srNeeds.AssessmentID__c}"/>
+                    <apex:outputField value="{!srNeeds.Participant__c}"/>
+                    <apex:outputText value="{!srNeeds.Participant__r.Current_Age__c}"/>
+                    <apex:pageblocksectionitem />
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Confirm address information. Correct/Update if necessary." showheader="true" >
+                    <apex:outputField value="{!srNeeds.Participant__r.Primary_Address__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblockSection columns="1">
+                    <apex:panelGrid columns="6" >
+                        <apex:outputText value="Bldg #"/>
+                        <apex:outputText value="Street Name"/>
+                        <apex:outputText value="Apt #" />
+                        <apex:outputText value="Zip Code (Required)" />
+                        <apex:outputLink value="http://nyc.pediacities.com/New_York_City_ZIP_Codes" target="_blank"><p style="color:blue;align:top">NYC Zip Code Map</p></apex:outputLink>
+                        <apex:outputText value="Type of Housing"/> 
+                        <apex:inputfield value="{!addressInfo.Building_No__c}" style="width:60px"  />
+                        <apex:inputfield value="{!addressInfo.Street__c}"/>
+                        <apex:inputfield value="{!addressInfo.Apt_No__c}" style="width:60px"/>
+                        <apex:inputfield value="{!addressInfo.Zip_Code__c}"/>
+                        <apex:pageBlockSectionItem />
+                        <apex:inputfield value="{!addressInfo.Type_of_Housing__c}"/>
+                    </apex:panelGrid>
+                    <apex:panelGrid columns="2" >
+                        <apex:panelGroup >
+                            <apex:outputLabel value="If no address, places you hang out:"/>
+                            <apex:inputField value="{!srNeeds.Hangout_Place__c}" style="width:300px"/> 
+                        </apex:panelGroup>
+                        <apex:panelGroup >           
+                            <apex:outputLabel >Telephone</apex:outputLabel>
+                            <apex:inputfield value="{!srNeeds.Home_Phone__c}" />
+                        </apex:panelGroup>
+                    </apex:panelGrid>
+                </apex:pageblockSection>
+            <apex:pageBlockSection >
+                <apex:outputText ><b>Collateral Contacts</b></apex:outputText>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:panelGrid columns="2">
+                    <apex:panelGroup layout="block">
+                        <apex:outputText value="Primary/Emergency Contact" style="font-weight:bold"/>  
+                        <apex:panelgrid columns="2">
+                            <apex:outputLabel value="Name"/>
+                            <apex:inputField value="{!srNeeds.Participant__r.Primary_Contact_Name__c}"/>
+                            <apex:outputLabel value="Relation"/>
+                            <apex:inputField value="{!srNeeds.Participant__r.Primary_Contact_Relationship__c}"/>
+                            <apex:outputLabel value="Phone"/>
+                            <apex:inputField value="{!srNeeds.Participant__r.Primary_Contact_Phone__c}"/>
+                            <apex:outputLabel value="Address"/>
+                            <apex:inputField value="{!srNeeds.Participant__r.Primary_Contact_Address__c}"/>
+                        </apex:panelgrid>  
+                    </apex:panelGroup>                    
+                    <apex:PanelGroup layout="block">
+                        <apex:outputText value="Secondary Contact" style="font-weight:bold"/>                    
+                        <apex:panelgrid columns="2" >
+                            <apex:outputLabel value="Name"/>                                            
+                            <apex:inputField value="{!srNeeds.Participant__r.Secondary_Contact_Name__c}"/>
+                            <apex:outputLabel value="Relation"/>
+                            <apex:inputField value="{!srNeeds.Participant__r.Secondary_Contact_Relationship__c}"/>
+                            <apex:outputLabel value="Phone"/>
+                            <apex:inputField value="{!srNeeds.Participant__r.Secondary_Contact_Phone__c}"/>
+                            <apex:outputLabel value="Address"/>
+                            <apex:inputField value="{!srNeeds.Participant__r.Secondary_Contact_Address__c}"/>                     
+                        </apex:panelgrid>                         
+                    </apex:PanelGroup>
+                </apex:panelGrid>
+            </apex:pageBlockSection>               
+
+                <apex:pageblocksection title="Social Support" showheader="false" >
+                    <apex:panelGrid columns="1" width="600px">
+                        <apex:outputLabel value="How safe do you feel currently?"/>
+                        <apex:inputfield value="{!srNeeds.How_safe_do_you_feel__c}" style="width:400px"/>
+                        <apex:outputLabel value="Do you have reliable access to food?"/>                    
+                        <apex:inputfield value="{!srNeeds.Reliable_Access_Food__c}" style="width:400px"/>
+                        <apex:outputLabel value="Do you have reliable access to clean clothes?"/>                        
+                        <apex:inputfield value="{!srNeeds.Reliable_Access_Clothing__c}" style="width:400px"/>
+                        <apex:pageblockSectionItem /><apex:pageblockSectionItem />
+                        <apex:outputLabel value="How is your level of social support right now?"/>                                                          
+                        <!--apex:inputfield value="{!srNeeds.Level_of_Social_Support__c}"/ -->
+                        <apex:selectRadio value="{!srNeeds.Level_of_Social_Support__c}" layout="pageDirection" style="width:400px">
+                            <apex:selectoptions value="{!supportLevel}"></apex:selectoptions>
+                        </apex:selectRadio>
+                        <apex:pageblockSectionItem /><apex:pageblockSectionItem />
+                        <apex:outputLabel value="Besides the case that brought you here, are there other legal issues you are dealing with currently?"/>                        
+                        <apex:inputfield value="{!srNeeds.Other_legal_issues__c}" style="width:400px"/>
+                    </apex:panelGrid>
+                </apex:pageblocksection>
+                
+                <apex:pageBlockSection title="Complete the BJMHS if not already completed." showheader="true" columns="2">
+                    <apex:outputText label="BJMHS NOT COMPLETED" rendered="{!BJMHS_Completed}"/>
+                    <apex:outputLink onClick="window.open('/a0U/e?00N60000001rJHy={!srNeeds.Participant__r.Name}&00Nm0000000tITQ={!srNeeds.Participant__c}
+                    &CF00N60000001rJHg={!srNeeds.Participant__r.Name}&CF00N60000001rJHg_lkid={!srNeeds.Participant__c}&ent=01I600000002Mjk&nooverride=1&RecordType=012600000005MlS&isdtp=vw', 
+                    'BJMHS','height=800,width=900,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,status=yes');return false" styleClass="btn" style="text-decoration:none;padding:4px;" rendered="{!BJMHS_completed}">
+                    Click here to go to BJMHS</apex:outputLink>
+                </apex:pageBlockSection>                                    
+
+                <apex:pageBlockSection title="Complete the PHQ-9 (adult) if not already completed." showheader="true" columns="2" rendered="{!isAdult = 'YES'}" >
+                    <apex:outputText label="PHQ-9 NOT COMPLETED" rendered="{!PHQ9_completed}" />
+                    <apex:outputLink onClick="window.open('/a0U/e?00N60000001rJHy={!srNeeds.Participant__r.Name}&00Nm0000000tITQ={!srNeeds.Participant__c}
+                    &CF00N60000001rJHg={!srNeeds.Participant__r.Name}&CF00N60000001rJHg_lkid={!srNeeds.Participant__c}&ent=01I600000002Mjk&nooverride=1&RecordType=012600000005MsE&isdtp=vw', 
+                    'PHQ9','height=800,width=900,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,status=yes');return false"  styleClass="btn" style="text-decoration:none;padding:4px;" rendered="{!PHQ9_completed}">
+                    Click here to go to PHQ-9</apex:outputLink>
+
+                </apex:pageBlockSection>                                    
+
+                <apex:pageBlockSection title="Complete the PHQ-9T(teen) if not already completed." showheader="true" columns="2" rendered="{!isAdult = 'NO'}">                    
+                    <apex:outputText label="PHQ-9T NOT COMPLETED" value="{!PHQ9T_Completed}" rendered="{!PHQ9T_completed}"/>
+                    <apex:outputLink onClick="window.open('/a0U/e?00N60000001rJHy={!srNeeds.Participant__r.Name}&00Nm0000000tITQ={!srNeeds.Participant__c}&CF00N60000001rJHg={!srNeeds.Participant__r.Name}
+                    &CF00N60000001rJHg_lkid={!srNeeds.Participant__c}&ent=01I600000002Mjk&nooverride=1&RecordType=012600000005N1I&isdtp=vw',
+                    'PHQ9T','height=800,width=900,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,status=yes');return false" styleClass="btn" style="text-decoration:none;padding:4px;" rendered="{!PHQ9T_completed}">
+                    Click here to go to PHQ-9T (TEENS)</apex:outputLink>
+                </apex:pageBlockSection>  
+
+                <apex:pageBlockSection title="Administer additional instruments as needed." showheader="true">
+                    <apex:outputText label="TCU NOT COMPLETED" rendered="{!TCU_Completed}"/>
+                    <apex:outputLink onClick="window.open('/a0U/e?00N60000001rJHy={!srNeeds.Participant__r.Name}&00Nm0000000tITQ={!srNeeds.Participant__c}
+                        &CF00N60000001rJHg={!srNeeds.Participant__r.Name}&CF00N60000001rJHg_lkid={!srNeeds.Participant__c}&ent=01I600000002Mjk&nooverride=1&RecordType=012600000005N1JAAU&isdtp=vw',
+                        'TCU','height=800,width=900,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,status=yes');return false" styleClass="btn" style="text-decoration:none;padding:4px;" rendered="{!TCU_completed}">
+                        Click here to go to TCU Drug Screen II</apex:outputLink>
+                    <apex:outputText label="CRAFFT NOT COMPLETED" rendered="{!AND(CRAFFT_completed,isAdult = 'NO')}" />
+                    <apex:outputLink onclick="window.open('/a0U/e?00N60000001rJHy={!srNeeds.Participant__r.Name}&00Nm0000000tITQ={!srNeeds.Participant__c}&CF00N60000001rJHg={!srNeeds.Participant__r.Name}&CF00N60000001rJHg_lkid={!srNeeds.Participant__c}&ent=01I600000002Mjk&nooverride=1&RecordType=012600000005N1GAAU&isdtp=vw',
+                        'CRAAFT','height=800,width=900,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,status=yes');return false" styleClass="btn" style="text-decoration:none;padding:4px;" rendered="{!AND(CRAFFT_completed,isAdult = 'NO')}">
+                        Click to go to CRAAFT</apex:outputLink>
+                </apex:pageBlockSection>
+
+                <apex:pageblocksection title="Mental Health" showheader="true" columns="2">
+                    <apex:inputfield value="{!srNeeds.Psychiatric_Diagnosis_Information__c}"/>
+                    <apex:inputfield value="{!srNeeds.Psy_Diagnosis_Other__c}" />
+                </apex:pageblocksection>
+                <br/>
+                <apex:pageBlockSection columns="1">
+                    <apex:panelGrid columns="4">
+                        <apex:outputLabel value="Have you ever been hospitalized?"/>
+                        <apex:selectRadio value="{!srNeeds.MH_Ever_Hospitalized__c}" styleClass="radioClass">
+                            <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                            <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        </apex:selectRadio>                     
+                        <apex:outputLabel value="If yes, details"/>
+                        <apex:inputField value="{!srNeeds.Hospitalized_Details__c}" style="width:300px;height:50px"/>                             
+                    </apex:panelGrid>
+                    <br/>
+                    <apex:panelGrid columns="2" width="1000px" >
+                        <apex:panelGroup >
+                            <apex:panelGrid columns="2" columnClasses="colstyle1,colstyle2">                     
+                                <apex:outputLabel value="Are you currently seeing a psychiatrist?"/>  
+                                <apex:selectRadio value="{!srNeeds.Currently_seeing_psych__c}" styleClass="radioClass">
+                                    <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                                    <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                </apex:selectRadio>                                
+                                <apex:outputLabel value="Satisfied with psychiatrist?"/>                    
+                                <apex:selectRadio value="{!srNeeds.Satisfied_with_psych__c}" styleClass="radioClass">
+                                    <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                                    <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                </apex:selectRadio>  
+                                <apex:outputLabel value="Name"/> 
+                                <apex:inputfield value="{!srNeeds.Psychiatrist__c}"/>
+                                <apex:outputLabel value="Agency"/> 
+                                <apex:inputfield value="{!srNeeds.Psychiatrist_Agency__c}"/>
+                                <apex:outputLabel value="Address"/>                                 
+                                <apex:inputfield value="{!srNeeds.Psychiatrist_Address__c}"/>
+                                <apex:outputLabel value="Phone"/>                                 
+                                <apex:inputfield value="{!srNeeds.Psychiatrist_Phone__c}"/>
+                            </apex:panelGrid>
+                        </apex:panelGroup>
+                        <apex:panelgroup >
+                            <apex:panelGrid columns="2" columnClasses="colstyle1,colstyle2"> 
+                                <apex:outputLabel value="Currently seeing therapist?"/>
+                                <apex:selectRadio value="{!srNeeds.Currently_seeing_therapist__c}" styleClass="radioClass">
+                                    <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                                    <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                </apex:selectRadio>                                                                     
+                                <apex:outputLabel value="Satisfied with therapist?"/>
+                                <apex:selectRadio value="{!srNeeds.Satisfied_with_therapist__c}" styleClass="radioClass">
+                                    <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                                    <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                </apex:selectRadio>   
+                                <apex:outputLabel value="Name"/> 
+                                <apex:inputfield value="{!srNeeds.Therapist__c}"/>
+                                <apex:outputLabel value="Agency"/> 
+                                <apex:inputfield value="{!srNeeds.Therapist_Agency__c}"/>
+                                <apex:outputLabel value="Address"/>                                 
+                                <apex:inputfield value="{!srNeeds.Therapist_Address__c}"/>
+                                <apex:outputLabel value="Phone"/> 
+                                <apex:inputfield value="{!srNeeds.Therapist_Phone__c}"/>
+                            </apex:panelGrid>
+                        </apex:panelgroup>
+                    </apex:panelGrid>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection >
+                        <apex:selectRadio value="{!srNeeds.Taking_Meds_for_MH__c}" styleClass="radioClass">
+                                    <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                                    <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                </apex:selectRadio> 
+                        <apex:inputfield value="{!srNeeds.Medications_Dosage__c}" style="width:200px;height:50px" />
+                </apex:pageBlockSection>
+                <apex:pageBlockSection >                   
+                    <apex:panelGrid columns="2" columnClasses="colstyleA" width="1000px">
+                        <apex:panelGroup >
+                            <apex:panelGrid columns="2" columnClasses="colstyle1,colstyle2">
+                                <apex:outputLabel value="Thought about hurting others" />
+                                <apex:selectRadio value="{!srNeeds.Hurt_others__c}" styleClass="radioClass">
+                                    <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                                    <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                </apex:selectRadio>
+                                <apex:outputLabel value="When was that?" />
+                                <apex:inputfield value="{!srNeeds.Hurt_others_when__c}" style="width:300px;height:50px;"/>
+                                <apex:outputLabel value="What was going on?" />
+                                <apex:inputfield value="{!srNeeds.Hurt_others_What_going_on__c}" style="width:300px;height:50px;"/>
+                                <apex:outputLabel value="What did you do?" />
+                                <apex:inputfield value="{!srNeeds.Hurt_Others_What_you_do__c}" style="width:300px;height:50px;"/>
+                                <apex:outputLabel value="Still happening now?" />
+                                <apex:inputfield value="{!srNeeds.Hurt_Others_happening_now__c}" style="width:300px;height:50px;"/>
+                            </apex:panelGrid>                    
+                        </apex:panelGroup>
+                        <apex:panelGroup >
+                            <apex:panelGrid columns="2" >
+                                <apex:outputLabel value="Thought about hurting self" />
+                                <apex:selectRadio value="{!srNeeds.Hurt_Self__c}" styleClass="radioClass">
+                                    <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                                    <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                </apex:selectRadio>
+                                <apex:outputLabel value="When was that?" />
+                                <apex:inputfield value="{!srNeeds.Hurt_self_when__c}" style="width:300px;height:50px;"/>
+                                <apex:outputLabel value="What was going on?" />                                
+                                <apex:inputfield value="{!srNeeds.Hurt_Self_What_going_on__c}" style="width:300px;height:50px;"/>
+                                <apex:outputLabel value="What did you do?" />  
+                                <apex:inputfield value="{!srNeeds.Hurt_Self_What_you_do__c}" style="width:300px;height:50px;"/>
+                                <apex:outputLabel value="Still happening now?" />
+                                <apex:inputfield value="{!srNeeds.Hurt_Self_happening_now__c}" style="width:300px;height:50px;"/>
+                            </apex:panelGrid> 
+                        </apex:panelGroup>
+                    </apex:panelGrid>
+                </apex:pageBlockSection>
+                <apex:pageblocksection title="Substance Abuse" showheader="true" columns="1" >
+                    <apex:pageblockSectionItem >
+                    <apex:outputLabel value="Are you in treatment or attending support groups for any drug and/or alcohol use?"/>
+                    <apex:selectRadio value="{!srNeeds.SA_in_treatment__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        </apex:selectRadio>
+                    </apex:pageblockSectionItem>
+                    <apex:pageblockSectionItem >
+                    <apex:outputLabel value="Explain"/>
+                    <apex:inputField value="{!srNeeds.SA_Treatment_Details__c}" style="width:300px;height:50px"/>
+                    </apex:pageblockSectionItem>
+                    <apex:pageblockSectionItem >
+                    <apex:outputLabel value="If yes, substance(s) used:"/>
+                    <apex:inputField value="{!srNeeds.SA_Substances_Used__c}"  style="width:300px;height:50px"/>                    
+                    </apex:pageblockSectionItem>
+                    <apex:pageblockSectionItem >
+                    <apex:outputLabel value="Are you satisfied with the level of support you receive for any drug and/or alcohol use?"/>
+                    <apex:selectRadio value="{!srNeeds.SA_satisfied_with_support__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                    </apex:selectRadio>
+                    </apex:pageblockSectionItem>
+                    <apex:pageblockSectionItem >
+                    <apex:outputLabel value="Has any drug and/or alcohol use caused legal problems for you?"/>
+                    <apex:selectRadio value="{!srNeeds.SA_caused_legal_problems__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                    </apex:selectRadio>                    
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Have you ever overdosed or been at risk for an overdose?"/>
+                    <apex:selectRadio value="{!srNeeds.SA_overdose__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                    </apex:selectRadio>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    <apex:outputLabel >If yes, explain</apex:outputLabel>
+                    <apex:inputField value="{!srNeeds.SA_Overdose_Details__c}"  style="width:300px;height:50px"/>                    
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Are you looking for further support regarding your drug and/or alcohol use?"/>
+                    <apex:selectRadio value="{!srNeeds.SA_looking_for_support__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                    </apex:selectRadio>
+                    </apex:pageBlockSectionItem>
+                    <apex:panelGrid columns="4" >
+                    <apex:outputLabel value="Do you smoke cigarettes?"/>
+                    <apex:selectRadio value="{!srNeeds.Smoke_cigarettes__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                    </apex:selectRadio>
+                    <apex:outputLabel value="count per day"/>                    
+                    <apex:inputfield value="{!srNeeds.Cigarettes_How_Many__c}" style="width:50px"/>
+                    </apex:panelGrid>
+                    <apex:pageBlockSectionItem >
+                    <apex:outputLabel >If yes, are you interested in cutting down or quitting?</apex:outputLabel>
+                    <apex:selectRadio value="{!srNeeds.Cutting_down__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                    </apex:selectRadio>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:pageblocksection title="Medical Status Questions" showheader="true" columns="1">
+                    <apex:PanelGrid columns="2" columnClasses="colstyleA" width="1000px">
+ 
+
+                        <apex:PanelGroup >
+                            <apex:PanelGrid columns="2" columnClasses="colstyle1,colstyle2">
+
+                                <apex:outputLabel >Health Insurance</apex:outputLabel>
+                                <apex:inputField value="{!srNeeds.Health_Insurance__c}"/>
+
+                                <apex:outputLabel >Insurance Number</apex:outputLabel>                              
+                                <apex:InputField value="{!srNeeds.Insurance_Number__c}"/>                                
+                                <apex:outputLabel >Medicaid Sequence Number</apex:outputLabel>
+                                <apex:inputfield value="{!srNeeds.Medicaid_Sequence_Number__c}"/>
+                                <apex:outputLabel value="Any of the following medical issues:"/>
+                                <apex:inputField value="{!srNeeds.Medical_Issues__c}"/>
+                                <apex:outputLabel >Medical Issues, if Other</apex:outputLabel>
+                                <apex:inputField value="{!srNeeds.Other_medical_issues__c}" style="width:200px;height:50px"/>
+                                <apex:outputLabel >What support might you need?</apex:outputLabel>
+                                <apex:inputfield value="{!srNeeds.Support_needed_for_medical_issues__c}" style="width:200px;height:50px"/>
+
+                            </apex:PanelGrid>
+                        </apex:PanelGroup>
+                        <apex:PanelGroup >
+                            <apex:PanelGrid columns="2" columnClasses="colstyle1,colstyle2">
+
+
+                                <apex:outputLabel >Do you have a primary medical care provider currently?</apex:outputLabel>                                <apex:pageBlockSectionItem />
+                                <apex:selectRadio value="{!srNeeds.Current_Medical_Care_Provider_YN__c}" styleClass="radioClass" layout="pageDirection">
+                                    <apex:selectOption itemLabel="Yes" itemvalue="Yes"></apex:selectOption>
+                                    <apex:selectOption itemLabel="No" itemvalue="No"></apex:selectOption>
+                                    <apex:selectOption itemLabel="No, I just go to the ER." itemvalue="No, I just go to the ER."></apex:selectOption>
+                                </apex:selectRadio>
+                                <apex:pageBlockSectionItem />
+                                <apex:outputLabel >PCP</apex:outputLabel>
+                                <apex:inputfield value="{!srNeeds.Primary_Care_Physician__c}"/>
+                                <apex:outputLabel >Clinic</apex:outputLabel>
+                                <apex:inputfield value="{!srNeeds.PCP_Clinic__c}"/>
+                                <apex:outputLabel >Address</apex:outputLabel>
+                                <apex:inputfield value="{!srNeeds.Physician_Address__c}"/>
+                                <apex:outputLabel >Telephone</apex:outputLabel>
+                                <apex:inputfield value="{!srNeeds.Physician_Phone__c}"/>
+                                <apex:outputLabel >When was your last physical exam?</apex:outputLabel>
+                                <apex:inputfield value="{!srNeeds.Last_Physical_Exam__c}"/>
+                                <apex:outputText style="text-align:right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;======&nbsp;&nbsp;&nbsp;ASK</apex:outputText>
+                                <apex:outputText style="align:left" > WOMEN ONLY&nbsp;&nbsp;&nbsp;&nbsp;========</apex:outputText>
+                                <apex:pageblockSectionItem ></apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem ></apex:pageblockSectionItem>
+                                <apex:outputLabel value="Do you have an OB-GYN?"/>
+                                <apex:selectRadio value="{!srNeeds.Have_OBGYN__c}" styleClass="radioClass">
+                                    <apex:selectOption itemLabel="Yes" itemvalue="Yes"/>
+                                    <apex:selectOption itemLabel="No" itemValue="No"/>
+                                    <apex:selectOption itemLabel="N/A" itemValue="Not Applicable"/ >
+                                </apex:selectRadio>
+
+                                <apex:outputLabel value="Clinic"/>
+                                <apex:inputfield value="{!srNeeds.OBGYN_Clinic__c}"/>
+                                <apeX:outputLabel value="Address" />
+                                <apex:inputfield value="{!srNeeds.OBGYN_Address__c}"/>
+                                <apex:outputLabel value="Telephone"/>
+                                <apex:inputfield value="{!srNeeds.OBGYN_Phone__c}"/>
+                                <apex:outputLabel value="When was your last pap smear?"/>
+                                <apex:inputfield value="{!srNeeds.Last_Pap_Smear__c}"/>                                                                        
+                            </apex:PanelGrid>
+                        </apex:PanelGroup>
+
+                    </apex:PanelGrid>
+                    
+                    <apex:pageblocksectionitem />
+
+                </apex:pageblocksection>
+
+                <apex:pageblocksection title="Educational Attainment" showheader="true" columns="1">
+                    <apex:panelGrid columns="2">
+                        <apex:panelGroup >
+                            <apex:outputLabel value="What is the highest level of education that you have attained?"/>                                                          
+                            <apex:selectRadio value="{!srNeeds.Highest_Level_of_Education__c}" layout="pageDirection" style="width:400px">
+                                <apex:selectoptions value="{!educationLevel}"></apex:selectoptions>
+                            </apex:selectRadio>
+                        </apex:panelGroup>
+                        <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    </apex:panelGrid>
+                    <apex:panelGrid columns="4">
+                        <apex:outputLabel >Are you currently enrolled in school?</apex:outputLabel>
+                        <apex:selectRadio value="{!srNeeds.Ed_currently_enrolled__c}" styleClass="radioClass">
+                            <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                            <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        </apex:selectRadio>
+                        <apex:outputLabel >If yes, where and at what level?</apex:outputLabel>
+                        <apex:inputfield value="{!srNeeds.Current_School_Enrollment__c}"/>
+                        <apex:outputLabel >Would you like to continue your studies?</apex:outputLabel>
+                        <apex:selectRadio value="{!srNeeds.Ed_continue_studies__c}" styleClass="radioClass">
+                            <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                            <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        </apex:selectRadio>
+                        <apex:outputLabel >If yes, what are your educational goals?</apex:outputLabel>
+                        <apex:inputfield value="{!srNeeds.Educational_Goals__c}"/>
+                        <apex:outputLabel >Are you interested in vocational or technical training?</apex:outputLabel>
+                        <apex:selectRadio value="{!srNeeds.Ed_vocational_training__c}" styleClass="radioClass">
+                            <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                            <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        </apex:selectRadio>
+                        <apex:outputLabel >If yes, what are your employment goals?</apex:outputLabel>
+                        <apex:inputfield value="{!srNeeds.Employment_Goals__c}"/>
+                    </apex:panelGrid> 
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Needs Assessment" showheader="true" columns="1"/>
+                    <apex:panelGrid columns="4">
+                    <apex:outputLabel style="width:20%" >Do you need any medical referrals?</apex:outputLabel>
+                    <apex:selectRadio value="{!srNeeds.Need_medical_referrals__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                    </apex:selectRadio>
+                    <apex:outputLabel style="width:20%">If yes</apex:outputLabel>
+                    <apex:inputField value="{!srNeeds.Need_Medical_Referrals_Txt__c}"/>
+                    <apex:outputLabel style="width:20%" >Are you a primary caregiver?</apex:outputLabel>
+                    <apex:selectRadio value="{!srNeeds.Primary_caregiver__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                    </apex:selectRadio>
+                    <apex:outputLabel style="width:20%">If yes, do you need any referrals and/or resources for child care/elder care?</apex:outputLabel>
+                    <apex:inputField value="{!srNeeds.Caregiver_Referrals__c}"/>
+                    </apex:panelGrid>
+                    <apex:outputText >What are your current sources of income/benefits?</apex:outputText>
+                    <apex:panelGrid columns="6">
+                    <apex:outputLabel >Wages</apex:outputLabel>
+                    <apex:inputField value="{!srNeeds.Income_Wages__c}" style="width:50px"/>
+                    <apex:outputLabel >PA Cash</apex:outputLabel>
+                    <apex:inputField value="{!srNeeds.Income_PA_CASH__c}" style="width:50px"/>
+                    <apex:outputLabel >Family Support</apex:outputLabel>
+                    <apex:inputField value="{!srNeeds.Income_Family__c}" style="width:50px"/>
+                    <apex:outputLabel >SSD</apex:outputLabel>
+                    <apex:inputField value="{!srNeeds.Income_SSD__c}" style="width:50px"/>
+                    <apex:outputLabel >Veteran's Benefits</apex:outputLabel>
+                    <apex:inputField value="{!srNeeds.Income_Veteran_Benefits__c}" style="width:50px"/>
+                    <apex:outputLabel >Other</apex:outputLabel>
+                    <apex:inputField value="{!srNeeds.Income_Other__c}" style="width:50px"/>
+                    <apex:outputLabel >SSI</apex:outputLabel>
+                    <apex:inputField value="{!srNeeds.Income_SSI__c}" style="width:50px"/>
+                    <apex:outputLabel >Pension</apex:outputLabel>
+                    <apex:inputField value="{!srNeeds.Income_Pension__c}" style="width:50px"/>
+                    <apex:outputLabel >None</apex:outputLabel>
+                    <apex:inputField value="{!srNeeds.Income_None__c}" style="width:50px"/>
+                    </apex:panelGrid>
+                                         
+                    <apex:panelGrid columns="2">
+                        <apex:panelGroup >
+                            <apex:panelGrid columns="2">
+                                <apex:outputLabel style="width:40%" >SNAP/WIC/EBT/Food Stamps?</apex:outputLabel>                            
+                                <apex:selectRadio value="{!srNeeds.Food_Stamps_YN__c}" styleClass="radioClass">
+                                    <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                    <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                                </apex:selectRadio>
+                                <apex:outputLabel value="Amount"/>
+                                <apex:inputField value="{!srNeeds.Food_Stamps_Amount__c}"/>
+                                <apex:outputLabel style="width:40%" >Are you interested in a Health Home care coordinator?</apex:outputLabel>
+                                <apex:selectRadio value="{!srNeeds.Health_home_care_coordinator__c}" styleClass="radioClass">
+                                    <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                                    <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                </apex:selectRadio>
+                                <apex:outputLabel style="width:40%" >Do you have a half-fare Metrocard?</apex:outputLabel>
+                                <apex:selectRadio value="{!srNeeds.Half_Fare_Metrocard__c}" styleClass="radioClass">
+                                    <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                                    <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                    <apex:selectoption itemLabel="Not Eligible" itemvalue="Not Eligible"/>   
+                                    <apex:selectoption itemLabel="Don't know if eligible" itemvalue="Don't know if eligible"/>    
+                                </apex:selectRadio>
+                            </apex:panelGrid>
+                        </apex:panelGroup>
+                        <apex:panelGroup >
+                            <apex:panelGrid columns="2">
+                                <apex:outputLabel style="width:40%" >Do you have a case worker?</apex:outputLabel>
+                                    <apex:selectRadio value="{!srNeeds.Have_case_worker__c}" styleClass="radioClass">
+                                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>   
+                                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                    </apex:selectRadio>
+                            <apex:outputLabel style="width:40%"  >Name</apex:outputLabel>
+                            <apex:inputfield value="{!srNeeds.Case_Worker__c}"/>
+                            <apex:outputLabel style="width:40%"  >Agency</apex:outputLabel>
+                            <apex:inputfield value="{!srNeeds.Case_Worker_Agency__c}"/>
+                            <apex:outputLabel style="width:40%"  >Address</apex:outputLabel>                            
+                            <apex:inputfield value="{!srNeeds.Case_Worker_Address__c}"/>
+                            <apex:outputLabel style="width:40%"  >Phone</apex:outputLabel>                            
+                            <apex:inputfield value="{!srNeeds.Case_Worker_Phone__c}"/>
+                            </apex:panelGrid>
+                        </apex:panelGroup>
+                    </apex:panelGrid>
+                <apex:pageBlockSection showheader="true" columns="1">
+                <apex:panelGrid columns="1">
+                    <apex:outputLabel value="What needs are most important for us to work on?"/>
+                    <apex:inputField value="{!srNeeds.Most_Important_Needs__c}" style="width:300px;height:75px;"/>
+                    <apex:outputLabel value="What do you feel will be most helpful for preventing re-arrest?"/>
+                    <apex:inputField value="{!srNeeds.Most_Helpful_Needs__c}" style="width:300px;height:75px;"/>
+                </apex:panelGrid>
+                </apex:pageBlockSection>
+ 
+                <apex:pageblocksection title="Immediate Needs" showheader="true" columns="1">
+                    <apex:inputfield value="{!srNeeds.Immediate_Needs__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="" showheader="true" columns="1"/>
+            </apex:outputpanel>
+        </div>
+        </apex:pageblock>
+    </apex:form>
+<style>
+    input[type=radio] { margin-left: 20px;}
+    .radioClass { margin-left: -20px;}
+    .colstyleA {width:400px;};
+    .colstyle1 {width:30%;};
+    .colstyle2 {width:70%;};
+    .col-1 {width: 8.33%;};
+    .col-2 {width: 16.66%;};
+    .col-3 {width: 25%;};
+    .col-4 {width: 33.33%;};
+    .col-5 {width: 41.66%;};
+    .col-6 {width: 50%;};
+    .col-7 {width: 58.33%;};
+    .col-8 {width: 66.66%;};
+    .col-9 {width: 75%;};
+    .col-10 {width: 83.33%;};
+    .col-11 {width: 91.66%;};
+    .col-12 {width: 100%;};
+</style>
+</apex:page>

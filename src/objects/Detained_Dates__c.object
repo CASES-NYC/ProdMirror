@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>To record multiple detained dates and release dates for a case</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Contact_Detained_Dates_Lookup__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Related Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Detained Dates</relationshipLabel>
+        <relationshipName>Contact_Detained_Dates</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Date_Released__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Released</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Days_in_current_cycle_gross__c</fullName>
+        <description>Delete this field. Moved to Contact. Calculate number of days between orientation date and exit or today for current cycle</description>
+        <externalId>false</externalId>
+        <formula>IF(isblank( Contact_Detained_Dates_Lookup__r.Reinstatement_Date__c ), if(isblank(Contact_Detained_Dates_Lookup__r.Current_Exit_Date__c),today()- Contact_Detained_Dates_Lookup__r.Current_Orientation_Date__c, Contact_Detained_Dates_Lookup__r.Current_Exit_Date__c- Contact_Detained_Dates_Lookup__r.Current_Orientation_Date__c), (Contact_Detained_Dates_Lookup__r.Exit_Date_1__c -Contact_Detained_Dates_Lookup__r.Orientation_Date_1__c)+ if(isblank(Contact_Detained_Dates_Lookup__r.Current_Exit_Date__c),today()- Contact_Detained_Dates_Lookup__r.Current_Orientation_Date__c,Contact_Detained_Dates_Lookup__r.Current_Exit_Date__c- Contact_Detained_Dates_Lookup__r.Current_Orientation_Date__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Days in current cycle (gross)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Detained_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Detained Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Detention_Treatment__c</fullName>
+        <description>For reporting</description>
+        <externalId>false</externalId>
+        <formula>Docket_No__r.Name   &amp;  Placement_Agency__r.Name</formula>
+        <label>Detention/Treatment</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Detention_Type__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Pre-Arraignment: Arrest to criminal court arraignment. 
+In on bail: Currently detained, but the def. has the option of posting bail.
+Remand - when a def. is in custody without bail to await further court action
+Rehab Participation: Inpatient Treatment</inlineHelpText>
+        <label>Detention Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>In on Bail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inpatient Drug Treatment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inpatient MH Treatment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pre-Arraignment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rehab Participation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Remand</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hospitalization</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Detention_type_Other__c</fullName>
+        <externalId>false</externalId>
+        <label>Detention Type (Other)</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Docket_No__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Docket #</label>
+        <lookupFilter>
+            <active>false</active>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Case_Information__c</referenceTo>
+        <relationshipLabel>Detained Dates</relationshipLabel>
+        <relationshipName>Detained_Dates</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>OldId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Old ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Placement_Agency__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Where is participant in Treatment if In-Patient.</description>
+        <externalId>false</externalId>
+        <label>Placement Agency</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Detained Dates</relationshipLabel>
+        <relationshipName>Detained_Dates</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Program_Days_End__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( isnull(Date_Released__c) , TODAY(),  IF(Date_Released__c &lt;= Contact_Detained_Dates_Lookup__r.Current_Exit_Date__c , Date_Released__c ,  IF(isnull(Contact_Detained_Dates_Lookup__r.Current_Exit_Date__c), TODAY(), Contact_Detained_Dates_Lookup__r.Current_Exit_Date__c) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Program Days - End</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Program_Days_Num_Days__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL(Program_Days_End__c), null, IF((Program_Days_End__c  -  Program_Days_Start__c) &lt; 0,null, (Program_Days_End__c  -  Program_Days_Start__c) + 1))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Program Days - Num Days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Program_Days_Start__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Detained_Date__c &gt; Contact_Detained_Dates_Lookup__r.Current_Orientation_Date__c ,  IF( Detained_Date__c &lt; Contact_Detained_Dates_Lookup__r.Current_Exit_Date__c , Detained_Date__c , null) , IF( Date_Released__c &lt;= Contact_Detained_Dates_Lookup__r.Current_Exit_Date__c,  Contact_Detained_Dates_Lookup__r.Current_Orientation_Date__c, null))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Program Days - Start</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>dStart__c</fullName>
+        <description>Calculate start date if within current CEP cycle.</description>
+        <externalId>false</externalId>
+        <formula>IF(AND(NOT(isblank(Date_Released__c)),Date_Released__c&lt;Contact_Detained_Dates_Lookup__r.Current_Orientation_Date__c),
+    Null,
+    IF(Detained_Date__c&lt;=Contact_Detained_Dates_Lookup__r.Current_Orientation_Date__c, Contact_Detained_Dates_Lookup__r.Current_Orientation_Date__c,Detained_Date__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>dStart</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>dToday__c</fullName>
+        <description>Populated via DBamp and SQL with today&apos;s date for clients on program hold and date released is blank. Then maybe we can roll up the days out of program to the contact page.</description>
+        <externalId>false</externalId>
+        <label>dToday</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>dend__c</fullName>
+        <description>If release date is blank, (check for current exit date, if dexit is blank, use today, else use exit date), else use release date if release date before exit date.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(Date_Released__c),
+      if(isblank(Contact_Detained_Dates_Lookup__r.Current_Exit_Date__c),
+                 today(),Contact_Detained_Dates_Lookup__r.Current_Exit_Date__c),
+     if(isblank(Contact_Detained_Dates_Lookup__r.Current_Exit_Date__c), Date_Released__c, if(Date_Released__c&lt;=Contact_Detained_Dates_Lookup__r.Current_Exit_Date__c, Date_Released__c,Contact_Detained_Dates_Lookup__r.Current_Exit_Date__c)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>If release date is blank, (check for current exit date, if dexit is blank, use today, else use exit date), else use release date</inlineHelpText>
+        <label>dend</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>nDaysCep1__c</fullName>
+        <description>CEP Determins days out of program within cycle 1 of CEP</description>
+        <externalId>false</externalId>
+        <formula>if(Detained_Date__c&lt; Contact_Detained_Dates_Lookup__r.Orientation_Date_1__c ,0, 
+if(and(Detained_Date__c&gt; Contact_Detained_Dates_Lookup__r.Exit_Date_1__c, Not(isblank(Contact_Detained_Dates_Lookup__r.Exit_Date_1__c ))),0, 
+if(nullvalue(Date_Released__c,dToday__c)&gt;=nullvalue(Contact_Detained_Dates_Lookup__r.Exit_Date_1__c ,dToday__c), 
+(nullvalue(Contact_Detained_Dates_Lookup__r.Exit_Date_1__c ,dToday__c)-Detained_Date__c)+1, 
+(nullvalue(Date_Released__c,dToday__c)-Detained_Date__c)+1)))</formula>
+        <label>nDaysCep1</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>nDaysCep2__c</fullName>
+        <description>CEP Determine number of days out of program during cycle 2.</description>
+        <externalId>false</externalId>
+        <formula>if(isblank(Contact_Detained_Dates_Lookup__r.Orientation_Date_2__c),0,
+if(Detained_Date__c&lt; Contact_Detained_Dates_Lookup__r.Orientation_Date_2__c ,0,
+if(and(Detained_Date__c&gt; Contact_Detained_Dates_Lookup__r.Exit_Date_2__c, Not(isblank(Contact_Detained_Dates_Lookup__r.Exit_Date_2__c ))),0,
+if(nullvalue(Date_Released__c,dToday__c)&gt;=nullvalue(Contact_Detained_Dates_Lookup__r.Exit_Date_2__c ,dToday__c),
+(nullvalue(Contact_Detained_Dates_Lookup__r.Exit_Date_2__c ,dToday__c)-Detained_Date__c)+1,
+(nullvalue(Date_Released__c,dToday__c)-Detained_Date__c)+1))))</formula>
+        <label>nDaysCep2</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>nDaysCepAll__c</fullName>
+        <description>CEP: Sum of days out within both cycles for current record</description>
+        <externalId>false</externalId>
+        <formula>nDaysCep1__c +  nDaysCep2__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>nDaysCepAll</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>nDaysCepCurrent__c</fullName>
+        <description>CEP: Days out of program in current cycle for current record.</description>
+        <externalId>false</externalId>
+        <formula>if( isblank(Contact_Detained_Dates_Lookup__r.Orientation_Date_2__c ),nDaysCep1__c,nDaysCep2__c)</formula>
+        <label>nDaysCepCurrent</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>nDaysOut__c</fullName>
+        <description>Calculate number of days detained/in treatment relevant to CEP</description>
+        <externalId>false</externalId>
+        <formula>IF(NOT( ISNULL( dStart__c )), (dend__c-dStart__c)+1,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>(&quot;Calculated end date as per CEP&quot;-Detained_Date__c)+1</inlineHelpText>
+        <label>nDaysOut</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Detained Dates</label>
+    <nameField>
+        <displayFormat>DD-{0000}</displayFormat>
+        <label>Detained Dates ID</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Detained Dates</pluralLabel>
+    <recordTypes>
+        <fullName>Choices</fullName>
+        <active>true</active>
+        <label>Choices</label>
+        <picklistValues>
+            <picklist>Detention_Type__c</picklist>
+            <values>
+                <fullName>Hospitalization</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inpatient Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inpatient MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remand</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>General</fullName>
+        <active>true</active>
+        <label>General</label>
+        <picklistValues>
+            <picklist>Detention_Type__c</picklist>
+            <values>
+                <fullName>Hospitalization</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In on Bail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pre-Arraignment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rehab Participation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remand</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Detention_Type_Rehab_Notlinked_to_Docket</fullName>
+        <active>true</active>
+        <errorConditionFormula>IF( ISPICKVAL(Detention_Type__c, &quot;Rehab Participation&quot;) , IF( (Docket_No__c = &quot;&quot;), false, true) , false)</errorConditionFormula>
+        <errorMessage>If &quot;Rehab Participation&quot; is the chosen Detention Type, this record CANNOT be linked to a Docket</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Detention_Type_Remand_Linked_to_Docket</fullName>
+        <active>true</active>
+        <errorConditionFormula>IF( or(ISPICKVAL(Detention_Type__c, &quot;Remand&quot;),ISPICKVAL(Detention_Type__c, &quot;In on Bail&quot;)) ,  IF( (Docket_No__c = &quot;&quot;), true, false) , false)</errorConditionFormula>
+        <errorMessage>If &quot;Remand&quot; or &quot;In on Bail&quot; is the chosen Detention Type, this record must be linked to a Docket</errorMessage>
+    </validationRules>
+</CustomObject>

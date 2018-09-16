@@ -1,0 +1,225 @@
+<apex:page StandardController="CIRT_Download__c" extensions="cirtNonDocExtension" id="pgMain">
+
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191, '/jQueryUI-1.10.3/ui/jquery-ui.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/corners/jquery.corner.js')}" /> 
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/css/ui-lightness/jquery-ui-1.8.13.custom.css')}" />
+
+<script type='text/javascript'>
+   function noenter(ev)  {
+      if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+            doSearchAF(); 
+            return false;
+         } else {
+              return true;
+         }
+     }
+</script>
+
+
+
+<script>
+
+  (function() {
+    var windowOnload = window.onload;
+    window.onload = function() {
+      if (windowOnload) windowOnload();
+      var select = document.getElementById('calYearPicker');
+      if (!select) return;
+      select.innerHTML = '';
+      var startYear = new Date().getFullYear() - 60;
+      for (var year = startYear; year < startYear + 62; year++) {
+        select.options[select.options.length] = new Option(year, year);
+      }
+    }
+  }());
+</script>
+
+ <style>
+   span.inputContainer {
+        margin: 1px; 
+        margin-bottom: 10px;
+        background: #FFF8DC ; 
+        padding: 5px;
+        border:0; 
+        float: left;
+        width: auto;
+        clear: both;
+        white-space: nowrap;
+    }
+</style>
+<apex:pageMessages />
+<apex:variable var="cd" value="{!CIRT_Download__c}"/>
+<apex:form >
+    <apex:pageBlock Title="CIRT Non-DOC Referrals">
+        <apex:commandButton value="Save" action="{!ClientConsented}" style="color:blue;font-size:14pt;" id="cmd"/>
+        <apex:commandButton value="Cancel" action="{!Cancel}" style="color:blue;font-size:14pt;" id="cmdclear"/>
+        <table columns="4" width="100%">
+              <th>Identification</th>
+              <th>Case Information</th>                            
+              <th>Court Information</th>
+              <th></th>
+              <tr>
+                <td id="Identification"  width="25%">
+                    <table columns="2">
+                    <tr>
+                        <td>First Name</td>
+                        <td><apex:inputField value="{!cd.Firstname__c}" required="true"/></td>
+                    </tr>
+                    <tr>
+                        <td>Last Name</td>
+                        <td><apex:inputField value="{!cd.Lastname__c}" required="true"/> </td>
+                    </tr>
+                    <tr>
+                        <td>NYSID</td>
+                        <td> <apex:inputField value="{!cd.NYSID__c}" required="true"/></td>
+                    </tr>
+                    <tr>
+                        <td>DOB</td>
+                        <td><apex:inputField value="{!cd.DOB__c}"
+                          id="dob" onfocus="DatePicker.pickDate(false, this, false);"/></td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td>
+                        <td><apex:selectlist size="1" value="{!cd.Gender__c}"> 
+                        <apex:selectOption itemValue="" itemLabel=""/> 
+                        <apex:selectOption itemValue="Female" itemLabel="Female"/> 
+                        <apex:selectOption itemValue="Male" itemLabel="Male"/> 
+                        <apex:selectOption itemValue="Transgender Man" itemLabel="Transgender Man"/> 
+                        <apex:selectOption itemValue="Transgender Woman" itemLabel="Transgender Woman"/> 
+                     </apex:selectlist></td>
+                    </tr>
+                    <tr>
+                        <td>DOC Score</td>
+                        <td><apex:inputField value="{!cd.DOC_Score__c}" /></td>
+                    </tr>
+                    <tr>
+                        <td>MOCJ Risk Score</td>
+                        <td><apex:inputField value="{!cd.MOCJ_RA_SCORE__c}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Referral Date</td>
+                        <td><apex:inputField value="{!cd.Referral_Date__c}" /></td>
+                    </tr>                    
+                    </table>
+                </td>
+                <td id="Case Information"  width="25%">
+                    <table columns="2">
+                        <tr>
+                            <td>Docket #</td>
+                            <td><apex:inputField value="{!cd.DOCKET__c}" required="true"/></td>
+                        </tr>
+                        <tr>
+                            <td>Book Case</td>
+                            <td><apex:inputField value="{!cd.BOOKCASENUMBER__c}"/> </td>
+                        </tr>
+                        <tr>
+                            <td>Charge 1</td>
+                            <td><apex:selectList size="1" required="false" value="{!cd.CHARGE_NO__c}" > 
+                                   <apex:selectOptions value="{!PenalCodes}" />  
+                                </apex:selectList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Charge 2</td>
+                            <td><apex:selectList size="1" required="false" value="{!cd.CHARGE_NO1__c}" > 
+                               <apex:selectOptions value="{!PenalCodes}"  rendered="true" />  
+                            </apex:selectList>  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Charge 3</td>
+                            <td><apex:selectList size="1" required="false" value="{!cd.CHARGE_NO2__c}" > 
+                                   <apex:selectOptions value="{!PenalCodes}"  rendered="true" />  
+                                </apex:selectList> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Charge 4</td>
+                            <td><apex:selectList size="1" required="false" value="{!cd.CHARGE_NO3__c}" > 
+                                   <apex:selectOptions value="{!PenalCodes}"  rendered="true" />  
+                                </apex:selectList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Charge 5</td>
+                            <td><apex:selectList size="1" required="false" value="{!cd.CHARGE_NO4__c}" > 
+                                   <apex:selectOptions value="{!PenalCodes}"  rendered="true" />  
+                                </apex:selectList>
+                            </td>
+                        </tr>
+                  </table>
+
+                </td>
+                <td id="Information" width="25%">
+                    <table columns="2">
+
+                        <tr>
+                        <td>Arraignment Date</td>
+                        <td><apex:inputField value="{!cd.Arraignment_Date__c}"
+                             id="da" onfocus="DatePicker.pickDate(false, this, false);" /></td>
+                        </tr>
+                        <tr>
+                        <td>Next Court Date</td>
+                        <td><apex:inputField value="{!cd.Next_Court_Date__c}" id="next" 
+                            onfocus="DatePicker.pickDate(false, this, false);" /></td>
+                        </tr>
+                        <tr>
+                        <td>Borough</td>
+                        <td>
+                            <apex:selectlist size="1" value="{!cd.Borough_Court__c}">  
+                                <apex:selectOption itemValue="Manhattan" itemLabel="Manhattan"/>
+                                <apex:selectOption itemValue="Bronx" itemLabel="Bronx"/>
+                                <apex:selectOption itemValue="Brooklyn" itemLabel="Brooklyn"/>
+                                <apex:selectOption itemValue="Queens" itemLabel="Queens"/>
+                                <apex:selectOption itemValue="Staten Island" itemLabel="Staten Island"/>
+                                <apex:selectOption itemValue="Unknown" itemLabel="Unknown"/>
+                            </apex:selectList> 
+                        </td>
+                        </tr>
+                        <tr>
+                        <td>Attorney</td>
+                        <td><apex:inputField value="{!cd.Attorney__c}"/></td>
+                        </tr>
+                        <tr>
+                        <td colspan="2">
+                            <apex:commandButton id="btnNewAtt" value="Add New Attorney" rerender="emptyRerender" 
+                                onclick="window.open('/003/e?RecordType=012600000004zCA&ent=Contact','height=700,width=1100',1);"/>
+                        </td>
+                        </tr>                        
+                    </table>
+                </td>
+
+                <td id="Evaluation">
+                    <table columns="2"  width="25%">
+                        <tr>
+                        <td></td>
+                        <td></td>
+                        </tr>
+                        <tr>
+                        <td></td>
+                        <td></td>
+                        </tr>
+                        <tr>
+                        <td></td>
+                        <td></td>
+                        </tr>
+                        <tr>
+                        <td></td>
+                        <td></td>
+                        </tr>
+                        <tr>
+                        <td></td>
+                        <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        <td></td>
+                        </tr>
+                    </table>            
+                </td>
+              </tr>    
+        </table>
+    </apex:pageBlock>        
+</apex:form>
+</apex:page>

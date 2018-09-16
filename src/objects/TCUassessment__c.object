@@ -1,0 +1,969 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>AssessmentContainerId__c</fullName>
+        <externalId>false</externalId>
+        <label>AssessmentContainerId</label>
+        <referenceTo>AssessmentContainer__c</referenceTo>
+        <relationshipName>TCUassessments</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Legacy_Database_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Legacy Database Id</label>
+        <length>25</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Result</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TCU_Q10_Most_problematic_drug__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q10 Most problematic drug</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11a_Alcohol__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11a Alcohol</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>about every day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11b_Marijuana__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11b Marijuana</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>About every day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11c_Hallucinogens__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11c Hallucinogens</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>About every day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11d_Inhalants__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11d Inhalants</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>About every day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11e_Crack__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11e Crack</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>About every day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11f_Speedball__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11f Speedball</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>About every day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11g_Cocaine__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11g Cocaine</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>About every day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11h_Heroin__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11h Heroin</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>About every day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11i_Methadone__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11i Methadone</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>About every day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11j_Other_opiates__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11j Other opiates</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>About every day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11k_Methamphetamine__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11k Methamphetamine</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>About every day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11l_Amphetamines__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11l Amphetamines</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>About every day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11m_Barbiturates__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11m Tranquilizers</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>About every day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11n_Other_drugs__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11n Other drugs</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TCU_Q11n_Other_drugs_frequency__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q11n Other drugs frequency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times a month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times a week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>About every day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q12_How_often_did_you_inject__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q12 How often did you inject?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Only a few times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 times per month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-5 times per week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Daily</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q13_How_serious_are_your_problems__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q13 How serious are your problems?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not at all</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Slightly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Moderately</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Considerably</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Extremely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q14_Number_of_times_in_treatment__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q14 Number of times in treatment?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1 time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2 times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 or more items</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q15_How_important_to_get_treatment__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q15 How important to get treatment</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not at all</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Slightly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Moderately</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Considerably</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Extremely</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q1_Longer_more_drugs_than_intended__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q1 Longer/more drugs than intended</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q2_Try_to_cut_down__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q2 Try to cut down?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q3_Spend_a_lot_of_time__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q3 Spend a lot of time</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q4a_Kept_you_from_doing_work_school__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q4a Kept you from doing work/school?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q4b_Caused_an_accident__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q4b Caused an accident</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q5_Spend_less_time_at_work__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q5 Spend less time at work</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q6a_Emotional_and_psych_problems__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q6a Emotional and psych problems?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q6b_Problems_w_family_friends_work__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q6b Problems w/ family/friends/work</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q6c_physical_or_medical_problems__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q6c physical or medical problems?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q7_Increase_drug_amount__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q7 Increase drug amount?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q8_Took_drugs_to_avoid_withdrawal__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q8 Took drugs to avoid withdrawal?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Q9_Get_sick_when_quitting__c</fullName>
+        <externalId>false</externalId>
+        <label>TCU Q9 Get sick when quitting</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCU_Total_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(ispickval( TCU_Q1_Longer_more_drugs_than_intended__c ,&quot;Yes&quot;), 1, 0) + 
+if(ispickval( TCU_Q2_Try_to_cut_down__c ,&quot;Yes&quot;), 1, 0) + 
+if(ispickval( TCU_Q3_Spend_a_lot_of_time__c ,&quot;Yes&quot;), 1, 0) + 
+
+if(or(ispickval( TCU_Q4a_Kept_you_from_doing_work_school__c ,&quot;Yes&quot;), ispickval( TCU_Q4b_Caused_an_accident__c ,&quot;Yes&quot;)), 1, 0) + 
+
+if(ispickval( TCU_Q5_Spend_less_time_at_work__c ,&quot;Yes&quot;), 1, 0) + 
+
+if(or(ispickval( TCU_Q6a_Emotional_and_psych_problems__c ,&quot;Yes&quot;), ispickval( TCU_Q6b_Problems_w_family_friends_work__c ,&quot;Yes&quot;), ispickval( TCU_Q6c_physical_or_medical_problems__c ,&quot;Yes&quot;)), 1, 0) + 
+
+if(ispickval( TCU_Q7_Increase_drug_amount__c ,&quot;Yes&quot;), 1, 0) + 
+if(ispickval( TCU_Q8_Took_drugs_to_avoid_withdrawal__c ,&quot;Yes&quot;), 1, 0) + 
+if(ispickval( TCU_Q9_Get_sick_when_quitting__c ,&quot;Yes&quot;), 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>TCU Total Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>aTCU</label>
+    <nameField>
+        <displayFormat>TCU-{0000}</displayFormat>
+        <label>TCUassessment Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>aTCU</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

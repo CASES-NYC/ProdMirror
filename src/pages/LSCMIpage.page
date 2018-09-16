@@ -1,0 +1,117 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="LSCMIpage" >
+  <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+<apex:outPutPanel id="op" styleclass="span.resultContainer">
+   <apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+                <apex:pageblocksection columns="2">
+                 <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Results</span> 
+            </apex:facet>
+           <apex:inputfield value="{!LSCMI.Overall_Risk_Category__c}" />
+                    <apex:inputfield value="{!LSCMI.LSCMI_Strengths__c}" />
+                    <apex:inputfield value="{!LSCMI.LSCMI_Result__c}" />
+                    <apex:pageblocksectionitem />
+                </apex:pageblocksection>
+                <apex:pageblocksection columns="1">
+                 <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Notes</span> 
+            </apex:facet>
+                
+                    <apex:inputfield value="{!LSCMI.Survey_Notes__c}"  styleclass="textarea"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection columns="2">
+                 <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Subscales</span> 
+            </apex:facet>
+                    <apex:inputfield value="{!LSCMI.LSCMI_Subscale_1_Criminal_History__c}" />
+                    <apex:inputfield value="{!LSCMI.LSCMI_Subscale_2_Education_Employment__c}" />
+                    <apex:inputfield value="{!LSCMI.LSCMI_Subscale_3_Family_Marital__c}" />
+                    <apex:inputfield value="{!LSCMI.LSCMI_Subscale_4_Leisure_Recreation__c}" />
+                    <apex:inputfield value="{!LSCMI.LSCMI_Subscale_5_Companions__c}" />
+                    <apex:inputfield value="{!LSCMI.LSCMI_Subscale_6_Alcohol_Drug_Problem__c}" />
+                    <apex:inputfield value="{!LSCMI.LSCMI_Subscale_7_Pro_criminal_Attitude__c}" />
+                    <apex:inputfield value="{!LSCMI.LSCMI_Subscale_8_Anti_social_Pattern__c}" />
+        <!--            <apex:inputfield value="{!LSCMI.Legacy_Database_Id__c}" />-->
+                </apex:pageblocksection>
+        </apex:pageblock>
+        <apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+                <apex:pageblocksection columns="2">
+                 <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Results</span> 
+            </apex:facet>
+           <apex:inputtext value="{!LSCMI.Overall_Risk_Category__c}" disabled="true" styleclass="txt200"/>
+                    <apex:inputtext value="{!LSCMI.LSCMI_Strengths__c}" disabled="true" styleclass="txt200"/>
+                    <apex:inputtext value="{!LSCMI.LSCMI_Result__c}" disabled="true" styleclass="txt200"/>
+                    <apex:pageblocksectionitem />
+                </apex:pageblocksection>
+                <apex:pageblocksection columns="1">
+                 <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Notes</span> 
+            </apex:facet>
+<apex:pageblocksectionItem >
+      <apex:outputlabel value="Survey Notes" for="e1"/> 
+      <apex:outputtext value="{!substitute(substitute(JSENCODE(LSCMI.Survey_Notes__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="e1"/>
+   </apex:pageblocksectionItem>
+
+                </apex:pageblocksection>
+                <apex:pageblocksection columns="2">
+                 <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Subscales</span> 
+            </apex:facet>
+                    <apex:inputtext value="{!LSCMI.LSCMI_Subscale_1_Criminal_History__c}" disabled="true" styleclass="txt200"/>
+                    <apex:inputtext value="{!LSCMI.LSCMI_Subscale_2_Education_Employment__c}" disabled="true" styleclass="txt200"/>
+                    <apex:inputtext value="{!LSCMI.LSCMI_Subscale_3_Family_Marital__c}" disabled="true" styleclass="txt200"/>
+                    <apex:inputtext value="{!LSCMI.LSCMI_Subscale_4_Leisure_Recreation__c}" disabled="true" styleclass="txt200"/>
+                    <apex:inputtext value="{!LSCMI.LSCMI_Subscale_5_Companions__c}" disabled="true" styleclass="txt200"/>
+                    <apex:inputtext value="{!LSCMI.LSCMI_Subscale_6_Alcohol_Drug_Problem__c}" disabled="true" styleclass="txt200"/>
+                    <apex:inputtext value="{!LSCMI.LSCMI_Subscale_7_Pro_criminal_Attitude__c}" disabled="true" styleclass="txt200"/>
+                    <apex:inputtext value="{!LSCMI.LSCMI_Subscale_8_Anti_social_Pattern__c}" disabled="true" styleclass="txt200"/>
+            <!--    <apex:inputtext value="{!LSCMI.Legacy_Database_Id__c}" disabled="true" styleclass="txt200"/>-->
+                </apex:pageblocksection>
+        </apex:pageblock>
+    </apex:outPutPanel> 
+    <apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+                <table>
+                   <tr>
+                     <td width="400px" align="left">
+                       <apex:outputLabel value="Created by:"/>&nbsp;
+                       <apex:outputLabel value="{!createdInfo}"/>                   
+                     </td>
+                     <td width="400px"  align="right">
+                      <apex:outputLabel value="Last modified by:" />&nbsp;
+                      <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>   
+    </apex:form>
+</apex:page>

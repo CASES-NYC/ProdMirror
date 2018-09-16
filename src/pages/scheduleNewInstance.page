@@ -1,0 +1,297 @@
+<apex:page controller="scheduleNewInstance" title="New Class Schedule">
+<script>
+
+    function setFocusOnLoad() {} 
+    
+</script>
+
+    <apex:form id="frmMain">
+    
+        <apex:sectionHeader title="New Schedule for {!strClassName} ({!strClassType} Class)" />
+            
+        <apex:messages />
+        
+        <table border="0" width="100%">
+            <tr>
+                <td>
+                    <div align="center">
+                        <hr />
+                        <strong>{!strClassType} Schedule Definition</strong>
+                        <hr />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <apex:outputPanel rendered="{!bolValid == false}">
+                        <table border="0" width="100%">
+                            <tr>
+                                <td width="100%">
+                                    <div align="center">
+                                        Classes can only have one schedule associated with them.  This class already has
+                                        a Schedule that is active or has students enrolled in it.  Please verify your 
+                                        class choice and try again.<br />
+                                        <br />
+                                        <apex:commandButton immediate="true" action="{!cancelSchedule}" value="Go Back to Class" id="cmdInvalid" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!strClassType == 'Single' && bolValid == true}">
+                        <table border="0" width="100%">
+                            <tr>
+                                <td width="33%">
+                                    Date:<br />
+                                    <apex:inputField value="{!schNew.UI_Start_Date__c}" required="true" />
+                                </td>
+                                <td width="33%">
+                                    Start Time:&nbsp;&nbsp;(HH:MM)<br />
+                                    <apex:inputText size="10" value="{!strTimeStart}" required="true" />&nbsp;&nbsp;
+                                    <apex:selectList value="{!strStartAMPM}" size="1">
+                                        <apex:selectOptions value="{!soStartAMPM}"/>
+                                    </apex:selectList><br />
+                                </td>
+                                <td width="34%">
+                                    End Time:&nbsp;&nbsp;(HH:MM)<br />
+                                    <apex:inputText size="10" value="{!strTimeEnd}" required="true" />&nbsp;&nbsp;
+                                    <apex:selectList value="{!strEndAMPM}" size="1">
+                                        <apex:selectOptions value="{!soEndAMPM}"/>
+                                    </apex:selectList><br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colSpan="3">
+                                    <hr />
+                                    <div align="center">
+                                        <apex:commandButton action="{!createNewSchedule}" value="Save" id="cmdSaveSingle" />&nbsp;&nbsp;
+                                        <apex:commandButton immediate="true" action="{!cancelSchedule}" value="Cancel" id="cmdCancelSingle" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!(strClassType == 'Fixed' || strClassType == 'Ongoing') && bolValid == true}">
+                        <table border="0" width="100%" cellSpacing="0" cellPadding="3">
+                            <tr>
+                                <td width="26%">
+                                    Start Date:<br />
+                                    <apex:inputField value="{!schNew.UI_Start_Date__c}" required="true" />
+                                </td>
+                                <td width="37%">
+                                    <apex:outputText value="End Date:" rendered="{!strClassType == 'Fixed'}" /><br />
+                                    <apex:inputField value="{!schNew.UI_End_Date__c}" rendered="{!strClassType == 'Fixed'}" required="true" />
+                                </td>
+                                <td width="37%">
+                                    <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colSpan="3">
+                                    <br />
+                                    <div align="center">
+                                        <strong>Days of Week</strong>
+                                    </div>
+                                    <hr />
+                                </td>
+                            </tr>
+                            <tr bgColor="#e2e2e2">
+                                <td width="26%">
+                                    <br />
+                                    <div align="left">
+                                        <apex:inputCheckbox value="{!schNew.Monday__c}" />&nbsp;Monday
+                                    </div>
+                                </td>
+                                <td width="37%">
+                                    <div align="center">
+                                        Start Time:&nbsp;&nbsp;(HH:MM)<br />
+                                        <apex:inputText size="10" value="{!strTimeStartMonday}" />&nbsp;&nbsp;
+                                        <apex:selectList value="{!strStartMondayAMPM}" size="1">
+                                            <apex:selectOptions value="{!soStartAMPM}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                                <td width="37%">
+                                    <div align="center">
+                                        End Time:&nbsp;&nbsp;(HH:MM)<br />
+                                        <apex:inputText size="10" value="{!strTimeEndMonday}" />&nbsp;&nbsp;
+                                        <apex:selectList value="{!strEndMondayAMPM}" size="1">
+                                            <apex:selectOptions value="{!soEndAMPM}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="26%">
+                                    <br />
+                                    <div align="left">
+                                        <apex:inputCheckbox value="{!schNew.Tuesday__c}" />&nbsp;Tuesday
+                                    </div>
+                                </td>
+                                <td width="37%">
+                                    <div align="center">
+                                        Start Time:&nbsp;&nbsp;(HH:MM)<br />
+                                        <apex:inputText size="10" value="{!strTimeStartTuesday}" />&nbsp;&nbsp;
+                                        <apex:selectList value="{!strStartTuesdayAMPM}" size="1">
+                                            <apex:selectOptions value="{!soStartAMPM}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                                <td width="37%">
+                                    <div align="center">
+                                        End Time:&nbsp;&nbsp;(HH:MM)<br />
+                                        <apex:inputText size="10" value="{!strTimeEndTuesday}" />&nbsp;&nbsp;
+                                        <apex:selectList value="{!strEndTuesdayAMPM}" size="1">
+                                            <apex:selectOptions value="{!soEndAMPM}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr bgColor="#e2e2e2">
+                                <td width="26%">
+                                    <br />
+                                    <div align="left">
+                                        <apex:inputCheckbox value="{!schNew.Wednesday__c}" />&nbsp;Wednesday
+                                    </div>
+                                </td>
+                                <td width="37%">
+                                    <div align="center">
+                                        Start Time:&nbsp;&nbsp;(HH:MM)<br />
+                                        <apex:inputText size="10" value="{!strTimeStartWednesday}" />&nbsp;&nbsp;
+                                        <apex:selectList value="{!strStartWednesdayAMPM}" size="1">
+                                            <apex:selectOptions value="{!soStartAMPM}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                                <td width="37%">
+                                    <div align="center">
+                                        End Time:&nbsp;&nbsp;(HH:MM)<br />
+                                        <apex:inputText size="10" value="{!strTimeEndWednesday}" />&nbsp;&nbsp;
+                                        <apex:selectList value="{!strEndWednesdayAMPM}" size="1">
+                                            <apex:selectOptions value="{!soEndAMPM}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="26%">
+                                    <br />
+                                    <div align="left">
+                                        <apex:inputCheckbox value="{!schNew.Thursday__c}" />&nbsp;Thursday
+                                    </div>
+                                </td>
+                                <td width="37%">
+                                    <div align="center">
+                                        Start Time:&nbsp;&nbsp;(HH:MM)<br />
+                                        <apex:inputText size="10" value="{!strTimeStartThursday}" />&nbsp;&nbsp;
+                                        <apex:selectList value="{!strStartThursdayAMPM}" size="1">
+                                            <apex:selectOptions value="{!soStartAMPM}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                                <td width="37%">
+                                    <div align="center">
+                                        End Time:&nbsp;&nbsp;(HH:MM)<br />
+                                        <apex:inputText size="10" value="{!strTimeEndThursday}" />&nbsp;&nbsp;
+                                        <apex:selectList value="{!strEndThursdayAMPM}" size="1">
+                                            <apex:selectOptions value="{!soEndAMPM}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr bgColor="#e2e2e2">
+                                <td width="26%">
+                                    <br />
+                                    <div align="left">
+                                        <apex:inputCheckbox value="{!schNew.Friday__c}" />&nbsp;Friday
+                                    </div>
+                                </td>
+                                <td width="37%">
+                                    <div align="center">
+                                        Start Time:&nbsp;&nbsp;(HH:MM)<br />
+                                        <apex:inputText size="10" value="{!strTimeStartFriday}" />&nbsp;&nbsp;
+                                        <apex:selectList value="{!strStartFridayAMPM}" size="1">
+                                            <apex:selectOptions value="{!soStartAMPM}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                                <td width="37%">
+                                    <div align="center">
+                                        End Time:&nbsp;&nbsp;(HH:MM)<br />
+                                        <apex:inputText size="10" value="{!strTimeEndFriday}" />&nbsp;&nbsp;
+                                        <apex:selectList value="{!strEndFridayAMPM}" size="1">
+                                            <apex:selectOptions value="{!soEndAMPM}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="26%">
+                                    <br />
+                                    <div align="left">
+                                        <apex:inputCheckbox value="{!schNew.Saturday__c}" />&nbsp;Saturday
+                                    </div>
+                                </td>
+                                <td width="37%">
+                                    <div align="center">
+                                        Start Time:&nbsp;&nbsp;(HH:MM)<br />
+                                        <apex:inputText size="10" value="{!strTimeStartSaturday}" />&nbsp;&nbsp;
+                                        <apex:selectList value="{!strStartSaturdayAMPM}" size="1">
+                                            <apex:selectOptions value="{!soStartAMPM}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                                <td width="37%">
+                                    <div align="center">
+                                        End Time:&nbsp;&nbsp;(HH:MM)<br />
+                                        <apex:inputText size="10" value="{!strTimeEndSaturday}" />&nbsp;&nbsp;
+                                        <apex:selectList value="{!strEndSaturdayAMPM}" size="1">
+                                            <apex:selectOptions value="{!soEndAMPM}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr bgColor="#e2e2e2">
+                                <td width="26%">
+                                    <br />
+                                    <div align="left">
+                                        <apex:inputCheckbox value="{!schNew.Sunday__c}" />&nbsp;Sunday
+                                    </div>
+                                </td>
+                                <td width="37%">
+                                    <div align="center">
+                                        Start Time:&nbsp;&nbsp;(HH:MM)<br />
+                                        <apex:inputText size="10" value="{!strTimeStartSunday}" />&nbsp;&nbsp;
+                                        <apex:selectList value="{!strStartSundayAMPM}" size="1">
+                                            <apex:selectOptions value="{!soStartAMPM}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                                <td width="37%">
+                                    <div align="center">
+                                        End Time:&nbsp;&nbsp;(HH:MM)<br />
+                                        <apex:inputText size="10" value="{!strTimeEndSunday}" />&nbsp;&nbsp;
+                                        <apex:selectList value="{!strEndSundayAMPM}" size="1">
+                                            <apex:selectOptions value="{!soEndAMPM}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colSpan="3">
+                                    <hr />
+                                    <div align="center">
+                                        <apex:commandButton action="{!createNewSchedule}" value="Save" id="cmdSaveFixed" />&nbsp;&nbsp;
+                                        <apex:commandButton immediate="true" action="{!cancelSchedule}" value="Cancel" id="cmdCancelFixed" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </apex:outputPanel>
+                </td>
+            </tr>
+        </table>
+    
+    </apex:form>
+
+</apex:page>

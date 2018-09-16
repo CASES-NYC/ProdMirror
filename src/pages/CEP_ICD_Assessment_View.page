@@ -1,0 +1,109 @@
+<apex:page standardcontroller="Assessment__c" extensions="assessPreloadCon">
+<table width="1000px"><tr><td>
+<apex:messages />
+    <apex:sectionheader subtitle="{!IF(ISNULL(Assessment__c.Contact__c), 'NO NAME FOUND', Assessment__c.Client_Name__c)}" title="CEP ICD Assessment"/>
+    <apex:form >
+        <apex:pageblock mode="edit" title="CEP ICD Assessment">
+            <apex:pageblockbuttons >
+                <apex:commandbutton value="Edit" action="{!Edit}" rendered="{!(Assessment__c.Locked__c==False)}" />
+                <apex:commandbutton value="Delete" action="{!Delete}" rendered="{!(Assessment__c.Locked__c==False)}"/>
+                <apex:commandbutton value="Cancel" action="{!Cancel}"/>
+                <apex:commandbutton value="Lock Record" action="{!LockRecord}" rendered="{!(Assessment__c.Locked__c==False)}" />                 
+                                
+            </apex:pageblockbuttons>
+                <apex:pageblocksection title="Assessment Information" showheader="true" columns="2">
+                    <apex:outputText value="Assessment is Locked" style="font-size:1.2em; text-align:right;color:red"  rendered="{!(Assessment__c.Locked__c==True)}" />                     
+                    <apex:outputText value=""  rendered="{!(Assessment__c.Locked__c==True)}" />                
+                    <apex:outputfield value="{!Assessment__c.Name}"/>
+                    <apex:outputField value="{!Assessment__c.Assessment_Completed_on__c}"/>
+                    <apex:outputField value="{!Assessment__c.Contact__c}"/>
+                    <apex:outputField value="{!Assessment__c.Assessment_Completed_by__c}"/>
+                    <apex:pageblockSectionItem >
+                        <apex:outputLabel value="Date Assessment Given" for="assessment_date"/>
+                        <apex:outputField value="{!Assessment__c.Assessment_Date__c}" id="assessment_date"/>
+                    </apex:pageblockSectionItem>                    
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Education - ICD" showheader="true" collapsible="true" columns="1">
+                    <apex:panelGrid columns="4" border="0" styleClass="tableStyle" width="600px" columnClasses="colStyle5,colStyle5,colStyle5,colStyle5" rowClasses="rowstyle">                    
+                        <apex:outputText value="School Last Attended"  styleClass="header"/>
+                        <apex:outputText value="Credits Attained"  styleClass="header"/>
+                        <apex:outputText value="Mo/Yr Last Attended" styleClass="header"/>
+                        <apex:outputText value="Last Grade Completed" styleClass="header"/>
+                        <apex:outputField value="{!Assessment__c.Last_School_Attended__c}"/>
+                        <apex:outputField value="{!Assessment__c.Credits_Attained__c}"/>
+                        <apex:outputField value="{!Assessment__c.Mo_Yr_Last_Attended_School__c}"/>
+                        <apex:outputField value="{!Assessment__c.Last_Grade_Completed__c}"/>
+                    </apex:panelGrid>
+                    <apex:panelGrid columns="2" border="0" width="600px" columnClasses="colStyle5,colStyle5">
+                        <apex:outputText value="Other Education Attended" styleClass="header"/>
+                        <apex:outputText value="Mo/Yr Last Attended" styleClass="header"/>                         
+                        <apex:outputField value="{!Assessment__c.Other_Education_Attended__c}"/>
+                        <apex:outputField value="{!Assessment__c.Mo_Yr_Last_Attended_Other__c}"/>
+                    </apex:panelGrid>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Testing" showheader="true" columns="2">                    
+                    <apex:panelGrid columns="5" border="0" styleClass="tableStyle" width="600px" columnClasses="colStyle4,colStyle4,colstyle4,colStyle4,colstyel4" rowClasses="rowstyle">
+                    <apex:outputText ></apex:outputText>
+                    <apex:outputText value="Test"  styleClass="header"/>
+                    <apex:outputText value="Taken"  styleClass="header"/>
+                    <apex:outputText value="Mo/Yr Taken"  styleClass="header"/>
+                    <apex:outputText value="Sections Passed"  styleClass="header"/>                                                            
+                    <apex:outputText ></apex:outputText>
+                    <apex:outputText value="Regents"/>
+                    <apex:outputField value="{!Assessment__c.Regents__c}"/>
+                    <apex:outputField value="{!Assessment__c.Mo_Yr_Taken_Regents__c}"/>
+                    <apex:outputField value="{!Assessment__c.Sections_Passed_Regents__c}"/>
+                    <apex:outputText ></apex:outputText>
+                    <apex:outputText value="GED"/>
+                    <apex:outputField value="{!Assessment__c.GED__c}"/>
+                    <apex:outputField value="{!Assessment__c.Mo_Yr_Taken_GED__c}" />
+                    <apex:outputField value="{!Assessment__c.Sections_Passed_GED__c}"/>
+                    <apex:outputText ></apex:outputText>
+                    <apex:outputText value="TASC"/>                    
+                    <apex:outputField value="{!Assessment__c.TASC__c}"/>
+                    <apex:outputField value="{!Assessment__c.Mo_Yr_Taken_TASC__c}" label="Mo/Yr Taken"/>
+                    <apex:outputField value="{!Assessment__c.Sections_Passed_TASC__c}" label="Sections Passed"/>
+                    </apex:panelGrid>                    
+                </apex:pageblocksection>                
+                <apex:pageblocksection title="Education - Participant Narrative" showheader="true" columns="1">
+                <apex:pageblocksectionitem >                  
+                    <apex:outputField value="{!Assessment__c.Education_Client_Narrative__c}" style="width:600px" />
+                </apex:pageblocksectionitem>  
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Employment - Participant Narrative" showheader="true" columns="1">
+                <apex:pageblocksectionitem >
+                    <apex:outputField value="{!Assessment__c.Employment_Section_1__c}" style="width:600px" />
+                </apex:pageblocksectionitem>                       
+                </apex:pageblocksection>         
+                <apex:pageblocksection title="Staff Recommendations" showheader="true" columns="1">
+                <apex:pageblocksectionitem >                
+                    <apex:outputField value="{!Assessment__c.Education_Plan__c}" style="width:600px"  />
+                </apex:pageblocksectionitem>  
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Participant Choices" showheader="true" columns="1">
+                <apex:pageblocksectionitem >                                  
+                    <apex:outputField value="{!Assessment__c.ICD_Services__c}"/>
+                </apex:pageblocksectionitem>  
+                </apex:pageblocksection>
+        </apex:pageblock>
+    </apex:form>
+<style>
+
+    .tableStyle {border-collapse: collapse; border-spacing: 0px 0px; }
+    .colStyle1 { width: 16.5%;text-align:right; padding-top:3px; padding-bottom:5px}
+    .colStyle2 { width: 10%; padding-left:20px; padding-top:5px; padding-bottom:5px}
+    .colStyle3 { width: 10%;text-align:right; padding-top:5px; padding-bottom:5px}
+    .colStyle4 { width: 21%; padding-left:20px; padding-top:5px; padding-bottom:5px}
+    .colStyle5 { width: 10%;text-align:left; padding-top:5px; padding-bottom:5px}
+    .colStyle6 { width: 32%; padding-left:20px; padding-top:5px; padding-bottom:4px}
+    .rowstyle { border-bottom-style:solid; border-bottom-width:1px;border-bottom-color:#E8E8E8 }
+</style>
+<style type="text/css">
+    .col0 {width:50px; text-align:right;}
+    .col1 {width:400px; text-align:left;}
+    .col2 {width:450px; text-align:left;}
+    .col3 {width:100px; text-align:left;}
+    .header {font-weight:bold;text-decoration:underline;}    
+</style>
+</td></tr></table>
+</apex:page>

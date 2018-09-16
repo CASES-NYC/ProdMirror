@@ -1,0 +1,115 @@
+<apex:page standardController="Assessment__c">
+	<apex:sectionHeader title="Assessment Edit" subtitle="{!Assessment__c.Name}"/>
+	<apex:form >
+		<apex:pageBlock title="Assessment Edit" mode="edit">
+
+			<apex:pageBlockButtons >
+				<apex:commandButton value="Save" action="{!save}"/>
+				<apex:commandButton value="Save & New" action="{!save}" />
+				<apex:commandButton value="Cancel" action="{!cancel}"/>
+			</apex:pageBlockButtons>
+
+
+
+
+			<apex:pageBlockSection title="Case Coordinator Assessment" columns="2">
+				<apex:inputField value="{!Assessment__c.Contact__c}" required="true"/>
+				<apex:inputField value="{!Assessment__c.Assessment_Completed_on__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Name}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Assessment_Completed_by__c}" required="false"/>
+			</apex:pageBlockSection>
+
+
+			<apex:pageBlockSection title="Basic Client Info" columns="2">
+				<apex:inputField value="{!Assessment__c.Client_Name__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Parent_Guardian__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Case_Coordinator__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Relation_To_Client__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Education_Section_1__c}" required="false"/>
+			</apex:pageBlockSection>
+
+
+			<apex:pageBlockSection title="Assessment Notes-Education" columns="1">
+				<apex:inputField value="{!Assessment__c.Education_Plan__c}" required="false"/>
+			</apex:pageBlockSection>
+
+
+			<apex:pageBlockSection title="Data Capture-Education" columns="2">
+				<apex:inputField value="{!Assessment__c.School_GED_Enrollment_at_Intake__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Update_School_GED_Enrollment_at_Intake__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Diploma_Status_at_Intake__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Update_Diploma_Status_at_Intake__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Current_School_Enrollment__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.School_Start_Date__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Last_School_Attended__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.School_End_Date__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.School_Institution_Hours_from_and_to__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Reason_for_Leaving_School__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Reason_for_Leaving_School_Other__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.How_many_credits_have_you_earned__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Update_No_of_High_School_Credits__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.What_grade_are_you_currently_in__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Update_Current_Grade__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.What_is_the_last_grade_you_completed__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Update_Last_Grade_Completed__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Diploma_Type__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Diploma_Date__c}" required="false"/>
+			</apex:pageBlockSection>
+
+
+			<apex:pageBlockSection title="Assessment Notes-Employment" columns="1">
+				<apex:inputField value="{!Assessment__c.Employment_Section_1__c}" required="false"/>
+			</apex:pageBlockSection>
+
+
+			<apex:pageBlockSection title="Data Capture-Employment" columns="2">
+				<apex:inputField value="{!Assessment__c.Employed_at_Intake__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Update_Employed_at_Intake__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Current_Employment__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Start_Date__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Employer__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Hourly_Pay__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Job_Title__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Work_Hours_from_and_to__c}" required="false"/>
+			</apex:pageBlockSection>
+
+
+			<apex:pageBlockSection title="Assessment Notes-Health & Wellbeing" columns="1">
+				<apex:inputField value="{!Assessment__c.Mental_Health_Section_1__c}" required="false"/>
+			</apex:pageBlockSection>
+
+
+			<apex:pageBlockSection title="Data Capture-Family and Peers" columns="2">
+				<apex:inputField value="{!Assessment__c.How_many_children__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Expecting_a_Child__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Incarcerated_Family_Members__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Gang_Involvement__c}" required="false"/>
+			</apex:pageBlockSection>
+
+
+			<apex:pageBlockSection title="Assessment Notes-Physical Health" columns="1">
+				<apex:inputField value="{!Assessment__c.Physical_Health_Section_1__c}" required="false"/>
+			</apex:pageBlockSection>
+
+
+			<apex:pageBlockSection title="Data Capture-Physical Health" columns="2">
+				<apex:inputField value="{!Assessment__c.Indication_of_Phys_Health_Problem__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Update_Indication_of_Phys_Health_Problem__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Other_Phys_Health_Problem__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Update_Other_Phys_Health_Problem__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Do_you_have_Insurance__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Update_Has_Insurance__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Insurance_Provider__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Update_Insurance_Provider__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Insurance_Number__c}" required="false"/>
+				<apex:inputField value="{!Assessment__c.Update_Insurance_Number__c}" required="false"/>
+			</apex:pageBlockSection>
+
+
+			<apex:pageBlockSection title="System Information" columns="2">
+				<apex:inputField value="{!Assessment__c.RecordTypeId}" required="false"/>
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

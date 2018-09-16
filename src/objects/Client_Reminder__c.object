@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>For use with Clientel or other reminder needs</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Active__c</fullName>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Alternate_First_Name__c</fullName>
+        <description>Will pull client&apos;s firstname from contact. Use this field if name on contact is not appropriate</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Only add  a name here if you do NOT want to use the name on contact page for client.</inlineHelpText>
+        <label>Alternate First Name</label>
+        <length>75</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Alternate_Language__c</fullName>
+        <description>Not same picklist as Primary Language. Limited languages available.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Not same picklist as Primary Language. Limited languages available.</inlineHelpText>
+        <label>Alternate Language</label>
+        <picklist>
+            <picklistValues>
+                <fullName>English</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spanish</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Alternate_Last_Name__c</fullName>
+        <description>If not using last name on contact</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Only fill in this field if you do NOT want to use last name on Contact page</inlineHelpText>
+        <label>Alternate Last Name</label>
+        <length>75</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Alternate_Phone_Number__c</fullName>
+        <description>to use phone number other than what is on contact page</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Only fill in this field if NOT using cell phone on Contact page</inlineHelpText>
+        <label>Alternate Phone Number</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Alternate_email__c</fullName>
+        <description>If not using client&apos;s email on contact page</description>
+        <externalId>false</externalId>
+        <inlineHelpText>only fill in if NOT using client&apos;s email on Contact page</inlineHelpText>
+        <label>Alternate email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Cell_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Contact__r.Client_Cell_Phone__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact Cell Phone</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_First_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Contact__r.FirstName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact First Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Last_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Contact__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact Last Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Primary_Language__c</fullName>
+        <description>Primary Language from contact</description>
+        <externalId>false</externalId>
+        <formula>Text(Contact__r.Primary_Language__c)</formula>
+        <label>Contact Primary Language</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <description>Master/child</description>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Client Reminders</relationshipLabel>
+        <relationshipName>Client_Reminders</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>FirstName_RPT__c</fullName>
+        <description>Use contact first name unless alternate exists</description>
+        <externalId>false</externalId>
+        <formula>if(isblank( Alternate_First_Name__c) , Contact_First_Name__c ,Alternate_First_Name__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Use this field for reports</inlineHelpText>
+        <label>FirstName_RPT</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Language_RPT__c</fullName>
+        <description>Clienttel reports this field</description>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK( text(Alternate_Language__c))),text(Alternate_Language__c),Contact_Primary_Language__c)</formula>
+        <inlineHelpText>For ClientTell report</inlineHelpText>
+        <label>Language RPT</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Reminder_Call__c</fullName>
+        <description>upload from clienttel</description>
+        <externalId>false</externalId>
+        <label>Last Reminder Call</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Last_Response__c</fullName>
+        <description>response from reminder.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Clienttel will send back a report with values for response (e..g. number disconnected, no answer, answered, etc.).</inlineHelpText>
+        <label>Last Response</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lastname_RPT__c</fullName>
+        <description>if no alternate last name, use contact last name, else use alternate lastname field</description>
+        <externalId>false</externalId>
+        <formula>if(isblank( Alternate_Last_Name__c ), Contact_Last_Name__c , Alternate_Last_Name__c )</formula>
+        <inlineHelpText>ClientTell report</inlineHelpText>
+        <label>Lastname RPT</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Message_Type__c</fullName>
+        <defaultValue>&quot;Text; Voice&quot;</defaultValue>
+        <description>Default is Text message, check with Giles</description>
+        <externalId>false</externalId>
+        <inlineHelpText>only use N/A if NOT for clienttell (automated call reminder</inlineHelpText>
+        <label>Message Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manual</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Text</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Voice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Phone_Number_RPT__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(isblank( Alternate_Phone_Number__c ), Contact_Cell_Phone__c ,Alternate_Phone_Number__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Phone Number RPT</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reminder_Type__c</fullName>
+        <description>In case want to use for other things besides csv file for ClientTell</description>
+        <externalId>false</externalId>
+        <label>Reminder Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>ClientTell</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Front Desk</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Short_Note__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Think twitter - 254 characters!</inlineHelpText>
+        <label>Short Note</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <label>Client Reminder</label>
+    <nameField>
+        <displayFormat>CRE-{0}</displayFormat>
+        <label>Client Reminder Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Client Reminders</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

@@ -1,0 +1,13 @@
+<apex:component >
+    <apex:outPutPanel >   
+    <apex:image id="theImage" value="{!$Resource.crwCASES}" />
+    <br/>
+    <apex:outputLabel value="The Court Employment Project"/>
+     <br/>
+    <apex:outputLabel value="151 Lawrence Street, 3rd Floor"/>
+    <br/>
+    <apex:outputLabel value="Brooklyn, NY 11201"/>
+    <br/>
+    <apex:outputLabel value="212 553-6300"/>
+   </apex:outPutPanel>
+</apex:component>

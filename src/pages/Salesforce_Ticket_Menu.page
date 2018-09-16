@@ -1,0 +1,37 @@
+<apex:page showHeader="false" sidebar="false">
+<style>
+body {
+    font-size:large;
+}
+</style>
+    <apex:pageBlock title="What type of ticket are you opening?">
+                <apex:pageblocksection title="Request Categories" showheader="true" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText ></apex:outputText>
+                        <apex:outputText value="Click on the category of ticket you wish to open." />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:panelGrid columns="2" cellpadding="10px" border="1" style="margin:0 auto;">
+                            <apex:outputLink value="/500/e?retURL=%2F500%2Fo&RecordType=012600000009eKu&cas4_lkid=0016000001IGMmN&cas5=Permissions/Access&ent=Case">Permissions/Access</apex:outputLink>
+                            <apex:outputText value="Unable to login/Insufficent Permissions"/>
+                            <apex:outputLink value="/500/e?retURL=%2F500%2Fo&RecordType=012600000004yi5&cas4_lkid=0016000001IGMmN&cas5=Problem&ent=Case">Problem</apex:outputLink>
+                            <apex:outputText value="Program is crashing, inacessible or giving errors"/>                                                    
+                            <apex:outputLink value="/500/e?retURL=%2F500%2Fo&RecordType=012600000009eL9&cas4_lkid=0016000001IGMmN&cas5=Data%20Integrity&ent=Case">Data Integrity</apex:outputLink>
+                            <apex:outputText value="Duplicate/Missing/Incorrect Data"/>                            
+                            <apex:outputLink value="/500/e?retURL=%2F500%2Fo&RecordType=012600000009eL4&cas4_lkid=0016000001IGMmN&cas5=Feature%20Request&ent=Case">Feature Request</apex:outputLink>
+                            <apex:outputText value="Adding functionality that is not currently there."/>
+                            <apex:outputLink value="/500/e?retURL=%2F500%2Fo&RecordType=012600000009eKz&cas4_lkid=0016000001IGMmN&cas5=New%20Salesforce%20User&ent=Case">New Salesforce User</apex:outputLink>                                                                           
+                            <apex:outputText value="Please attach copy of New User Form." style="font-weight:bold;text-decoration:underline;"/>                                                        
+                        </apex:panelGrid>
+                    </apex:pageBlockSectionItem>
+                    <br/>
+                    <apex:outputText > The more specific, detailed information you are able to provide on this form...the quicker we will be able to work on your request. Important details include: 
+                    <ul><li>any error messages you receive</li>
+                    <li>the record/screen you were working on</li> 
+                    <li>the field or button you accessed right before the problem happened</li>
+                    <li>are other people experiencing the same problem?</li>
+                    </ul>
+                    </apex:outputText>
+                </apex:pageblocksection>    
+    </apex:pageBlock>                
+</apex:page>

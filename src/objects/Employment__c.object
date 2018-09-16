@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Certificate_Name__c</fullName>
+        <description>CJC Reporting requirements</description>
+        <externalId>false</externalId>
+        <label>Certificate Name</label>
+        <length>75</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client__c</fullName>
+        <externalId>false</externalId>
+        <label>Client</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Employment</relationshipLabel>
+        <relationshipName>Client</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Employer_Name__c</fullName>
+        <description>Show either Account Name (Employer linked) or Other Employer text or Both</description>
+        <externalId>false</externalId>
+        <formula>if(isblank(Employer__c),Other_Employer__c, Employer__r.Name &amp;if(len(Other_Employer__c)&gt;0,&apos; - &apos;&amp;Other_Employer__c, &apos;&apos;))</formula>
+        <label>Employer Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Employer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>This is a lookup field to employer - in accounts</description>
+        <externalId>false</externalId>
+        <label>Employer</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>Employment</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Employment_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Employment Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Employed FT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employed PT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Job Training/Readiness Program</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SYEP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Community Service</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internship</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Hourly_Pay__c</fullName>
+        <externalId>false</externalId>
+        <label>Hourly Pay</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Industry_Recognized_Certificate__c</fullName>
+        <description>CJC - Billing requirement</description>
+        <externalId>false</externalId>
+        <label>Industry Recognized Certificate</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Is_Pay_Subsidized__c</fullName>
+        <externalId>false</externalId>
+        <label>Is Pay Subsidized?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Job_Title__c</fullName>
+        <externalId>false</externalId>
+        <label>Job Title</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Notes</label>
+        <length>600</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>OldId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Old ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Employer__c</fullName>
+        <description>For when it does not make sense to enter the employer in Account (e.g. self employed).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Fill in Other Employer if Employer is not the name of a business and cannot be entered as an Account (e.g., &quot;self-employed&quot;).</inlineHelpText>
+        <label>Other Employer</label>
+        <length>75</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_for_Leaving_Other__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason for Leaving (Other)</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_for_Leaving__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason for Leaving</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Family Responsibilities</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New Job</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed/Obtained Certificate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>School Conflict</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seasonal/Contract Work</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Terminated</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Referred_by_CASES__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Referred by CASES</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Work_Hours_from_and_to__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Format:  Example  9:00 to 5:00</inlineHelpText>
+        <label>Work Hours (From and To)</label>
+        <length>200</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X90_day_job_verification__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>90 day job verification</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Employment</label>
+    <nameField>
+        <displayFormat>E-{00000}</displayFormat>
+        <label>Emp-ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Employment</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Client__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Employer__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Employment_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Start_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>End_Date__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Client__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Employer__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Employment_Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Start_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>End_Date__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Client__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Employer__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Employment_Type__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Start_Date__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>End_Date__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Client__c</searchFilterFields>
+        <searchFilterFields>Employer__c</searchFilterFields>
+        <searchFilterFields>Employment_Type__c</searchFilterFields>
+        <searchFilterFields>Start_Date__c</searchFilterFields>
+        <searchFilterFields>End_Date__c</searchFilterFields>
+        <searchResultsAdditionalFields>Client__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Employer__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Employment_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Start_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>End_Date__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Certificate_Name_and_Industry_Recognized</fullName>
+        <active>true</active>
+        <description>both can be blank, or both must have a value</description>
+        <errorConditionFormula>OR(AND(isblank( Certificate_Name__c ),text( Industry_Recognized_Certificate__c )&lt;&gt;&quot;&quot;),AND( text(Industry_Recognized_Certificate__c)=&quot;&quot;,NOT(isblank(Certificate_Name__c ))))</errorConditionFormula>
+        <errorDisplayField>Industry_Recognized_Certificate__c</errorDisplayField>
+        <errorMessage>Either both Industry Recognized Certificate and Certificate Name must be filled in or both must be blank.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Employer_or_Other_Employer_required</fullName>
+        <active>true</active>
+        <description>Either Employer or Other Employer must have a value to save the record</description>
+        <errorConditionFormula>AND(ISBLANK( Employer__c), ISBLANK(Other_Employer__c))</errorConditionFormula>
+        <errorDisplayField>Employer__c</errorDisplayField>
+        <errorMessage>Either the field Employer or Other Employer must be filled in.  Fill in Other Employer if Employer is not the name of a business and cannot be entered as an Account (e.g., &quot;self-employed&quot;).</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Employment_Start_and_End_Date_Today</fullName>
+        <active>true</active>
+        <description>Employment Start and End Date cannot be a future date</description>
+        <errorConditionFormula>IF( Start_Date__c &gt;  TODAY() , true, IF( End_Date__c &gt;  TODAY() , true, false))</errorConditionFormula>
+        <errorMessage>The Employment Start and End date cannot be greater than the current date.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>End_Date</fullName>
+        <active>true</active>
+        <description>End Date cannot be before the start date</description>
+        <errorConditionFormula>End_Date__c &lt;  Start_Date__c</errorConditionFormula>
+        <errorDisplayField>End_Date__c</errorDisplayField>
+        <errorMessage>End Date has to be after the start date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Is_Pay_Subsidized_is_required</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(ispickval(Is_Pay_Subsidized__c, &quot;&quot;),  Hourly_Pay__c  &gt; 0)</errorConditionFormula>
+        <errorDisplayField>Is_Pay_Subsidized__c</errorDisplayField>
+        <errorMessage>You must indicate whether pay is subsidized if there is a value in the Hourly Pay field.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Reason_for_Leaving_Required_with_End_Dat</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(not(isblank( End_Date__c )), ispickval( Reason_for_Leaving__c , &quot;&quot;))</errorConditionFormula>
+        <errorDisplayField>Reason_for_Leaving__c</errorDisplayField>
+        <errorMessage>If this employment record has an end date (i.e. it&apos;s completed), you must enter a Reason for Leaving.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Reason_for_Leaving_and_Other</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(ispickval(Reason_for_Leaving__c, &quot;Other&quot;), isblank(Reason_for_Leaving_Other__c))</errorConditionFormula>
+        <errorDisplayField>Reason_for_Leaving_Other__c</errorDisplayField>
+        <errorMessage>If the Reason for Leaving is &quot;Other&quot;, you must write out a reason.</errorMessage>
+    </validationRules>
+</CustomObject>

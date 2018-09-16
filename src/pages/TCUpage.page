@@ -1,0 +1,167 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="crpage" >
+    <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+
+
+ <apex:outPutPanel id="op" styleclass="resultContainer">
+  <apex:outputLabel value="TCU total score:" />&nbsp;
+<apex:outputLabel value="{!TCU.TCU_Total_Score__c}" id="tcuScore"
+ style="width:40px;color:blue;font-size:14px;background-color:white;font-weight:bold;border:none;"/>
+<apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+  <apex:pageblocksection title="Scored Questions" showheader="true" columns="2">
+  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Scored Questions</span> 
+            </apex:facet>
+    <apex:inputfield value="{!TCU.TCU_Q1_Longer_more_drugs_than_intended__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q6a_Emotional_and_psych_problems__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q2_Try_to_cut_down__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q6b_Problems_w_family_friends_work__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q3_Spend_a_lot_of_time__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q6c_physical_or_medical_problems__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q4a_Kept_you_from_doing_work_school__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q7_Increase_drug_amount__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q4b_Caused_an_accident__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q8_Took_drugs_to_avoid_withdrawal__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q5_Spend_less_time_at_work__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q9_Get_sick_when_quitting__c}" /> 
+  </apex:pageblocksection>
+  <apex:pageblocksection showheader="true" columns="2">
+  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Drug Inventory</span> 
+            </apex:facet>
+    <apex:inputfield value="{!TCU.TCU_Q10_Most_problematic_drug__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q11h_Heroin__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q11a_Alcohol__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q11i_Methadone__c}" /> 
+    <apex:inputfield value="{!TCU.TCU_Q11b_Marijuana__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q11j_Other_opiates__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q11c_Hallucinogens__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q11k_Methamphetamine__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q11d_Inhalants__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q11l_Amphetamines__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q11e_Crack__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q11m_Barbiturates__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q11f_Speedball__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q11n_Other_drugs__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q11g_Cocaine__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q11n_Other_drugs_frequency__c}" />
+  </apex:pageblocksection>
+  <apex:pageblocksection showheader="true" columns="2">
+  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Other Questions</span> 
+            </apex:facet>
+    <apex:inputfield value="{!TCU.TCU_Q12_How_often_did_you_inject__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q14_Number_of_times_in_treatment__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q13_How_serious_are_your_problems__c}" />
+    <apex:inputfield value="{!TCU.TCU_Q15_How_important_to_get_treatment__c}" />
+  </apex:pageblocksection>
+</apex:pageblock>
+
+<apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+ 
+  <apex:pageblocksection showheader="true" columns="2">
+  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Scored Questions</span> 
+            </apex:facet>
+    <apex:inputtext value="{!TCU.TCU_Q1_Longer_more_drugs_than_intended__c}"  styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q6a_Emotional_and_psych_problems__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q2_Try_to_cut_down__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q6b_Problems_w_family_friends_work__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q3_Spend_a_lot_of_time__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q6c_physical_or_medical_problems__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q4a_Kept_you_from_doing_work_school__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q7_Increase_drug_amount__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q4b_Caused_an_accident__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q8_Took_drugs_to_avoid_withdrawal__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q5_Spend_less_time_at_work__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q9_Get_sick_when_quitting__c}" styleclass="txt40" disabled="true"/> 
+  </apex:pageblocksection>
+  
+  <apex:pageblocksection showheader="true" columns="2">
+ <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Drug Inventory</span> 
+            </apex:facet>
+    <apex:inputtext value="{!TCU.TCU_Q10_Most_problematic_drug__c}" styleclass="txt40" disabled="true"/>
+  
+    <apex:inputtext value="{!TCU.TCU_Q11h_Heroin__c}" styleclass="txt200" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q11a_Alcohol__c}" styleclass="txt200" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q11i_Methadone__c}" styleclass="txt200" disabled="true"/> 
+    <apex:inputtext value="{!TCU.TCU_Q11b_Marijuana__c}" styleclass="txt200" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q11j_Other_opiates__c}" styleclass="txt200" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q11c_Hallucinogens__c}" styleclass="txt200" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q11k_Methamphetamine__c}" styleclass="txt200" disabled="true"/>
+  
+    <apex:inputtext value="{!TCU.TCU_Q11d_Inhalants__c}" styleclass="txt200" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q11l_Amphetamines__c}" styleclass="txt200" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q11e_Crack__c}" styleclass="txt200" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q11m_Barbiturates__c}" styleclass="txt200" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q11f_Speedball__c}" styleclass="txt200" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q11n_Other_drugs__c}" styleclass="txt200" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q11g_Cocaine__c}" styleclass="txt200" disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q11n_Other_drugs_frequency__c}" styleclass="txt200" disabled="true"/>
+ 
+  </apex:pageblocksection>
+ 
+  <apex:pageblocksection showheader="true" columns="2">
+  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Other Questions</span> 
+            </apex:facet>
+    <apex:inputtext value="{!TCU.TCU_Q12_How_often_did_you_inject__c}" styleclass="txt200" disabled="true"/>
+  
+    <apex:inputtext value="{!TCU.TCU_Q14_Number_of_times_in_treatment__c}" styleclass="txt200" disabled="true"/>
+  
+    <apex:inputtext value="{!TCU.TCU_Q13_How_serious_are_your_problems__c}" styleclass="txt200"  disabled="true"/>
+    <apex:inputtext value="{!TCU.TCU_Q15_How_important_to_get_treatment__c}" styleclass="txt200" disabled="true"/>
+  
+  </apex:pageblocksection>
+
+</apex:pageblock>
+
+</apex:outPutPanel>
+
+
+	<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>    	
+				
+<br/></apex:form>
+</apex:page>

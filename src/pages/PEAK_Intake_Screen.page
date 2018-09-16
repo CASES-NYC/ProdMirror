@@ -1,0 +1,104 @@
+<apex:page controller="PEAK_Intake_Screen_Con">
+<div id="InnternalDiv" style="width:750px;"> 
+<apex:PageMessages />
+    <apex:sectionheader title="{!$ObjectType.Contact.label} Edit" subtitle="{!IF(ISNULL(con.Name), 'New Contact',con.Name)}"/>
+    <apex:form >
+        <apex:pageblock mode="edit" title="{!$ObjectType.Contact.label} Edit">
+            <apex:pageblockbuttons >
+                <apex:commandbutton value="Save" action="{!Save}"/>
+                <apex:commandbutton value="Cancel" action="{!Cancel}"/>
+            </apex:pageblockbuttons>
+            <apex:outputpanel >
+                <apex:pageblocksection title="PEAK Participant" showheader="true">
+                    <apex:panelGrid columns="2">
+                        <apex:panelGroup >
+                            <apex:outputLabel >Referral Date</apex:outputLabel>
+                            <apex:inputField value="{!con.Referral_Date__c}" required="true"/>
+                        </apex:panelGroup>
+                        <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                        <apex:panelGroup >                    
+                            <apex:outputLabel value="First Name"/>
+                            <apex:outputPanel layout="block" styleClass="requiredInput">
+                                <div class="requiredBlock"></div>
+                                <apex:inputText value="{!txtFirstName}" required="true"/>
+                            </apex:outputPanel>
+                        </apex:panelGroup>
+                        <apex:panelGroup >
+                            <apex:outputLabel value="Last Name" />
+                            <apex:outputPanel layout="block" styleClass="requiredInput">
+                                <div class="requiredBlock"></div>                    
+                                <apex:inputText value="{!txtLastName}" required="true"/> 
+                            </apex:outputPanel>
+                        </apex:panelGroup>
+                    </apex:panelGrid>            
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Names and IDs" showheader="true" columns="2">
+                    <apex:inputField value="{!acc.RIN__c}"/>                
+                    <apex:inputField value="{!acc.File_Number__c}"/>
+                    <apex:inputField value="{!caseInfo.Parole_Probation_Officer_Name__c}" required="true"/>
+                    <apex:inputField value="{!caseInfo.Parole_Probation_Officer_Phone__c}" required="true"/>    
+                </apex:pageblocksection>
+
+                <apex:pageblocksection title="Demographics" showheader="true" columns="2">
+                    <apex:inputField value="{!acc.DOB__c}" required="true"/>
+                    <apex:inputfield value="{!con.Race__c}" required="true"/>
+                    <apex:inputfield value="{!con.Ethnicity__c}" required="true"/>
+                    <apex:inputField value="{!acc.Gender__c}" required="true"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Notes" showheader="true" columns="1">
+                    <apex:inputfield value="{!con.Description}" style="width:500px;"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Contact Info" showheader="true" columns="2">
+                    <apex:inputfield value="{!con.Client_Cell_Phone__c}"/>
+                    <apex:inputfield value="{!con.HomePhone}"/>
+                    <apex:inputfield value="{!con.Email}"/>
+                    <apex:inputfield value="{!con.Lives_With__c}"/>
+                    <apex:inputfield value="{!con.Other_Contact_Information__c}"/>
+                    <apex:pageblocksectionitem />
+                </apex:pageblocksection>
+                <apex:pageblockSection title="Address Info" columns="1">
+                    <apex:panelGrid columns="5" >
+                        <apex:outputText value="Bldg #"/>
+                        <apex:outputText value="Street Name"/>
+                        <apex:outputText value="Apt #" />
+                        <apex:outputText value="Zip Code (Required)" />
+                        <apex:outputText value="Type of Housing"/> 
+                        <apex:inputfield value="{!addressInfo.Building_No__c}" style="width:60px"  />
+                        <apex:inputfield value="{!addressInfo.Street__c}"/>
+                        <apex:inputfield value="{!addressInfo.Apt_No__c}" style="width:60px"/>
+                        <apex:inputfield value="{!addressInfo.Zip_Code__c}" style="width:80px"/>
+                        <apex:inputfield value="{!addressInfo.Type_of_Housing__c}"/>
+                    </apex:panelGrid>
+                </apex:pageBlockSection>
+                <apex:pageblocksection title="Emergency Contact" showheader="true" columns="2">
+                    <apex:inputfield value="{!con.Parent_Guardian__c}"/>
+                    <apex:inputfield value="{!con.Emergency_Contact_If_Other__c}"/>
+                    <apex:inputfield value="{!con.Parent_s_Mobile__c}"/>
+                    <apex:inputfield value="{!con.Emergency_Contact_Relationship__c}"/>
+                    <apex:inputfield value="{!con.Work_Phone__c}"/>
+                    <apex:inputfield value="{!con.Emergency_Contact_Phone__c}"/>
+                    <apex:inputfield value="{!con.Parent_s_Email__c}"/>
+                    <apex:pageblocksectionitem />
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Insurance" showheader="true" columns="2">
+                    <apex:inputfield value="{!con.Do_you_have_Insurance__c}"/>
+                    <apex:inputfield value="{!con.Insurance_at_Intake__c}"/>
+                    <apex:inputfield value="{!con.Insurance_Provider__c}"/>
+                    <apex:inputfield value="{!con.Insurance_Number__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Education and Employment" showheader="true" columns="2">
+                    <apex:inputfield value="{!con.Education_Status_at_Arrest__c}"/>
+                    <apex:inputfield value="{!con.Diploma_Status_at_Intake__c}"/>
+                    <apex:inputfield value="{!con.Employed_at_Intake__c}"/>
+                    <apex:inputfield value="{!con.Employer__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="System Information" showheader="true" columns="2">
+                </apex:pageblocksection>
+            </apex:outputpanel>
+        </apex:pageblock>
+    </apex:form>
+    <script type="text/javascript">
+        function setFocus() { }
+    </script>
+</div>
+</apex:page>

@@ -1,0 +1,24 @@
+<apex:page controller="CKEditController" showHeader="false" id="thepageid">
+  <apex:includescript value="{!URLFOR($Resource.ckeditor_custom, '/ckeditor/ckeditor.js')}" />
+<apex:form id="theformid">
+  <apex:commandButton value="Save Report" action="{!saveReport}" style="color:red"/>
+<br/>
+   <apex:inputtextarea id="editor1" value="{!text}" styleClass="ckeditor" 
+                    richtext="false"/>
+
+    
+     
+<!--  <apex:inputtextarea id="editor2" value="{!ReportDefault}" styleClass="ckeditor" 
+                    richtext="false"/>
+                    -->
+
+ </apex:form> 
+ <!--  
+<script type="text/javascript">
+window.onload = function()
+{
+   CKEDITOR.replace('thepageid:theformid:editor1');  
+}
+</script>
+-->
+</apex:page>

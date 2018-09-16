@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <name>Update_Mandatory_Sessions</name>
+        <label>Update Mandatory Sessions</label>
+        <locationX>217</locationX>
+        <locationY>80</locationY>
+        <assignmentItems>
+            <assignToReference>sobjVarProgCycle.Mandatory_Sessions_Completed__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>formulaIncrement</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Program_Cycle</targetReference>
+        </connector>
+    </assignments>
+    <description>Update mandatory class attendance</description>
+    <formulas>
+        <name>formulaIncrement</name>
+        <dataType>Number</dataType>
+        <expression>{!sobjVarProgCycle.Mandatory_Sessions_Completed__c} + 1</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>CCI START Update Mandate {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>START Update Mandate</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>find program cycle for cci start</description>
+        <name>Find_Program_Cycle</name>
+        <label>Find Program Cycle</label>
+        <locationX>70</locationX>
+        <locationY>80</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Mandatory_Sessions</targetReference>
+        </connector>
+        <filters>
+            <field>Client__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varClientId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Most_Recent_Program_Cycle_Formula__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Program_Cycle__c</object>
+        <outputReference>sobjVarProgCycle</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Mandatory_Sessions_Required__c</queriedFields>
+        <queriedFields>Mandatory_Sessions_Completed__c</queriedFields>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Program_Cycle</name>
+        <label>Update Program Cycle</label>
+        <locationX>369</locationX>
+        <locationY>78</locationY>
+        <inputReference>sobjVarProgCycle</inputReference>
+    </recordUpdates>
+    <startElementReference>Find_Program_Cycle</startElementReference>
+    <variables>
+        <description>client id passed from PB</description>
+        <name>CCI_Client</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>sobjVarProgCycle</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Program_Cycle__c</objectType>
+    </variables>
+    <variables>
+        <description>program cycle found by fast lookup</description>
+        <name>sobjVarProgramCycle</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Program_Stage__c</objectType>
+    </variables>
+    <variables>
+        <description>passed id from process builder</description>
+        <name>varClientId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

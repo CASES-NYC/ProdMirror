@@ -1,0 +1,603 @@
+<apex:page showHeader="false" 
+            sidebar="false" 
+            standardController="Contact" 
+            extensions="intakePacketController"
+            renderAs="pdf"
+            action="{!findPacketData}">
+
+    <apex:outputPanel id="pnlKeyValues" rendered="false">
+        <apex:outputField value="{!Contact.Id}"/><br/>
+        <apex:outputField value="{!Contact.Intake_Case__c}"/><br/>
+    </apex:outputPanel>
+    
+    <html>
+    <body>
+
+    <apex:stylesheet value="{!URLFOR($Resource.PacketStyle)}" />
+    <apex:stylesheet value="{!URLFOR($Resource.PDFDocumentStyle)}" />
+    <c:PDFHeaderFooter type="footer" 
+                        position="center" 
+                        showPageNumbers="true">
+    {!Contact.P_C_ID__c} 
+    </c:PDFHeaderFooter>
+
+    <span class="pageHeader" style="display:block; text-align:center">
+        CASES<br/>
+        Court Employment Project<br/>
+        SUPERVISED INTAKE
+    </span>
+
+    <br/>
+    <br/>
+
+    <table class="dataTable" width="100%">
+        <tr>
+            <td class="dataTableHeader_Left" colspan="5">
+                Name:&nbsp;<apex:outputField value="{!Contact.FirstName}"/>&nbsp;
+                            <apex:outputField value="{!Contact.LastName}"/>,&nbsp;
+                            <apex:outputField value="{!Contact.P_C_ID__c}"/><br/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell" width="26%">
+                <span class="fieldLabel">NYSID:</span><br/>
+                <apex:outputField value="{!Contact.NYSID__c}"/>
+            </td>
+            <td class="dataTableCell" width="26%">
+                <span class="fieldLabel">Docket #:</span><br/>
+                <apex:outputField value="{!oIntakeCase.Name}"/>
+            </td>
+            <td class="dataTableCell" width="16%">
+                <span class="fieldLabel">Indictment #:</span><br/>
+                <apex:outputField value="{!oIntakeCase.Indictment__c}"/>
+            </td>
+            <td class="dataTableCell" width="16%">
+                <span class="fieldLabel">Intake Borough:</span><br/>
+                <apex:outputField value="{!oIntakeCase.Borough__c}"/>
+            </td>
+            <td class="dataTableCell" width="16%">
+                <span class="fieldLabel">Contract:</span><br/>
+                <apex:outputField value="{!Contact.Contract_Formula__c}"/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Intake Date:</span><br/>
+                <apex:outputField value="{!Contact.Current_Intake_Date__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Arrest Date:</span><br/>
+                <apex:outputField value="{!oIntakeCase.Arrest_Date__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Plea Date:</span><br/>
+                <apex:outputField value="{!oIntakeCase.Plea_Finding_Date__c}"/>
+            </td>
+            <td class="dataTableCell" colspan="2">
+                <span class="fieldLabel">Intake Case Type:</span><br/>
+                <apex:outputField value="{!oIntakeCase.RecordType.Name}"/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Case&nbsp;Status&nbsp;at&nbsp;Intake:</span><br/>
+                <apex:outputField value="{!Contact.Case_Status_at_Intake__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Case&nbsp;Intake&nbsp;Approved&nbsp;By:</span><br/>
+                <apex:outputField value="{!Contact.Intake_Approved_By__r.Name}"/>
+            </td>
+            <td class="dataTableCell" colspan="3">
+                <span class="fieldLabel">Court&nbsp;Rep&nbsp;at&nbsp;Intake:</span><br/>
+                <apex:outputField value="{!Contact.Court_Rep__r.Name}"/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Referral&nbsp;Source:</span><br/>
+                <apex:outputField value="{!Contact.Referral_Source__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Top&nbsp;Indictment&nbsp;Charge:</span><br/>
+                <apex:outputField value="{!oIntakeCase.Top_Indictment_Charge__c}"/>
+            </td>
+            <td class="dataTableCell" colspan="3">
+                <span class="fieldLabel">Judge&nbsp;at&nbsp;Intake:</span><br/>
+                <apex:outputField value="{!Contact.Judge_Formula__c}"/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell_Highlight">OFFERS</td>
+            <td class="dataTableCell" colspan="2">
+                <span class="fieldLabel">DA's Plea:</span><br/>
+                <apex:outputField value="{!oIntakeCase.DA_s_Plea_Offer__c}"/>
+            </td>
+            <td class="dataTableCell" colspan="2">
+                <span class="fieldLabel">Judge's Plea:</span><br/>
+                <apex:outputField value="{!oIntakeCase.If_Other_Plea_Offer__c}"/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell_Highlight">JUDGE'S PROMISES</td>
+            <td class="dataTableCell" colspan="2">
+                <span class="fieldLabel">Successful:</span><br/>
+                <apex:outputField value="{!oIntakeCase.Judge_s_Promise_if_Successful__c}"/>
+            </td>
+            <td class="dataTableCell" colspan="2">
+                <span class="fieldLabel">Unsuccessful:</span><br/>
+                <apex:outputField value="{!oIntakeCase.Judge_s_Promise_if_Unsuccessful__c}"/>
+            </td>
+        </tr>
+        <tr valign="top" class="{!IF(ISNULL(Contact.Judge_s_Conditions__c), 'hidden', '')}">
+            <td class="dataTableCell" colspan="5">
+                <span class="fieldLabel">Judge's Intake Conditions</span><br/>
+                <apex:outputField value="{!Contact.Judge_s_Conditions__c}"/>
+            </td>
+        </tr>
+        <tr valign="top" class="{!IF(ISNULL(oLastAdminAction.Doesnt_Fit_Criteria_Comments__c), 'hidden', '')}">
+            <td class="dataTableCell" colspan="5">
+                <span class="fieldLabel">Doesn't Fit Criteria Comments</span><br/>
+                <apex:outputField value="{!oLastAdminAction.Doesnt_Fit_Criteria_Comments__c}"/>
+            </td>
+        </tr>
+        <tr valign="top" class="{!IF(ISNULL(oLastAdminAction.Conditions__c), 'hidden', '')}">
+            <td class="dataTableCell" colspan="5">
+                <span class="fieldLabel">Conditions for Reintake</span><br/>
+                <apex:outputField value="{!oLastAdminAction.Conditions__c}"/>
+            </td>
+        </tr>
+    </table>
+
+    <br/>
+    <br/>
+
+    <table class="dataTable_Fixed">
+        <tr>
+            <td class="dataTableHeader_Center" colspan="3">DETENTION STATUS</td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">At Supreme Court Arraignment:</span><br/>
+                <apex:outputField value="{!oIntakeCase.Detention_Status_at_SC_Arraignment__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">At Intake:</span><br/>
+                <apex:outputField value="{!oIntakeCase.Detention_Status_at_CC_Arraignment__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Days in Detention:</span><br/>
+                <apex:outputField value="{!Contact.Days_in_Detention_Before_Intake__c}"/>
+            </td>           
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Bail Set Cash/Bond:</span><br/>
+                $<apex:outputField value="{!oIntakeCase.Bail_Set_Cash__c}"/> / $<apex:outputField value="{!oIntakeCase.Bail_Set_Bond__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">PSI Ordered?</span><br/>
+                <apex:outputField value="{!oIntakeCase.PSI_Ordered__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">ISP Ordered:</span><br/>
+                <apex:outputField value="{!oIntakeCase.Interim_Supervision_by_Probation_Ordered__c}"/>
+            </td>           
+        </tr>
+    </table>
+
+    <br/>
+    <br/>
+    
+    <table class="dataTable_Fixed">
+        <tr>
+            <td class="dataTableHeader_Center" colspan="3">ATTORNEY INFORMATION</td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Name:</span><br/>
+                <apex:outputField value="{!oIntakeCase.Defense_Attorney_Law_Guardian__r.Name}"/>,<br/>
+                <apex:outputField value="{!oIntakeCase.Defense_Attorney_Law_Guardian__r.Account.Name}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Address:</span><br/>
+                <apex:outputField value="{!oIntakeCase.Defense_Attorney_Law_Guardian__r.Account.BillingStreet}"/><br/> 
+                <apex:outputField value="{!oIntakeCase.Defense_Attorney_Law_Guardian__r.Account.BillingCity}"/>,&nbsp; 
+                <apex:outputField value="{!oIntakeCase.Defense_Attorney_Law_Guardian__r.Account.BillingState}"/><br/> 
+                <apex:outputField value="{!oIntakeCase.Defense_Attorney_Law_Guardian__r.Account.BillingPostalCode}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Phone:</span><br/>
+                <apex:outputField value="{!oIntakeCase.Defense_Attorney_Law_Guardian__r.Phone}"/>
+            </td>
+        </tr>
+    </table>
+
+    <br/>
+    <br/>
+    
+    <table class="dataTable_Fixed">
+        <tr>
+            <td class="dataTableHeader_Center" colspan="4">SCREENING PROCESS</td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Original Exit:</span><br/>
+                <apex:outputField value="{!Contact.Exit_Date_1__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Referred to CEP:</span><br/>
+                <apex:outputField value="{!Contact.Referral_Date__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Interviewed:</span><br/>
+                <apex:outputField value="{!Contact.Interview_Date__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Intake:</span><br/>
+                <apex:outputField value="{!Contact.Current_Intake_Date__c}"/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell" colspan="4">
+                <span class="fieldLabel">Orientation:</span><br/>
+                <apex:outputField value="{!oOrientationEvent.ActivityDateTime}"/>
+            </td>
+        </tr>
+    </table>
+
+    <br/>
+    <br/>
+    
+    <table class="dataTable" width="100%">
+        <tr>
+            <td class="dataTableHeader_Center">INTERVIEW NOTES</td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Residence:</span><br/>
+                <apex:outputField value="{!oLastAssessment.Residence__c}"/><br/><br/>
+                <span class="fieldLabel">Family &amp; Peers:</span><br/>
+                <apex:outputField value="{!oLastAssessment.Family_Peers_Section_1__c}"/><br/><br/>
+                <span class="fieldLabel">Education:</span><br/>
+                <apex:outputField value="{!oLastAssessment.Education_Section_1__c}"/><br/><br/>
+                <span class="fieldLabel">Employment:</span><br/>
+                <apex:outputField value="{!oLastAssessment.Employment_Section_1__c}"/><br/><br/>
+                <span class="fieldLabel">Social:</span><br/>
+                <apex:outputField value="{!oLastAssessment.Social__c}"/><br/><br/>
+                <span class="fieldLabel">Substance Abuse:</span><br/>
+                <apex:outputField value="{!oLastAssessment.Substance_Abuse_Section_1__c}"/><br/><br/>
+                <span class="fieldLabel">Health:</span><br/>
+                <apex:outputField value="{!oLastAssessment.Health__c}"/><br/><br/>
+                <span class="fieldLabel">Legal:</span><br/>
+                <apex:outputField value="{!oLastAssessment.Legal__c}"/><br/><br/>
+                <span class="fieldLabel">Miscellaneous:</span><br/>
+                <apex:outputField value="{!oLastAssessment.Miscellaneous1__c}"/><br/><br/>
+            </td>
+        </tr>
+    </table>
+
+    <br/>
+    <br/>
+
+    <table class="dataTable_Fixed">
+        <tr>
+            <td class="dataTableHeader_Center" colspan="4">PERSONAL INFORMATION</td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">DOB:</span><br/>
+                <apex:outputField value="{!Contact.Birthdate}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Age at Intake:</span><br/>
+                <apex:outputField value="{!Contact.Age_at_Intake__c}"/>
+            </td>
+            <td class="dataTableCell" colspan="2">
+                <span class="fieldLabel">AKAs:</span><br/>
+                <apex:outputField value="{!Contact.AKA_1__c}"/>, 
+                <apex:outputField value="{!Contact.AKA_2__c}"/>, 
+                <apex:outputField value="{!Contact.AKA_3__c}"/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Sex:</span><br/>
+                <apex:outputField value="{!Contact.Gender_CC__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">SSN:</span><br/>
+                <apex:outputField value="{!Contact.Social_Security_No__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Marital Status:</span><br/>
+                <apex:outputField value="{!Contact.Marital_Status__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Number of Children:</span><br/>
+                <apex:outputField value="{!Contact.Number_of_children__c}"/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell" colspan="2">
+                <span class="fieldLabel">Address:</span><br/>
+                <apex:outputField value="{!Contact.Primary_Address__c}"/>
+            </td>
+            <td class="dataTableCell" colspan="2">
+                <span class="fieldLabel">Living Situation:</span><br/>
+                <apex:outputField value="{!Contact.Living_Situation__c}"/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell_Highlight">CLIENT:</td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Email:</span><br/>
+                <apex:outputField value="{!Contact.Email}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Home Phone:</span><br/>
+                <apex:outputField value="{!Contact.HomePhone}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Mobile Phone:</span><br/>
+                <apex:outputField value="{!Contact.MobilePhone}"/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell_Highlight">PARENT/GUARDIAN:</td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Name:</span><br/>
+                <apex:outputField value="{!Contact.Parent_Guardian__c}"/>, <br/>
+                <apex:outputField value="{!Contact.Relation_to_client__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Work Phone:</span><br/>
+                <apex:outputField value="{!Contact.Work_Phone__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Mobile Phone:</span><br/>
+                <apex:outputField value="{!Contact.Parent_s_Mobile__c}"/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell_Highlight">EMERGENCY CONTACT:</td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Name:</span><br/>
+                <apex:outputField value="{!Contact.Emergency_Contact_If_Other__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Relationship:</span><br/>
+                <apex:outputField value="{!Contact.Emergency_Contact_Relationship__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Phone:</span><br/>
+                <apex:outputField value="{!Contact.Emergency_Contact_Phone__c}"/>
+            </td>
+        </tr>
+    </table>
+
+    <br/>
+    <br/>
+
+    <table class="dataTable_Fixed">
+        <tr>
+            <td class="dataTableHeader_Center" colspan="2">EMPLOYMENT</td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Employed at Intake:</span><br/>
+                <apex:outputField value="{!Contact.Employed_at_Intake__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Current Employment:</span><br/>
+                <apex:outputField value="{!Contact.Current_Employment__c}"/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Employer:</span><br/>
+                <apex:outputField value="{!Contact.Employer__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Address:</span><br/>
+                <apex:outputField value="{!oLastEmployment.Employer__r.BillingStreet}"/><br/> 
+                <apex:outputField value="{!oLastEmployment.Employer__r.BillingCity}"/>,&nbsp; 
+                <apex:outputField value="{!oLastEmployment.Employer__r.BillingState}"/><br/> 
+                <apex:outputField value="{!oLastEmployment.Employer__r.BillingPostalCode}"/> 
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Work Hours:</span><br/>
+                <apex:outputField value="{!Contact.Work_Hours_from_and_to__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Phone:</span><br/>
+                <apex:outputField value="{!oLastEmployment.Employer__r.Phone}"/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Source of Personal Income:</span><br/>
+                <apex:outputField value="{!Contact.Source_of_Personal_Income__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Household Income:</span><br/>
+                <apex:outputField value="{!Contact.Source_of_Household_Income__c}"/>
+            </td>
+        </tr>
+    </table>
+    
+    <br/>
+    <br/>
+
+    <table class="dataTable_Fixed">
+        <tr>
+            <td class="dataTableHeader_Center" colspan="2">EDUCATION</td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Enrollment at Intake:</span><br/>
+                <apex:outputField value="{!Contact.School_GED_Enrollment_at_Intake__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Last School Attended:</span><br/>
+                <apex:outputField value="{!Contact.Last_School_Attended__r.Name}"/>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Address:</span><br/>
+                <apex:outputField value="{!oLastEducation.School_Institution__r.BillingStreet}"/><br/>
+                <apex:outputField value="{!oLastEducation.School_Institution__r.BillingCity}"/>,&nbsp;
+                <apex:outputField value="{!oLastEducation.School_Institution__r.BillingState}"/><br/>
+                <apex:outputField value="{!oLastEducation.School_Institution__r.BillingPostalCode}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">School Hours:</span><br/>
+                <apex:outputField value="{!oLastEducation.School_Institution_Hours_From_and_To__c}"/>
+            </td>
+        </tr>
+    </table>
+    
+    <br/>
+    <br/>
+
+    <table class="dataTable_Fixed">
+        <tr>
+            <td class="dataTableHeader_Center" colspan="3">PHYSICAL/MENTAL HEALTH AT INTERVIEW</td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <span class="fieldLabel">Physical Health Problems:</span><br/>
+                <apex:outputField value="{!Contact.Indication_of_Physical_Health_Problems__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Mental Health Issues:</span><br/>
+                <apex:outputField value="{!Contact.Mental_Health_Issues_at_Intake__c}"/>
+            </td>
+            <td class="dataTableCell">
+                <span class="fieldLabel">Substance Abuse Issues:</span><br/>
+                <apex:outputField value="{!Contact.Substance_Abuse_at_Intake__c}"/>
+            </td>
+        </tr>
+    </table>
+
+    <br/>
+    <br/>
+
+    <table class="dataTable_Fixed">
+        <tr>
+            <td class="dataTableHeader_Center">LIST OF INTAKE CASE CHARGES</td>
+        </tr>
+        <tr valign="top">
+            <td class="dataTableCell">
+                <apex:outputField value="{!oIntakeCase.Charge_List_Admin__c}"/><br/>
+            </td>
+        </tr>
+    </table>
+    
+    <br/>
+    <br/>
+
+    <table class="dataTable_Fixed">
+        <tr>
+            <td class="dataTableHeader_Center" colspan="3">OPEN CASES</td>
+        </tr>
+        <tr valign="top" class="{!IF(showOpenAtIntake, 'hidden', '')}">
+            <td class="dataTableCell" colspan="3">None</td>
+        </tr>
+        <apex:repeat value="{!lstOpenAtIntake}" var="oRec" id="rptCaseList_Open">
+            <tr valign="top">
+                <td class="dataTableCell">
+                    <span class="fieldLabel">Case Type:</span>&nbsp;
+                    <apex:outputField value="{!oRec.Docket__r.RecordType.Name}"/><br/>
+                    <span class="fieldLabel">Borough:</span>&nbsp;
+                    <apex:outputField value="{!oRec.Docket__r.Borough__c}"/><br/>
+                    <span class="fieldLabel">Docket #:</span>&nbsp;
+                    <apex:outputField value="{!oRec.Docket__r.Name}"/><br/>
+                    <span class="fieldLabel">Indictment #:</span>&nbsp;
+                    <apex:outputField value="{!oRec.Docket__r.Indictment__c}"/><br/>
+                </td>                   
+                <td class="dataTableCell">
+                    <span class="fieldLabel">Complaint:</span>&nbsp;<br/>
+                    <apex:outputField value="{!oRec.Docket__r.Complaint__c}"/><br/>                 
+                </td>
+                <td class="dataTableCell">
+                    <span class="fieldLabel">List of Charges:</span>&nbsp;<br/>
+                    <apex:outputField value="{!oRec.Docket__r.Charge_List_Admin__c}"/><br/>                 
+                </td>
+            </tr>
+        </apex:repeat>
+    </table>
+
+    <br/>
+    <br/>
+
+    <table class="dataTable_Fixed">
+        <tr>
+            <td class="dataTableHeader_Center" colspan="3">PRIOR CASES</td>
+        </tr>
+        <tr valign="top" class="{!IF(showPreIntake, 'hidden', '')}">
+            <td class="dataTableCell" colspan="3">None</td>
+        </tr>
+        <apex:repeat value="{!lstPreIntake}" var="oRec" id="rptCaseList_Prior">
+            <tr valign="top">
+                <td class="dataTableCell">
+                    <span class="fieldLabel">Case Type:</span>&nbsp;
+                    <apex:outputField value="{!oRec.Docket__r.RecordType.Name}"/><br/>
+                    <span class="fieldLabel">Borough:</span>&nbsp;
+                    <apex:outputField value="{!oRec.Docket__r.Borough__c}"/><br/>
+                    <span class="fieldLabel">Docket #:</span>&nbsp;
+                    <apex:outputField value="{!oRec.Docket__r.Name}"/><br/>
+                    <span class="fieldLabel">Indictment #:</span>&nbsp;
+                    <apex:outputField value="{!oRec.Docket__r.Indictment__c}"/><br/>
+                </td>                   
+                <td class="dataTableCell">
+                    <span class="fieldLabel">Complaint:</span>&nbsp;<br/>
+                    <apex:outputField value="{!oRec.Docket__r.Complaint__c}"/><br/>                 
+                </td>
+                <td class="dataTableCell">
+                    <span class="fieldLabel">List of Charges:</span>&nbsp;<br/>
+                    <apex:outputField value="{!oRec.Docket__r.Charge_List_Admin__c}"/><br/>                 
+                </td>
+            </tr>
+        </apex:repeat>
+    </table>
+
+    <br/>
+    <br/>
+
+    <table class="dataTable_Fixed">
+        <tr>
+            <td class="dataTableHeader_Center" colspan="3">REARREST CASES</td>
+        </tr>
+        <tr valign="top" class="{!IF(showPostExit, 'hidden', '')}">
+            <td class="dataTableCell" colspan="3">None</td>
+        </tr>
+        <apex:repeat value="{!lstPostExit}" var="oRec" id="rptCaseList_Rearrest">
+            <tr valign="top">
+                <td class="dataTableCell">
+                    <span class="fieldLabel">Case Type:</span>&nbsp;
+                    <apex:outputField value="{!oRec.Docket__r.RecordType.Name}"/><br/>
+                    <span class="fieldLabel">Borough:</span>&nbsp;
+                    <apex:outputField value="{!oRec.Docket__r.Borough__c}"/><br/>
+                    <span class="fieldLabel">Docket #:</span>&nbsp;
+                    <apex:outputField value="{!oRec.Docket__r.Name}"/><br/>
+                    <span class="fieldLabel">Indictment #:</span>&nbsp;
+                    <apex:outputField value="{!oRec.Docket__r.Indictment__c}"/><br/>
+                </td>                   
+                <td class="dataTableCell">
+                    <span class="fieldLabel">Complaint:</span>&nbsp;<br/>
+                    <apex:outputField value="{!oRec.Docket__r.Complaint__c}"/><br/>                 
+                </td>
+                <td class="dataTableCell">
+                    <span class="fieldLabel">List of Charges:</span>&nbsp;<br/>
+                    <apex:outputField value="{!oRec.Docket__r.Charge_List_Admin__c}"/><br/>                 
+                </td>
+            </tr>
+        </apex:repeat>
+    </table>
+
+    </body>
+    </html>
+</apex:page>

@@ -1,0 +1,277 @@
+<apex:page controller="toDoPortal_unverifiedAppointments" cache="false">
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/css/theme.default.css')}" rel="stylesheet"/>
+
+    <apex:variable value="font-weight:bold;" var="CP_BOLD"/>
+    <apex:variable value="display:none;" var="CP_DISPLAY_NONE"/>
+    
+    <style> 
+    .changed {
+        background-color: #FDC6C6;
+    }   
+    .bigWords {
+        padding-left:5px;
+        padding-top:4px;
+        font-weight:bold;
+        font-size: 14px;            
+    }
+    .datePicker{
+        z-index:9999;
+    }
+    #UnverifiedAppointments_TBody tr:nth-child(even) td{
+        background-color: #FFFFFF;
+        border-color:#EFEFEF;
+        border-style:solid;
+        border-width:1px;           
+    }
+    #UnverifiedAppointments_TBody tr:nth-child(odd) td{
+        background-color: #DFDFDF;
+        border-color:#EFEFEF;
+        border-style:solid;
+        border-width:1px;
+    }
+    #UnverifiedAppointments_TBody tr:hover > td {
+        background: #CFEEF8;
+        color: #000;
+    }  
+    </style>
+    
+    <script>
+        j$(document).ready(
+            function(){
+            displayfilter('{!APPOINTMENT_FILTER.Unverified_Appointments_Filter_By__c}');
+                defaultcount();         
+            }
+        );
+        
+        var eventCount;
+        var maxCount;
+        
+        function displayfilter(filter){
+            if(filter == 'Staff'){
+                document.getElementById('Filter_By_Label_Staff').style.display = 'block';
+                document.getElementById('Filter_By_Data_Staff').style.display = 'block';
+                document.getElementById('Filter_By_Label_Unit').style.display = 'none';
+                document.getElementById('Filter_By_Data_Unit').style.display = 'none';
+                document.getElementById('Filter_By_Label_Caseload').style.display = 'none';
+                document.getElementById('Filter_By_Data_Caseload').style.display = 'none';
+            }else if(filter == 'Unit'){
+                document.getElementById('Filter_By_Label_Staff').style.display = 'none';
+                document.getElementById('Filter_By_Data_Staff').style.display = 'none';
+                document.getElementById('Filter_By_Label_Unit').style.display = 'block';
+                document.getElementById('Filter_By_Data_Unit').style.display = 'block';
+                document.getElementById('Filter_By_Label_Caseload').style.display = 'none';
+                document.getElementById('Filter_By_Data_Caseload').style.display = 'none';
+            }else if(filter == 'Caseload'){
+                document.getElementById('Filter_By_Label_Staff').style.display = 'none';
+                document.getElementById('Filter_By_Data_Staff').style.display = 'none';
+                document.getElementById('Filter_By_Label_Unit').style.display = 'none';
+                document.getElementById('Filter_By_Data_Unit').style.display = 'none';
+                document.getElementById('Filter_By_Label_Caseload').style.display = 'block';
+                document.getElementById('Filter_By_Data_Caseload').style.display = 'block';
+            }else{
+                document.getElementById('Filter_By_Label_Staff').style.display = 'none';
+                document.getElementById('Filter_By_Data_Staff').style.display = 'none';
+                document.getElementById('Filter_By_Label_Unit').style.display = 'none';
+                document.getElementById('Filter_By_Data_Unit').style.display = 'none';
+                document.getElementById('Filter_By_Label_Caseload').style.display = 'none';
+                document.getElementById('Filter_By_Data_Caseload').style.display = 'none';
+            }
+        }
+        
+        function defaultcount(){
+            eventCount = 0;
+            maxCount = 20;
+            document.getElementById('EventCounter').innerHTML = eventCount;
+            document.getElementById('maxCount').innerHTML = maxCount;
+        }
+        
+        function displayloading(status,action){
+            if(status == 'START'){
+                if(action == 'SaveFilter'){
+                    document.getElementById('Status_Loading').style.display = '';
+                    document.getElementById('Status_Loading_Image').style.display = '';
+                    document.getElementById('Status_Loading_SaveData').style.display = 'none';
+                    document.getElementById('Status_Loading_SaveFilter').style.display = '';
+                    document.getElementById('Status_Loading_RefreshData').style.display = 'none';
+                }else if(action =='RefreshData'){
+                    document.getElementById('Status_Loading').style.display = '';
+                    document.getElementById('Status_Loading_Image').style.display = '';
+                    document.getElementById('Status_Loading_SaveData').style.display = 'none';
+                    document.getElementById('Status_Loading_SaveFilter').style.display = 'none';
+                    document.getElementById('Status_Loading_RefreshData').style.display = '';
+                }else if(action =='SaveData'){
+                    document.getElementById('Status_Loading').style.display = '';
+                    document.getElementById('Status_Loading_Image').style.display = '';
+                    document.getElementById('Status_Loading_SaveData').style.display = '';
+                    document.getElementById('Status_Loading_SaveFilter').style.display = 'none';
+                    document.getElementById('Status_Loading_RefreshData').style.display = 'none';
+                }
+            }else if(status == 'STOP'){
+                document.getElementById('Status_Loading').style.display = 'none';
+                document.getElementById('Status_Loading_Image').style.display = 'none';
+                document.getElementById('Status_Loading_SaveData').style.display = 'none';
+                document.getElementById('Status_Loading_SaveFilter').style.display = 'none';
+                document.getElementById('Status_Loading_RefreshData').style.display = 'none';               
+            }
+        }
+        
+        function updateevent(id,orig_value,new_value){          
+            if(orig_value != new_value){
+                eventCount++;
+                document.getElementById(id + '_style').className = 'changed';
+                document.getElementById(id + '_changed').innerHTML = '* Changed';
+                document.getElementById('EventCounter').innerHTML = eventCount;
+            }
+            if(orig_value == new_value){
+                eventCount--;
+                document.getElementById(id + '_style').className = '';
+                document.getElementById(id + '_changed').innerHTML = '';
+                document.getElementById('EventCounter').innerHTML = eventCount;
+            }
+        }
+    </script>
+    
+    <apex:form >
+        <div class="controlPanel">
+            <table border="0" cellpadding="0" cellspacing="0" width="800px">
+                <tr>
+                    <td> 
+                        <table width="100%" cellpadding="0" cellspacing="4" border="0">
+                            <tr>
+                                <td id="Verification_DueTo_Label" style="{!CP_BOLD}"> Verification Due Date From </td>
+                                <td id="Verification_DueTo_Data"> <apex:inputField value="{!APPOINTMENT_FILTER.Unverified_Appointments_Due_date_from__c}" /> </td>
+                            </tr>
+                            <tr>
+                                <td id="Verification_DueFrom_Label" style="{!CP_BOLD}"> Verification Due Date To </td>
+                                <td id="Verification_DueFrom_Data"> <apex:inputField value="{!APPOINTMENT_FILTER.Unverified_Appointments_Due_date_to__c}" /> </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td> 
+                        <table width="100%" cellpadding="0" cellspacing="4" border="0"> 
+                            <tr>
+                                <td id="Filter_By_Label"> <div style="{!CP_BOLD}"> Filter By </div> </td>
+                                <td id="Filter_By_Data"> <div> <apex:inputField value="{!APPOINTMENT_FILTER.Unverified_Appointments_Filter_By__c}" 
+                                onchange="displayfilter(this.value);"/> </div> </td>
+                            </tr>
+                            <tr>
+                                <td id="Filter_By_Label">
+                                    <div id="Filter_By_Label_Staff" style="{!CP_DISPLAY_NONE}{!CP_BOLD}">
+                                        <apex:outputtext value="Staff"/>
+                                    </div>
+                                    <div id="Filter_By_Label_Unit" style="{!CP_DISPLAY_NONE}{!CP_BOLD}">
+                                        <apex:outputtext value="Unit"/>
+                                    </div>
+                                    <div id="Filter_By_Label_Caseload" style="{!CP_DISPLAY_NONE}{!CP_BOLD}">
+                                        <apex:outputtext value="Caseload"/>
+                                    </div>
+                                </td>
+                        <td id="Filter_By_Data">
+                            <div id="Filter_By_Data_Staff" style="{!CP_DISPLAY_NONE}">
+                                <apex:inputField value="{!APPOINTMENT_FILTER.Unverified_Appointments_Staff__c}" />
+                            </div>
+                            <div id="Filter_By_Data_Unit" style="{!CP_DISPLAY_NONE}">
+                                <apex:inputField value="{!APPOINTMENT_FILTER.Unverified_Appointments_Unit__c}" />
+                            </div>
+                            <div id="Filter_By_Data_Caseload" style="{!CP_DISPLAY_NONE}">
+                                        <apex:selectList value="{!APPOINTMENT_FILTER.Unverified_Appointments_Caseload__c}" multiselect="false" size="1">
+                                    <apex:selectOptions value="{!CaseloadOptions}"/>
+                                </apex:selectList> 
+                            </div>
+                        </td>
+                    </tr>
+                        </table>
+                        
+                        <div align="right">                         
+                            <apex:actionStatus startText=""  stopText="" id="Status_SaveFilter" onstart="displayloading('START','SaveFilter');" onstop="displayloading('STOP','SaveFilter');"/>
+                            <apex:actionStatus startText=""  stopText="" id="Status_RefreshData" onstart="displayloading('START','RefreshData');" onstop="displayloading('STOP','RefreshData');"/>
+                            <apex:actionStatus startText=""  stopText="" id="Status_SaveData" onstart="displayloading('START','SaveData');" onstop="displayloading('STOP','SaveData');"/>
+                            <apex:commandbutton value="Go" status="Status_RefreshData" action="{!NULL}" rerender="Status_Loading,op_unverifiedappointments" />                          
+                            <apex:commandbutton value="Save as Default Filter" status="Status_SaveFilter" rerender="Status_Loading" action="{!SaveFilter}"/>                                                        
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div align="left">
+            <span id="Status_Loading" style="{!CP_DISPLAY_NONE}">
+                    <table border="0">
+                        <tr>
+                            <td id="Status_Loading_Image" style="{!CP_DISPLAY_NONE}" valign="center"> <img src="{!$Resource.loading}" /> </td>
+                            <td id="Status_Loading_RefreshData" style="{!CP_DISPLAY_NONE}" valign="center"> <apex:outputtext value="Loading new data..."/> </td>
+                            <td id="Status_Loading_SaveData" style="{!CP_DISPLAY_NONE}" valign="center"> <apex:outputtext value="Saving data..."/> </td>
+                            <td id="Status_Loading_SaveFilter" style="{!CP_DISPLAY_NONE}" valign="center"> <apex:outputtext value="Saving default filter..."/> </td>
+                        </tr>
+                    </table>
+                </span>
+        </div>
+        
+        <div>
+            <table border="0" cellpadding="0">
+                <tr>
+                    <td valign="bottom">
+                        <apex:commandbutton value="Save" status="Status_SaveData" action="{!UpdateEvents}" oncomplete="defaultcount();" rerender="Status_Loading,op_unverifiedappointments"/>
+                    </td>
+                    <td style="{!CP_BOLD}" valign="bottom">
+                        <span id="EventCounter"/>   events selected. You can select up to <span id="maxCount"/> events.
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <apex:outputpanel id="op_unverifiedappointments">
+            <div>
+                <table id="UnverifiedAppointments" class="tablesorter"> 
+                        <thead> 
+                            <tr> 
+                                <th> </th>    
+                                <th> Name </th>  
+                              <th> Appointment Date/Time </th>     
+                                <th> Verification Due Date </th>     
+                                <th> Subject </th>     
+                                <th> Assigned To </th>
+                                <th> Verification Status </th>
+                                <th> </th>
+                            </tr>  
+                        </thead> 
+                        <tbody id="UnverifiedAppointments_TBody">
+                            <apex:repeat value="{!UnverifiedEvents}" var="Display" >
+                            <tr>     
+                                    <td style="background-color:{!Display.Color};color:{!Display.Color}"> . </td>
+                            <td> <a href="/{!Display.EventObject.Who.Id}" target="_blank"> {!Display.EventObject.Who.Name} </a> </td>
+                              <td> <a href="/{!Display.EventObject.Id}" target="_blank"> <apex:outputField value="{!Display.EventObject.StartDateTime}" /> </a> </td>
+                                    <td> <apex:outputText value="{0,date,MM/dd/yyyy}"> <apex:param value="{!Display.EventObject.Verification_Due_Date__c}"/> </apex:outputText> </td>
+                              <td> <a href="/{!Display.EventObject.Id}" target="_blank"> {!Display.EventObject.Subject} </a> </td>
+                                    <td> <a href="/{!Display.EventObject.Owner.Id}" target="_blank"> {!Display.EventObject.Owner.Name} </a> </td>
+                              <td>
+                                        <div id="{!Display.EventObject.Id}_style">
+                                            <apex:outputField rendered="{!NOT(Display.Editable)}" 
+                                            value="{!Display.EventObject.Verification_Status__c}" />
+                                            <apex:inputField rendered="{!Display.Editable}" 
+                                            onchange="updateevent('{!Display.EventObject.Id}','{!Display.EventObject.Verification_Status__c}',this.value);" 
+                                            value="{!Display.EventObject.Verification_Status__c}" />
+                                            <span id="{!Display.EventObject.Id}_changed"/>
+                                        </div>
+                              </td>
+                              <td style="background-color:{!Display.Color};color:{!Display.Color}"> . </td>
+                            </tr>
+                            </apex:repeat> 
+                        </tbody>  
+                    </table>
+            </div>
+            <script>
+                j$('#UnverifiedAppointments').tablesorter({
+                    sortList:[[2,1],[5,0],[4,0]],               
+                    headers:{
+                        0:{sorter:false},                       
+                        2:{sorter:"shortDate", dateFormat:"MM/dd/yyyy h:mm a"},
+                        3:{sorter:"shortDate", dateFormat:"MM/dd/yyyy"},
+                        6:{sorter:false},
+                        7:{sorter:false},                   
+                    },                  
+                    theme:'default'
+                });
+            </script>
+        </apex:outputpanel>
+    </apex:form>    
+</apex:page>

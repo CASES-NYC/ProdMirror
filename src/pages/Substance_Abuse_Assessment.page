@@ -1,0 +1,119 @@
+<apex:page standardcontroller="Assessment__c">
+<apex:messages />
+    <apex:sectionheader title="{!$ObjectType.Assessment__c.label} Detail" subtitle="{!Assessment__c.Name}"/>
+    <chatter:feedwithfollowers entityId="{!Assessment__c.Id}"/>
+    <apex:form >
+        <apex:pageblock mode="maindetail" title="{!$ObjectType.Assessment__c.label} Detail">
+            <apex:pageblockbuttons >
+                <apex:commandbutton value="Edit" action="{!Edit}"/>
+                <apex:commandbutton value="Delete" action="{!Delete}"/>
+                <!-- *************** Uncomment as needed LAYOUT PAGE :: http://WWW.CLERISOFT.COM (2008-2014) *************** -->
+                    <!-- <apex:commandbutton value="Include Offline" action="{!URLFOR($Action.Assessment__c.IncludeOffline,Assessment__c.id)}"/> -->
+                    <!-- <apex:commandbutton value="Clone" action="{!URLFOR($Action.Assessment__c.Clone,Assessment__c.id)}"/> -->
+                    <!-- <apex:commandbutton value="Convert" action="{!URLFOR($Action.Assessment__c.Convert,Assessment__c.id)}"/> -->
+                    <!-- <apex:commandbutton value="Find Duplicates" action="{!URLFOR($Action.Assessment__c.FindDup,Assessment__c.id)}"/> -->
+                    <!-- <apex:commandbutton value="Request Update" action="{!URLFOR($Action.Assessment__c.RequestUpdate,Assessment__c.id)}"/> -->
+                    <!-- <apex:commandbutton value="Advanced Setup" action="{!URLFOR($Action.Assessment__c.AdvancedSetup,Assessment__c.id)}"/> -->
+                    <!-- <apex:commandbutton value="Manage Members" action="{!URLFOR($Action.Assessment__c.ManageMembers,Assessment__c.id)}"/> -->
+                    <!-- <apex:commandbutton value="Close Case" action="{!URLFOR($Action.Assessment__c.CloseCase,Assessment__c.id)}"/> -->
+                <!-- *************** Uncomment as needed LAYOUT PAGE :: http://WWW.CLERISOFT.COM (2008-2014) *************** -->
+            </apex:pageblockbuttons>
+
+            <!-- **********   [Record Type : Substance Abuse Assessment - Read Only ]   **********  -->
+            <apex:outputpanel > <!-- rendered="{!CASESAFEID(Assessment__c.RecordTypeId)='012600000005JASAA2'}" -->
+                <apex:pageblocksection title="Header" showheader="false" collapsible="false" columns="2">
+                    <apex:outputfield value="{!Assessment__c.Contact__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Locked__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Name}"/>
+                    <apex:outputfield value="{!Assessment__c.Assessment_Completed_on__c}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:outputfield value="{!Assessment__c.Assessment_Completed_by__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Basic Client Info" showheader="true" collapsible="true" columns="2">
+                    <apex:outputfield value="{!Assessment__c.Client_Name__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Intake_Date__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Case_Coordinator__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Parent_Guardian__c}"/>
+                    <apex:outputfield value="{!Assessment__c.P_C_ID__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Emergency_Contact_if_other__c}"/>
+                    <apex:outputfield value="{!Assessment__c.DOB__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Age__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Client_Email__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Primary_Address__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Required_Documents__c}"/>
+                </apex:pageblocksection>               
+                <apex:pageblocksection title="CRAFFT Part A" showheader="true" collapsible="true" columns="2">
+                    <apex:outputfield value="{!Assessment__c.CRAFFT_A1_Drink_any_alcohol__c}"/>
+                    <apex:outputfield value="{!Assessment__c.CRAFFT_A3_Use_anything_else_to_get_high__c}"/>
+                    <apex:outputfield value="{!Assessment__c.CRAFFT_A2_Smoke_any_marijuana_or_hashish__c}"/>
+                    <apex:pageblocksectionitem />
+                </apex:pageblocksection>
+                <apex:pageblocksection title="CRAFFT Part B (fill out if any questions in Part A are ''Yes'')" showheader="true" collapsible="true" columns="2">
+                    <apex:outputfield value="{!Assessment__c.CRAFFT_B1_In_CAR_driven_by_someone_high__c}"/>
+                    <apex:outputfield value="{!Assessment__c.CRAFFT_B4_Ever_FORGET_what_you_did__c}"/>
+                    <apex:outputfield value="{!Assessment__c.CRAFFT_B2_Use_drugs_or_alcohol_to_RELAX__c}"/>
+                    <apex:outputfield value="{!Assessment__c.CRAFFT_B5_FAMILY_FRIENDS_say_to_cut_down__c}"/>
+                    <apex:outputfield value="{!Assessment__c.CRAFFT_B3_Use_drugs_or_alcohol_ALONE__c}"/>
+                    <apex:outputfield value="{!Assessment__c.CRAFFT_B6_In_TROUBLE_while_using_drugs__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="CRAFFT Results" showheader="true" collapsible="true" columns="2">
+                    <apex:outputfield value="{!Assessment__c.CRAFFT_Yes_in_Part_A__c}"/>
+                    <apex:outputfield value="{!Assessment__c.CRAFFT_Total_Score__c}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:outputfield value="{!Assessment__c.CRAFFT_Assessment_Recommended__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Assessment Notes-Substance Abuse" showheader="true" collapsible="true" columns="1">
+                    <apex:outputfield value="{!Assessment__c.Substance_Abuse_Section_1__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Data Capture-Substance Abuse" showheader="true" collapsible="true" columns="2">
+                    <apex:outputfield value="{!Assessment__c.Do_you_have_Insurance__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Update_Has_Insurance__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Insurance_Provider__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Update_Insurance_Provider__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Insurance_Number__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Update_Insurance_Number__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Drugs_Used__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Current_Substance_Abuse_Problems__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Tried_to_stop_using_on_your_own__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Drugs_Used_Other__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Drug_Test_Frequency__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Have_had_treatment__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Assessment Notes-Physical Health" showheader="true" collapsible="true" columns="1">
+                    <apex:outputfield value="{!Assessment__c.Physical_Health_Section_1__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="Data Capture-Physical Health" showheader="true" collapsible="true" columns="2">
+                    <apex:outputfield value="{!Assessment__c.Indication_of_Phys_Health_Problem__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Update_Indication_of_Phys_Health_Problem__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Other_Phys_Health_Problem__c}"/>
+                    <apex:outputfield value="{!Assessment__c.Update_Other_Phys_Health_Problem__c}"/>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="System Information" showheader="true" collapsible="true" columns="2">
+                    <apex:pageblocksectionitem >
+                        <apex:outputlabel value="Created By"/>
+                        <apex:outputpanel >
+                            <apex:outputfield value="{!Assessment__c.CreatedById}"/>&nbsp;, 
+                            <apex:outputfield value="{!Assessment__c.CreatedDate}"/>
+                        </apex:outputpanel>
+                    </apex:pageblocksectionitem>
+                    <apex:pageblocksectionitem >
+                        <apex:outputlabel value="Last Modified By"/>
+                        <apex:outputpanel >
+                            <apex:outputfield value="{!Assessment__c.LastModifiedById}"/>&nbsp;, 
+                            <apex:outputfield value="{!Assessment__c.LastModifiedDate}"/>
+                        </apex:outputpanel>
+                    </apex:pageblocksectionitem>
+                    <apex:pageblocksectionitem />
+                    <apex:outputfield value="{!Assessment__c.RecordTypeId}"/>
+                </apex:pageblocksection>
+            </apex:outputpanel>
+        </apex:pageblock>
+    </apex:form>
+
+    <!-- **********   [Related Lists for Record Type : Substance Abuse Assessment - Read Only ]   **********  -->
+    <apex:outputpanel rendered="{!CASESAFEID(Assessment__c.RecordTypeId)='012600000005JASAA2'}">
+    </apex:outputpanel>
+    <center><br/>
+        <i style="font-size:10px;color:#aaa;">Generated By LAYOUT PAGE <a href="http://www.clerisoft.com" target="_blank">[http://www.clerisoft.com]</a> (2008-2014) : Sun Aug 16 2015 23:29:04 GMT-0400 (Eastern Daylight Time)</i>
+    </center><br/>
+</apex:page>

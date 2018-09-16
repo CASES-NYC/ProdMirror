@@ -1,0 +1,196 @@
+<apex:page standardcontroller="Contact" extensions="srp_interviewConExt" sidebar="false" showHeader="true">
+<apex:messages />
+    <apex:sectionheader title="SCREENING INTERVIEW" subtitle="{!IF(ISNULL(Contact.Name), 'New Contact',Contact.Name)}"/>
+    <apex:form >
+        <apex:outputpanel layout="block" style="width:900px" >
+        <apex:pageblock mode="edit" title="SCREENING INTERVIEW" id="thePageBlock">
+            <apex:pageblockbuttons >
+                <apex:commandbutton value="Save" action="{!SaveThis}"/>
+                <apex:commandbutton value="Cancel" action="{!Cancel}"/>
+            </apex:pageblockbuttons>
+            <apex:pageblocksection title="Client Identifiers" showheader="true" columns="2">
+                    <apex:pageblocksectionitem >
+                        <apex:outputlabel value="First Name"/>
+                        <apex:outputfield value="{!Contact.FirstName}" />
+                    </apex:pageblocksectionitem>
+                    <apex:outputfield value="{!Contact.LastName}"/>
+                    <apex:outputfield value="{!Contact.Intake_Case__c}" />
+                    <apex:outputfield value="{!Contact.AccountId}" />
+            </apex:pageblocksection>
+            <apex:outputpanel layout="block" style="width:600px" >
+            <apex:pageblocksection title="Alternate Names" showheader="false" columns="2">
+                    <apex:inputfield value="{!Contact.True_First_Name__c}" />
+                    <apex:inputfield value="{!Contact.AKA_1__c}" />
+                    <apex:inputfield value="{!Contact.True_last_name__c}" />
+                    <apex:inputfield value="{!Contact.AKA_2__c}" />
+            </apex:pageblocksection>
+            </apex:outputPanel>
+            <apex:pageblocksection title="Demographics" showheader="false" columns="2">
+                    <apex:inputfield value="{!acc.Gender__c}" /><br/>                    
+                    <apex:inputfield value="{!Contact.Social_Security_No__c}" /><br/>
+                    <apex:actionRegion >
+                        <apex:outputLabel >Primary Language&nbsp;&nbsp;</apex:outputLabel>                      
+                        <apex:inputfield value="{!Contact.Primary_Language__c}" >
+                            <apex:actionSupport event="onchange" reRender="otherLanguage" status="status"/>
+                        </apex:inputfield>
+                    </apex:actionRegion>
+                    <apex:outputPanel id="otherLanguage">
+                        <apex:inputfield value="{!Contact.Primary_Language_If_Other__c}" rendered="{!Contact.Primary_Language__c=='Other'}"/>
+                    </apex:outputPanel>
+                    <apex:inputfield value="{!Contact.Marital_Status__c}" /><br/>         
+                    <apex:inputfield value="{!Contact.Ethnicity__c}" /><br/>
+                    <apex:inputfield value="{!Contact.Race__c}" />
+            </apex:pageblocksection>
+            <apex:pageblocksection title="Address Details" showheader="true" columns="1">
+                <apex:panelGrid columns="3"  >
+                    <apex:outputText value="Bldg #" style="font-style:italic"/>
+                    <apex:outputText value="Street Name" style="font-style:italic"/>
+                    <apex:outputText value="Apt# / Floor" style="font-style:italic"/>
+
+                    <apex:inputfield value="{!addressInfo.Building_No__c}" style="width:60px"   />
+                    <apex:inputfield value="{!addressInfo.Street__c}" />
+                    <apex:inputfield value="{!addressInfo.Apt_No__c}" style="width:60px" />
+
+                    <apex:pageBlockSectionItem />
+                    <apex:pageblocksectionitem />
+                    <apex:pageblocksectionitem />                    
+                                        
+                    <apex:pageblockSectionItem >                  
+                        <apex:outputLabel value="Zip" style="font-style:italic"/>
+                        <apex:inputfield value="{!addressInfo.Zip_Code__c}" />
+                    </apex:pageblockSectionItem>
+                    <apex:outputLink value="http://nyc.pediacities.com/New_York_City_ZIP_Codes" target="_blank"><p style="color:blue;align:top">NYC Zip Code Map</p></apex:outputLink>
+                    <apex:pageblocksectionitem />
+                                         
+                    <apex:pageblocksectionitem />
+                    <apex:outputText value="City" style="font-style:italic"/>
+                    <apex:outputText value="State" style="font-style:italic"/>
+
+                    <apex:pageblocksectionitem />
+                    <apex:outputfield value="{!addressInfo.City__c}" />
+                    <apex:outputfield value="{!addressInfo.State__c}" />
+
+                    <apex:outputText value="Address Record Type" style="font-style:italic"/>
+                    <apex:outputText value="Move-in Date" style="font-style:italic" />           
+                    <apex:outputText value="Years at address" style="font-style:italic"/>
+
+                    <apex:inputfield value="{!addressInfo.Address_Type__c}" />
+                    <apex:inputField value="{!addressInfo.Move_In_Date__c}" />                   
+                    <apex:outputField value="{!addressInfo.Number_of_Months__c}"/>
+                    
+                    <apex:outputText value="Home Phone" style="font-style:italic"/>                                          
+                    <apex:outputText value="Cell Phone" style="font-style:italic"/> 
+                    <apex:pageblocksectionitem />     
+
+                    <apex:inputfield value="{!addressInfo.Home_Phone__c}" />                    
+                    <apex:inputfield value="{!contact.Client_Cell_Phone__c}" />
+                    <apex:pageblocksectionitem />      
+                  
+                    <apex:outputText value="Lives with"/>
+                    <apex:outputText value="Relationship"/>
+                    <apex:pageblocksectionitem />   
+                    
+                    <apex:inputfield value="{!addressInfo.Contact_Person__c}" />
+                    <apex:inputfield value="{!addressInfo.Relation_to_Client_Other__c}" />
+                    <apex:pageblocksectionitem />                                        
+
+                    <apex:outputText value="Current Housing Type" style="font-style:italic" />
+                    <apex:outputText value="Current Employment Status" style="font-style:italic" />
+                    <apex:pageblocksectionitem />
+                    
+                    <apex:inputField value="{!contact.Housing_Status_Entrance__c}" />                                      
+                    <apex:inputField value="{!contact.Employed_at_Intake__c}" /> 
+                    <apex:pageblocksectionitem />                                                                                         
+                </apex:panelGrid>
+            </apex:pageBlockSection>              
+            <apex:pageBlockSection >
+                <apex:panelGrid columns="2">
+                    <apex:panelGroup layout="block">
+                        <apex:outputText value="Primary/Emergency Contact" style="font-weight:bold"/>  
+                        <apex:panelgrid columns="2">
+                            <apex:outputLabel value="Name"/>
+                            <apex:inputField value="{!contact.Primary_Contact_Name__c}"/>
+                            <apex:outputLabel value="Relation"/>
+                            <apex:inputField value="{!contact.Primary_Contact_Relationship__c}"/>
+                            <apex:outputLabel value="Phone"/>
+                            <apex:inputField value="{!contact.Primary_Contact_Phone__c}"/>
+                            <apex:outputLabel value="Address"/>
+                            <apex:inputField value="{!contact.Primary_Contact_Address__c}"/>
+                        </apex:panelgrid>                                                                    
+                    </apex:panelGroup>
+                    <apex:PanelGroup layout="block">
+                        <apex:outputText value="Secondary Contact" style="font-weight:bold"/>                    
+                        <apex:panelgrid columns="2" >
+                            <apex:outputLabel value="Name"/>                                            
+                            <apex:inputField value="{!contact.Secondary_Contact_Name__c}"/>
+                            <apex:outputLabel value="Relation"/>
+                            <apex:inputField value="{!contact.Secondary_Contact_Relationship__c}"/>
+                            <apex:outputLabel value="Phone"/>
+                            <apex:inputField value="{!contact.Secondary_Contact_Phone__c}"/>
+                            <apex:outputLabel value="Address"/>
+                            <apex:inputField value="{!contact.Secondary_Contact_Address__c}"/>                     
+                        </apex:panelgrid>                         
+                    </apex:PanelGroup>
+                </apex:panelGrid>
+            </apex:pageBlockSection>               
+            <apex:pageblocksection title="Income or benefits currently receiving" showheader="true" columns="1">
+                <apex:inputfield value="{!Contact.Income_or_Benefits_Currently_Receiving__c}" />                   
+                <apex:inputfield value="{!Contact.Other_Benefits_Currently_Receiving__c}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Service in the Armed Forces">
+                <apex:outputPanel >
+                <apex:outputLabel >Did you ever serve in the Armed Forces?</apex:outputLabel>
+                <apex:actionRegion id="armedForces">
+                <apex:inputfield value="{!Contact.Served_in_Armed_Forces__c}" >
+                    <apex:actionSupport event="onchange" reRender="thePageBlock" status="status"/>
+                </apex:inputfield>
+                </apex:actionRegion>
+                <apex:outputText >(Check if yes)</apex:outputText>
+                </apex:outputPanel>                  
+            </apex:pageBlockSection>
+            <apex:pageBlockSection rendered="{!Contact.Served_in_Armed_Forces__c}">           
+                <apex:inputfield value="{!Contact.Service_in_the_Armed_Forces__c}" />
+                <apex:inputfield value="{!Contact.Other_Armed_Forces__c}" />
+                <apex:pageblocksectionitem />
+                <apex:inputfield value="{!Contact.Armed_Forces_Discharge_Type__c}" />
+                <apex:inputfield value="{!Contact.Other_Armed_Forces_Discharge_Type__c}" />                    
+                <apex:inputfield value="{!Contact.Armed_Forces_Discharge_Date__c}" />     
+                <apex:inputfield value="{!Contact.Date_of_Entry_into_the_Armed_Forces__c}" />
+                <apex:inputfield value="{!Contact.Experienced_Combat_in_Armed_Forces__c}" />
+                <apex:inputfield value="{!Contact.Time_Spent_in_the_Armed_Forces__c}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Other Information" columns="1">
+                <!-- apex:pageBlockSectionItem >
+                    <apex:outputLabel for="caretaking" >Do you have minor children/primary caretaking responsibilities?</apex:outputLabel>               
+                    <apex:inputfield value="{!Contact.Minor_child_caretaking_responsibilities__c}" id="caretaking" />
+                </apex:pageBlockSectionItem -->
+                <apex:outputPanel >  
+                    <apex:outputLabel for="caretaking" value="Do you have minor children/primary caretaking responsibilities?"/>
+                    <apex:selectRadio value="{!Contact.Minor_child_caretaking_responsibilities__c}" styleClass="radioClass" id="caretaking">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>
+                </apex:outputPanel>    
+
+                <apex:outputPanel >  
+                    <apex:outputLabel for="meds" value="Do you currrently take medications?"/>
+                    <apex:selectRadio value="{!Contact.TakingMedications__c}" styleClass="radioClass" id="meds">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>
+                </apex:outputPanel>                        
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="If yes, what types?" for="medList"/>
+                    <apex:inputfield value="{!Contact.List_of_Current_Medications__c}" id="medList" />
+                </apex:pageblocksectionitem>
+                <apex:pageblocksectionitem />
+            </apex:pageblocksection>                
+
+        </apex:pageblock>
+        </apex:outputpanel>
+    </apex:form>
+<style>
+    input[type=radio] { margin-left: 20px;}
+    .radioClass { margin-left: -20px;}
+</style>    
+</apex:page>

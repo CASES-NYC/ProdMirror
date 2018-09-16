@@ -1,0 +1,98 @@
+<apex:page showHeader="false" sidebar="false" Controller="srp_ExitClientConExt"
+        docType="html-5.0" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false">
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<head>
+    <title>SRP Exit Page</title>
+</head>
+<body>
+<div class="container">
+
+  <h2>Exit SRP Client</h2>
+    <div class="panel panel-default">
+        <div class="panel-body"><h3><apex:outputField value="{!pcc.Client__c}"/></h3></div>
+        <div class="panel-body"><h4><apex:outputField value="{!con.P_C_ID__c}"/></h4></div>
+        <div class="panel-body"><h3><font color="red"><apex:outputText value="No client record found" rendered="{!ISBLANK(pcc.Client__c)}"/></font></h3></div>    
+    </div>
+    <apex:form >
+        <div class="form-group row">
+            <div class="col-xs-4" >
+                <label>Exit Date</label>
+                <apex:inputField value="{!pcc.End_Date__c}" styleClass="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-xs-4" >
+                <label>Exit Type</label>
+                <apex:inputField value="{!pcc.Exit_Type__c}" styleClass="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-xs-4" >
+                <label>Exit Reason</label>
+                <apex:inputField value="{!pcc.Exit_Reason__c}" styleClass="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-xs-4" >
+                <label>Reason (if Other)</label>
+                <apex:inputField value="{!pcc.Exit_Reason_Other__c}" styleClass="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-xs-4" >
+                <label>Case Status at Exit</label>
+                <apex:inputField value="{!caseRel.Case_Status_at_Exit__c}" styleClass="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-xs-4" >
+                <label>Disposition</label>            
+                <apex:inputField value="{!caseInfo.Disposition__c}" styleClass="form-control"/>
+            </div>
+        </div>
+     
+        <div class="form-group row">
+            <div class="col-xs-4" >
+                <label>Disposition Date</label>
+                <apex:inputField value="{!caseInfo.Sentence_Disposition_Date__c}" styleClass="form-control" />
+            </div>
+        </div>
+       
+        <div class="form-group row">
+            <div class="col-xs-4" >
+                <label>Sentence</label>
+                <apex:inputField value="{!caseInfo.Sentence_Type__c}" styleClass="form-control" />
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <div class="col-xs-4" >
+                <label>Sentence Notes</label>
+                <apex:inputField value="{!caseInfo.Sentence__c}" styleClass="form-control" />
+            </div>
+        </div>
+    
+        <div class="form-group row">
+            <div class="col-xs-4" >
+                <label>Sentence Coordinated through SRP</label>
+                <apex:inputField value="{!caseRel.Sentence_Coordinated_with_SRP__c}" styleClass="form-control"/>
+            </div>
+        </div>
+          
+        <apex:pageBlock mode="maindetail">
+             <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save" action="{!saveThis}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+             </apex:pageBlockButtons>
+        </apex:pageblock>  
+     </apex:form>
+    </div> <!-- container -->
+</body>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</html>
+</apex:page>

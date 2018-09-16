@@ -1,0 +1,142 @@
+<apex:page controller="toDoPortal_courtDates" cache="false">
+    <script>
+    
+        function loadingCourt(dir) {
+        
+            if(dir == '1') {
+            
+                document.getElementById('loadingGifCourt').style.display = '';
+            
+            } else {
+                
+                document.getElementById('loadingGifCourt').style.display = 'none';
+            }
+        
+        }
+    </script>
+    <style>
+            .controlPanelCourt {
+            background-color: #FFFFFF;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            border-top-color: #333333;
+            border-right-color: #333333;
+            border-bottom-color: #333333;
+            border-left-color: #333333;
+            border-top-style: solid;
+            border-right-style: solid;
+            border-bottom-style: solid;
+            border-left-style: solid;
+            border-top-width: 1px;
+            border-right-width: 1px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            padding-top: 5px;
+            padding-right: 5px;
+            padding-bottom: 5px;
+            padding-left: 5px;
+            width:1000px;
+        }
+        #Court_TBody tr:nth-child(even) td{
+            background-color: #FFFFFF;
+            border-color:#EFEFEF;
+            border-style:solid;
+            border-width:1px;           
+        }
+        #Court_TBody tr:nth-child(odd) td{
+            background-color: #DFDFDF;
+            border-color:#EFEFEF;
+            border-style:solid;
+            border-width:1px;
+        }
+        #Court_TBody tr:hover > td {
+            background: #CFEEF8;
+            color: #000;
+        }
+    </style>
+            
+            <div style="font-size:12px;"><strong>"Pending" Court Dates</strong></div>
+            <div  class="controlPanelCourt" id="courtFilterSection">
+                <apex:form >
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td><strong>Court Due Date From</strong>:</td>
+                            <td><apex:inputField value="{!thisPortalFilter.Court_Date_From__c}" /></td>
+                            <td><strong>Court Staff</strong>:</td>
+                            <td><apex:inputField value="{!thisPortalFilter.Court_Staff__c}" /></td>
+                            <td><strong>Case Coordinator</strong>:</td>
+                            <td><apex:inputField value="{!thisPortalFilter.Case_Coordinator__c}" /></td>
+                            <td>
+                                <apex:commandbutton value="Save as Default Filter" rerender="courtDateDisplaySection" action="{!saveThisTaskFilter}"/>
+                            </td>
+                        </tr> 
+                        <tr> 
+                            <td><strong>Due Date To</strong>:</td>
+                            <td><apex:inputField value="{!thisPortalFilter.Court_Date_To__c}" /></td>
+                            <td><strong>Intake Borough</strong>:</td>
+                            <td> <apex:inputField value="{!thisPortalFilter.Borough__c}" /></td>
+                            <td>
+                                <apex:actionStatus startText=""  stopText="" id="counterStatusCourt" onstart="loadingCourt('1');" onstop="loadingCourt('0');"/>
+                                <apex:commandbutton value="Go" status="counterStatusCourt" rerender="courtDateDisplaySection" action="{!logSearch}"/>   
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </apex:form> 
+            </div> 
+            <hr />
+            <span id="loadingGifCourt"  style="display:none;">
+                <table border="0">
+                    <tr>
+                        <td valign="center">
+                            <img src="{!$Resource.loading}" /> 
+                        </td>
+                        <td valign="center">
+                            Loading new data...
+                        </td>
+                    </tr>
+                </table>
+            </span>
+            <apex:outputPanel id="courtDateDisplaySection">
+                <table id="courtDateTable" class="tablesorter"> 
+                    <thead> 
+                        <tr> 
+                            <th>Name</th>  
+                            <th>Court<br />Date</th>     
+                            <th>Due<br />Date</th>     
+                            <th>Client<br />Status</th>
+                            <th>Docket #</th>
+                            <th>Report<br />Type</th>
+                            <th>Appearance<br />Required</th>
+                            <th>Borough</th>
+                            <th>Court<br />Rep</th>
+                         </tr> 
+                    </thead> 
+                    <tbody id="Court_TBody"> 
+                        <apex:repeat value="{!CasesTab}" var="thisEvent" >
+                            <tr>     
+                                <td><a href="/{!thisEvent.clientId}" target="_blank">{!thisEvent.clientName}</a></td>                            
+                                <td><a href="/{!thisEvent.eventId}" target="_blank">{!MONTH(thisEvent.eventCourtDate)}/{!DAY(thisEvent.eventCourtDate)}/{!YEAR(thisEvent.eventCourtDate)}</a></td>
+                                <td>{!MONTH(thisEvent.eventDueDate)}/{!DAY(thisEvent.eventDueDate)}/{!YEAR(thisEvent.eventDueDate)}</td>
+                                <td><a href="/{!thisEvent.courtDateId}" target="_blank">{!thisEvent.docket}</a></td>
+                                <td>{!thisEvent.reportType}</td>
+                                <td>{!thisEvent.apperanceRequired}</td>
+                                <td>{!thisEvent.borough}</td>
+                                <td><a href="/{!thisEvent.eventOwnerId}" target="_blank">{!thisEvent.eventOwnerName}</a></td>
+                            </tr>
+                        </apex:repeat>  
+                    </tbody> 
+                </table>
+                <script type="Text/javascript">                 
+                            j$('#courtDateTable').tablesorter({
+                                headers:{
+                                    6:{sorter:false},
+                                    7:{sorter:false},
+                                    8:{sorter:false},
+                                    9:{sorter:false}
+                                },                  
+                                theme:'default'
+                            });
+                    </script>
+            </apex:outputPanel>
+</apex:page>

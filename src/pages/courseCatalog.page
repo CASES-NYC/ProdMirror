@@ -1,0 +1,192 @@
+<apex:page controller="courseCatalog" title="Course Catalog">
+
+    <!--
+                <apex:includeScript value="{!URLFOR($Resource.jQueryUI,'/js/jquery-1.6.2.min.js')}" />
+                <apex:includeScript value="{!URLFOR($Resource.jQueryUI, 'js/jquery-ui-1.8.15.custom.min.js')}"/>
+                <apex:includeScript value="{!URLFOR($Resource.jQuery,'/jQuery/jquery.tablesorter.min.js')}" />
+    -->
+    <script src="{!URLFOR($Resource.jQuery_191,'jQueryUI-1.10.3/jquery-1.9.1.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'jQueryUI-1.10.3/ui/jquery-ui.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />  
+    
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/style.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQueryUI-1.10.3/css/redmond/jquery-ui-1.8.15.custom.css')}" />
+    
+    <apex:sectionHeader title="Course Catalog" />
+    <script> function setFocusOnLoad() {} </script>
+    
+    <script>
+    
+        ////////////////////////////////////////
+        // jQuery Functions
+        ////////////////////////////////////////
+        var j$ = jQuery.noConflict();
+    
+        j$(function() {
+        
+            //j$( "#divLoading" ).dialog( "close" );
+            
+            /////////////////////////////////
+            // jQuery Modal Dialog - LOADING STATUS
+            /////////////////////////////////
+            
+            j$( "#divLoading" ).dialog({
+                autoOpen: false,
+                height: 180,
+                modal: true,
+                resizable: false,
+                draggable: false,
+            });
+            
+        });
+        
+        function statusShow() {
+            j$( "#divLoading" ).dialog( "open" );
+        }
+        
+        function statusHide() {
+            j$( "#divLoading" ).dialog( "close" );
+        }
+    
+    </script>
+    
+    <apex:actionStatus startText=""  stopText="" id="counterStatus" onstart="statusShow();" onstop="statusHide();"/>
+    
+    <apex:pageBlock >
+        <apex:pageBlockSection collapsible="true" title="Search Criteria">
+            <apex:outputPanel id="taskSection">
+                <apex:form id="criteria">
+                    <div class="controlPanel">
+                    <fieldset style="width:945px">
+                        <legend>Search Criteria
+                        </legend>
+                        <table border="0" cellpadding="1" cellspacing="0" width="945px" style="table-layout:fixed">
+                            <tr>
+                                <td width="140px">
+                                    <div align="left">
+                                        Area:<br />
+                                        <apex:inputField value="{!coSearch.Area__c}" /><br />
+                                        Category:<br />
+                                        <apex:inputField value="{!coSearch.Category__c}" /><br />
+                                    </div>
+                                </td>
+                                <td width="500px">
+                                    <div align="left">
+                                        Program(s) Served:<br />
+                                        <apex:inputField value="{!coSearch.Programs_Served__c}" /><br />
+                                        Note: If multiple values selected, search will look for classes containing at least one of the selected values
+                                    </div>
+                                </td>
+                                <td width="140px">
+                                    <div align="left">
+                                        Classes with sessions between<br />
+                                        <apex:inputField value="{!tskDummy.ActivityDate}" /><br />
+                                        and<br />
+                                        <apex:inputField value="{!tskDummy.Catalog_End_Date__c}" /><br />
+                                    </div>                                      
+                                </td>
+                                
+                                <td rowSpan="2" width="110px">
+                                    <div align="right">
+                                        <apex:commandLink id="cmdAddSingle" value="Add Single Class" action="{!createNewClass}" styleClass="btn">
+                                            <apex:param assignTo="{!intClassType}" value="0" />
+                                        </apex:commandLink><br /><br />
+                                        <apex:commandLink id="cmdAddFixed" value="Add Fixed Class" action="{!createNewClass}" styleClass="btn">
+                                            <apex:param assignTo="{!intClassType}" value="1" />
+                                        </apex:commandLink><br /><br />
+                                        <apex:commandLink id="cmdAddOngoing" value="Add Ongoing Class" action="{!createNewClass}" styleClass="btn">
+                                            <apex:param assignTo="{!intClassType}" value="2" />
+                                        </apex:commandLink><br /><br />
+                                        <apex:commandLink id="cmdAddCourse" value="Add Course" action="{!createNewCourse}" styleClass="btn" />                                      
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:commandbutton value="Search Classes" status="counterStatus" rerender="classDisplaySection" action="{!doNothing}"/>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    
+                                </td>
+                           </tr>
+                        </table>
+                      
+                      <apex:outPutText value="Mandatory Orientation Activities will not appear in Course Catalog search results. To enter enrollment and attendance information for these appointments, please use the Schedule Orientation Activities link on the client's Contact page."
+                           style="color:red"/>
+                        </fieldset>
+
+                    </div>
+                </apex:form>
+            </apex:outputPanel>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+    <apex:outputPanel id="results" rendered="{!if(strResult != null,true,false)}">
+        <table border="0" width="100%" cellPadding="3">
+            <tr>
+                <td width="100%" style="background-color: green; color: white;">
+                    <strong>NOTIFICATION:&nbsp;&nbsp;{!strResult}</strong>
+                </td>
+            </tr>
+        </table>
+    </apex:outputPanel>
+
+    <apex:outputPanel id="classDisplaySection">
+    <apex:form id="newEnrollment">
+        <table id="myTable" class="tablesorter"> 
+            <thead> 
+                <tr> 
+                    <th>Class</th>   
+                    <th>Enrollment</th>   
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Area</th>     
+                    <th>Category</th>
+                    <th>Program(s) Served</th>     
+                    <th>Type</th>     
+                 </tr>  
+            </thead> 
+            <tbody> 
+                <apex:repeat value="{!Classes}" var="thisClass" >
+                    <tr>   
+                        <td><a href="/{!thisClass.cls.Id}" target="_blank">{!thisClass.cls.Class_Title__c}</a></td>
+                        <td align="center">
+                            <apex:outputLink styleClass="btn" value="/apex/courseEnrollment?c={!thisClass.cls.Id}" target="_blank" rendered="{!thisClass.bolShowEnrollment && bolShowEnrollment}">Enrollment</apex:outputLink>
+                                <!--<apex:param assignTo="{!strEnrollmentClassId}" value="{!thisClass.cls.Id}" name="strEnrollmentClassId"/> -->
+                            <apex:outputLink styleClass="btn" value="/apex/courseGrading?c={!thisClass.cls.Id}&a={!thisClass.cls.AreaRPT__c}&t={!thisClass.cls.CategoryRPT__c}&s={!tskDummy.ActivityDate}&e={!tskDummy.Catalog_End_Date__c}" target="_blank" rendered="{!thisClass.bolShowEnrollment}">Verification</apex:outputLink>
+                                <!--<apex:param assignTo="{!strEnrollmentClassId}" value="{!thisClass.cls.Id}" name="strEnrollmentClassId"/> -->
+                            <apex:outputText value="No Schedules Found" rendered="{!thisClass.bolShowEnrollment = false}" />
+                        </td>
+                        <td>
+                            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" rendered="{!thisClass.bolShowEnrollment}">
+                                <apex:param value="{!thisClass.cls.First_Session_On__c}" /> 
+                            </apex:outputText>
+                        </td>
+                        <td>
+                            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" rendered="{!thisClass.bolShowEnrollment}">
+                                <apex:param value="{!thisClass.cls.Last_Session_On__c}" /> 
+                            </apex:outputText>
+                            <apex:outputText value=" - Ongoing - " rendered="{!thisClass.cls.Record_Type_RPT__c = 'Ongoing'}" />
+                        </td>
+                        <td>{!thisClass.cls.AreaRPT__c}</td>
+                        <td>{!thisClass.cls.CategoryRPT__c}</td>
+                        <td>{!if(thisClass.cls.Serves_All_Programs__c, "All", thisClass.cls.Programs_Served__c)}</td>
+                        <td>{!thisClass.cls.Record_Type_RPT__c}</td>
+                    </tr>       
+                </apex:repeat>
+            </tbody> 
+        </table>
+    </apex:form>
+    </apex:outputPanel>
+    
+    <!---------------------------------------------  
+    -- "divCopyTask" is the modal pop-up for copying
+    -- a scheduled event to another resource
+    ----------------------------------------------->
+    
+    <div id="divLoading" title="Loading Page...">
+        <p>Please wait a moment while the system processes your request...</p>
+    </div>
+</apex:page>

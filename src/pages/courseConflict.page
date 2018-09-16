@@ -1,0 +1,111 @@
+<apex:page controller="courseConflict" title="Conflict Resolution" >
+
+<!-- 
+    <apex:includeScript value="{!URLFOR($Resource.jQuery,'/jQuery/jquery-1.4.2.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery,'/jQuery/jquery.tablesorter.min.js')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery,'/jQuery/style.css')}" />
+-->
+    <script src="{!URLFOR($Resource.jQuery_191,'jQueryUI-1.10.3/jquery-1.9.1.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'jQueryUI-1.10.3/ui/jquery-ui.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />  
+    
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/style.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQueryUI-1.10.3/css/redmond/jquery-ui-1.8.15.custom.css')}" />
+
+    <apex:sectionHeader title="Enrollment Conflicts" />
+    <script> function setFocusOnLoad() {} </script>
+    
+    <script>
+        var j$ = jQuery.noConflict();
+
+            function sortIt()     {         
+              
+                j$("#myTable").tablesorter(
+                
+                    {
+                        widgets: ['zebra'],
+                        
+                        headers: { 
+                            5: { sorter: false },
+                        }
+                    }
+                );      
+            }
+            
+            function loading(dir) {
+        
+            if(dir == '1') {
+            
+                document.getElementById('loadingGif').style.display = '';
+            
+            } else {
+                
+                document.getElementById('loadingGif').style.display = 'none';
+            }
+        
+        }
+    
+    </script>   
+    
+    <apex:form id="frmCriteria">
+    <apex:pageBlock >
+    
+        <apex:pageBlockSection collapsible="false" title="Class Information">
+            <table border="0" cellPadding="3" cellSpacing="0" width="900px">
+                <tr>
+                    <td width="100%">
+                        <strong>Class:</strong> {!clCurrent.Class_Title__c}<br />
+                        <strong>Instructor:</strong>  {!clCurrent.Instructor_1__r.Name}<br />
+                    </td>
+                </tr>
+            </table>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection id="pageBlock" collapsible="false" title="Click on a column heading to sort" columns="1">
+            
+            <apex:outputPanel id="opEnrollees">
+            
+                {!strMessage}<br />
+
+                <table id="myTable" class="tablesorter" width="900px"> 
+                    <thead> 
+                        <tr> 
+                            <th>Client</th>   
+                            <th>Session Start</th>   
+                            <th>Session End</th> 
+                            <th>Conflicting Event Name</th>    
+                            <th>Conflicting Event Date / Time</th>
+                            <th>Retry Schedule</th>
+                         </tr>  
+                    </thead> 
+                    <tbody> 
+                        <apex:repeat value="{!Conflicts}" var="thisConflict" >
+                            <tr>   
+                                <td><a href="/{!thisConflict.c.Id}" target="_blank">{!thisConflict.c.Name}</a></td>
+                                <td><apex:outputField value="{!thisConflict.s.Session_Start__c}" /></td>
+                                <td><apex:outputField value="{!thisConflict.s.Session_End__c}" /></td>
+                                <td><a href="/{!thisConflict.evtConflict.Id}" target="_blank">{!thisConflict.evtConflict.Subject}</a></td>
+                                <td><apex:outputField value="{!thisConflict.evtConflict.StartDateTime}" /></td>
+                                <td align="center">
+                                    <apex:commandLink action="{!resubmitConflict}" value="Recheck for Conflict" rerender="opEnrollees">
+                                        <apex:param name="strConflictId" value="{!thisConflict.ec.Id}" assignTo="{!strConflictId}" />
+                                        <apex:param name="strContactId" value="{!thisConflict.c.Id}" assignTo="{!strContactId}" />
+                                    </apex:commandLink>
+                                </td>
+                            </tr>       
+                        </apex:repeat>
+                    </tbody> 
+                </table>
+                <script type="Text/javascript">
+                    sortIt();
+                </script>
+            
+            </apex:outputPanel>
+        
+        
+        </apex:pageBlockSection>
+        
+    </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

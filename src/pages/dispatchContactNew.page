@@ -1,0 +1,1 @@
+<apex:page standardController="Contact" extensions="dispatchContactNewCon" tabStyle="Contact" showheader="true" action="{!redirect}" />

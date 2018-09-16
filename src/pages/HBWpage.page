@@ -1,0 +1,545 @@
+<apex:page controller="AssessmentController">
+<apex:form id="HBWpage">
+ <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+  <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+
+ <apex:outPutPanel id="op" styleclass="span.resultContainer">
+	<!--                     EDIT BLOCK  -->
+<apex:pageblock id="pbEdit" rendered="{!isEdit==true}">
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">IDENTIFYING DATA / PRESENTING CHALLENGES</span> 
+    </apex:facet>
+ <apex:outputlabel value="Summarize any presenting challenges, any significant events or changes in life, home, school,family or social, recent or past, results of assessments" style="font-size:12px"/>
+ <apex:inputtextarea value="{!HW.Presenting_Challenges__c}" styleclass="textshortedithere"/>
+ </apex:pageblocksection> 
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">CULTURAL CONSIDERATIONS</span> 
+    </apex:facet>
+ <apex:outputlabel value="Describes the participants self-identified race and ethnicity, primary language, cultural or religious features that are important to them." style="font-size:12px"/>
+ <apex:inputtextarea value="{!HW.Cultural_Considerations__c}" styleclass="textshortedithere"/>
+ </apex:pageblocksection>
+ 
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">POSITIVE/PERSONAL STRENGTHS</span> 
+    </apex:facet>
+ <apex:outputlabel value="Summarize any presenting challenges, any significant events or changes in life, home, school, family
+         or social, recent or past, results of assessments" style="font-size:12px"/>
+  <apex:inputtextarea value="{!HW.Personal_Strengths__c}" styleclass="textshortedithere"/>
+ </apex:pageblocksection>
+ 
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">ENVIRONMENT</span> 
+    </apex:facet>
+ <apex:outputlabel value="Describe who they live with, relation to those people, where, stability in housing,  any changes, safety concerns." style="font-size:12px"/>
+ <apex:inputtextarea value="{!HW.Environment__c}"  styleclass="textshortedithere"/>
+ </apex:pageblocksection>
+
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">FAMILY STRUCTURE</span> 
+    </apex:facet>
+ <apex:outputlabel value="Include family members and relationships, any significant changes in family structure, relationship with family" style="font-size:12px"/>
+ <apex:inputtextarea value="{!HW.Family_Structure__c}" styleclass="textshortedithere"/>
+ <apex:outputlabel value="Include name(s), age(s), living arrangements  of children and who is the primary caregiver" style="font-size:12px"/>
+ <apex:inputtextarea value="{!HW.Family_Members__c}" styleclass="textshortedithere"/>
+</apex:pageblocksection>
+
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">PEER/SUPPORT</span> 
+    </apex:facet>
+ <apex:outputlabel value="Describe who they spend time with, support systems, significant others, gang involvement" style="font-size:12px"/>
+ <apex:inputtextarea value="{!HW.Peers_Support__c}" styleclass="textshortedithere"/>
+</apex:pageblocksection>
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">EDUCATION</span> 
+    </apex:facet>
+ <apex:outputlabel value="Include name of school, high grade completed, special education, last time they attended, degrees" style="font-size:12px"/>
+ <apex:inputtextarea value="{!HW.Education__c}" styleclass="textshortedithere"/>
+</apex:pageblocksection>
+
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">EMPLOYMENT</span> 
+    </apex:facet>
+ <apex:outputlabel value="Include name of employer, position held, how long have you been there and what is their work schedule" style="font-size:12px"/>
+ <apex:inputtextarea value="{!HW.Employment__c}" styleclass="textshortedithere"/>
+</apex:pageblocksection>
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">PHYSICAL HEALTH</span> 
+    </apex:facet>
+ <apex:outputlabel value="Describe any health conditions, medication, hospitalization, head trauma" style="font-size:12px"/>
+ <apex:inputtextarea value="{!HW.Physical_Health__c}"  styleclass="textshortedithere"/>
+</apex:pageblocksection>
+
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">MENTAL HEALTH</span> 
+    </apex:facet>
+ <apex:outputlabel value="Include any past treatment, hospitalizations, family history" style="font-size:12px"/>
+ <apex:inputtextarea value="{!HW.Mental_Health__c}"  styleclass="textshortedithere"/> 
+
+  <apex:pageblocksection columns="2">
+  <apex:inputtext value="{!HW.MH1_Name_of_Program__c}" styleclass="text200regularedit"/>
+  <apex:inputtext value="{!HW.MH1_Type_of_Program__c}" styleclass="text200regularedit"/>
+  <apex:inputtext value="{!HW.MH1_Length_of_Time__c}" styleclass="text100edit"/>
+  <apex:inputtext value="{!HW.MH1_Contact__c}" styleclass="text200regularedit"/>
+   </apex:pageblocksection>
+</apex:pageblocksection>
+<apex:pageblocksection columns="1">
+  <apex:facet name="header">
+       <span style="color:black;font-size:14px;">SUBSTANCE USE </span> 
+    </apex:facet>
+  <apex:outputlabel value="Describe any health conditions, medication, hospitalization, head trauma" style="font-size:12px"/>
+        <apex:inputfield value="{!HW.Drugs_Used__c}"  styleclass="notes300edit"/>
+    
+    
+<apex:outputlabel value="Drug 1" style="font-weight:bold;text-decoration:underline;"/>
+ <apex:pageblocksection columns="3">
+      <apex:inputtext value="{!HW.Drugs1_Drug_Name__c}" styleclass="text250regularedit"/>
+      <apex:inputtext value="{!HW.Drugs1_First_Time_Used__c}" styleclass="text100edit"/>
+      <apex:inputtext value="{!HW.Drugs1_Last_Time_Used__c}"  styleclass="text100edit"/>
+      <apex:inputtext value="{!HW.Drugs1_Alone_or_Peers__c}"  styleclass="text250regularedit"/>
+      <apex:inputtext value="{!HW.Drugs1_Get_Out_Of__c}"  styleclass="text100edit"/>
+      <apex:inputtext value="{!HW.Drugs1_Tried_to_Stop__c}" styleclass="text160edit"/>
+   </apex:pageblocksection>
+   <hr/>
+<apex:outputlabel value="Drug 2" style="font-weight:bold;text-decoration:underline;"/>
+   <apex:pageblocksection columns="3">
+      <apex:inputtext value="{!HW.Drugs2_Drug_Name__c}" styleclass="text250regularedit"/>
+      <apex:inputtext value="{!HW.Drugs2_First_Time_Used__c}" styleclass="text100edit"/>
+      <apex:inputtext value="{!HW.Drugs2_Last_Time_Used__c}"  styleclass="text100edit"/>
+      <apex:inputtext value="{!HW.Drugs2_Alone_or_Peers__c}"  styleclass="text250regularedit"/>
+      <apex:inputtext value="{!HW.Drugs2_Get_Out_Of__c}"  styleclass="text100edit"/>
+      <apex:inputtext value="{!HW.Drugs2_Tried_to_Stop__c}" styleclass="text100edit"/>
+   </apex:pageblocksection>
+   <hr/>
+<apex:outputlabel value="Drug 3" style="font-weight:bold;text-decoration:underline;"/>
+   <apex:pageblocksection columns="3">
+      <apex:inputtext value="{!HW.Drugs3_Drug_Name__c}" styleclass="text250regularedit"/>
+      <apex:inputtext value="{!HW.Drugs3_First_Time_Used__c}" styleclass="text100edit"/>
+      <apex:inputtext value="{!HW.Drugs3_Last_Time_Used__c}"  styleclass="text100edit"/>
+      <apex:inputtext value="{!HW.Drugs3_Alone_or_Peers__c}"  styleclass="text250regularedit"/>
+      <apex:inputtext value="{!HW.Drugs3_Get_Out_Of__c}"  styleclass="text100edit"/>
+      <apex:inputtext value="{!HW.Drugs3_Tried_to_Stop__c}" styleclass="text100edit"/>
+   </apex:pageblocksection>
+   <hr/>
+<apex:outputlabel value="Drug 4" style="font-weight:bold;text-decoration:underline;"/>
+   <apex:pageblocksection columns="3">
+      <apex:inputtext value="{!HW.Drugs4_Drug_Name__c}" styleclass="text250regularedit"/>
+      <apex:inputtext value="{!HW.Drugs4_First_Time_Used__c}" styleclass="text100edit"/>
+      <apex:inputtext value="{!HW.Drugs4_Last_Time_Used__c}"  styleclass="text100edit"/>
+      <apex:inputtext value="{!HW.Drugs4_Alone_or_Peers__c}"  styleclass="text250regularedit"/>
+      <apex:inputtext value="{!HW.Drugs4_Get_Out_Of__c}"  styleclass="text100edit"/>
+      <apex:inputtext value="{!HW.Drugs4_Tried_to_Stop__c}" styleclass="text100edit"/>
+   </apex:pageblocksection>
+</apex:pageblocksection>
+
+<hr/><br/>
+ <span style="font-size:12px;font-weight:bold;color:blue">Are you currently in treatment for alcohol or substances? If yes, provide details.</span>
+ <apex:pageblocksection columns="3">
+      <apex:inputtext value="{!HW.Drugs1_Name_of_Program__c}" styleclass="text200regularedit"/>
+      <apex:inputtext value="{!HW.Drugs1_Date_Started__c}" styleclass="text100edit"/>
+      <apex:inputtext value="{!HW.Drugs1_Contact_Info__c}"  styleclass="text200regularedit"/>
+   </apex:pageblocksection>
+<hr/><br/>
+ <span style="font-size:12px;font-weight:bold;color:blue">If not currently in treatment, have you ever been in the past? If yes, provide details.</span>
+ <apex:pageblocksection columns="3">
+      <apex:inputtext value="{!HW.Drugs1_Name_of_Program__c}" styleclass="text200regularedit"/>
+      <apex:inputtext value="{!HW.Drugs1_Date_Started__c}" styleclass="text100edit"/>
+      <apex:inputtext value="{!HW.Drugs1_Contact_Info__c}"  styleclass="text200regularedit"/>
+   </apex:pageblocksection>
+<hr/>
+<apex:pageblocksection columns="2">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">RISK / TRAUMA ASSESSMENT</span> 
+    </apex:facet>
+ <apex:inputtextarea value="{!HW.Ending_Life__c}" styleclass="textareanarrowedit" />
+ <apex:inputtextarea value="{!HW.Self_Harm__c}"   styleclass="textareanarrowedit" />
+ <apex:inputtextarea value="{!HW.Past_Ideations__c}" styleclass="textareanarrowedit" />
+ <apex:inputtextarea value="{!HW.MH_Hospitalized__c}" styleclass="textareanarrowedit" />
+ <apex:inputtextarea value="{!HW.Aggressive_Behavior__c}" styleclass="textareanarrowedit" />
+ <apex:inputtextarea value="{!HW.Describe_Anger__c}" styleclass="textareanarrowedit"  
+ title="Describe if they have gotten in  trouble for anger or temper, include triggers"/>
+
+ <apex:inputtextarea value="{!HW.Harming_Others__c}" styleclass="textareanarrowedit" />
+ <apex:inputtextarea value="{!HW.Abuse__c}" styleclass="textareanarrowedit" />
+</apex:pageblocksection>
+
+<apex:pageblocksection columns="2">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">GOALS -  Short term goals for the next 6 months: (Choose at least 2)</span> 
+    </apex:facet>
+   <apex:inputtextarea value="{!HW.Goals_Mental_Health__c}" styleclass="textareanarrowedit" />
+   <apex:inputtextarea value="{!HW.Goals_Substance_Use__c}" styleclass="textareanarrowedit" />
+   <apex:inputtextarea value="{!HW.Goals_Education__c}" styleclass="textareanarrowedit" />
+   <apex:inputtextarea value="{!HW.Goals_Family__c}" styleclass="textareanarrowedit" />
+   <apex:inputtextarea value="{!HW.Goals_Peers__c}" styleclass="textareanarrowedit" />
+   <apex:inputtextarea value="{!HW.Goals_Satisfaction__c}" styleclass="textareanarrowedit" />
+</apex:pageblocksection>    
+
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">Mental Status of Participant - how the participant presented herself/himself: Appearance, attitude, distinctive characteristics, mood, affect</span> 
+    </apex:facet>
+   <apex:inputtextarea value="{!HW.Mental_Status__c}" styleclass="textshortedithere" />
+</apex:pageblocksection>
+
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">Summary - Briefly describe the participants  presenting problems, clinicians observations and any psychosocial stressors that may be a factor in the participant's program participation or overall functioning.
+       </span> 
+    </apex:facet>
+   <apex:inputtextarea value="{!HW.Summary_Presenting__c}" styleclass="textshortedithere"/>
+   <apex:inputtextarea value="{!HW.Summary_Strengths__c}" styleclass="textshortedithere"/>
+</apex:pageblocksection>
+</apex:pageblock>
+
+
+<!--                     VIEW BLOCK  -->
+<apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">IDENTIFYING DATA / PRESENTING CHALLENGES</span> 
+    </apex:facet>
+   <apex:outputlabel value="Summarize any presenting challenges, any significant events or changes in life, home, school,family or social, recent or past, results of assessments" style="font-size:12px"/>
+   <apex:pageblocksectionItem ><apex:outputlabel value="Presenting Challenges" for="i1"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Presenting_Challenges__c),'\\n','<br/>'),'\\r','')}" 
+     escape="false" style="color:blue;width:700px;background-color:white;" id="i1" /></apex:pageblocksectionItem>
+    </apex:pageblocksection>
+
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">CULTURAL CONSIDERATIONS</span> 
+    </apex:facet>
+ <apex:outputlabel value="Describes the participants self-identified race and ethnicity, primary language, cultural or religious features that are important to them." style="font-size:12px"/>
+  <apex:pageblocksectionItem ><apex:outputlabel value="Cultural Considerations" for="i2"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Cultural_Considerations__c),'\\n','<br/>'),'\\r','')}" 
+     escape="false" style="color:blue;width:700px;background-color:white;" id="i2" /></apex:pageblocksectionItem>
+ 
+ </apex:pageblocksection>
+ 
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">POSITIVE/PERSONAL STRENGTHS</span> 
+    </apex:facet>
+ <apex:outputlabel value="Summarize any presenting challenges, any significant events or changes in life, home, school, family
+         or social, recent or past, results of assessments" style="font-size:12px"/>
+  <apex:pageblocksectionItem ><apex:outputlabel value="Personal Strengths" for="i3"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Personal_Strengths__c),'\\n','<br/>'),'\\r','')}" 
+     escape="false" style="color:blue;width:700px;background-color:white;" id="i3" /></apex:pageblocksectionItem>
+ </apex:pageblocksection>
+ 
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">ENVIRONMENT</span> 
+    </apex:facet>
+ <apex:outputlabel value="Describe who they live with, relation to those people, where, stability in housing,  any changes, safety concerns." style="font-size:12px"/>
+  <apex:pageblocksectionItem ><apex:outputlabel value="Environment" for="i4"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Environment__c),'\\n','<br/>'),'\\r','')}" 
+     escape="false" style="color:blue;width:700px;background-color:white;" id="i4" /></apex:pageblocksectionItem>
+ </apex:pageblocksection>
+
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">FAMILY STRUCTURE</span> 
+    </apex:facet>
+ <apex:outputlabel value="Include family members and relationships, any significant changes in family structure, relationship with family" style="font-size:12px"/>
+  <apex:pageblocksectionItem ><apex:outputlabel value="Environment" for="i5"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Family_Structure__c),'\\n','<br/>'),'\\r','')}" 
+     escape="false" style="color:blue;width:700px;background-color:white;" id="i5" /></apex:pageblocksectionItem>
+ <apex:outputlabel value="Include name(s), age(s), living arrangements  of children and who is the primary caregiver" style="font-size:12px"/>
+  <apex:pageblocksectionItem ><apex:outputlabel value="Family Members" for="i6"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Family_Members__c),'\\n','<br/>'),'\\r','')}" 
+     escape="false" style="color:blue;width:700px;background-color:white;" id="i6" /></apex:pageblocksectionItem>
+</apex:pageblocksection>
+
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">PEER/SUPPORT</span> 
+    </apex:facet>
+ <apex:outputlabel value="Describe who they spend time with, support systems, significant others, gang involvement" style="font-size:12px"/>
+  <apex:pageblocksectionItem ><apex:outputlabel value="Peers/Support" for="i7"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Peers_Support__c),'\\n','<br/>'),'\\r','')}" 
+     escape="false" style="color:blue;width:700px;background-color:white;" id="i7" /></apex:pageblocksectionItem>
+</apex:pageblocksection>
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">EDUCATION</span> 
+    </apex:facet>
+ <apex:outputlabel value="Include name of school, high grade completed, special education, last time they attended, degrees" style="font-size:12px"/>
+  <apex:pageblocksectionItem ><apex:outputlabel value="Education" for="i8"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Education__c),'\\n','<br/>'),'\\r','')}" 
+     escape="false" style="color:blue;width:700px;background-color:white;" id="i8" /></apex:pageblocksectionItem>
+</apex:pageblocksection>
+
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">EMPLOYMENT</span> 
+    </apex:facet>
+ <apex:outputlabel value="Include name of employer, position held, how long have you been there and what is their work schedule" style="font-size:12px"/>
+<apex:pageblocksectionItem ><apex:outputlabel value="Employment" for="i9"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Employment__c),'\\n','<br/>'),'\\r','')}" 
+     escape="false" style="color:blue;width:700px;background-color:white;" id="i9" /></apex:pageblocksectionItem>
+</apex:pageblocksection>
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">PHYSICAL HEALTH</span> 
+    </apex:facet>
+ <apex:outputlabel value="Describe any health conditions, medication, hospitalization, head trauma" style="font-size:12px"/>
+<apex:pageblocksectionItem ><apex:outputlabel value="Physical Health" for="i10"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Physical_Health__c),'\\n','<br/>'),'\\r','')}" 
+     escape="false" style="color:blue;width:700px;background-color:white;" id="i10" /></apex:pageblocksectionItem>
+</apex:pageblocksection>
+
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">MENTAL HEALTH</span> 
+    </apex:facet>
+ <apex:outputlabel value="Include any past treatment, hospitalizations, family history" style="font-size:12px"/>
+<apex:pageblocksectionItem ><apex:outputlabel value="PMental Health" for="i11"/>
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Mental_Health__c),'\\n','<br/>'),'\\r','')}" 
+     escape="false" style="color:blue;width:700px;background-color:white;" id="i11" /></apex:pageblocksectionItem>
+
+  <apex:pageblocksection columns="4">
+  <apex:inputtext value="{!HW.MH1_Name_of_Program__c}" disabled="true" styleclass="text200regular"/>
+  <apex:inputtext value="{!HW.MH1_Type_of_Program__c}" disabled="true" styleclass="text200regular"/>
+  <apex:inputtext value="{!HW.MH1_Length_of_Time__c}" disabled="true" styleclass="text100"/>
+  <apex:inputtext value="{!HW.MH1_Contact__c}" disabled="true" styleclass="text200regular"/>
+   </apex:pageblocksection>
+</apex:pageblocksection>
+<apex:pageblocksection columns="1">
+  <apex:facet name="header">
+       <span style="color:black;font-size:14px;">SUBSTANCE USE </span> 
+    </apex:facet>
+  <apex:outputlabel value="Describe any health conditions, medication, hospitalization, head trauma" style="font-size:12px"/>
+        <apex:inputtext value="{!HW.Drugs_Used__c}" disabled="true" styleclass="notes300"/>
+    
+    
+<apex:outputlabel value="Drug 1" style="font-weight:bold;text-decoration:underline;"
+    rendered="{!IF(HW.Drugs1_Drug_Name__c==null||HW.Drugs1_Drug_Name__c=='',false,true)}"/>
+
+   <apex:pageblocksection columns="3" rendered="{!IF(HW.Drugs1_Drug_Name__c==null||HW.Drugs1_Drug_Name__c=='',false,true)}">
+      <apex:inputtext value="{!HW.Drugs1_Drug_Name__c}" styleclass="text250regular" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs1_First_Time_Used__c}" styleclass="text100" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs1_Last_Time_Used__c}"  styleclass="text100" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs1_Alone_or_Peers__c}"  styleclass="text250regular" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs1_Get_Out_Of__c}"  styleclass="text100" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs1_Tried_to_Stop__c}" styleclass="text160" disabled="true"/>
+   </apex:pageblocksection>
+<!-- <span style="font-weight:bold;text-decoration:underline;">Drug 2</span>-->
+<apex:outputlabel value="Drug 2" style="font-weight:bold;text-decoration:underline;" 
+   rendered="{!IF(HW.Drugs2_Drug_Name__c==null||HW.Drugs2_Drug_Name__c=='',false,true)}"/>
+   <apex:pageblocksection columns="3" rendered="{!IF(HW.Drugs2_Drug_Name__c==null||HW.Drugs2_Drug_Name__c=='',false,true)}">
+      <apex:inputtext value="{!HW.Drugs2_Drug_Name__c}" styleclass="text250regular" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs2_First_Time_Used__c}" styleclass="text100" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs2_Last_Time_Used__c}"  styleclass="text250regular" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs2_Alone_or_Peers__c}"  styleclass="text200regular" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs2_Get_Out_Of__c}"  styleclass="text100" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs2_Tried_to_Stop__c}" styleclass="text160" disabled="true"/>
+   </apex:pageblocksection>
+<apex:outputlabel value="Drug 3" style="font-weight:bold;text-decoration:underline;" 
+   rendered="{!IF(HW.Drugs3_Drug_Name__c==null||HW.Drugs3_Drug_Name__c=='',false,true)}"/>
+   <apex:pageblocksection columns="3" rendered="{!IF(HW.Drugs3_Drug_Name__c==null||HW.Drugs3_Drug_Name__c=='',false,true)}">
+      <apex:inputtext value="{!HW.Drugs3_Drug_Name__c}" styleclass="text250regular" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs3_First_Time_Used__c}" styleclass="text100" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs3_Last_Time_Used__c}"  styleclass="text100" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs3_Alone_or_Peers__c}"  styleclass="text250regular" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs3_Get_Out_Of__c}"  styleclass="text100" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs3_Tried_to_Stop__c}" styleclass="text160" disabled="true"/>
+   </apex:pageblocksection>
+ <apex:outputlabel value="Drug 3" style="font-weight:bold;text-decoration:underline;" 
+   rendered="{!IF(HW.Drugs4_Drug_Name__c==null||HW.Drugs4_Drug_Name__c=='',false,true)}"/>
+   <apex:pageblocksection columns="6" rendered="{!IF(HW.Drugs4_Drug_Name__c==null||HW.Drugs4_Drug_Name__c=='',false,true)}">
+      <apex:inputtext value="{!HW.Drugs4_Drug_Name__c}" styleclass="text250regular" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs4_First_Time_Used__c}" styleclass="text100" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs4_Last_Time_Used__c}"  styleclass="text100" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs4_Alone_or_Peers__c}"  styleclass="text250regular" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs4_Get_Out_Of__c}"  styleclass="text100" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs4_Tried_to_Stop__c}" styleclass="text160" disabled="true"/>
+   </apex:pageblocksection>
+</apex:pageblocksection>
+
+<hr/><br/>
+ <span style="font-size:12px;font-weight:bold;color:blue">Are you currently in treatment for alcohol or substances? If yes, provide details.</span>
+ <apex:pageblocksection columns="3">
+      <apex:inputtext value="{!HW.Drugs1_Name_of_Program__c}" styleclass="text200regular" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs1_Date_Started__c}" styleclass="text100" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs1_Contact_Info__c}"  styleclass="text200regular" disabled="true"/>
+   </apex:pageblocksection>
+<hr/><br/>
+ <span style="font-size:12px;font-weight:bold;color:blue">If not currently in treatment, have you ever been in the past? If yes, provide details.</span>
+ <apex:pageblocksection columns="3">
+      <apex:inputtext value="{!HW.Drugs1_Name_of_Program__c}" styleclass="text200regular" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs1_Date_Started__c}" styleclass="text100" disabled="true"/>
+      <apex:inputtext value="{!HW.Drugs1_Contact_Info__c}"  styleclass="text200regular" disabled="true"/>
+   </apex:pageblocksection>
+<hr/>
+<apex:pageblocksection columns="2">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">RISK / TRAUMA ASSESSMENT</span> 
+    </apex:facet>
+    <apex:pageblocksectionItem ><apex:outputlabel value="Suicide/self harm - Ending Life" for="m1"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Ending_Life__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:300px;background-color:white;" id="m1" /></apex:pageblocksectionItem>
+    <apex:pageblocksectionItem ><apex:outputlabel value="Self Harm - explain" for="m2"/><apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Self_Harm__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:300px;background-color:white;" id="m2"/></apex:pageblocksectionItem>
+    <apex:pageblocksectionItem ><apex:outputlabel value="Past Ideations:" for="m3"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Past_Ideations__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:300px;background-color:white;" id="m3"/></apex:pageblocksectionItem>
+    <apex:pageblocksectionItem ><apex:outputlabel value="If so, were they hospitalized?" for="m4"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.MH_Hospitalized__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:300px;background-color:white;" id="m4"/></apex:pageblocksectionItem>
+    <apex:pageblocksectionItem ><apex:outputlabel value="Aggressive behavior/Harm to Others:" for="m5"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Aggressive_Behavior__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:300px;background-color:white;" id="m5" /></apex:pageblocksectionItem>
+   <apex:pageblocksectionItem ><apex:outputlabel value="Describe Anger" for="m6"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Describe_Anger__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:300px;background-color:white;" id="m6"  title="Describe if they have gotten in  trouble for anger or temper, include triggers"/>
+        </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem ><apex:outputlabel value="Harming Others:" for="m7"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Harming_Others__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:300px;background-color:white;" id="m7"/></apex:pageblocksectionItem>
+  <apex:pageblocksectionItem ><apex:outputlabel value="Abuse" for="m8"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Abuse__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:300px;background-color:white;" id="m8"/></apex:pageblocksectionItem>
+</apex:pageblocksection>
+
+<apex:pageblocksection columns="2">
+<apex:facet name="header">
+       <span style="color:black;font-size:14px;">GOALS -  Short term goals for the next 6 months: (Choose at least 2)</span> 
+    </apex:facet>
+ <apex:pageblocksectionItem ><apex:outputlabel value="Mental Health" for="t1"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Goals_Mental_Health__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:300px;background-color:white;" id="t1"/></apex:pageblocksectionItem>
+<apex:pageblocksectionItem ><apex:outputlabel value="Substance Use" for="t2"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Goals_Substance_Use__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:300px;background-color:white;" id="t2"/></apex:pageblocksectionItem>
+<apex:pageblocksectionItem ><apex:outputlabel value="Education" for="t3"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Goals_Education__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:300px;background-color:white;" id="t3"/></apex:pageblocksectionItem>
+<apex:pageblocksectionItem ><apex:outputlabel value="Family" for="t4"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Goals_Family__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:300px;background-color:white;" id="t4"/></apex:pageblocksectionItem>
+<apex:pageblocksectionItem ><apex:outputlabel value="Peers" for="t5"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Goals_Peers__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:300px;background-color:white;" id="t5"/></apex:pageblocksectionItem>
+<apex:pageblocksectionItem > <apex:outputlabel value="Satisfaction" for="t6"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Goals_Satisfaction__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:300px;background-color:white;" id="t6"/></apex:pageblocksectionItem>
+</apex:pageblocksection>    
+
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header">
+       <span style="color:black;font-size:12px;">Mental Status of Participant - how the participant presented herself/himself: Appearance, attitude, distinctive characteristics, mood, affect</span> 
+    </apex:facet>
+ <apex:pageblocksectionItem ><apex:outputlabel value="Mental Status" for="s3"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Mental_Status__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:700px;background-color:white;" id="s3"/></apex:pageblocksectionItem>
+</apex:pageblocksection>
+<apex:pageblocksection columns="1" collapsible="false">
+<apex:facet name="header" >
+       <span style="color:black;font-size:12px;">Summary - Briefly describe the participants  presenting problems, clinicians observations and any psychosocial stressors that may be a factor in the participant's program participation or overall functioning.
+       </span> 
+    </apex:facet>
+   <apex:pageblocksectionItem ><apex:outputlabel value="Summary - Presenting" for="s2"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Summary_Presenting__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:700px;background-color:white;" id="s2"/></apex:pageblocksectionItem>
+   <apex:pageblocksectionItem ><apex:outputlabel value="Summary - Strengths" for="s1"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(HW.Summary_Strengths__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:700px;background-color:white;" id="s1"/>
+        </apex:pageblocksectionItem>
+</apex:pageblocksection>
+</apex:pageblock>
+
+  <apex:pageblock id="opaction1">
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an1" 
+   style="font-size:14px;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad1" 
+   style="font-size:14px;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}" status="selectData"
+ id="btnEdit1" rerender="opaction,op,pbEdit,opaction1,pbEdit1" immediate="true"/>
+
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel1" rerender="aPage,m,opTop,opaction,op"/>
+
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+ <apex:commandButton value="Save" id="btnSave1" rendered="{!isedit}" action="{!saveAssessment}" rerender="opaction,op" status="selectData">
+ </apex:commandButton>
+
+
+</apex:pageblock>  
+ </apex:outPutPanel>
+ 
+ 
+ 
+ <br/>
+ <apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+<table>
+  <tr>
+   <td width="400px" align="left">
+	<apex:outputLabel value="Created by:"/>&nbsp;
+	<apex:outputLabel value="{!createdInfo}"/>					
+   </td>
+   <td width="400px"  align="right">
+	 <apex:outputLabel value="Last modified by:"/>&nbsp;
+	 <apex:outputLabel value="{!LastModifiedInfo}"/>
+   </td>
+ </tr>
+ </table> 
+</apex:outPutPanel>
+ </apex:form>
+ <style>
+      .textshorthere{
+     width:700px;
+     height:80px;
+     color:blue; 
+  background-color:white;
+  border:none; 
+    }
+    .textshortedithere{
+     width:700px;
+     height:80px;
+  
+    }
+ </style>
+ 
+ </apex:page>

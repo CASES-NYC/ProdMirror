@@ -1,0 +1,3049 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apexPluginCalls>
+        <name>Create_Health_Home_PR_Fault</name>
+        <label>Create Health Home PR Fault</label>
+        <locationX>612</locationX>
+        <locationY>287</locationY>
+        <apexClass>pluginFaultHandling</apexClass>
+        <inputParameters>
+            <name>strContact</name>
+            <value>
+                <elementReference>ContactId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>strDML</name>
+            <value>
+                <elementReference>Create_Health_Home_PR</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>strFault</name>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>strFlow</name>
+            <value>
+                <stringValue>CIRT Interview Flow</stringValue>
+            </value>
+        </inputParameters>
+    </apexPluginCalls>
+    <apexPluginCalls>
+        <name>Delete_Health_Home_PR_Fault</name>
+        <label>Delete Health Home PR Fault</label>
+        <locationX>619</locationX>
+        <locationY>469</locationY>
+        <apexClass>pluginFaultHandling</apexClass>
+        <inputParameters>
+            <name>strContact</name>
+            <value>
+                <elementReference>ContactId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>strDML</name>
+            <value>
+                <stringValue>Delete_Health_Home_PR</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>strFault</name>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>strFlow</name>
+            <value>
+                <stringValue>CIRT Interview Flow</stringValue>
+            </value>
+        </inputParameters>
+    </apexPluginCalls>
+    <apexPluginCalls>
+        <name>Update_Contact_with_Demographics_Fault</name>
+        <label>Update Contact with Demographics Fault</label>
+        <locationX>340</locationX>
+        <locationY>649</locationY>
+        <apexClass>pluginFaultHandling</apexClass>
+        <connector>
+            <targetReference>Fault_Screen</targetReference>
+        </connector>
+        <inputParameters>
+            <name>strContact</name>
+            <value>
+                <elementReference>ContactId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>strDML</name>
+            <value>
+                <stringValue>Update_Contact_with_Demographics</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>strFault</name>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>strFlow</name>
+            <value>
+                <stringValue>CIRT Interview Flow</stringValue>
+            </value>
+        </inputParameters>
+    </apexPluginCalls>
+    <apexPluginCalls>
+        <name>Update_Health_Home_PR_Fault</name>
+        <label>Update Health Home PR Fault</label>
+        <locationX>614</locationX>
+        <locationY>380</locationY>
+        <apexClass>pluginFaultHandling</apexClass>
+        <inputParameters>
+            <name>strContact</name>
+            <value>
+                <elementReference>ContactId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>strDML</name>
+            <value>
+                <stringValue>Update_Health_Home_PR</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>strFault</name>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>strFlow</name>
+            <value>
+                <stringValue>CIRT Interview Flow</stringValue>
+            </value>
+        </inputParameters>
+    </apexPluginCalls>
+    <choices>
+        <name>A</name>
+        <choiceText>A</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>A</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>About_every_day</name>
+        <choiceText>About every day</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>About every day</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Accepted_for_Intake</name>
+        <choiceText>Accepted for Intake</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Accepted for Intake</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Active_Hold</name>
+        <choiceText>Active Hold</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Active Hold</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Air_Force</name>
+        <choiceText>Air Force</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Air Force</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Alcohol</name>
+        <choiceText>Alcohol</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Alcohol</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Alcohol_Mild</name>
+        <choiceText>Alcohol - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Alcohol - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Alcohol_Moderate</name>
+        <choiceText>Alcohol - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Alcohol - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Alcohol_Severe</name>
+        <choiceText>Alcohol - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Alcohol - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>All_START_parts</name>
+        <choiceText>All START parts</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>All START parts</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>American_Indian_Alaskan_Native</name>
+        <choiceText>American Indian/Alaskan Native</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>American Indian/Alaskan Native</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>American_Sign_Language</name>
+        <choiceText>American Sign Language</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>American Sign Language</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Amphetamines_Mild</name>
+        <choiceText>Amphetamines - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Amphetamines - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Amphetamines_Moderate</name>
+        <choiceText>Amphetamines - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Amphetamines - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Amphetamines_other_uppers</name>
+        <choiceText>Amphetamines (other uppers)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Amphetamines (other uppers)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Amphetamines_Severe</name>
+        <choiceText>Amphetamines - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Amphetamines - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Antisocial_Personality_Disorder</name>
+        <choiceText>Antisocial Personality Disorder</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Antisocial Personality Disorder</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Anxiety_Disorder</name>
+        <choiceText>Anxiety Disorder</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Anxiety Disorder</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>AR1</name>
+        <choiceText>AR1</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>AR1</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>AR2</name>
+        <choiceText>AR2</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>AR2</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>AR2A</name>
+        <choiceText>AR2A</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>AR2A</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>AR3</name>
+        <choiceText>AR3</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>AR3</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>AR3A</name>
+        <choiceText>AR3A</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>AR3A</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>AR4</name>
+        <choiceText>AR4</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>AR4</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Army</name>
+        <choiceText>Army</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Army</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Arrest_Charges</name>
+        <choiceText>Arrest Charges</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Arrest Charges</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Arthritis_Joint_Disorder</name>
+        <choiceText>Arthritis/ Joint Disorder</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Arthritis/ Joint Disorder</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ASC</name>
+        <choiceText>ASC</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>ASC</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Asian_Pacific_Islander</name>
+        <choiceText>Asian/Pacific Islander</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Asian/Pacific Islander</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Asthma</name>
+        <choiceText>Asthma</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Asthma</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Atheist</name>
+        <choiceText>Atheist</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Atheist</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Attended_in_Past_Two_Months</name>
+        <choiceText>Attended in Past Two Months</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Attended in Past Two Months</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Attention_Deficit_Hyperactivity_ADHD</name>
+        <choiceText>Attention Deficit Hyperactivity (ADHD)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Attention Deficit Hyperactivity (ADHD)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Aunt_Uncle</name>
+        <choiceText>Aunt/ Uncle</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Aunt/Uncle</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Autism_Spectrum_Disorder</name>
+        <choiceText>Autism Spectrum Disorder</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Autism Spectrum Disorder</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>B</name>
+        <choiceText>B</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>B</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Bad_Conduct</name>
+        <choiceText>Bad Conduct</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Bad Conduct</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Baptist</name>
+        <choiceText>Baptist</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Baptist</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Benzodiazepines_Mild</name>
+        <choiceText>Benzodiazepines - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Benzodiazepines - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Benzodiazepines_Moderate</name>
+        <choiceText>Benzodiazepines - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Benzodiazepines - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Benzodiazepines_Severe</name>
+        <choiceText>Benzodiazepines - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Benzodiazepines - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Bipolar_Affective_Disorder</name>
+        <choiceText>Bipolar Affective Disorder</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Bipolar Affective Disorder</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Black</name>
+        <choiceText>Black</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Black</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Blank</name>
+        <choiceText>(blank)</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>blank_num</name>
+        <choiceText>blank</choiceText>
+        <dataType>Number</dataType>
+    </choices>
+    <choices>
+        <name>Borderline_Personality_Disorder</name>
+        <choiceText>Borderline Personality Disorder</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Borderline Personality Disorder</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Bronx</name>
+        <choiceText>Bronx</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Bronx</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Brooklyn</name>
+        <choiceText>Brooklyn</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Brooklyn</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>BTP1</name>
+        <choiceText>BTP1</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>BTP1</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Buddhist</name>
+        <choiceText>Buddhist</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Buddhist</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>C</name>
+        <choiceText>C</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>C</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Cancer</name>
+        <choiceText>Cancer</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Cancer</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Cantonese</name>
+        <choiceText>Cantonese</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Cantonese</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Central</name>
+        <choiceText>Central</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Central</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Chinese</name>
+        <choiceText>Chinese</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Chinese</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Christian_Scientist</name>
+        <choiceText>Christian Scientist</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Christian Scientist</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Coast_Guard</name>
+        <choiceText>Coast Guard</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Coast Guard</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Cocaine</name>
+        <choiceText>Cocaine</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Cocaine</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Cocaine_by_itself</name>
+        <choiceText>Cocaine (by itself)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Cocaine (by itself)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Cocaine_Mild</name>
+        <choiceText>Cocaine - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Cocaine - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Cocaine_Moderate</name>
+        <choiceText>Cocaine - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Cocaine - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Cocaine_Severe</name>
+        <choiceText>Cocaine - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Cocaine - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Community_Case_Management</name>
+        <choiceText>Community Case Management</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CCM</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Connecticut</name>
+        <choiceText>Connecticut</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Connecticut</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Considerably</name>
+        <choiceText>Considerably</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Considerably</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Conviction_Charges</name>
+        <choiceText>Conviction Charges</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Conviction Charges</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Court_Rep_Rejected</name>
+        <choiceText>Court Rep. Rejected</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Court Rep. Rejected</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Crack_Cocaine_Mild</name>
+        <choiceText>Crack Cocaine - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Crack Cocaine - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Crack_Cocaine_Moderate</name>
+        <choiceText>Crack Cocaine - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Crack Cocaine - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Crack_Cocaine_Severe</name>
+        <choiceText>Crack Cocaine - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Crack Cocaine - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Crack_Freebase</name>
+        <choiceText>Crack/Freebase</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Crack/Freebase</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Creole</name>
+        <choiceText>Creole</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Creole</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Criminal_Court_Arraignment_Charges</name>
+        <choiceText>Criminal Court Arraignment Charges</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Criminal Court Arraignment Charges</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>D</name>
+        <choiceText>D</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>D</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>DA_Offered_Non_Jail_Sentence</name>
+        <choiceText>DA Offered Non-Jail Sentence</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>DA Offered Non-Jail Sentence</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>DAT</name>
+        <choiceText>DAT</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Desk Appearance Ticket (DAT)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Daytime_Custody</name>
+        <choiceText>Daytime Custody</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>DTC</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Deafness_or_other_hearing_impairment</name>
+        <choiceText>Deafness or other hearing impairment</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Deafness or other hearing impairment</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Deer_Park</name>
+        <choiceText>Deer Park</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Deer Park</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Defendant_Refused</name>
+        <choiceText>Defendant Refused</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Defendant Refused</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Defense_Attorney</name>
+        <choiceText>Defense Attorney</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Defense Attorney</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Defense_Attorney_Refused</name>
+        <choiceText>Defense Attorney Refused</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Defense Attorney Refused</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Dementia</name>
+        <choiceText>Dementia</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Dementia</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Diabetes</name>
+        <choiceText>Diabetes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Diabetes</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>District_Attorney</name>
+        <choiceText>District Attorney</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>District Attorney</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Domestic_Partner</name>
+        <choiceText>Domestic Partner</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Domestic Partner</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>East_Orange</name>
+        <choiceText>East Orange</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>East Orange</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Ecstasy_Mild</name>
+        <choiceText>Ecstasy - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Ecstasy - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Ecstasy_Moderate</name>
+        <choiceText>Ecstasy - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Ecstasy - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Ecstasy_Severe</name>
+        <choiceText>Ecstasy - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Ecstasy - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Emphysema_COPD</name>
+        <choiceText>Emphysema/COPD</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Emphysema/COPD</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Employed_F_T</name>
+        <choiceText>Employed F/T</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Employed F/T</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Employed_P_T</name>
+        <choiceText>Employed P/T</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Employed P/T</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Endocrine_Thyroid_Pituitary_Adrenal</name>
+        <choiceText>Endocrine (Thyroid, Pituitary, Adrenal)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Endocrine (Thyroid, Pituitary, Adrenal)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>English</name>
+        <choiceText>English</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>English</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Enrolled_but_Not_Attending</name>
+        <choiceText>Enrolled but Not Attending</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Enrolled but Not Attending</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Epilepsy_Seizures</name>
+        <choiceText>Epilepsy/Seizures</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Epilepsy/Seizures</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Extremely</name>
+        <choiceText>Extremely</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Extremely</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Extremely_difficult</name>
+        <choiceText>Extremely difficult</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Extremely difficult</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Family_Court_Arraignment_Charges</name>
+        <choiceText>Family Court Arraignment Charges</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Family Court Arraignment Charges</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Father</name>
+        <choiceText>Father</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Father</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Fee_for_Service</name>
+        <choiceText>Fee-for-Service</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Fee-for-Service</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Female</name>
+        <choiceText>Female</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Female</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Female_Reproductive_Issues</name>
+        <choiceText>Female Reproductive Issues</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Female Reproductive Issues</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Food_Stamps</name>
+        <choiceText>SNAP/Food Stamps</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>SNAP/Food Stamps</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>French</name>
+        <choiceText>French</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>French</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Friend</name>
+        <choiceText>Friend</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Friend</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Gender_Non_Conforming</name>
+        <choiceText>Gender Non-Conforming</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Gender Non-Conforming</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>General_Honorable_Conditions</name>
+        <choiceText>General (Honorable Conditions)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>General (Honorable Conditions)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>General_without_Honorable_Conditions</name>
+        <choiceText>General (without Honorable Conditions)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>General (without Honorable Conditions)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Genital_Urinary_Disorder</name>
+        <choiceText>Genital/ Urinary Disorder</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Genital/ Urinary Disorder</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>German</name>
+        <choiceText>German</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>German</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Girl_Boy_Friend</name>
+        <choiceText>Girl/Boy Friend</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Girl/Boy Friend</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Grandparent</name>
+        <choiceText>Grandparent</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Grandparent</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Greek</name>
+        <choiceText>Greek</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Greek</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Hallucinogens_LSD_PCP_Psychedelics_Mushrooms</name>
+        <choiceText>Hallucinogens/LSD/PCP/Psychedelics/Mushrooms</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Hallucinogens/LSD/PCP/Psychedelics/Mushrooms</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Hallucinogens_Mild</name>
+        <choiceText>Hallucinogens - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Hallucinogens - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Hallucinogens_Moderate</name>
+        <choiceText>Hallucinogens - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Hallucinogens - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Hallucinogens_Severe</name>
+        <choiceText>Hallucinogens - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Hallucinogens - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Head_Injury</name>
+        <choiceText>Head Injury</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Head Injury</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Heart_Attack</name>
+        <choiceText>Heart Attack</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Heart Attack</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Hepatitis_Cirrhosis</name>
+        <choiceText>Hepatitis/ Cirrhosis</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Hepatitis/ Cirrhosis</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Heroin_and_Cocaine_mixed_as_a_speedball</name>
+        <choiceText>Heroin and Cocaine (mixed as a speedball)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Heroin and Cocaine (mixed as a speedball)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Heroin_by_itself</name>
+        <choiceText>Heroin (by itself)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Heroin (by itself)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>High_Blood_Sugar</name>
+        <choiceText>High Blood Sugar</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>High Blood Sugar</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Hindi</name>
+        <choiceText>Hindi</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Hindi</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Hindu</name>
+        <choiceText>Hindu</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Hindu</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Hispanic_Latino</name>
+        <choiceText>Hispanic/ Latino</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Hispanic/ Latino</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>HIV_AIDS</name>
+        <choiceText>HIV/AIDS</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>HIV/AIDS</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Hold</name>
+        <choiceText>Hold</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Hold</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Homeless</name>
+        <choiceText>Homeless</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Homeless, No Perm Residence</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Honorable</name>
+        <choiceText>Honorable</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Honorable</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Hyperlipidemia_High_Cholesterol</name>
+        <choiceText>Hyperlipidemia (High Cholesterol)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Hyperlipidemia (High Cholesterol)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Hypertension_High_Blood_Pressure</name>
+        <choiceText>Hypertension (High Blood Pressure)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Hypertension (High Blood Pressure)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Impulse_Control_Disorder</name>
+        <choiceText>Impulse Control Disorder</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Impulse Control Disorder</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Indic</name>
+        <choiceText>Indic</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Indic</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Indictment_Charges</name>
+        <choiceText>Indictment Charges</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Indictment Charges</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Inhalants</name>
+        <choiceText>Inhalants</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Inhalants</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Inhalants_Mild</name>
+        <choiceText>Inhalants - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Inhalants - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Inhalants_Moderate</name>
+        <choiceText>Inhalants - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Inhalants - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Inhalants_Severe</name>
+        <choiceText>Inhalants - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Inhalants - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Intellectual_Disability</name>
+        <choiceText>Intellectual Disability</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Intellectual Disability</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Italian</name>
+        <choiceText>Italian</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Italian</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Jail</name>
+        <choiceText>Jail</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Jail</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Japanese</name>
+        <choiceText>Japanese</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Japanese</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Jehovah_s_Witness</name>
+        <choiceText>Jehovah&apos;s Witness</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Jehovah&apos;s Witness</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Jersey_City</name>
+        <choiceText>Jersey City</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Jersey City</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Jewish</name>
+        <choiceText>Jewish</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Jewish</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>JP5</name>
+        <choiceText>JP5</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>JP5</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Judge_Choice</name>
+        <choiceText>Judge</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Judge</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Judge_Refuses_to_Consider</name>
+        <choiceText>Judge Refuses to Consider</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Judge Refuses to Consider</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>K2_Synthetic_Mild</name>
+        <choiceText>K2/Synthetic - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>K2/Synthetic - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>K2_Synthetic_Moderate</name>
+        <choiceText>K2/Synthetic - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>K2/Synthetic - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>K2_Synthetic_Severe</name>
+        <choiceText>K2/Synthetic - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>K2/Synthetic - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Kidney_Disease</name>
+        <choiceText>Kidney Disease</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Kidney Disease</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Lives_Outside_NYC</name>
+        <choiceText>Lives Outside NYC</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Lives Outside NYC</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Major_Depressive_Disorder</name>
+        <choiceText>Major Depressive Disorder</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Major Depressive Disorder</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Male</name>
+        <choiceText>Male</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Male</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Managed_Care</name>
+        <choiceText>Managed Care</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Managed Care</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Mandarin</name>
+        <choiceText>Mandarin</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Mandarin</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Marijuana_Hashish</name>
+        <choiceText>Marijuana/Hashish</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Marijuana/Hashish</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Marijuana_Mild</name>
+        <choiceText>Marijuana - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Marijuana - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Marijuana_Moderate</name>
+        <choiceText>Marijuana - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Marijuana - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Marijuana_Severe</name>
+        <choiceText>Marijuana - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Marijuana - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Marine_Corps</name>
+        <choiceText>Marine Corps</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Marine Corps</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Married</name>
+        <choiceText>Married</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Married</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Medicaid</name>
+        <choiceText>Medicaid</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Medicaid</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Medicare</name>
+        <choiceText>Medicare</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Medicare</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Methadone_Mild</name>
+        <choiceText>Methadone - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Methadone - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Methadone_Moderate</name>
+        <choiceText>Methadone - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Methadone - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Methadone_Severe</name>
+        <choiceText>Methadone - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Methadone - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Methamphetamines</name>
+        <choiceText>Methamphetamines</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Methamphetamines</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Methodist</name>
+        <choiceText>Methodist</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Methodist</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Mobility_Impairment</name>
+        <choiceText>Mobility Impairment</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Mobility Impairment</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Moderately</name>
+        <choiceText>Moderately</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Moderately</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Mother</name>
+        <choiceText>Mother</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Mother</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Mount_Vernon</name>
+        <choiceText>Mount Vernon</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Mount Vernon</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Muslim</name>
+        <choiceText>Muslim</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Muslim</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Navy</name>
+        <choiceText>Navy</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Navy</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Never</name>
+        <choiceText>Never</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Never</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>New_Jersey</name>
+        <choiceText>New Jersey</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>New Jersey</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>New_York</name>
+        <choiceText>New York</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>New York</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Newark</name>
+        <choiceText>Newark</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Newark</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>No</name>
+        <choiceText>No</choiceText>
+        <dataType>Boolean</dataType>
+    </choices>
+    <choices>
+        <name>No_Offer</name>
+        <choiceText>No Offer</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No Offer</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>No_Radio</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Non_Hispanic_Non_Latino</name>
+        <choiceText>Non Hispanic/ Non Latino</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Non Hispanic/ Non Latino</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Non_Jail_Disposition</name>
+        <choiceText>Non-Jail Disposition</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Non-Jail Disposition</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Not_at_all</name>
+        <choiceText>Not at all</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Not at all</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Not_difficult_at_all</name>
+        <choiceText>Not difficult at all</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Not difficult at all</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Not_Enrolled</name>
+        <choiceText>Not Enrolled</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Not Enrolled</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Not_Entered</name>
+        <choiceText>Not Entered</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Not Entered</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Obesity</name>
+        <choiceText>Obesity</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Obesity</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Only_a_few_times</name>
+        <choiceText>Only a few times</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Only a few times</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Opiates_Mild</name>
+        <choiceText>Opiates - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Opiates - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Opiates_Moderate</name>
+        <choiceText>Opiates - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Opiates - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Opiates_Severe</name>
+        <choiceText>Opiates - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Opiates - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Osteoporosis</name>
+        <choiceText>Osteoporosis</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Osteoporosis</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Other</name>
+        <choiceText>Other</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Other</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Other_Cardiac_Condition</name>
+        <choiceText>Other Cardiac Condition (Not Heart Attack)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Other Cardiac Condition</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Other_opiates_Opium_Morphine_Demerol</name>
+        <choiceText>Other opiates/Opium/Morphine/Demerol</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Other opiates/Opium/Morphine/Demerol</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Other_Relative</name>
+        <choiceText>Other Relative</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Other Relative</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Other_Than_Honorable</name>
+        <choiceText>Other Than Honorable</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Other Than Honorable</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Paranoid_Personality_Disorder</name>
+        <choiceText>Paranoid Personality Disorder</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Paranoid Personality Disorder</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Parole_Probation_Officer_Unavailable_for_Consent</name>
+        <choiceText>Parole/ Probation Officer Unavailable for Consent</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Parole/ Probation Officer Unavailable for Consent</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Parole_Rejected</name>
+        <choiceText>Parole Rejected</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Parole Rejected</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PCP_Mild</name>
+        <choiceText>PCP - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PCP - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PCP_Moderate</name>
+        <choiceText>PCP - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PCP - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PCP_Severe</name>
+        <choiceText>PCP - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PCP - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Pending</name>
+        <choiceText>Pending</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Pending</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Pentecostal</name>
+        <choiceText>Pentecostal</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Pentecostal</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Physical</name>
+        <choiceText>Physical</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Physical</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Plea_Finding_Charges</name>
+        <choiceText>Plea/Finding Charges</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Plea/Finding Charges</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Polish</name>
+        <choiceText>Polish</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Polish</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Portuguese</name>
+        <choiceText>Portuguese</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Portuguese</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Presbyterian</name>
+        <choiceText>Presbyterian</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Presbyterian</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Prescription_drugs_Mild</name>
+        <choiceText>Prescription drugs - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Prescription drugs - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Prescription_drugs_Moderate</name>
+        <choiceText>Prescription drugs - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Prescription drugs - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Prescription_drugs_Severe</name>
+        <choiceText>Prescription drugs - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Prescription drugs - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Private</name>
+        <choiceText>Private</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Private</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Private_Residence</name>
+        <choiceText>Private Residence</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Private Residence</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Probation_Rejected</name>
+        <choiceText>Probation Rejected</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Probation Rejected</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Progressive_Neurological_Condition</name>
+        <choiceText>Progressive Neurological Condition</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Progressive Neurological Condition</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Protestant</name>
+        <choiceText>Protestant</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Protestant</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Psychotic_Disorder</name>
+        <choiceText>Psychotic Disorder</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Psychotic Disorder</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Psychotropic</name>
+        <choiceText>Psychotropic</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Psychotropic</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PT_A</name>
+        <choiceText>PT A</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PT A</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PT_B</name>
+        <choiceText>PT B</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PT B</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PT_C</name>
+        <choiceText>PT C</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PT C</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PT_D</name>
+        <choiceText>PT D</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PT D</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PT_E</name>
+        <choiceText>PT E</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PT E</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PT_F</name>
+        <choiceText>PT F</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PT F</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PT_N</name>
+        <choiceText>PT N</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PT N</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Public_Assistance_TANF</name>
+        <choiceText>Public Assistance/TANF</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Public Assistance/TANF</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Queens</name>
+        <choiceText>Queens</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Queens</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Registered_Alien</name>
+        <choiceText>Registered Alien</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Registered Alien</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Roman_Catholic</name>
+        <choiceText>Roman Catholic</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Roman Catholic</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Russian</name>
+        <choiceText>Russian</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Russian</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Schizoaffective_Disorder</name>
+        <choiceText>Schizoaffective Disorder</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Schizoaffective Disorder</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Schizophrenia</name>
+        <choiceText>Schizophrenia</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Schizophrenia</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Sedatives_Mild</name>
+        <choiceText>Sedatives - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Sedatives - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Sedatives_Moderate</name>
+        <choiceText>Sedatives - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Sedatives - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Sedatives_Severe</name>
+        <choiceText>Sedatives - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Sedatives - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Self</name>
+        <choiceText>Self</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Self</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Separated_Divorced</name>
+        <choiceText>Separated/ Divorced</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Separated/ Divorced</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Shelter</name>
+        <choiceText>Shelter</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Shelter/Undomiciled</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Shelton</name>
+        <choiceText>Shelton</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Shelton</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Sight_Impairment</name>
+        <choiceText>Sight Impairment</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Sight Impairment</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Single</name>
+        <choiceText>Single</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Single</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Slightly</name>
+        <choiceText>Slightly</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Slightly</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Somewhat_difficult</name>
+        <choiceText>Somewhat difficult</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Somewhat difficult</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Spanish</name>
+        <choiceText>Spanish</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Spanish</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Speech_Impairment</name>
+        <choiceText>Speech Impairment</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Speech Impairment</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Spouse</name>
+        <choiceText>Spouse</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Spouse/CL</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>START</name>
+        <choiceText>START</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>START</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Staten_Island</name>
+        <choiceText>Staten Island</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Staten Island</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>STD</name>
+        <choiceText>STD</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>STD</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Street_Methadone_non_prescription</name>
+        <choiceText>Street Methadone (non-prescription)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Street Methadone (non-prescription)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Stroke</name>
+        <choiceText>Stroke</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Stroke</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Supplemental_Security_Income_SSI_SSD</name>
+        <choiceText>Supplemental Security Income (SSI/SSD)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Supplemental Security Income (SSI/SSD)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Supported_Housing</name>
+        <choiceText>Supported Housing</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Supported Housing</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Tobacco_Mild</name>
+        <choiceText>Tobacco - Mild</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Tobacco - Mild</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Tobacco_Moderate</name>
+        <choiceText>Tobacco - Moderate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Tobacco - Moderate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Tobacco_Severe</name>
+        <choiceText>Tobacco - Severe</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Tobacco - Severe</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Tranquilizers_Barbiturates_Sedatives_downers</name>
+        <choiceText>Tranquilizers/Barbiturates/Sedatives (downers)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Tranquilizers/Barbiturates/Sedatives (downers)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Transgender_Man</name>
+        <choiceText>Transgender Man</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Transgender Man</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Transgender_Woman</name>
+        <choiceText>Transgender Woman</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Transgender Woman</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Treatment_Readiness_Program</name>
+        <choiceText>Treatment Readiness Program</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>TRP</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Tuberculosis</name>
+        <choiceText>Tuberculosis</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Tuberculosis</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Ulcer_Gastrointestinal_Disorder</name>
+        <choiceText>Ulcer/ Gastrointestinal Disorder</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Ulcer/ Gastrointestinal Disorder</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Undocumented_Alien</name>
+        <choiceText>Undocumented Alien</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Undocumented Alien</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Unemployed</name>
+        <choiceText>Unemployed</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Unemployed</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Unemployment_Union_Benefits</name>
+        <choiceText>Unemployment/ Union Benefits</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Unemployment/ Union Benefits</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Unknown</name>
+        <choiceText>Unknown</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Unknown</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Urdu</name>
+        <choiceText>Urdu</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Urdu</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>US_Citizen</name>
+        <choiceText>US Citizen</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>US Citizen</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Very_difficult</name>
+        <choiceText>Very difficult</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Very difficult</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Veteran_s_Benefits</name>
+        <choiceText>Veteran&apos;s Benefits</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Veteran&apos;s Benefits</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Vietnamese</name>
+        <choiceText>Vietnamese</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Vietnamese</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Voluntary</name>
+        <choiceText>Voluntary</choiceText>
+        <dataType>Number</dataType>
+    </choices>
+    <choices>
+        <name>Wages_salary_self_employed</name>
+        <choiceText>Wages/salary/self-employed</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Wages/salary/self-employed</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Week_Day</name>
+        <choiceText>Week Day</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Week Day</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Week_Night</name>
+        <choiceText>Week Night</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Week Night</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Weekend_Night</name>
+        <choiceText>Weekend Night</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Weekend Night</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Weight_Obesity_Unexplained_Gain_Loss</name>
+        <choiceText>Weight (Obesity, Unexplained Gain/Loss)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Weight (Obesity, Unexplained Gain/Loss)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>White</name>
+        <choiceText>White</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>White</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X0</name>
+        <choiceText>0</choiceText>
+        <dataType>Number</dataType>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X1</name>
+        <choiceText>1</choiceText>
+        <dataType>Number</dataType>
+        <value>
+            <numberValue>1.0</numberValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X12th_floor_bridge</name>
+        <choiceText>12th floor bridge</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>12th floor bridge</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X1535b</name>
+        <choiceText>1535b</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>1535b</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X1_3_times_a_month</name>
+        <choiceText>1-3 times a month</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>1-3 times a month</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X1_5_times_a_week</name>
+        <choiceText>1-5 times a week</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>1-5 times a week</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X1_time</name>
+        <choiceText>1 time</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>1 time</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X2</name>
+        <choiceText>2</choiceText>
+        <dataType>Number</dataType>
+        <value>
+            <numberValue>2.0</numberValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X2_times</name>
+        <choiceText>2 times</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>2 times</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X3</name>
+        <choiceText>3</choiceText>
+        <dataType>Number</dataType>
+        <value>
+            <numberValue>3.0</numberValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X3_times</name>
+        <choiceText>3 times</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>3 times</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X3rd_floor_bridge</name>
+        <choiceText>3rd floor bridge</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>3rd floor bridge</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X4_or_more_times</name>
+        <choiceText>4 or more times</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>4 or more times</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X5</name>
+        <choiceText>5</choiceText>
+        <dataType>Number</dataType>
+    </choices>
+    <choices>
+        <name>X8_00_am</name>
+        <choiceText>8:00 am</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>08:00 AM</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>XNo</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>XYes</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>Yes</name>
+        <choiceText>Yes</choiceText>
+        <dataType>Boolean</dataType>
+    </choices>
+    <choices>
+        <name>Yes_Radio</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Yes</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Yiddish</name>
+        <choiceText>Yiddish</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Yiddish</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Yonkers</name>
+        <choiceText>Yonkers</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Yonkers</stringValue>
+        </value>
+    </choices>
+    <decisions>
+        <name>Insert_Health_Home_Record</name>
+        <label>Insert Health Home Record?</label>
+        <locationX>55</locationX>
+        <locationY>238</locationY>
+        <defaultConnector>
+            <targetReference>Update_Contact_with_Demographics</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>[Default Outcome]</defaultConnectorLabel>
+        <rules>
+            <name>Insert_HH_Outcome_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Health_Home_YN</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Yes_Radio</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>HealthHomeId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Health_Home_PR</targetReference>
+            </connector>
+            <label>Insert</label>
+        </rules>
+        <rules>
+            <name>Update_HH_Outcome</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Health_Home_YN</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Yes_Radio</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>HealthHomeId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Health_Home_PR</targetReference>
+            </connector>
+            <label>Update</label>
+        </rules>
+        <rules>
+            <name>Delete_HH_Outcome</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Health_Home_YN</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>No_Radio</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>HealthHomeId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Delete_Health_Home_PR</targetReference>
+            </connector>
+            <label>Delete</label>
+        </rules>
+        <rules>
+            <name>Continue_HH_Outcome</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Health_Home_YN</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>No_Radio</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>HealthHomeId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Contact_with_Demographics</targetReference>
+            </connector>
+            <label>Continue</label>
+        </rules>
+    </decisions>
+    <description>removing &quot;unknown&quot; from list of Health Home options. Replaced by creating &quot;Unknown&quot; health Home account</description>
+    <dynamicChoiceSets>
+        <name>HealthHomes</name>
+        <dataType>String</dataType>
+        <displayField>Name</displayField>
+        <filters>
+            <field>Health_Home_RPT__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Account</object>
+        <sortField>Name</sortField>
+        <sortOrder>Asc</sortOrder>
+        <valueField>Id</valueField>
+    </dynamicChoiceSets>
+    <interviewLabel>Health Home and Income Subflow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Health Home and Income Subflow</label>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Health_Home_PR</name>
+        <label>Create Health Home PR</label>
+        <locationX>270</locationX>
+        <locationY>311</locationY>
+        <assignRecordIdToReference>HealthHomeId</assignRecordIdToReference>
+        <connector>
+            <targetReference>Update_Contact_with_Demographics</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Create_Health_Home_PR_Fault</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>Program_Start_Date__c</field>
+            <value>
+                <elementReference>Health_Home_Effective_Date</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Program__c</field>
+            <value>
+                <elementReference>Health_Home_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>Health_Home_RecordTypeId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Warrant__c</field>
+            <value>
+                <elementReference>ContactId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Program_Relationships__c</object>
+    </recordCreates>
+    <recordDeletes>
+        <name>Delete_Health_Home_PR</name>
+        <label>Delete Health Home PR</label>
+        <locationX>0</locationX>
+        <locationY>408</locationY>
+        <connector>
+            <targetReference>Update_Contact_with_Demographics</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Delete_Health_Home_PR_Fault</targetReference>
+        </faultConnector>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>HealthHomeId</elementReference>
+            </value>
+        </filters>
+        <object>Program_Relationships__c</object>
+    </recordDeletes>
+    <recordLookups>
+        <name>Get_Insurance_Program_Relationship_Recordtype</name>
+        <label>Get Insurance Program Relationship Recordtype</label>
+        <locationX>29</locationX>
+        <locationY>14</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Demographics_2_1</targetReference>
+        </connector>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Health Home</stringValue>
+            </value>
+        </filters>
+        <object>Utility_ID__c</object>
+        <outputAssignments>
+            <assignToReference>Health_Home_RecordTypeId</assignToReference>
+            <field>RecordType_Id__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>Health_Home_Already_Exists</name>
+        <label>Health Home Already Exists?</label>
+        <locationX>239</locationX>
+        <locationY>161</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Insert_Health_Home_Record</targetReference>
+        </connector>
+        <filters>
+            <field>Health_Home_RPT__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Warrant__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ContactId</elementReference>
+            </value>
+        </filters>
+        <object>Program_Relationships__c</object>
+        <outputAssignments>
+            <assignToReference>HealthHomeId</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Contact_with_Demographics</name>
+        <label>Update Contact with Demographics</label>
+        <locationX>104</locationX>
+        <locationY>654</locationY>
+        <faultConnector>
+            <targetReference>Update_Contact_with_Demographics_Fault</targetReference>
+        </faultConnector>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ContactId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Employed_at_Intake__c</field>
+            <value>
+                <elementReference>Current_Employment_Status_1</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Income_or_Benefits_Currently_Receiving__c</field>
+            <value>
+                <elementReference>Income_or_Benefits_Currently_Receiving_1</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Other_Benefits_Currently_Receiving__c</field>
+            <value>
+                <elementReference>Other_Income_Benefits_Received_1</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Health_Home_PR</name>
+        <label>Update Health Home PR</label>
+        <locationX>149</locationX>
+        <locationY>370</locationY>
+        <connector>
+            <targetReference>Update_Contact_with_Demographics</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Update_Health_Home_PR_Fault</targetReference>
+        </faultConnector>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>HealthHomeId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Discharge_Date_Phone_Visit__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Program_Start_Date__c</field>
+            <value>
+                <elementReference>Health_Home_Effective_Date</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Program_Relationships__c</object>
+    </recordUpdates>
+    <screens>
+        <name>Fault_Screen</name>
+        <label>Fault Screen</label>
+        <locationX>520</locationX>
+        <locationY>646</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>false</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>FaultScreenDesc</name>
+            <fieldText>&lt;SPAN ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:12px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;The screening process has encountered an error. A message has been sent to the Database Helpdesk- you will be contacted when the issue is resolved, or if more info is needed. &lt;/FONT&gt;&lt;/SPAN&gt;&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:12px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;/FONT&gt;&lt;/DIV&gt;&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:12px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;DO NOT click the back or reload buttons in your browser. &lt;A HREF=&quot;/apex/courtPortal&quot; TARGET=&quot;_blank&quot;&gt;Please click here to return to the Court Portal to begin working with a new client.&lt;/A&gt;&lt;/FONT&gt;&lt;/DIV&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>FaultMessageTitle</name>
+            <fieldText>{!$Flow.FaultMessage}</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+    </screens>
+    <screens>
+        <name>Get_Demographics_2_1</name>
+        <label>Get Demographics 2</label>
+        <locationX>56</locationX>
+        <locationY>110</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>false</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Health_Home_Already_Exists</targetReference>
+        </connector>
+        <fields>
+            <name>Demographics2Title_1</name>
+            <fieldText>&lt;SPAN ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:16px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;B&gt;Income&lt;/B&gt;&lt;/FONT&gt;&lt;/SPAN&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Current_Employment_Status_1</name>
+            <choiceReferences>Employed_F_T</choiceReferences>
+            <choiceReferences>Employed_P_T</choiceReferences>
+            <choiceReferences>Unemployed</choiceReferences>
+            <choiceReferences>Blank</choiceReferences>
+            <dataType>String</dataType>
+            <defaultSelectedChoiceReference>Blank</defaultSelectedChoiceReference>
+            <fieldText>Current Employment Status</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Income_or_Benefits_Currently_Receiving_1</name>
+            <choiceReferences>Wages_salary_self_employed</choiceReferences>
+            <choiceReferences>Supplemental_Security_Income_SSI_SSD</choiceReferences>
+            <choiceReferences>Veteran_s_Benefits</choiceReferences>
+            <choiceReferences>Unemployment_Union_Benefits</choiceReferences>
+            <choiceReferences>Public_Assistance_TANF</choiceReferences>
+            <choiceReferences>Food_Stamps</choiceReferences>
+            <choiceReferences>Other</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Income or Benefits Currently Receiving</fieldText>
+            <fieldType>MultiSelectPicklist</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Other_Income_Benefits_Received_1</name>
+            <dataType>String</dataType>
+            <fieldText>Other Income/ Benefits Received</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Spacer1</name>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Demographics2HealthHomeTitle</name>
+            <fieldText>&lt;SPAN ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:16px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;B&gt;Health Home&lt;/B&gt;&lt;FONT STYLE=&quot;font-size:12px&quot;&gt;&lt;/FONT&gt;&lt;/FONT&gt;&lt;/SPAN&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Health_Home_YN</name>
+            <choiceReferences>Yes_Radio</choiceReferences>
+            <choiceReferences>No_Radio</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Health Home</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Health_Home_Name</name>
+            <choiceReferences>Blank</choiceReferences>
+            <choiceReferences>HealthHomes</choiceReferences>
+            <dataType>String</dataType>
+            <defaultSelectedChoiceReference>Blank</defaultSelectedChoiceReference>
+            <fieldText>Name</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Health_Home_Effective_Date</name>
+            <dataType>Date</dataType>
+            <fieldText>Effective Date</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+    </screens>
+    <startElementReference>Get_Insurance_Program_Relationship_Recordtype</startElementReference>
+    <variables>
+        <name>ContactId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>Recordtype of health Home</description>
+        <name>Health_Home_RecordTypeId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>012600000009eBJAAY</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>HealthHomeId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Insurance_PR_Recordtype</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>MedicaidAccountId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>medicaidPRId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>MedicareAccountId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>medicarePRId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>PrivateInsuranceAccountId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>privatePRId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>tempProvidersAtIntake</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue></stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>userId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

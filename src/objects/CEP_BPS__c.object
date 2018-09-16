@@ -1,0 +1,870 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Academic_Strengths__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What do you consider your strengths as a person, as a student, and as a worker?</inlineHelpText>
+        <label>Academic Strengths</label>
+        <length>5000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Additional_Comments__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>physical health needs, need for further support (i.e. health insurance), etc.</inlineHelpText>
+        <label>Additional Comments</label>
+        <length>5768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>AssessmentContainerId__c</fullName>
+        <externalId>false</externalId>
+        <label>AssessmentContainerId</label>
+        <referenceTo>AssessmentContainer__c</referenceTo>
+        <relationshipName>CEP_BPS_Assessments</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Coping_with_Stress__c</fullName>
+        <description>Question: How do you currently cope with stress/emotions, other than treatments and medications? Are there any spiritual or cultural practices that you use?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: How do you currently cope with stress/emotions, other than treatments and medications? Are there any spiritual or cultural practices that you use?</inlineHelpText>
+        <label>Coping with Stress</label>
+        <length>10000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Cultural_Identity__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What is your cultural identity, and to what extent is it important to you?</inlineHelpText>
+        <label>Cultural Identity</label>
+        <length>5000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Current_External_End_1__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External End-1</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_External_End_2__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External End-2</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_External_End_3__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External End-3</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_External_End_4__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External End-4</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_External_End_5__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External End-5</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_External_Provider_1__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External Provider-1</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_External_Provider_2__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External Provider-2</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_External_Provider_3__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External Provider-3</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_External_Provider_4__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External Provider-4</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_External_Provider_5__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External Provider-5</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_External_Schedule_1__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External Schedule-1</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_External_Schedule_2__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External Schedule-2</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_External_Schedule_3__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External Schedule-3</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_External_Schedule_4__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External Schedule-4</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_External_Schedule_5__c</fullName>
+        <description>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What are the current, external care providers you are using and will be attending during your six months at CASES?</inlineHelpText>
+        <label>Current External Schedule-5</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_1__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments-1</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_2__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments-2</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_3__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments-3</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_4__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments-4</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_5__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments-5</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_Issues_1__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments Issues-1</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_Issues_2__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments Issues-2</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_Issues_3__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments Issues-3</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_Issues_4__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments Issues-4</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_Issues_5__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments Issues-5</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_Provider_1__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments Provider-1</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_Provider_2__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments Provider-2</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_Provider_3__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments Provider-3</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_Provider_4__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments Provider-4</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Treatments_Provider_5__c</fullName>
+        <description>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in, and for what issues? Who/where are your care providers?</inlineHelpText>
+        <label>Current Treatments Provider-5</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Diagnostic_Impressions__c</fullName>
+        <externalId>false</externalId>
+        <label>Diagnostic Impressions</label>
+        <length>10000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Genogram__c</fullName>
+        <externalId>false</externalId>
+        <label>Genogram</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Health_Issues__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Mark if participant has had any of the following:</inlineHelpText>
+        <label>Health Issues</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Allergies</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Abortion</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Asthma</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cancer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Chest Pain/Pressure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cosmetic Surgery</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Depression</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Diabetes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficulty Hearing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficulty Sleeping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Difficulty Waking Up</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Digestive Problems</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dizzy Spells/Fainting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Eczema</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Head Trauma</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Headaches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Heart Palpitations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High Cholesterol</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Implants (organ, bone, etc.)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Kidney Disease</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Major Surgery</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Memory Loss</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Miscarriage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Neurological Disorders</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nightmares</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pregnancy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prenatal Issues</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seizures</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Skin Disorders</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>8</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Living_Situation_Detail__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Include comments on current living situation, history of housing, and any major events that influenced a change in household and/or a move to a new location</inlineHelpText>
+        <label>Living Situation (Detail)</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Living_Situation_Picklist__c</fullName>
+        <externalId>false</externalId>
+        <label>Living Situation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Own Household</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Parents&apos; Household</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grandparents&apos; Home</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Relatives Home</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Foster Home</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Shares Household w/friends</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Homeless, No Perm Residence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Group Home/Trans Liv Prgm</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Home of Family Member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Private Apartment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Supportive Apartment/Congregate Care Facility</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Share with Non-Relative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Shelter/Undomiciled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transient</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Private Residence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Supported Housing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On own</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>With parent(s)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>With partner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>With other relative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>With friend(s)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>With non-relative non-friends</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Meet_with_Counselor__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: Would you like to meet with one of our counselors with the Nathaniel Clinic for further assessment?</inlineHelpText>
+        <label>Meet with Counselor</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Need_for_MHS__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Does the client present a need for mental health services?</inlineHelpText>
+        <label>Need for MHS</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Obstacles_to_Progress__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What are current issues, obstacles and problems that could hold you back from progressing?</inlineHelpText>
+        <label>Obstacles to Progress</label>
+        <length>10000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Personal_Strengths__c</fullName>
+        <description>Q: What do you consider your strengths as a person, as a student, and as a worker?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What do you consider your strengths as a person, as a student, and as a worker?</inlineHelpText>
+        <label>Personal Strengths</label>
+        <length>5000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Referrals_Made_YN__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Were referrals made for service?</inlineHelpText>
+        <label>Referrals Made</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Referrals_Made__c</fullName>
+        <externalId>false</externalId>
+        <label>Referrals Made To:</label>
+        <length>10000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Referrals_Not_Made__c</fullName>
+        <externalId>false</externalId>
+        <label>Referrals Not Made Because:</label>
+        <length>10000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Service_Recommendations__c</fullName>
+        <externalId>false</externalId>
+        <label>Service Recommendations</label>
+        <length>10000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Six_Month_Goals__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Question: What goals do you have for yourself 6 months from now?</inlineHelpText>
+        <label>Six Month Goals</label>
+        <length>10000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Spiritual_Identity__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What is your spiritual identification/life philosophy, and to what extent is it important to you?</inlineHelpText>
+        <label>Spiritual Identity</label>
+        <length>5000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Traumatic_Events__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: Have you ever experienced any major surgeries or traumatic events?(Examples: witnessed a death, experienced or witnessed a form of abuse, natural disaster, etc.)</inlineHelpText>
+        <label>Traumatic Events</label>
+        <length>10000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Treatments__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What types (if any) of treatments, therapies, medications, or other forms of care have you had?</inlineHelpText>
+        <label>Treatments or Other Care</label>
+        <length>10000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Workforce_Strengths__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Q: What do you consider your strengths as a person, as a student, and as a worker?</inlineHelpText>
+        <label>Workforce Strengths</label>
+        <length>5000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <label>aCEP BPS</label>
+    <nameField>
+        <displayFormat>CBP-{0000}</displayFormat>
+        <label>CEP  BPS Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>aCEP BPS</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

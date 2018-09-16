@@ -1,0 +1,316 @@
+<apex:page standardcontroller="Health_and_Wellbeing_Assessment__c" docType="html-5.0" standardStylesheets="false">
+<html>
+<body>
+<apex:messages />
+<chatter:feedwithfollowers entityId="{!Health_and_Wellbeing_Assessment__c.Id}"/>
+<apex:form style="background-color:whitesmoke;" >
+<apex:pageBlock >
+<div class="container-fluid">
+    <div style="background-color: #eee; width: 40%"> <!-- class="jumbotron" -->
+        <h3>HEALTH &amp; WELLBEING ASSESSMENT</h3>
+        <br/>
+        <h3 class="color:cyan"><u><apex:outputField value="{!Health_and_Wellbeing_Assessment__c.Participant__c}"/></u></h3>
+        <br/><br/>
+        <h4><apex:outputField value="{!Health_and_Wellbeing_Assessment__c.Name}" /></h4>
+        <br/>
+    </div>
+    <div class="row-fluid">
+        <div class="text-center col-md-4 col-md-offset-4">
+            <apex:commandLink styleClass="btn btn-primary" style="padding: 10px 40px; text-decoration: none; font-size: 1.25em;width: 150px;" 
+                  value="Save" action="{!save}"></apex:commandLink>
+            <apex:commandLink styleClass="btn btn-primary" style="padding: 10px 40px; text-decoration: none; font-size: 1.25em;width: 150px;" 
+                  value="Cancel" action="{!cancel}"></apex:commandLink>
+        </div>
+    </div>
+    <div style="line-height: 8.0">&nbsp;</div>
+        <div class="row"><div class="col-md-12">
+            <div class="col-md-2">
+            </div> 
+
+            <div class="col-md-2" style="background:#eee;">
+                <div>Created By</div>
+                <div>Created Date</div>
+                <div>Last Modified By</div>
+                <div>Last Modified Date</div>
+            </div>
+            <div class="col-md-2">
+                <apex:outputField value="{!Health_and_Wellbeing_Assessment__c.CreatedById}"/><br/>
+                <apex:outputField value="{!Health_and_Wellbeing_Assessment__c.CreatedDate}"/><br/>
+                <apex:outputField value="{!Health_and_Wellbeing_Assessment__c.LastModifiedById}"/><br/>
+                <apex:outputField value="{!Health_and_Wellbeing_Assessment__c.LastModifiedDate}"/>                        
+            </div>
+
+            <div class="col-md-2" style="background:#eee;" >
+                <div>Complete?</div>
+                <div>Completed By</div>
+                <div>Completed Date</div>
+                <div>&nbsp;</div>
+            </div>
+            <div class="col-md-2">                       
+                <apex:outputField value="{!Health_and_Wellbeing_Assessment__c.IsComplete__c}"/><br/>
+                <apex:outputField value="{!Health_and_Wellbeing_Assessment__c.Completed_by__c}"/><br/>
+                <apex:outputField value="{!Health_and_Wellbeing_Assessment__c.Completed_Date__c}"/><br/>
+            </div> 
+            <div class="col-md-2">                       
+            </div>
+        </div>
+    </div>  
+    <div style="line-height: 2.0">&nbsp;</div>    
+    <div class="row">
+    <div class="col-md-12" style="line-height: 2.0;">
+    <h4>IDENTIFYING DATA / PRESENTING CHALLENGES</h4>
+    </div>
+    </div>
+    <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Presenting_Challenges__c}" styleClass="form-control"
+      html-placeholder="Summarize any presenting challenges, any significant events or changes in life, home, school,family or social, recent or past, results of assessments"/>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+    <h4>CULTURAL CONSIDERATIONS</h4>
+    <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Cultural_Considerations__c}" styleClass="form-control" 
+      html-placeholder="Describes the participants self-identified race and ethnicity, primary language, cultural or religious features that are important to them."/>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />    
+    <h4>POSITIVE/PERSONAL STRENGTHS</h4>
+      <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Personal_Strengths__c}" styleClass="form-control"
+       html-placeholder="Summarize any presenting challenges, any significant events or changes in life, home, school, family
+         or social, recent or past, results of assessments"/>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+    <h4>ENVIRONMENT</h4>
+      <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Environment__c}" styleClass="form-control"
+          html-placeholder="Describe who they live with, relation to those people, where, stability in housing,  any changes, safety concerns"/>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+    <h4>FAMILY STRUCTURE</h4>
+      <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Family_Structure__c}" styleClass="form-control"
+          html-placeholder="Include family members and relationships, any significant changes in family structure, relationship with family"/>
+      <div><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Family_Members__c}" styleClass="form-control"
+          html-placeholder="Include name(s), age(s), living arrangements  of children and who is the primary caregiver"/></div>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+    <h4>PEER/SUPPORT</h4>
+      <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Peers_Support__c}" styleClass="form-control"
+          html-placeholder="Describe who they spend time with, support systems, significant others, gang involvement"/>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+    <h4>EDUCATION/EMPLOYMENT</h4>
+      <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Education__c}" styleClass="form-control"
+          html-placeholder="Include name of school, high grade completed, special education, last time they attended, degrees"/>
+      <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Employment__c}" styleClass="form-control"
+          html-placeholder="Include name of employer, position held, how long have you been there and what is their work schedule"/>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+    <h4>PHYSICAL HEALTH</h4>
+      <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Physical_Health__c}" styleClass="form-control"
+          html-placeholder="Describe any health conditions, medication, hospitalization, head trauma"/>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />       
+    <h4>MENTAL HEALTH</h4>
+      <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Mental_Health__c}" styleClass="form-control"
+          html-placeholder="Include any past treatment, hospitalizations, family history"/>
+    <br/>
+    <div class="row-fluid">
+        <div class="col-md-3"><apex:outputText value="Name of Program"/></div>
+        <div class="col-md-3"><apex:outputText value="Type of Program" /></div>
+        <div class="col-md-3"><apex:outputText value="Length of Time" /></div>
+        <div class="col-md-3"><apex:outputText value="Contact"  /></div>
+    </div>
+    <div class="row-fluid">
+        <div class="col-md-3"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.MH1_Name_of_Program__c}" styleclass="form-control"  /></div>
+        <div class="col-md-3"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.MH1_Type_of_Program__c}" styleclass="form-control"  /></div>
+        <div class="col-md-3"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.MH1_Length_of_Time__c}" styleclass="form-control"  /></div>
+        <div class="col-md-3"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.MH1_Contact__c}" styleclass="form-control"  /></div>
+    </div>
+    <br/>
+    <div class="row-fluid">
+        <div class="col-md-3"><apex:outputText value="Name of Program"/></div>
+        <div class="col-md-3"><apex:outputText value="Type of Program" /></div>
+        <div class="col-md-3"><apex:outputText value="Length of Time" /></div>
+        <div class="col-md-3"><apex:outputText value="Contact"  /></div>
+    </div>
+    <br/>
+    <div class="row-fluid">
+        <div class="col-md-3"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.MH1_Name_of_Program__c}" styleclass="form-control"  /></div>
+        <div class="col-md-3"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.MH1_Type_of_Program__c}" styleclass="form-control"  /></div>
+        <div class="col-md-3"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.MH1_Length_of_Time__c}" styleclass="form-control"  /></div>
+        <div class="col-md-3"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.MH1_Contact__c}" styleclass="form-control"  /></div>
+    </div>
+    <p>&nbsp;</p>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+    <h4>SUBSTANCE USE</h4>
+    <div>Have you ever tried the following drugs:</div>
+      <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs_Used__c}" styleclass="form-control multiple" />
+    <br/>
+    <div class="row">
+        <apex:outputText value="Name of Drug" styleclass="col-md-2" />
+        <apex:outputText value="When was the first time you tried?" styleclass="col-md-2"  />
+        <apex:outputText value="When was the  last time you have used?" styleclass="col-md-2"  />
+        <apex:outputText value="Do you general use alone or with peers?" styleclass="col-md-2"  />
+        <apex:outputText value="What do you get out of using?" styleclass="col-md-2"  />
+        <apex:outputText value="Have you ever tried to stop?" styleclass="col-md-2"  />
+    </div>
+    <div class="row-fluid">
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs1_Drug_Name__c}" styleclass="form-control" /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs1_First_Time_Used__c}" styleclass="form-control"/></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs1_Last_Time_Used__c}" styleclass="form-control"  /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs1_Alone_or_Peers__c}" styleclass="form-control"  /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs1_Get_Out_Of__c}" styleclass="form-control"  /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs1_Tried_to_Stop__c}" styleclass="form-control"  /></div>
+    </div>
+    <br/>
+    <div class="row-fluid">
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs2_Drug_Name__c}" styleclass="form-control" /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs2_First_Time_Used__c}" styleclass="form-control"/></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs2_Last_Time_Used__c}" styleclass="form-control"  /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs2_Alone_or_Peers__c}" styleclass="form-control"  /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs2_Get_Out_Of__c}" styleclass="form-control"  /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs2_Tried_to_Stop__c}" styleclass="form-control"  /></div>
+    </div>
+    <br/>
+    <div class="row-fluid">
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs3_Drug_Name__c}" styleclass="form-control" /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs3_First_Time_Used__c}" styleclass="form-control"/></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs3_Last_Time_Used__c}" styleclass="form-control"  /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs3_Alone_or_Peers__c}" styleclass="form-control"  /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs3_Get_Out_Of__c}" styleclass="form-control"  /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs3_Tried_to_Stop__c}" styleclass="form-control"  /></div>
+    </div>
+    <br/>
+    <div class="row-fluid">
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs4_Drug_Name__c}" styleclass="form-control" /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs4_First_Time_Used__c}" styleclass="form-control"/></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs4_Last_Time_Used__c}" styleclass="form-control"  /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs4_Alone_or_Peers__c}" styleclass="form-control"  /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs4_Get_Out_Of__c}" styleclass="form-control"  /></div>
+        <div class="col-md-2"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs4_Tried_to_Stop__c}" styleclass="form-control"  /></div>
+    </div>
+    <br/>
+    <div><p style="line-height: 4.0; font-style: italic; color: dimgrey">
+        Are you currently in treatment for alcohol or substances? If yes, provide details.</p></div>
+    <div class="row-fluid">
+        <apex:outputText value="Name of Program"  styleclass="col-md-4" />
+        <apex:outputText value="Date Started"  styleclass="col-md-4" />
+        <apex:outputText value="Contact Information"  styleclass="col-md-4" />
+    </div>
+    <div class="row-fluid">
+          <div class="col-md-4"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs1_Name_of_Program__c}"  styleclass="form-control" /></div>                 
+          <div class="col-md-4"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs1_Date_Started__c}"  styleclass="form-control" /></div> 
+          <div class="col-md-4"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs1_Contact_Info__c}"  styleclass="form-control" /></div> 
+    </div>
+    <p style="line-height: 4.0"></p>
+    <div><p style="line-height: 4.0; font-style: italic; color: dimgrey">
+        If not currently in treatment, have you ever been in the past? If yes, provide details.</p></div>
+    <br/>
+    <div class="row-fluid">
+        <apex:outputText value="Name of Program"  styleclass="col-md-4" />
+        <apex:outputText value="Date Started"  styleclass="col-md-4" />
+        <apex:outputText value="Contact Information"  styleclass="col-md-4" />
+    </div>
+    <div class="row-fluid">
+        <div class="col-md-4"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs1_Name_of_Program__c}" styleclass="form-control" /></div>                  
+        <div class="col-md-4"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs1_Type_of_Treatment__c}" styleclass="form-control" /></div> 
+        <div class="col-md-4"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Drugs1_Dates__c}"  styleclass="form-control" /></div> 
+    </div>
+    <p>&nbsp;</p>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+    <h4>RISK / TRAUMA ASSESSMENT</h4>
+    <br/>
+    <div><i>Suicide/self harm</i></div>
+    <br/>
+    <div><h4>Ending Life: </h4></div>            
+    <div class="row-fluid">
+          <div class="col-md-12"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Ending_Life__c}" styleclass="form-control" /></div>
+    </div>
+    <br/>
+    <div>If so, complete suicide risk assessment.  </div>
+    <br/>                
+    <div><h4>Self Harm: </h4></div>            
+    <div class="row-fluid">
+          <div class="col-md-12"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Self_Harm__c}" styleclass="form-control" /></div>
+    </div>         
+    <p>&nbsp;</p>
+    <div><h4>Past Ideations: </h4></div>
+    <div class="row-fluid">
+        <div class="col-md-12"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Past_Ideations__c}" styleclass="form-control" /></div>
+    </div>
+    <div>If so, were they hospitalized?</div>
+      <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.MH_Hospitalized__c}" styleClass="form-control" />
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+    <div>Aggressive behavior/Harm to Others:</div>
+      <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Aggressive_Behavior__c}" styleClass="form-control"/>
+    <br/>
+    <div>Describe if they have gotten in  trouble for anger or temper, include triggers</div>
+      <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Describe_Anger__c}" styleClass="form-control" />
+    <br/>
+    <div><h4>Harming Others: </h4></div>            
+    <div class="row-fluid">
+        <div class="col-md-12"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Harming_Others__c}" styleClass="form-control"/></div>
+    </div>
+    <p>&nbsp;</p>
+    <div><h4>Abuse: </h4></div>            
+    <div class="row-fluid">
+          <div class="col-md-12"><apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Abuse__c}" styleClass="form-control"/></div>
+    </div>
+    <p>&nbsp;</p>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+    <h4>LEGAL HISTORY</h4>
+        <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Legal_History__c}" styleClass="form-control"
+            html-placeholder="Describe any charges, detention experience, family experience"/>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+    <h4>GOALS</h4>
+    <div><i>Short term goals for the next 6 months: (Choose at least 2)</i></div>
+    <br/>
+    <div><h4>Mental Health:</h4></div>                    
+        <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Goals_Mental_Health__c}" styleClass="form-control"/>
+    <div><h4>Substance Use:</h4></div>                    
+        <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Goals_Substance_Use__c}" styleClass="form-control"/>
+    <div><h4>Education/Employment:</h4></div>                    
+          <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Goals_Education__c}" styleClass="form-control"/>
+    <div><h4>Family Functioning:</h4></div>                    
+          <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Goals_Family__c}" styleClass="form-control"/>
+    <div><h4>Peers:</h4></div>                    
+          <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Goals_Peers__c}" styleClass="form-control"/>
+    <div><h4>Life Satisfaction:</h4></div>                    
+          <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Goals_Satisfaction__c}" styleClass="form-control"/>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+    <h4>Mental Status of Participant:</h4>
+          <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Mental_Status__c}" styleClass="form-control"
+              html-placeholder="(how the participant presented herself/himself: Appearance, attitude, distinctive characteristics, mood, affect)"/>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+    <h4>SUMMARY</h4>
+    <div><i></i></div>
+        <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Summary_Presenting__c}" styleClass="form-control"
+            html-placeholder="Briefly describe the participants  presenting problems, clinicians observations and any psychosocial stressors that may be a factor in the participant&apos;s program participation or overall functioning."/>
+    <br/>
+        <apex:inputField value="{!Health_and_Wellbeing_Assessment__c.Summary_Strengths__c}" styleClass="form-control"
+            html-placeholder="Briefly describe the participant’s strengths, supports and resilience that may contribute to the participants program participation or overall functioning."/>
+    <br/>
+</div>
+<!-- end of fluid div -->
+
+</apex:pageblock>
+    <div class="row-fluid">
+        <div class="text-center col-md-4 col-md-offset-4">
+            <apex:commandLink styleClass="btn btn-primary" style="padding: 10px 40px; text-decoration: none; font-size: 1.25em;width: 150px;" 
+                  value="Save" action="{!save}"></apex:commandLink>
+            <apex:commandLink styleClass="btn btn-primary" style="padding: 10px 40px; text-decoration: none; font-size: 1.25em;width: 150px;" 
+                  value="Cancel" action="{!cancel}"></apex:commandLink>
+        </div>
+    </div>
+</apex:form>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script> 
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css"/>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/i18n/defaults-*.min.js"></script>
+
+
+<script>
+function setFocusOnLoad() {}
+</script>
+</body>
+
+</html>
+</apex:page>

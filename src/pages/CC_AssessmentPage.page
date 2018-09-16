@@ -1,0 +1,421 @@
+<apex:page controller="AssessmentController" > 
+ 
+  <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/style.css')}" rel="stylesheet"/> 
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/css/theme.default.css')}" rel="stylesheet"/> 
+<apex:form id="ccpage" >
+  <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+  <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+
+<apex:outPutPanel id="op" styleclass="span.resultContainer">
+<!-- 
+<apex:outputlabel value="Case Coordinator:" style="font-size:14px;"/>&nbsp;
+<apex:outputlabel value="{!CaseCoordinator}" style="font-size:16px;font-weight:bold;"/>
+-->
+  <apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+<apex:pageblocksection columns="1">
+     <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                      Assessment notes-Family and Peers</span> 
+            </apex:facet> 
+      <apex:inputfield value="{!CC.Family_Peers_Section_1__c}" styleclass="textareaedit" />
+    </apex:pageblocksection>
+    <apex:pageblocksection showheader="true" collapsible="true" columns="2">
+      <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                      Data Capture-Family and Peers</span> 
+            </apex:facet> 
+      <apex:inputfield value="{!CC.How_many_children__c}"/>
+      <apex:inputfield value="{!CC.Expecting_a_Child__c}"/>
+      <apex:inputfield value="{!CC.Incarcerated_Family_Members__c}"/>
+      <apex:inputfield value="{!CC.Gang_Involvement__c}"/>
+    </apex:pageblocksection>
+    <apex:pageblocksection collapsible="true" columns="1">
+     <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                      Assessment Notes-Education</span> 
+            </apex:facet> 
+                    <apex:inputfield value="{!CC.Education_Section_1__c}" styleclass="textareaedit"/>
+                    <apex:inputfield value="{!CC.Education_Plan__c}" styleclass="textareaedit"/>
+    </apex:pageblocksection>
+ <apex:pageblocksection title="Data Capture-Education" showheader="true" collapsible="true" columns="2">
+     <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                      Data Capture-Education</span> 
+            </apex:facet> 
+                    <apex:inputfield value="{!CC.School_GED_Enrollment_at_Intake__c}"/>
+                    <apex:inputfield value="{!CC.Update_School_GED_Enrollment_at_Intake__c}"/>
+                    <apex:inputfield value="{!CC.Diploma_Status_at_Intake__c}"/>
+                    <apex:inputfield value="{!CC.Update_Diploma_Status_at_Intake__c}"/>
+                    <apex:inputfield value="{!CC.Current_School_Enrollment__c}"/>
+                    <apex:inputfield value="{!CC.School_Start_Date__c}"/>
+                    <apex:inputfield value="{!CC.Last_School_Attended__c}"/>
+                    <apex:inputfield value="{!CC.School_End_Date__c}"/>
+                    <apex:inputfield value="{!CC.School_Institution_Hours_from_and_to__c}"/>
+                    <apex:inputfield value="{!CC.Reason_for_Leaving_School__c}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CC.Reason_for_Leaving_School_Other__c}"/>
+                    <apex:inputfield value="{!CC.How_many_credits_have_you_earned__c}"/>
+                    <apex:inputfield value="{!CC.Update_No_of_High_School_Credits__c}"/>
+                    <apex:inputfield value="{!CC.What_grade_are_you_currently_in__c}"/>
+                    <apex:inputfield value="{!CC.Update_Current_Grade__c}"/>
+                    <apex:inputfield value="{!CC.What_is_the_last_grade_you_completed__c}"/>
+                    <apex:inputfield value="{!CC.Update_Last_Grade_Completed__c}"/>
+                    <apex:inputfield value="{!CC.Diploma_Type__c}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CC.Diploma_Date__c}"/> 
+    </apex:pageblocksection>    
+     <apex:pageblocksection showheader="true" collapsible="true" columns="1">
+     <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                      Assessment Notes-Employment</span> 
+            </apex:facet>
+                    <apex:inputfield value="{!CC.Employment_Section_1__c}" styleclass="textareaedit" />
+    </apex:pageblocksection>
+    <apex:pageblocksection columns="2">
+     <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                      Data Capture-Employment</span> 
+            </apex:facet>
+                    <apex:inputfield value="{!CC.Employed_at_Intake__c}"/>
+                    <apex:inputfield value="{!CC.Update_Employed_at_Intake__c}"/>
+                    <apex:inputfield value="{!CC.Current_Employment__c}"/>
+                    <apex:inputfield value="{!CC.Start_Date__c}"/>
+                    <apex:inputfield value="{!CC.Employer__c}"/>
+                    <apex:inputfield value="{!CC.Hourly_Pay__c}"/>
+                    <apex:inputfield value="{!CC.Job_Title__c}"/>
+                    <apex:inputfield value="{!CC.Work_Hours_from_and_to__c}"/>
+    </apex:pageblocksection>
+     <apex:pageblocksection showheader="true" collapsible="true" columns="1">
+      <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                     Assessment Notes-Physical Health</span> 
+            </apex:facet>
+                    <apex:inputfield value="{!CC.Physical_Health_Section_1__c}" styleclass="textareaedit" />
+    </apex:pageblocksection>
+                <apex:pageblocksection showheader="true" collapsible="true" columns="2">
+                   <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                     Data Capture-Physical Health</span> 
+            </apex:facet>
+                    <apex:inputfield value="{!CC.Indication_of_Phys_Health_Problem__c}" />
+                    <apex:inputfield value="{!CC.Update_Indication_of_Phys_Health_Problem__c}" />
+                    <apex:inputfield value="{!CC.Other_Phys_Health_Problem__c}"/>
+                    <apex:inputfield value="{!CC.Update_Other_Phys_Health_Problem__c}"/>
+                    <apex:inputfield value="{!CC.Do_you_have_Insurance__c}"/>
+                    <apex:inputfield value="{!CC.Update_Has_Insurance__c}"/>
+                    <apex:inputfield value="{!CC.Insurance_Provider__c}"/>
+                    <apex:inputfield value="{!CC.Update_Insurance_Provider__c}"/>
+                    <apex:inputfield value="{!CC.Insurance_Number__c}"/>
+                    <apex:inputfield value="{!CC.Update_Insurance_Number__c}"/>
+    </apex:pageblocksection>
+      <apex:pageblocksection showheader="true" collapsible="true" columns="1">
+           <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                    Assessment Notes-Mental Health</span>  
+            </apex:facet>
+                    <apex:inputfield value="{!CC.Mental_Health_Section_1__c}" styleclass="textareaedit"/>
+    </apex:pageblocksection>
+    <apex:pageblocksection showheader="true" collapsible="true" columns="2">
+      <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                   Data Capture-Mental Health</span> 
+            </apex:facet>
+                    <apex:inputfield value="{!CC.Mental_Health_Issues_at_Interview__c}"/>
+                    <apex:inputfield value="{!CC.Ever_recvd_counseling_other_MH_services__c}"/>
+                    <apex:inputfield value="{!CC.Prescribe_take_med_to_treat_MH_problem__c}"/>
+                    <apex:inputfield value="{!CC.Hospitalized_resd_prgm_for_MH_reasons__c}"/>
+    </apex:pageblocksection>
+    <apex:pageblocksection showheader="true" collapsible="true" columns="1">
+    <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                  Assessment Notes-Substance Abuse</span> 
+            </apex:facet>
+                    <apex:inputfield value="{!CC.Substance_Abuse_Section_1__c}" styleclass="textareaedit"/>
+    </apex:pageblocksection>
+    <apex:pageblocksection showheader="true" collapsible="true" columns="2">
+    <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                 Data Capture-Substance Abuse</span> 
+            </apex:facet>
+                    <apex:inputfield value="{!CC.Substance_Abuse_at_Interview__c}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CC.Drugs_Used__c}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CC.Drugs_Used_Other__c}"/>
+                    <apex:pageblocksectionitem />
+      </apex:pageblocksection>
+    </apex:pageblock>
+    
+<!-- VIEW block-->
+    <apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+     <apex:pageblocksection showheader="true" collapsible="true" columns="1">
+       <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Assessment notes-Family and Peers</span> 
+            </apex:facet>
+   <apex:pageblocksectionItem >
+      <apex:outputlabel value="Family & Peers Section 1" for="e1"/> 
+      <apex:outputtext value="{!substitute(substitute(JSENCODE(CC.Family_Peers_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="e1"/>
+   </apex:pageblocksectionItem>
+      </apex:pageblocksection>
+     <apex:pageblocksection showheader="true" collapsible="true" columns="2">
+       <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                 Data Capture-Family and Peers</span> 
+            </apex:facet>
+                   <apex:outputtext value="{!CC.How_many_children__c}"    styleclass="txt40"/>
+                    <apex:outputtext value="{!CC.Expecting_a_Child__c}"   styleclass="txt40"/>
+                    <apex:outputtext value="{!CC.Incarcerated_Family_Members__c}"   styleclass="text180"/>
+                    <apex:outputtext value="{!CC.Gang_Involvement__c}"   styleclass="txt40"/>
+      </apex:pageblocksection>
+          <apex:pageblocksection showheader="true" collapsible="true" columns="1">
+       <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                 Assessment Notes-Education</span> 
+            </apex:facet>
+             <apex:pageblocksectionItem >
+             <apex:outputlabel value="Education Section 1" for="e2"/> 
+                    <apex:outputtext value="{!substitute(substitute(JSENCODE(CC.Education_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="e2"/>
+             </apex:pageblocksectionItem>
+              <apex:pageblocksectionItem >
+             <apex:outputlabel value="Education Plan" for="e3"/> 
+                <apex:outputtext value="{!substitute(substitute(JSENCODE(CC.Education_Plan__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;"  id="e3"   />
+             </apex:pageblocksectionItem>      </apex:pageblocksection>
+       <apex:pageblocksection showheader="true" collapsible="true" columns="2">
+       <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                 Data Capture-Education</span> 
+            </apex:facet>
+                    <apex:outputtext value="{!CC.School_GED_Enrollment_at_Intake__c}"   styleclass="text180" />
+                    <apex:outputtext value="{!CC.Update_School_GED_Enrollment_at_Intake__c}"   styleclass="text180" />
+                    <apex:outputtext value="{!CC.Diploma_Status_at_Intake__c}"    styleclass="text180"/>
+                    <apex:outputtext value="{!CC.Update_Diploma_Status_at_Intake__c}"    styleclass="text180"/>
+                    <apex:outputtext value="{!CC.Current_School_Enrollment__c}"   styleclass="text180" />
+                    <apex:outputtext value="{!CC.School_Start_Date__c}" styleclass="text180"  />
+                    <apex:outputtext value="{!CC.Last_School_Attended__c}"  styleclass="text180" />
+                    <apex:outputtext value="{!CC.School_End_Date__c}" styleclass="text180"   />
+                    <apex:outputtext value="{!CC.School_Institution_Hours_from_and_to__c}"   styleclass="text180" />
+                    <apex:outputtext value="{!CC.Reason_for_Leaving_School__c}"    styleclass="text180"/>
+                    <apex:outputtext value="{!CC.Reason_for_Leaving_School_Other__c}"   styleclass="text180"/>
+                    <apex:outputtext value="{!CC.How_many_credits_have_you_earned__c}"    styleclass="text180"/>
+                    <apex:outputtext value="{!CC.Update_No_of_High_School_Credits__c}"    styleclass="text180"/>
+                    <apex:outputtext value="{!CC.What_grade_are_you_currently_in__c}"    styleclass="text180"/>
+                    <apex:outputtext value="{!CC.Update_Current_Grade__c}"   styleclass="text180"/>
+                    <apex:outputtext value="{!CC.What_is_the_last_grade_you_completed__c}"    styleclass="text180"/>
+                    <apex:outputtext value="{!CC.Update_Last_Grade_Completed__c}"   styleclass="text180"/>
+                    <apex:outputtext value="{!CC.Diploma_Type__c}"   styleclass="text180"/>
+                    <apex:outputtext value="{!CC.Diploma_Date__c}"   styleclass="text180"/> 
+     
+      </apex:pageblocksection>
+       <apex:pageblocksection showheader="true" collapsible="true" columns="1">
+      <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                 Assessment Notes-Employment</span> 
+            </apex:facet>
+            <apex:pageblocksectionItem >
+                <apex:outputlabel value="Employment Section 1" for="e4"/>
+                    <apex:outputtext value="{!substitute(substitute(JSENCODE(CC.Employment_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="e4"  />
+            </apex:pageblocksectionItem>
+      </apex:pageblocksection>
+      <apex:pageblocksection collapsible="true" columns="2">
+       <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                 Data Capture-Employment</span> 
+            </apex:facet>
+     
+               <apex:outputtext value="{!CC.Employed_at_Intake__c}"   styleclass="text180" id="e1"/>
+               <apex:outputtext value="{!CC.Update_Employed_at_Intake__c}"    styleclass="text180" id="e2"/>
+               <apex:outputtext value="{!CC.Current_Employment__c}"   styleclass="text180"/>
+               <apex:outputtext value="{!CC.Start_Date__c}"   styleclass="text180"/>
+               <apex:outputtext value="{!CC.Employer__c}"   styleclass="text180" />
+               <apex:outputtext value="{!CC.Hourly_Pay__c}"    styleclass="text180"/>
+               <apex:outputtext value="{!CC.Job_Title__c}"    styleclass="text180"/>
+               <apex:outputtext value="{!CC.Work_Hours_from_and_to__c}"    styleclass="text180" />
+     
+      </apex:pageblocksection>
+      <apex:pageblocksection showheader="true" collapsible="true" columns="1">
+        <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                 Assessment Notes-Physical Health</span> 
+            </apex:facet>
+            <apex:pageblocksectionItem >
+                            <apex:outputlabel value="Physical Health Section 1" for="p1"/>
+            
+                    <apex:outputtext value="{!substitute(substitute(JSENCODE(CC.Physical_Health_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="p1"  />
+            </apex:pageblocksectionItem>
+      </apex:pageblocksection>
+      <apex:pageblocksection showheader="true" collapsible="true" columns="2">
+       <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                 Data Capture-Physical Health</span> 
+            </apex:facet>
+                    <apex:outputtext value="{!CC.Indication_of_Phys_Health_Problem__c}"   styleclass="text180" />
+                    <apex:outputtext value="{!CC.Update_Indication_of_Phys_Health_Problem__c}"   styleclass="text180" />
+                    <apex:outputtext value="{!CC.Other_Phys_Health_Problem__c}"   styleclass="text180"/>
+                    <apex:outputtext value="{!CC.Update_Other_Phys_Health_Problem__c}"   styleclass="text180"  />
+                    <apex:outputtext value="{!CC.Do_you_have_Insurance__c}"   styleclass="txt40"/>
+                    <apex:outputtext value="{!CC.Update_Has_Insurance__c}"   styleclass="txt40"/>
+                    <apex:outputtext value="{!CC.Insurance_Provider__c}"    style="background-color:white;border:none;"/>
+                    <apex:outputtext value="{!CC.Update_Insurance_Provider__c}"   styleclass="text180"/>
+                    <apex:outputtext value="{!CC.Insurance_Number__c}"   styleclass="text180"/>
+                    <apex:outputtext value="{!CC.Update_Insurance_Number__c}"   styleclass="text180"/>
+       </apex:pageblocksection>
+   <apex:pageblocksection showheader="true" collapsible="true" columns="1">
+         <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                 Assessment Notes-Mental Health</span> 
+            </apex:facet>
+            <apex:pageblocksectionItem >
+                                 <apex:outputlabel value="Mental Health Section 1" for="m1"/>
+             <apex:outputtext value="{!substitute(substitute(JSENCODE(CC.Mental_Health_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="m1" /> 
+       </apex:pageblocksectionItem>
+       </apex:pageblocksection>     
+       <apex:pageblocksection showheader="true" collapsible="true" columns="2">
+       <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                 Data Capture-Mental Health</span> 
+            </apex:facet>
+                    <apex:outputtext value="{!CC.Mental_Health_Issues_at_Interview__c}"    styleclass="txt500"/>
+                    <apex:outputtext value="{!CC.Ever_recvd_counseling_other_MH_services__c}"    styleclass="txt500"/>
+                    <apex:outputtext value="{!CC.Prescribe_take_med_to_treat_MH_problem__c}"   styleclass="txt500"/>
+                    <apex:outputtext value="{!CC.Hospitalized_resd_prgm_for_MH_reasons__c}"   styleclass="txt40"/>
+       </apex:pageblocksection>
+       
+       <apex:pageblocksection collapsible="true" columns="1">
+       <apex:facet name="header" >
+         <span style="color:black;font-size:14px;">Assessment Notes-Substance Abuse</span> 
+            </apex:facet>
+         <apex:pageblocksectionItem >
+            <apex:outputlabel value="Substance Abuse Section 1" for="a1"/>
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(CC.Substance_Abuse_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+              escape="false" style="color:blue;width:30%px;background-color:white;" id="a1"  />
+         </apex:pageblocksectionItem> 
+       </apex:pageblocksection> 
+     
+       <apex:pageblocksection showheader="true" collapsible="true" columns="2">
+        <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                 Data Capture-Substance Abuse</span> 
+            </apex:facet>
+                    <apex:outputtext value="{!CC.Substance_Abuse_at_Interview__c}" styleclass="txt500"   />
+         <apex:pageblocksectionitem />
+                    <apex:outputtext value="{!CC.Drugs_Used__c}"   styleclass="txt500"/>
+         <apex:pageblocksectionitem />
+                   <apex:outputtext value="{!CC.Drugs_Used_Other__c}"  styleclass="txt500"/>
+         <apex:pageblocksectionitem />
+       </apex:pageblocksection>
+      
+        </apex:pageblock>
+    <!--    </apex:outPutPanel>-->
+        
+ 
+ 
+   <apex:pageblock id="opaction1" >
+ 
+       
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an1" 
+   style="font-size:14px;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad1" 
+   style="font-size:14px;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+    <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}" status="selectData"
+ id="btnEdit1" rerender="opaction,op,pbEdit,opaction1,pbEdit1" immediate="true"/>
+
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!buttonShow}"
+ id="btnCancel1" rerender="opaction,op" />
+
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+ <apex:commandButton value="Save" id="btnSave1" rendered="{!isedit}" action="{!saveAssessment}" rerender="opaction,op" status="selectData">
+ </apex:commandButton>
+
+
+</apex:pageblock>  
+</apex:outPutPanel>
+   
+<br/>
+		<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>
+        
+    </apex:form>
+<style>
+   .textarea{
+     width:700px;
+     height:120px;
+     color:blue; 
+     border:none;
+   background-color:white;     
+    }
+       
+   .textareaedit{
+     width:700px;
+     height:120px;
+    }
+    
+     .text180{
+     width:250px;
+     color:blue; 
+     border:none;
+   background-color:white;     
+    }
+       
+     .text180edit{
+     width:180px;
+    }
+    
+</style>
+</apex:page>

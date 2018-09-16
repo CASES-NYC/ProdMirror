@@ -1,0 +1,444 @@
+<apex:page controller="printCIRTcontroller" cache="false"  renderAs="pdf">
+<apex:outputLabel value="{!dateprinted}" style="font-size:12px;"/> 
+<b>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+ <span style='font-size:18pt;font-family:"Arial"' >CIRT Referral Form</span></b>
+   &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+ 
+ <apex:outputLabel value="Page 1 of 2" style="font-size:12px;"/>
+ <br/>
+ <br/>
+<form>
+   <table  cellpadding="0" cellspacing="0" id="table1">
+      <tr>
+        <td style="width:400px" colspan="2">
+        <apex:outputLabel value="Name: " />
+        <apex:outputText value="{!clientName}" />
+        </td>
+        <td style="width:400px" colspan="2">
+                      <apex:outputLabel value="AKA: "/>
+               <apex:outputText value="{!aka}"/> 
+        </td>
+      </tr>
+         <hr style="width:100%" /> 
+ 
+      <tr>
+         <td style="width:400px" colspan="2">
+                  <apex:outputLabel value="NYSID: "/>
+            <apex:outputText value="{!nysid}"/>
+        </td>
+         <td style="width:400px" colspan="2">
+        <apex:outputLabel value="Docket: "/>
+            <apex:outputText value="{!docket}"/> 
+        </td>
+      </tr>
+              <hr style="width:100%" /> 
+          <tr>
+         <td style="width:400px" colspan="2">
+                      <apex:outputLabel value="Book & Case: "/>
+                   <apex:outputText value="{!bookcase}"/>
+        </td>
+         <td style="width:400px" colspan="2">
+              <apex:outputLabel value="Indictment: "/>
+                <apex:outputText value="{!indictment}"/>
+        </td>
+      </tr>
+      
+      
+         <hr style="width:100%" /> 
+      <tr>
+         <td style="width:400px" colspan="2">
+                  <apex:outputLabel value="Gender: "/>
+                <apex:outputText value="{!gender}"/>
+        </td>
+     <td style="width:400px" colspan="2">
+             <apex:outputLabel value="Date of Birth: "/>
+                <apex:outputText value="{!dob}"/>
+        </td>
+      </tr>
+         <hr style="width:100%" /> 
+ 
+    <tr>
+         <td style="width:400px" colspan="2">
+                   <apex:outputLabel value="Address: "/>
+                <apex:outputText value="{!address}"/>
+    </td>
+    
+      <td style="width:400px" colspan="2">
+                   <apex:outputLabel value=" Inmate Location: "/>
+                <apex:outputText value="{!InmateLocation}"/>
+        </td>
+       </tr>
+         <hr style="width:100%" /> 
+      <tr>
+         <td style="width:400px">
+          <apex:outputLabel value="Move-in date: "/>
+                <apex:outputText value="{!movedate}"/>
+         </td>
+         <td style="width:400px" >
+                 <apex:outputLabel value="Telephone #: "/>
+                <apex:outputText value="{!phone}"/>
+        </td>
+      
+      </tr>
+      <tr>  
+         <td style="width:250px">      
+                  <apex:outputLabel value="Lives with: "/>
+              <apex:outputText value="{!liveWith}"/>
+         </td>
+      </tr>
+      <tr>   
+         <td style="width:400px">
+             <apex:outputLabel value="Relationship: "/>
+           <apex:outputText value="{!rel2client}"/>
+              
+        </td>
+     
+     <td style="width:400px" colspan="2">
+             <apex:outputLabel value="Relationship Phone #: "/>
+                <apex:outputText value="{!RelclientCell}"/>
+        </td>
+      </tr>
+         <hr style="width:100%" /> 
+  <tr>
+         <td style="width:400px" colspan="2">
+           <apex:outputLabel value="Referral Date: "/>
+                                  <apex:outputText value="{!refdate}"/>
+        </td>
+     <td style="width:400px" colspan="2">
+                <apex:outputLabel value="Attorney Consent: "/>
+                   <apex:outputText value="{!attConsent}"/>
+        </td>
+      </tr>
+         <hr style="width:100%" /> 
+  
+     <!--                       Section 2        -->    
+        <tr>
+        <td style="width:400px" colspan="2">
+        <apex:outputLabel value="Attorney Name: " />
+        <apex:outputText value="{!attName}"/>
+        </td>
+        <td style="width:400px" colspan="2">
+            <apex:outputLabel value="Phone: "/>
+               <apex:outputText value="{!attphone}"/> 
+        </td>
+      </tr>
+         <hr style="width:100%" />    
+
+        <tr>
+        <td style="width:400px" colspan="2">
+        <apex:outputLabel value="Attorney Address: " />
+        <apex:outputText value="{!attAddress}"/>
+        </td>
+        <td style="width:400px" colspan="2">
+            <apex:outputLabel value="Cell: "/>
+               <apex:outputText value="{!attCell}" /> 
+        </td>
+      </tr>
+      <tr>
+        <td style="width:400px" colspan="2">
+       &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <apex:outputText value="{!attAddress1}"/>
+        </td>
+        <td style="width:400px" colspan="2">
+            <apex:outputLabel value="E-mail: "/>
+               <apex:outputText value="{!attemail}"/> 
+        </td>
+      </tr>
+         <hr style="width:100%" />    
+    <tr>
+        <td style="width:400px" colspan="2">
+        <apex:outputLabel value="Attorney Agency: " />
+        <apex:outputText value="{!Affiliation}"/>
+        </td>
+        <hr style="width:100%" /> 
+        </tr>
+         <tr>
+        <td style="width:400px" colspan="2">
+        <apex:outputLabel value="Firm if applicable: " />
+        <apex:outputText value="{!firmname}"/>
+        </td>
+        </tr>
+ <hr style="width:100%" />  
+     <tr>
+        <td style="width:400px" colspan="2">
+        <apex:outputLabel value="Alternate Contact: " />
+        <apex:outputText value="{!altAttname}"/>
+        </td>
+             <td style="width:400px" colspan="2">
+        <apex:outputLabel value="Phone: " />
+        <apex:outputText value="{!altAttPhone}"/>
+        </td>
+        </tr>
+ <hr style="width:100%" />  
+     <tr>
+        <td style="width:400px" colspan="2">
+        <apex:outputLabel value="E-mail: " />
+        <apex:outputText value="{!altAttemail}"/>
+        </td>
+        <td style="width:400px" colspan="2">
+        <apex:outputLabel value="Cell: " />
+        <apex:outputText value="{!altAttCell}"/>
+        </td>
+        </tr>
+    </table>
+        <hr style="width:100%" /> 
+        <hr style="width:100%" /> 
+   <table  cellpadding="0" cellspacing="0" id="table3">
+      <tr>
+        <td style="width:300px" >
+        <apex:outputLabel value="Arrest Date: " />
+        <apex:outputText value="{!arrestdate}"/>
+        </td>
+        <td style="width:300px" >
+        <apex:outputLabel value="Top Arrest Charge: " />
+        <apex:outputText value="{!TopArrestCharge}"/>
+        </td>
+       <td style="width:300px" >
+        <apex:outputLabel value="Arrest #: " />
+        <apex:outputText value="{!arrestnumber}"/>
+        </td>
+       </tr>
+         <hr style="width:100%" /> 
+    <tr>
+        <td  >
+        <apex:outputLabel value="Arrain. Charges(PL): " />
+        <apex:outputText value="{!pleaCharges}"/>
+        </td>
+   </tr>
+         <hr style="width:100%" /> 
+      <tr>
+        <td style="width:400px" >
+        <apex:outputLabel value="CJA Score: " />
+        <apex:outputText value="{!cjascore}"/>
+        </td>
+        <td style="width:400px" >
+        <apex:outputLabel value="DOC Risk Score: " />
+        <apex:outputText value="{!docscore}"/>
+        </td>
+   </tr>
+           <hr style="width:100%" /> 
+           <tr>
+        <td style="width:400px" >
+        <apex:outputLabel value="DOC Recommendation: " />
+        <apex:outputText value="{!docRecomm}"/>
+        </td>
+        </tr>    
+         <hr style="width:100%" />
+     <tr>
+        <td style="width:600px" >
+        <apex:outputLabel value="Bail Status: " />
+        <apex:outputText value="{!bailstatus}"/>
+        </td>
+            <td style="width:300px" >
+          <apex:outputLabel value="Cash: " />
+          <apex:outputText value="{!bailcash}"/>
+     </td>
+            <td style="width:300px" >
+          <apex:outputLabel value="Bond: " />
+          <apex:outputText value="{!bailbond}"/>
+     </td>
+        </tr>    
+         <hr style="width:100%" />  
+     <tr>
+        <td  style="width:300px" >
+        <apex:outputLabel value="Prior Convictions: " />
+        <apex:outputText />
+        </td>
+        <td  style="width:250px" >
+        <apex:outputLabel value="Felonies: " />
+        <apex:outputText value="{!PriorFelonyConvictions}"/>
+        </td>
+       <td  style="width:250px" >
+        <apex:outputLabel value="Misdemeanor: " />
+        <apex:outputText value="{!PriorMisdConvictions}"/>
+        </td>
+       <td  style="width:250px" >
+        <apex:outputLabel value="Total: " />
+        <apex:outputText value="{!TotalPriorConvictions}"/>
+        </td>
+       </tr>
+       <tr>  
+        <td >
+        </td>
+          <td > 
+        <apex:outputLabel value="for violence: " />
+        <apex:outputText value="{!PriorViolentConviction}" />
+        </td>
+        <td >
+        <apex:outputLabel value="PL Code: " /> 
+        <apex:outputText value="{!PriorViolentConvictionCharge}"/>
+        </td>
+        <td >
+           <apex:outputLabel value="Date: " />
+           <apex:outputText value="{!PriorViolentConvictionDate}"/>
+        </td>
+       </tr> 
+       <tr>
+       <!-- 
+       <td>
+        <apex:outputLabel value="Court" />
+       </td>
+        -->
+         <td>
+            <apex:outputLabel value="Probation: " />
+           <apex:outputText value="{!probation}" />
+         </td> 
+         <td>
+            <apex:outputLabel value="Parole: " />
+           <apex:outputText value="{!parole}" />
+           
+         </td> 
+
+       </tr>
+              <br/> 
+</table>
+ <apex:outputPanel id="allRecords" >
+ <div style="page-break-before:always;"/>
+ <apex:outputText value="{!clientName}" style="font-size:10px;"/>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+<apex:outputLabel value="NYSID" style="font-size:10px;"/>&nbsp;
+<apex:outputText value="{!nysid}" style="font-size:10px;"/>
+<b>   &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+ <span style='font-size:18pt;font-family:"Arial"' >CIRT Referral Form</span></b>
+   &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+ <apex:outputLabel value="Page 2 of 2" style="font-size:12px;"/>
+ <br/>
+ <br/>   
+ <strong>Court Dates</strong> 
+ <table  Id="header" style="width: 100%; " border ="1">  
+   <thead> 
+                  <tr> 
+                     <th align="center">Docket</th>    
+                     <th align="center">Court Date</th>    
+                     <th align="center">Court Part</th>     
+                     <th align="center">Outcome</th>     
+                     <th align="center">Notes </th>     
+                  </tr>  
+               </thead>
+       <apex:repeat value="{!lstCourts}" var="e" id="rows"  > 
+          <tr>
+         <td width="100px" align="center">
+            <apex:outputText value="{!e.docket}" />
+         </td>
+         <td width="100px" align="center">
+            <apex:outputText value="{!e.courtDate}" />
+         </td>
+         <td width="100px" align="center">
+            <apex:outputText value="{!e.courtPart}"/>
+         </td>
+         <td width="150px">
+            <apex:outputText value="{!e.outcome}"/>
+         </td>
+         <td width="400px">
+            <apex:outputText value="{!e.notes}"/>
+         </td>
+    <!--         <hr style="width:100%" /> -->   
+         </tr>  
+    </apex:repeat>
+    </table>
+   </apex:outputPanel>  
+   
+   <br/>
+   <strong>Mandate</strong>
+   <table  Id="mandate" style="width: 100%; " border ="0.5"> 
+      <tr>
+         <td  style="width: 50%;" align="left">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+           <strong>Judge:</strong>&nbsp;&nbsp;  
+          <apex:outputText value="{!caseJudge}"/>
+         </td>
+         <td style="width: 50%;"  align="left">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+           <strong>Part:</strong>&nbsp;&nbsp;  
+            <apex:outputText value="{!courtPart}"/>
+         </td>   
+      </tr>
+      </table>
+      <table  style="width: 100%; " border ="0.5">
+      <tr>
+         <td style="width: 50%;"  align="left">
+          &nbsp;&nbsp;&nbsp;&nbsp; 
+           <strong>Mandate Date:</strong>&nbsp;&nbsp;  
+           <apex:outputText value="{!MandateCourtDateString}"/>&nbsp; 
+         </td>
+         <td style="width: 50%;"  align="left">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <strong>Track:</strong>&nbsp;&nbsp; 
+          <apex:outputText value="{!CurrentTrack}"/>
+         
+         </td>
+       </tr>
+      </table>
+      <table  style="width: 100%; " border ="0.5">
+      <tr>
+        <td style="width: 50%;"  align="left">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <strong>Next Court Date:</strong>&nbsp;&nbsp; 
+           <apex:outputText value="{!nextCourtDate}" />
+        </td>
+        <td style="width: 50%;"  align="left">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+        <strong>Next Part:</strong>&nbsp;&nbsp; 
+           <apex:outputText value="{!nextcourtpart}" />
+        </td>    
+      </tr>
+      </table>
+     <table  style="width: 100%; " border ="0.5">      
+       <tr>
+          <td >
+        <strong>Judge's Conditions:</strong>&nbsp;&nbsp; 
+             <apex:outputText value="{!JudgeConditions}" />
+          </td>
+       </tr>
+     </table>
+  <br/> 
+  <apex:outputPanel >
+  <strong>Other Open Cases</strong>
+    <table  Id="header" style="width: 100%; " border ="1">  
+    <thead> 
+                  <tr> 
+                     <th align="center">Docket/Indictment</th>    
+                     <th align="center">Attorney Info</th>     
+                     <th align="center">Arrest Charges</th>     
+                     <th align="center">Case Status</th>      
+                  </tr>  
+               </thead>
+      <apex:repeat value="{!lstOtherCases}" var="d" id="others"  >
+       <tr>
+            <td width="100px" >
+            <apex:outputText value="{!d.docket}" />
+         </td>
+         <td>
+         <apex:outputText value="{!d.otherJudge}" />
+         </td>
+       <td>
+          <apex:outputText value="{!d.arrestchg}" />
+         </td>
+       <td>
+          <apex:outputText value="{!d.casestatus}" />
+         </td>
+       </tr>
+   
+       </apex:repeat>
+     </table>  
+    </apex:outputPanel>
+     <br/>
+     <apex:outPutLabel value="Resource Coordinator's Comments:" /> 
+     <table style="width: 100%; " border ="1">
+        <tr>
+          <td>
+           <apex:outPutText value="{!CoordinatorComments}" />
+         </td>
+         </tr>
+         </table>
+ 
+  </form>
+  
+</apex:page>

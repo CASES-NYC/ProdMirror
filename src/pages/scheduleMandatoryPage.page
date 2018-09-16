@@ -1,0 +1,665 @@
+<apex:page controller="scheduleMandatoryController" id="pgMain"> 
+
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/style.css')}" rel="stylesheet"/> 
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/css/theme.default.css')}" rel="stylesheet"/>      
+<script>
+  function setFocusOnLoad()
+   {
+   } 
+</script>
+
+<script>
+        var j$ = jQuery.noConflict();
+function sortIt()     {         
+              
+                j$("#infoTable").tablesorter(
+                
+                    {
+                        widgets: ['zebra'], 
+                        
+                        headers: { 
+                            9: { sorter: false },
+                        }
+                    }
+                );      
+            }
+</script>   
+
+   <script>
+    function saveClass(cr,loc,agency,duration,tin,instr) { 
+      var objDuration = document.getElementById(duration);
+      var selectedDuration = objDuration.options[objDuration.selectedIndex].text;
+
+      objTime = document.getElementById(tin);
+      var selectedTimeIn = objTime.options[objTime.selectedIndex].text;
+
+ //    alert('duration : '  +selectedDuration  + ' selectedTimeIn: ' + selectedTimeIn); 
+       var codeObj1 = document.getElementById(cr);
+       var selectedCourse = codeObj1.options[codeObj1.selectedIndex].value;
+       var codeObj2 = document.getElementById(loc);
+       var selectedLocation = codeObj2.options[codeObj2.selectedIndex].value;
+       var codeObj3 = document.getElementById(agency);
+       var selectedAgency = codeObj3.options[codeObj3.selectedIndex].value;
+
+       var objInstr = document.getElementById(instr);
+      var selectedInstructor = objInstr.options[objInstr.selectedIndex].value;
+   
+  // alert('course id:  ' + selectedAgency);
+      //   var date = document.getElementById(d).Value;  
+  // alert('date:  ' + date);
+
+  afsaveClass(selectedCourse,selectedLocation,selectedAgency,selectedDuration,selectedTimeIn,selectedInstructor);
+  //alert('after save');
+    }
+   </script>
+
+
+  <script>
+       function showTimeOut(duration,tin,type){
+     //    alert('type: ' + type);
+         if (type == 'time'){
+             var obj = document.getElementById(duration);
+             var selectedDuration = obj.options[obj.selectedIndex].text;
+             var selectedTimeIn = tin;
+     }
+         else
+         {
+           var obj = document.getElementById(tin);
+           var selectedTimeIn = obj.options[obj.selectedIndex].text;
+           var selectedDuration = duration; 
+       }
+   //    alert('duration : '  +selectedDuration + ' time: ' + selectedTimeIn ); 
+       if(selectedDuration != '' && selectedTimeIn != ''){
+          afMakeTimeOut(selectedDuration, selectedTimeIn);
+         }
+       }
+     </script>
+
+<style type="text/css">
+       .createClassPopUp{  
+           background-color: #FFF8DC;
+           border-style: solid;
+            border-color: #FF0000;
+            border-width: 2px;
+            padding:10px;
+            position:absolute;
+            height: 200px; 
+            left:230px;
+            width:800px;
+            top:40px;
+  }   
+</style>        
+<script>  
+        function loadingApps(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('loadingGifData').style.display = '';
+            } else {
+                document.getElementById('loadingGifData').style.display = 'none';
+            }
+        } 
+</script> 
+
+
+
+   
+
+
+<style type="text/css">
+    .col1 {color:blue;}
+    .col2 {color:green;width:500px}
+    .Block1 {background: #AFEEEE ;}
+    .Block2 {background: #90EE90 ;}
+} 
+</style>
+<style type="text/css">
+    .col11 {background-color:#AFEEEE   } 
+    .col21 {background-color:#8FBC8F   } 
+    .col31 {background-color:#AFEEEE   }
+} 
+</style>  
+ <apex:form id="main">
+ 
+ 
+  <apex:actionFunction name="afMakeTimeOut" action="{!MakeTimeOut}" rerender="tout"  >
+    <apex:param name="selectedDuration" assignTo="{!selectedDuration}" value="" />
+    <apex:param name="selectedTimeIn" assignTo="{!selectedTimeIn}" value="" />
+  </apex:actionFunction>
+ 
+ 
+
+
+ <apex:actionFunction name="afsaveClass" action="{!saveClass}" 
+ rerender="courses,popup,lblError,lblcreate">
+    <apex:param name="selectedCourse" assignTo="{!selectedCourse}" value="" />
+    <apex:param name="selectedLocation " assignTo="{!selectedClassLocation}" value="" />
+    <apex:param name="selectedAgency" assignTo="{!selectedAgency}" value="" />
+    <apex:param name="selectedDuration" assignTo="{!selectedDuration}" value="" />
+    <apex:param name="selectedTimeIn" assignTo="{!selectedTimeIn}" value="" />
+    <apex:param name="selectedInstructor" assignTo="{!selectedInstructor}" value="" />
+</apex:actionFunction>
+ 
+<apex:pageMessages id="mess1"/>
+ <apex:outPutLabel value="{!searchRange}" id="range" />
+<apex:outPutPanel id="courses" rendered="{!displayCourses}">  
+    <apex:outputPanel styleClass="createClassPopUp"  rendered="{!displayCourses}" id="popup" >
+   &nbsp;&nbsp;
+   <apex:outPutLabel value="Please enter all information" id="lblerror" rendered="{!classCreated==false}"
+      style="font-size:18px;font-weight:bold;color:red"/>
+   &nbsp;&nbsp;
+   <!-- 
+       <apex:commandButton value="Save Class" id="cmdSaveBMP" 
+          title="Save" rendered="{!classCreated==false}"
+          onClick="saveClass('{!$Component.PLcr}','{!$Component.PLclass1}',
+          '{!$Component.PLAgency}','{!$Component.d1}', '{!$Component.tin}','{!$Component.PLinstr}')" rerender="courses">
+       </apex:commandButton>  
+  -->
+ 
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <apex:outPutLabel value="{!clientname} enrolled in this class!" id="lblcreate" rendered="{!classCreated}"
+      style="font-size:18px;font-weight:bold;color:green"/>
+   &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <!-- 
+        <apex:commandButton value="Save and Enroll {!clientname} in this class" id="cmdEnroll" 
+      style="text-decoration:none;padding:4px;background-image:none;color:red;background-color:white"
+          rendered="{!classCreated&&enrolledWhenClassCreated==false}"
+          rerender="main,courses,op_m,ps_enroll,infoTable,infoTableRepead"
+          onclick="enrollWhenCreate('{!sessionSelected}')"> 
+     </apex:commandButton>  
+     -->
+       <apex:commandButton value="Save and Enroll {!clientname} in selected class" id="cmdSaveBMP" 
+          title="Save and Enroll" rendered="{!classCreated==false}"
+          style="text-decoration:none;padding:4px;background-image:none;color:black;background-color:white"
+          onClick="saveClass('{!$Component.PLcr}','{!$Component.PLclass1}',
+          '{!$Component.PLAgency}','{!$Component.d1}', '{!$Component.tin}',
+          '{!$Component.PLinstr}')" 
+          rerender="courses,popup,lblError,lblcreate,reqTime">
+       </apex:commandButton>  
+  
+  
+  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   
+   <apex:commandButton title="Close Pop up" action="{!hideCourses}" 
+     rerender="main,courses,op_m,ps_enroll,infoTable,infoTableRepead"
+       value="Close" />  
+
+
+ <script>
+   function enrollWhenCreate(sessionSelected){
+  //   alert(sessionSelected );
+     afEnroll(sessionSelected); 
+     window.setTimeout(afdonothing,500);
+   } 
+    function showPopUp(){
+           alert('create clicked');
+           affindCoursesNames();
+           }
+</script> 
+ 
+ 
+ <br/><br/>
+ <table cellpadding="8">
+  <tr>
+    <td style="width:70px" align="left">
+       <apex:outPutLabel value="Class date:" />
+    </td>
+    <td style="width:100px" align="left">
+       <apex:inputField value="{!proxyobject.activitydate}" id="dtclass" style="color:blue"/>
+    </td>
+ 
+    <td style="width:70px" align="right">
+    <apex:outPutLabel value="Start Time:" />
+    </td>
+    <td>
+       <apex:selectList value="{!timeInList}" id="tin" size="1" 
+        onchange="showTimeOut('{!$Component.d1}',this.value,'time')"  >
+       <apex:selectOptions value="{!timeIn}" rendered="true" />
+       </apex:selectList>
+       <apex:outPutLabel value="*"  rendered="!selectedTimeIn==null||selectedTimeIn==''" id="reqTime"
+         style="color:red;font-size:18px;font-weight:bold"/>
+    </td>
+  <td style="width:100px" align="right">
+       <apex:outPutLabel value="Duration:" />
+     <apex:selectList value="{!durationList}" id="d1" size="1"  
+       onchange="showTimeOut(this.value,'{!$Component.tin}','duration')"  >
+       <apex:selectOptions value="{!duration}" rendered="true" />
+       </apex:selectList> 
+     
+     </td>
+     <td style="width:150px" align="left">
+       <apex:outPutLabel value="End Time:" /> 
+       <apex:outPutLabel value="{!timeOut}" id="tout" />
+    </td>
+    </tr>
+    <tr>         
+  <td style="width:70px" align="left">
+         <apex:outPutLabel value="Course:"/>
+      </td>
+      <td>   
+      <apex:selectList size="1"  value="{!CoursesList}" id="PLcr"  
+         style="width:150px"   >
+         <apex:selectOptions value="{!CoursesNames}" id="plb" rendered="true" />  
+      </apex:selectList>  
+      </td>
+         <td style="width:70px" align="right">
+        <apex:outPutLabel value="Agency:"/>
+        </td>
+        <td>
+            <apex:selectList size="1"  value="{!AgencyList}" id="PLAgency"    
+            style="width:150px" >
+         <apex:selectOptions value="{!Agency}" id="pla" rendered="true" />  
+      </apex:selectList> 
+      </td>
+    </tr>
+    <tr>   
+  <td style="width:70px" align="left">
+      <apex:OutputLabel value="Class location:" /> 
+    </td>
+    <td>  
+      <apex:selectList size="1"  value="{!ClassBoroList4create}" id="PLclass1"  
+            style="width:100px"   >
+         <apex:selectOptions value="{!Boro4create}" id="plb1" />  
+      </apex:selectList> 
+      </td>
+     <td style="width:70px" align="right">
+      <apex:OutputLabel value="Instructor:" /> 
+      </td>
+      <td>
+      <apex:selectList size="1"  value="{!InstructorsList}" id="PLinstr"    
+            style="width:150px" >
+         <apex:selectOptions value="{!InstructorsNames}"  rendered="true" />  
+      </apex:selectList> 
+     </td>
+    <!-- 
+     <td>
+       <apex:commandButton value="Enroll {!clientname} in this class" id="cmdEnroll" 
+      style="text-decoration:none;padding:4px;"
+          rendered="{!classCreated&&enrolledWhenClassCreated==false}"
+          onclick="enrollWhenCreate('{!sessionSelected}')"> 
+     </apex:commandButton>  
+     
+     </td>
+-->
+     </tr>
+
+     </table>
+    <apex:outputText value="Please confirm that the class intructor is available before creating a new single class."
+     rendered="{!showCreateCmd}" style="color:red;"/>
+   
+  
+      
+</apex:outputPanel>
+</apex:outPutPanel>
+<apex:actionFunction name="afSaveRecord" action="{!saveRecord}" 
+rerender="pb_client,classes,op_m,ps_enroll,infoTable,infoTableRepead" status="selectData">
+  <apex:param name="eventid" assignTo="{!eventid}" value="" />
+  <apex:param name="attendanceValue" assignTo="{!attendanceValue}" value="" />
+  <apex:param name="contactselected" assignTo="{!contactselected}" value="" />
+</apex:actionFunction>
+<apex:actionFunction name="afEnroll" action="{!enroll}" 
+   rerender="main,pb_client,classes,op_m,ps_enroll,infoTable,infoTableRepead,
+             courses,infoTable,infoTableRepead"  >
+  <apex:param name="sessionSelected" assignTo="{!sessionSelected}" value="" />
+</apex:actionFunction>
+ 
+<apex:actionFunction name="afsetSelectedId" action="{!findClientEvents}" 
+   rerender="pb_client,classes,op_m,ps_enroll,infoTable,dtfromcls,dttocls,cls,infoTableRepead,col1,cmdCreate,
+   cmdCreate)"> 
+     <apex:param name="contactselected" assignTo="{!contactselected}" value="" />
+   
+ </apex:actionFunction>
+
+ <apex:actionFunction name="afsetBoro" action="{!findBoro }" 
+   rerender="pb_client,classes,op_m,ps_enroll,infoTable,dtfromcls,dttocls,cls,infoTableRepead,col1,cmdCreate)"> 
+     <apex:param name="selectedBoro" assignTo="{!selectedBoro}" value="" />
+ </apex:actionFunction>
+<apex:actionFunction name="afsetClassBoro" action="{!findClassBoro }" 
+      rerender="scheduled,infoTable,infoTableRepead,pbresult,classes,op_m,ps_enroll"> 
+     <apex:param name="selectedClassBoro" assignTo="{!selectedClassBoro}" value="" />
+ </apex:actionFunction>
+
+
+
+
+ <apex:panelGrid columns="2" columnClasses="col1,col2" id="pgrid">   
+    <apex:outputPanel style="padding:5px;" layout="block" styleClass="Block1"> 
+      <apex:pageBlock id="col1">
+         <table >
+            <tr>
+               <td width="200px">
+                  <apex:outputText value="{!dateto}" id="dtto"
+                     style="font-size:18px;font-weight:bold">
+                  </apex:outputText><br/><br/>
+                  Intake Dates from 
+                  <apex:outPutLabel value="*" rendered="{!wrongdateFrom}" 
+                     style="color:red;font-size:18px;font-weight:bold" id="int"/><br/>                 
+                  <apex:inputField value="{!proxyobject.Open_Date__c}" id="dtfrom" style="color:blue"/>
+                   <br/><br/>   Change Intake Date range<br/>  
+                  <apex:commandButton value="Go" title="Refresh Clients list" action="{!refreshContactsList}"
+                     rerender="col1,PLcontacts,error1,error2,mess1,int,dtfrom" accesskey="" status="selectData">
+                     <apex:param name="proxyobject.Open_Date__c" value="{!proxyobject.Open_Date__c}"/> 
+                  </apex:commandButton> 
+                </td>
+           <td>
+        set Filter by Reporting Boro<br/>  
+        <apex:selectList size="1" required="false" value="{!BoroList}" id="PLboro"  
+             style="width:100px" onchange="SelectBoro(this.value)">
+           <apex:selectOptions value="{!Boro}" id="plb" rendered="true" />  
+          </apex:selectList> 
+          <script>
+ 
+  function SelectBoro(selectedboro) { 
+ //    //alert('boro: ' +selectedboro);
+     afsetBoro(selectedboro); 
+     window.setTimeout(afdonothing,100);}
+  </script>
+       <br/><br/>
+          Select Client<br/>  
+        <apex:selectList size="1" required="false" 
+           value="{!ContactList}" id="PLcontacts"  
+           style="width:150px" onchange="SelectContactId(this.value)">
+           <apex:selectOptions value="{!ContactNames}" />
+          </apex:selectList> 
+<script> 
+
+   
+   function SelectContactId(contactselected) {  
+  // alert('contact id: ' + contactselected);
+   afsetSelectedId(contactselected); 
+   window.setTimeout(afdonothing,100);
+ //  afshowCmdCreate();
+    }
+
+</script>           
+            
+         <apex:commandButton value="Create a Single Class for {!clientName}" immediate="true"
+          rerender="courses,main" id="cmdCreate" action="{!dataForCreateClass}" 
+          rendered="{!showCreateCmd}"/>
+      </td>             
+  </tr>
+
+ </table>
+    </apex:pageBlock>
+    </apex:outputPanel>
+ 
+ 
+<table>
+<tr>
+  
+  <td>
+  <span id="loadingGifData" style="display:none;" > 
+        <table>       
+           <tr>
+             <td width="200px"> 
+                Processing ...Please wait
+                     <apex:image value="/img/loading32.gif" />
+             </td>
+           </tr>
+         </table>
+        </span>
+</td>
+<td>
+  
+ 
+
+</td>
+</tr>
+</table>
+
+
+ <apex:actionStatus startText=""  stopText="" id="selectData" onstart="loadingApps('1');" onstop="loadingApps('0');"/>
+
+<apex:actionFunction name="afdonothing" action="{!donothing}" status="selectData"
+     rerender="loadingGifData,cmdCreate"/>
+
+
+ 
+ </apex:panelGrid>
+  <apex:pageBlock id="classes">
+     <apex:outputPanel id="op_m" rendered="{!clientname!=''&&contactSelected!='AAA'}">
+   <apex:panelGrid columns="3" id="pb_client" columnClasses="col11,col21,col31">
+      <apex:pageBlock id="block1" >
+     
+         <apex:outputLink value="/{!contactSelected}" id="dd" rendered="{!clientName != ''}"> 
+            <apex:outputLabel value="{!clientName}"  style="font-size:12px;font-weight:bold;color:blue" />  
+         </apex:outputLink>
+       
+         <apex:outputLabel value="Intake date: {!sintake}"  style="font-size:12px;"
+              rendered="{!clientName != ''}" />
+      </apex:pageBlock>
+      <apex:pageBlock id="block2">
+          <apex:outputLabel value="Classes from:" rendered="{!clientName != ''}" 
+              style="font-size:12px;"/>
+            <apex:inputField value="{!proxyobject.Closing_Date__c}"   
+                  style="color:blue" id="inputfrom" 
+               rendered="{!clientName != ''}"/> &nbsp;              
+  
+            <apex:outputLabel value="to:" rendered="{!clientName != ''}"/>
+            <apex:inputField value="{!obj4duedates.Open_Date__c}"   
+            style="color:blue" id="inputDue" 
+            rendered="{!clientName != ''}"/>               
+&nbsp;
+        <apex:commandButton value="Go" title="Refresh Class list" rendered="{!clientName != ''}"
+            action="{!findClientEvents1}" accesskey="" status="selectData" 
+             rerender="col1,infoTable,mess1,infoTableRepead,ps_enroll,range">
+           </apex:commandButton>   
+    </apex:pageBlock>
+    <apex:pageBlock id="col31"> 
+
+         <apex:OutputLabel value="Class location" rendered="{!clientName != ''}"/> 
+        <apex:selectList size="1" required="false" value="{!ClassBoroList}" id="PLclass"  
+             style="width:100px" onchange="SelectClassBoro(this.value)" rendered="{!clientName != ''}">
+           <apex:selectOptions value="{!classBoro}" id="plb" rendered="true" />  
+          </apex:selectList> 
+          <br/>
+      <!--       <a href="/00O90000001HwVr?pv0=Customer%20-%20Direct&pv1=Energy" > Run Accounts Report </a> -->
+       <apex:outPutLabel id="col14" rendered="{!isSandbox==true}" style="font-size:14px;font-weight:bold;">
+        <a href="/00O60000002x3sz?pv1={!contactSelected15}" target="_blank" > Scheduled Classes </a>
+       </apex:outPutLabel>
+           <apex:outPutLabel id="col15"  rendered="{!isSandbox==false}" style="font-size:14px;font-weight:bold;">
+        <a href="/00O60000004UG5l?pv1={!contactSelected15}" target="_blank" > Scheduled Classes </a>
+</apex:outPutLabel>
+         <script>
+  function SelectClassBoro(selectedClassBoro) { 
+ //    //alert('boro class: ' +selectedClassBoro);
+    afsetClassBoro(selectedClassBoro); 
+     window.setTimeout(afdonothing,100);
+   }
+</script>    
+    
+    </apex:pageBlock>
+   </apex:panelGrid>    
+   <apex:outPutPanel id="ps_enroll">    
+     <!--      <apex:pageblockSection id="ps_enroll"> 
+          <apex:pageBlock id="pb_enroll"> 
+     -->
+     
+      <table id="infoTable" class="tablesorter" border="0" cellpadding="0" cellspacing="2" width="100%" columns="9">
+               <thead> 
+                  <tr> 
+                     <th>DOW</th>    
+                     <th>Date</th>     
+                     <th>Time</th>     
+                     <th>N a m e </th>     
+                     <th>Enrolled</th>     
+                     <th>Attendance</th>     
+                     <th>Available</th> 
+                     <th>Capacity</th>      
+                     <th>Scheduled for this time</th>      
+                  </tr>  
+               </thead>
+                <apex:repeat value="{!lstMandatoryAvailableShow}" var="m" id="infoTableRepead"> 
+                <tr>
+                  <td>
+                   <apex:outputText value="{!m.dow}"  />
+                  </td>
+                  <td>
+                   <apex:outputText value="{!m.classdate}" />  
+                  </td>
+                  <td width="150px">
+                    <apex:outputLabel value="{!m.ctime}" style="float:left;width:150px" escape="false"/>
+                  </td>
+                  <td width="300px">
+                      <apex:outputLabel value="{!m.classname}" style="float:left;width:300px;" escape="false" />
+                  </td>
+                  <td>
+                       <apex:inputCheckbox id="chk" disabled="true" value="{!m.enrolled}" rendered="{!m.enrolled==true}"/>
+                         <apex:commandButton value="Enroll" rendered="{!m.enrolled==false}" 
+                            disabled="{!m.disableEnroll==true||m.canenroll<1}" 
+                            onclick="enroll('{!m.sessionid}')"
+                            rerender="pb_client,op_m,ps_enroll,col,classes" >
+<script>
+   function enroll(sessionSelected){
+    // alert(sessionSelected );
+     afEnroll(sessionSelected); 
+     window.setTimeout(afdonothing,500)      
+   } 
+  
+</script>                            
+                            </apex:commandButton>
+                  </td>
+                  <td width="100px">
+                           <apex:outPutLabel value="{!m.verstatus}" 
+              rendered="{!(m.verstatus=='Cancelled'||m.verstatus=='Withdrawn')
+              &&m.enrolled==false}"/> 
+              <apex:selectList id="lst1" style="width:100px" value="{!m.verstatus}" size="1" 
+              rendered="{!m.futureApps==true&&m.enrolled==true}"  onChange="saveRecord('{!m.eventid}',this.value,'{!m.contactid}')" >
+                       <!--     <apex:selectOption itemValue="" itemLabel=""/>--> 
+                    <apex:selectOption itemValue="Cancelled" itemLabel="Cancelled"/> 
+                   <apex:selectOption itemValue="Withdrawn" itemLabel="Withdrawn"/> 
+                   <apex:selectOption itemValue="Not Verified" itemLabel="Not Verified"/> 
+                   
+              </apex:selectList>
+      <apex:selectList id="lst2" style="width:100px" value="{!m.verstatus}" size="1" 
+      rendered="{!m.futureApps==false&&m.enrolled==true &&(m.verstatus!='Cancelled'||m.verstatus!='Withdrawn')}" 
+         onChange="saveRecord('{!m.eventid}',this.value,'{!m.contactid}')" >
+          <!--    <apex:selectOption itemValue="" itemLabel=""/>--> 
+                    <apex:selectOption itemValue="Not Verified" itemLabel="Not Verified"/> 
+                    <apex:selectOption itemValue="Attended" itemLabel="Attended"/> 
+                    <apex:selectOption itemValue="Unexcused" itemLabel="Unexcused"/> 
+                    <apex:selectOption itemValue="Excused" itemLabel="Excused"/> 
+                    <apex:selectOption itemValue="Cancelled" itemLabel="Cancelled"/> 
+                    <apex:selectOption itemValue="Withdrawn" itemLabel="Withdrawn"/> 
+            </apex:selectlist>
+                  </td>
+                  <td>
+                         <apex:outputText value="{!m.canenroll} "/>
+                  </td>
+                  <td>
+                          <apex:outputText value="{!m.maxsize}"/>
+                  </td>
+          <td width="150px">
+
+               <apex:repeat value="{!m.lstOtherEvents}" var="o" ><br/>
+           <apex:outputText value="{!o.subject}" style="float:left;width:150px"/> 
+          </apex:repeat>
+                  </td>
+                  </tr>
+              </apex:repeat>   
+                     
+           </table>   
+           
+                <script type="Text/javascript">
+                j$("#infoTable").tablesorter(
+                    {
+                        widgets: ['zebra'],
+                        headers: { 
+                                // assign the first column (we start counting zero) 
+                                0: { sorter: false},
+                                1: { sorter: true},
+                                2: { sorter: false},
+                                3: { sorter: true},
+                                4: { sorter: false},
+                                5: { sorter: false},
+                                6: { sorter: false},
+                                7: { sorter: false},
+                                8: { sorter: false},
+                               
+                               }                               
+                        }
+                );    
+         </script>
+
+</apex:outPutPanel>
+<script>
+    function saveRecord(eventid,fieldvalue,contactSelected){
+    //  var fieldvalue = obj.value;
+      //alert('contactSelected ' +contactSelected); 
+     afSaveRecord(eventid,fieldvalue,contactSelected);
+ //    var j$ = jQuery.noConflict();
+ //  afrefresh();
+    }
+ </script>  
+ <!-- 
+       <apex:pageblockSection id="pbs">
+      <apex:facet name="header">
+          <span style="font-size:16px;color:black">
+               Assessment</span> 
+          </apex:facet>
+           <apex:pageBlockTable value="{!lstAssDisplay}" var="ass" id="ass">
+           <apex:column headerValue="Ass. Name">
+          <apex:outputText value="{!ass.assName}"/>
+       </apex:column>
+           <apex:column headerValue="Status" id="colstatus">
+        <apex:commandLink value="{!ass.assStatus}" onclick="openAssessm('{!ass.assId}')" target="_blank" 
+           style="color:{!ass.asscolor}; font-weight:{!ass.fontweigt}"
+             rendered="{!ass.assDone==true}">
+             <apex:param name="assessId" value="{!ass.assId}"/>  
+         </apex:commandLink>           
+          <apex:commandLink value="{!ass.assStatus}" style="color:{!ass.asscolor}; font-weight:{!ass.fontweigt}"
+         onClick="createAssessm('{!contactselected}','{!ass.namestring}','{!ass.assId}')" target="_blank" 
+             rendered="{!ass.assDone==false}" >
+           </apex:commandLink>
+ <script>
+     function openAssessm(assId){
+   //  alert(assId);
+     var s = assId;
+     var url = '/' + assId;
+   //  alert(url);
+     window.open(url);
+   } 
+</script>
+
+
+  <script>
+   function createAssessm(cid,namestring,rectype){
+   //  alert(cid);
+    var url = '/a0U/e?CF00N60000001rJHg='+namestring+'&CF00N60000001rJHg_lkid='+cid+'&retURL=%2F'+cid+'&RecordType='+rectype+'&ent=01I600000002Mjk';
+    window.open(url);
+   } 
+</script>
+            </apex:column>
+           <apex:column headerValue="Date">
+             <apex:outputText value="{!ass.assDate}"/>
+       </apex:column>
+           <apex:column headerValue="done by ">
+             <apex:outputText value="{!ass.assWho}"/>
+   
+       </apex:column>
+      <!-- 
+           <apex:column headerValue="type ">
+             <apex:outputText value="{!ass.atype}"/>
+       </apex:column>
+     <apex:column headerValue="ass id">
+             <apex:outputText value="{!ass.assId}"/>
+       </apex:column>
+     <apex:column headerValue="name string">
+             <apex:outputText value="{!ass.namestring}"/>
+       </apex:column>
+     <apex:column headerValue="ass rec Type">
+             <apex:outputText value="{!ass.recTypeId}"/>
+       </apex:column>
+
+           </apex:pageBlockTable>
+      </apex:pageblockSection>
+-->      
+     </apex:outputPanel>
+    </apex:pageBlock>
+  </apex:form>
+
+</apex:page>

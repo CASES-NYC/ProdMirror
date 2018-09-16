@@ -1,0 +1,832 @@
+<apex:page title="Search Portal" controller="SearchPortalController_new" id="pgMain" sidebar="false">
+   
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191, '/jQueryUI-1.10.3/ui/jquery-ui.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/corners/jquery.corner.js')}" /> 
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/css/ui-lightness/jquery-ui-1.8.13.custom.css')}" />
+
+<apex:outputPanel id="opScripts">
+
+<style>
+
+    span.topContainer {
+        margin: 1px; 
+        margin-bottom: 10px;
+        background: #BEE3F8; 
+        padding: 5px;
+        border:0; 
+        float: left;
+        width: auto;
+        clear: both;
+        white-space: nowrap;
+    }
+    
+    span.trpContainer {
+        margin-top: 3px;
+        margin-left: 5px; 
+        margin-bottom: 10px;
+        padding: 5px;
+        border:0; 
+        float: left;
+        width: auto;
+        white-space: nowrap;
+    }
+    
+    span.resultContainer {
+        margin-left: 1px;
+        margin-top: 10px; 
+        background: #BEE3F8; 
+        padding: 10px;
+        border:0; 
+        float: left;
+        width: auto;
+        clear: both;
+        white-space: nowrap;
+        display: table;
+        font-size: 9pt;  
+    }
+    
+    span.newClientContainer {
+    
+    }
+    
+    td.searchLabel {
+        vertical-align: middle;
+        width: 25%; 
+    }
+    
+    input.searchCriteria {
+        width: 150px;
+    
+    }
+    
+    .resultTable thead tr th, #resultTable tfoot tr th {
+        background-color: #1797C0;
+        color: #ffffff;
+        border: 0px;
+        font-size: 9pt;
+        padding: 4px;
+        padding-right: 20px;
+        vertical-align:middle;
+    }
+    
+    .resultTableBody {
+        background-color: #ffffff;
+        font-size: 9pt;
+        border: 1px;
+        border-color: #000000;
+        vertical-align:top;
+    }
+    
+    .resultTableActions {
+        padding-top: 5px;
+        padding-left: 2px;
+        padding-right: 2px;
+        padding-bottom: 2px;
+    }
+    
+    .resultCell {
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+    
+    /*Button Style*/
+    .buttonExit .buttonReinstate .buttonScreen .buttonEnroll .buttonContinue .buttonEnroll
+      .buttonEnrollOther .buttonCEPNewScreen {
+        float:left;
+        height:auto;
+        width:auto;
+        text-align:center;
+        white-space:nowrap;
+        background: inherit;
+        border: 0;
+        padding-top: 10px;
+    }
+
+    /*Button link styles*/
+    .buttonExit a:link, .buttonExit a:visited {
+        background-color:#d3414a;
+        color: #fff;
+        font-size:9pt;
+        font-weight:bolder;
+        text-decoration: none;
+        margin: 2px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 10px;
+        padding-right: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+    
+    .buttonReinstate a:link, .buttonReinstate a:visited {
+        background-color:#68938d;
+        color: #fff;
+        font-size:9pt;
+        font-weight:bolder;
+        text-decoration: none;
+        margin: 2px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 10px;
+        padding-right: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+    
+    .buttonScreen a:link, .buttonScreen a:visited {
+        background-color:#9999cc;
+        color: #ffffff;
+        font-size: 9pt;
+        font-weight:bolder;
+        text-decoration: none;
+        margin: 2px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 10px;
+        padding-right: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+    
+    .buttonEnroll a:link, .buttonEnroll a:visited {
+        background-color:#90EE90;
+        color: #000000;
+        font-size: 9pt;
+        font-weight:bolder;
+        text-decoration: none;
+        margin: 2px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 10px;
+        padding-right: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+    
+    .buttonContinue a:link, .buttonEnroll a:visited {
+        background-color:#FFC12C;
+        color: #000000;
+        font-size: 9pt;
+        font-weight:bolder;
+        text-decoration: none;
+        margin: 2px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 10px;
+        padding-right: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+       .buttonEnrollOther a:link, .buttonEnrollOther a:visited {
+        background-color:#FFA500;
+        color: #000000;
+        font-size: 9pt;
+        font-weight:bolder;
+        text-decoration: none;
+        margin: 2px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 10px;
+        padding-right: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+    
+    
+       .buttonCEPNewScreen a:link, .buttonCEPNewScreen a:visited {
+        background-color:#B0E0E6;
+        color: #000000;
+        font-size: 9pt;
+        font-weight:bolder;
+        text-decoration: none;
+        margin: 2px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 10px;
+        padding-right: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+    .buttonExit a:hover, .buttonReinstate a:hover, .buttonScreen a:hover, .buttonEnroll a:hover, .buttonContinue a:hover 
+       .buttonEnrollOther, .buttonCEPNewScreen a:hover{
+        color:#000000;
+    }
+    
+    .fsBorders {
+        border-color:#1797C0;
+        border-style: solid;
+        border-width: 1px;
+    }
+    
+    .divClientAction {
+        white-space: nowrap;
+    }
+    
+    .errorMsg {
+        color: red;
+        font-size: large;
+        font-weight:bolder;
+    }
+    
+    .historyRow {
+        background-color: transparent;
+        border-top-style: solid;
+        border-top-color: #1797C0;
+        border-top-width: 1px;
+        width: 100%;
+    }
+    
+    .criteriaInput { }
+        
+
+</style>
+<script> 
+  function setSelectedObject(objValue) {
+ //   alert('object: ' + objValue);
+ //     alert('print: ' + print);
+         afdoNothing(objValue);
+  }
+ </script> 
+<script>
+    
+    ////////////////////////////
+    // Always declare another instance of jQuery as not to conflict with SF''s instance
+    ////////////////////////////
+    var j$ = jQuery.noConflict();
+    
+    ////////////////////////////
+    // Wait for document.ready
+    ////////////////////////////
+    j$(document).ready(function(){
+    
+        var elDocket = document.getElementById('{!$Component.pgMain:frmMain:txtDocket}');
+        var elNYSID = document.getElementById('{!$Component.pgMain:frmMain:txtNYSID}');
+        var elFirstName = document.getElementById('{!$Component.pgMain:frmMain:txtFirstName}');
+        var elLastName = document.getElementById('{!$Component.pgMain:frmMain:txtLastName}');
+        var elDOB = document.getElementById('{!$Component.pgMain:frmMain:txtDOB}');
+        var elNewClientSPAN = document.getElementById('{!$Component.pgMain:frmMain:opNewClient}')
+    
+        j$( ".topContainer" ).corner("15px");
+        j$( ".resultContainer" ).corner("15px");
+        j$( ".fsBorders" ).corner("10px");
+        j$( ".divClientAction" ).corner("10px");
+        
+        bindCriteriaValidations();
+        
+        ////////////////////////////
+        // Interstitial Modal Dialog
+        ////////////////////////////
+
+        
+        j$(function() {
+            
+            j$( "#divLoading" ).dialog({
+                autoOpen: false,
+                height: 250,
+                width:  500,
+                modal: true,
+                resizable: false,
+                draggable: false,
+            });
+            
+        });
+        
+
+
+    });
+    
+    ////////////////////////////
+    // Standard JS Functions
+    ////////////////////////////
+    function statusShow() {
+        j$( "#divLoading" ).dialog( "open" );
+    }
+
+    function statusHide() {
+        j$( "#divLoading" ).dialog( "close" );        
+    }
+    
+    function bindCriteriaValidations() { 
+    
+        var elDocket = document.getElementById('{!$Component.pgMain:frmMain:txtDocket}');
+        var elNYSID = document.getElementById('{!$Component.pgMain:frmMain:txtNYSID}');
+        var elFirstName = document.getElementById('{!$Component.pgMain:frmMain:txtFirstName}');
+        var elLastName = document.getElementById('{!$Component.pgMain:frmMain:txtLastName}');
+        var elDOB = document.getElementById('{!$Component.pgMain:frmMain:txtDOB}');
+        var elNewClientSPAN = document.getElementById('{!$Component.pgMain:frmMain:opNewClient}')     
+
+        // Input Validation - Docket
+        j$(elDocket).focusout(function() {
+            
+            var bolBadFormat = false;
+            var strDocket = j$(elDocket).val();
+            
+            var re1='(\\d+)';   // Integer Number 1
+            var re2='((?:[a-z][a-z]+))';    // Word 1
+            var re3='(\\d+)';   // Integer Number 2
+            
+            var p = new RegExp(re1+re2+re3,["i"]);
+            var m = p.exec(strDocket);
+            
+            if(strDocket == 'Docket NA' || strDocket.length == 0 ||strDocket.length == 14) {
+            
+                
+            } else if(m == null) {
+            
+                bolBadFormat = true;
+            } else if(m[1].length != 4 || m[2].length != 2 || m[3].length != 6 || strDocket.length != 12) {
+                    bolBadFormat = true;
+            } 
+            
+            if(bolBadFormat) {
+                alert('The provided Docket # is not formatted correctly.  Please verify the Docket # and try again.');
+                j$(elDocket).val('');
+                j$(elDocket).focus();
+            }
+
+        });
+        
+        // Input Validation - NYSID
+        j$(elNYSID).focusout(function() {
+        
+            var bolFalse = true;
+            var strNYSID = j$(elNYSID).val();
+            
+            var re1='(\\d+)';   // Integer Number 1
+            var re2='(.)';  // Any Single Character 1
+            
+            var p = new RegExp(re1+re2,["i"]);
+            var m = p.exec(strNYSID);
+      
+            if(m != null) {
+                if(m[1].length != 8 || m[2].length != 1 || strNYSID.length != 9) {
+                    bolFalse = false;
+                }
+            } else {
+                bolFalse = false;
+            }  
+            
+            if(!bolFalse && strNYSID.length > 0) {
+                alert('The provided NYSID is not formatted correctly.  Please verify the NYSID and try again.');
+                j$(elNYSID).val('');
+                j$(elNYSID).focus();
+            }
+        
+        });
+        
+        // Prevent User from changing fields and hitting "Create New Client"
+        j$( ".criteriaInput" ).keyup(function() {
+            j$(elNewClientSPAN).hide();
+        });    
+    }  
+    
+    function clearAllInputs() {
+        
+        ///////////////////////////////
+        // This function clears out ALL criteria
+        ///////////////////////////////
+    
+        clearCriteria();
+    }
+    
+    function clearCriteria() {
+    
+        ///////////////////////////////
+        // This function clears out the criteria-based fields when a program is chosen
+        ///////////////////////////////
+        
+        var elDocket = document.getElementById('{!$Component.pgMain:frmMain:txtDocket}');
+        var elNYSID = document.getElementById('{!$Component.pgMain:frmMain:txtNYSID}');
+        var elFirstName = document.getElementById('{!$Component.pgMain:frmMain:txtFirstName}');
+        var elLastName = document.getElementById('{!$Component.pgMain:frmMain:txtLastName}');
+        var elDOB = document.getElementById('{!$Component.pgMain:frmMain:txtDOB}');
+        var elNewClientSPAN = document.getElementById('{!$Component.pgMain:frmMain:opNewClient}')
+        
+        j$(elDocket).val('');
+        j$(elNYSID).val('');
+        j$(elFirstName).val('');
+        j$(elLastName).val('');
+        j$(elDOB).val('');
+        
+        j$(elNewClientSPAN).hide();
+    
+    }
+    
+    function criteriaFieldGrouping() {
+    
+        var elDocket = document.getElementById('{!$Component.pgMain:frmMain:txtDocket}');
+        var elNYSID = document.getElementById('{!$Component.pgMain:frmMain:txtNYSID}'); 
+        var elFirstName = document.getElementById('{!$Component.pgMain:frmMain:txtFirstName}');
+        var elLastName = document.getElementById('{!$Component.pgMain:frmMain:txtLastName}');
+        var elDOB = document.getElementById('{!$Component.pgMain:frmMain:txtDOB}');
+        
+        // Search on Lastname and DOB
+        if(j$(elDocket).val() != '') {
+            return true;
+        } else if(j$(elNYSID).val() != '') {
+            return true;
+        } else if(j$(elLastName).val() != '' && j$(elFirstName).val() != '') {
+            return true;
+        } else if(j$(elLastName).val() != '' && j$(elDOB).val() != '') {
+            return true;
+        } else {
+            alert('If searching by name, please enter first and last, or last and date of birth.');
+            return false;
+        }
+    
+    }
+    
+    function noenter(ev)  {
+        if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+            if(criteriaFieldGrouping() == true) {
+                afSubmitSearch();
+                return false;
+            } else { return false; }
+         } else {
+            return true;
+         }
+     }
+     
+    function criteriaFieldGroupingTRP() {
+    
+        var elDocket = document.getElementById('{!$Component.pgMain:frmMain:txtDocket}');
+        var elFirstName = document.getElementById('{!$Component.pgMain:frmMain:txtFirstName}');
+        var elLastName = document.getElementById('{!$Component.pgMain:frmMain:txtLastName}');
+        var elAssignmentDate = document.getElementById('{!$Component.pgMain:frmMain:txtAsgDate}'); 
+        var elClass = document.getElementById('{!$Component.pgMain:frmMain:txtClass}');
+        
+        
+        // TRP clients need Docket, First and Last Name, Assignment Date, and Class
+        if(j$(elDocket).val() != '' && j$(elLastName).val() != '' && j$(elFirstName).val() != ''
+            <!-- && j$(elAssignmentDate).val() != '' -->
+            && j$(elClass).val() != '') {
+            return true;
+        } else {
+            alert('You must enter the docket, first and last name, assignment date and class in order to create a new TRP client.');
+            return false;
+        }
+    
+    }  
+     
+     
+    function searchFromButton()  {
+        if(criteriaFieldGrouping() == true) {
+            afSubmitSearch();
+            return true;
+        } else {
+            return false;
+        }
+    } 
+ 
+    function createTRPFromButton()  {
+        if(criteriaFieldGroupingTRP() == true) {
+            afSubmitTRPCreate();
+            return true;
+        } else {
+            return false;
+        } 
+    }    
+    
+</script>
+</apex:outputPanel>
+
+<apex:sectionHeader subtitle="Search Portal" title="Search | Intake | Reinstate" />
+
+<apex:form id="frmMain">
+    <apex:actionStatus id="asShowInterstitial" onstart="statusShow();" onstop="statusHide();" />
+    <apex:actionFunction name="afSubmitSearch" action="{!doCriteriaSearch}" rerender="opCriteria, opResults, opScripts" 
+        status="asShowInterstitial" oncomplete="bindCriteriaValidations();"/>
+    <apex:actionFunction name="afSubmitTRPCreate" action="{!createTRPContact}" rerender="opCriteria, opResults, opScripts" 
+        status="asShowInterstitial" oncomplete="bindCriteriaValidations();"/>
+
+    <apex:outputPanel id="opCriteria">
+
+        <apex:pageMessages />
+
+        <apex:outputPanel styleClass="topContainer" id="opSearch">
+        
+            <fieldset id="fsCriteria" class="fsBorders">
+            <legend>Search Criteria</legend>
+            
+                <table width="350px" border="0" cellPadding="2" cellSpacing="2">
+                    <tr>
+                        <td width="100%">
+                            
+                            <table width="100%" border="0" cellPadding="2" cellSpacing="2">
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Docket #" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputText styleClass="criteriaInput" value="{!clsSearch.strDocket}" id="txtDocket" onkeypress="return noenter(event);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="NYSID #" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputText styleClass="criteriaInput" value="{!clsSearch.strNYSID}" id="txtNYSID" onkeypress="return noenter(event);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="First Name" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputText styleClass="criteriaInput" value="{!clsSearch.strFirstName}" id="txtFirstName" onkeypress="return noenter(event);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Last Name" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputText styleClass="criteriaInput" value="{!clsSearch.strLastName}" id="txtLastName" onkeypress="return noenter(event);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Date of Birth" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!clsSearch.tskSearch.ActivityDate}" id="txtDOB" onkeypress="return noenter(event);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        Enter any field to search,<br />
+                                        or all fields to create a new client 
+                                    </td>
+                                    <td align="right" style="vertical-align: bottom;">
+                                        <apex:commandButton id="cmdCriteriaSearch" value="Search/Edit Clients" 
+                                        action="{!doNothing}" onclick="return searchFromButton();" 
+                                        rerender="emptyRerender,opNewClientsSTART, opNewClientsCEP"
+                                        status="asShowInterstitial"/>
+                                        <apex:commandButton id="cmdCriteriaClear" value="Clear" 
+                                        action="{!doNothing}" rerender="opEmpty,opResults" 
+                                        onClick="clearAllInputs();" status="asShowInterstitial"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colSpan="2" align="center">
+                                        <apex:outputPanel id="opNewClientSTART" 
+                                        rendered="{!bolSearchExecuted && !bolQueryExactMatch && strUserType == 'START'}">
+                                            <apex:commandButton value="Create New Client" 
+                                            action="{!createBasicDataForSTART}" rerender="opScripts" 
+                                            status="asShowInterstitial" oncomplete="bindCriteriaValidations();"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel id="opNewClientCEP" 
+                                        rendered="{!bolSearchExecuted && !bolQueryExactMatch && strUserType == 'CEP'}">
+                                            <apex:commandButton value="Create New Client" 
+                                            action="{!createBasicDataForCEP}" rerender="opScripts" 
+                                            status="asShowInterstitial" oncomplete="bindCriteriaValidations();"/>
+                                        </apex:outputPanel>                                        
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            
+            </fieldset>
+        
+        </apex:outputPanel>
+        
+        <apex:outputPanel id="opAdminRadio" styleClass="trpContainer" 
+        rendered="{!sfAdmin}">
+        
+            <fieldset class="fsBorders">
+                <legend>Select START or CEP</legend>
+                
+                <apex:selectRadio value="{!strUserType}">
+                    <apex:actionSupport event="onchange" action="{!doNothing}" 
+                        rerender="opScripts, opCriteria, opTRP, opResults" oncomplete="bindCriteriaValidations();"/>
+                    <apex:selectOptions value="{!userTypes}" />
+                </apex:selectRadio>
+            
+            </fieldset>
+        
+        </apex:outputPanel>      
+        
+        <apex:outputPanel id="opTRP" styleClass="trpContainer" 
+        rendered="{!strUserType == 'START'}">
+        
+            <fieldset id="fsCriteria" class="fsBorders">
+                <legend>TRP Only</legend>
+                
+                <table width="350px" border="0" cellPadding="2" cellSpacing="2">
+                    <tr>
+                        <td width="100%">
+                            
+                            <table width="100%" border="0" cellPadding="2" cellSpacing="2">
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Assignment Date" rendered="false"/>
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField value="{!clsSearch.tskTRPSearch.ActivityDate}" id="txtAsgDate" rendered="false" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Choose TRP class from list" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:selectList value="{!clsSearch.strTRPClass}" multiselect="false" size="1" id="txtClass">
+                                            <apex:selectOptions value="{!lstTRPClasses}" />
+                                        </apex:selectList>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        Enter client info at left and<br />
+                                        the TRP fields Only fields above<br />
+                                        to create a TRP intake.
+                                    </td>
+                                    <td align="right" style="vertical-align: bottom;">
+                                    <!-- 
+                                        <apex:commandButton id="cmdTRPEnroll" value="Enroll in TRP" action="{!doNothing}" 
+                                        onclick="return createTRPFromButton();" rerender="emptyRerender" 
+                                        disabled="{!IF(lstTRPClasses.size == 0,TRUE,FALSE)}"
+                                        status="asShowInterstitial"/>
+                                         -->
+        <apex:commandButton id="cmdTRPEnroll" value="Enroll in TRP"  
+                                        action="{!createTRPContact}"  
+                                        disabled="{!IF(lstTRPClasses.size == 0,TRUE,FALSE)}"
+                                        status="asShowInterstitial"/>
+                                        
+                                                                                
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            
+            </fieldset>
+        
+        </apex:outputPanel>
+        
+    </apex:outputPanel>
+
+</apex:form>
+
+
+<apex:form id="resultsForm" >
+
+
+<apex:outputPanel id="opResults" styleClass="resultContainer">
+
+    <fieldset id="fsResults" class="fsBorders">
+    <legend>Search Results</legend>
+
+        <apex:outputText styleClass="errorMsg" value="{!strStatusMessage}" />
+    
+        <table width="100%" cellSpacing="2" cellPadding="2" border="0" class="resultTable">
+            <thead>
+                <tr >
+                    <th>Exact Match?</th>
+                    <th>Screen this client on:</th>
+                    <th>Action</th>
+                    <th>Client Name</th>
+                    <th>Date of Birth</th>
+                    <th>NYSID</th>
+                    <th>Program</th>
+                    <th>Status</th>  
+                    <th>Current Intake</th>
+                </tr> 
+            </thead> 
+            <tbody class="resultTableBody">
+            <apex:repeat value="{!lstAllResults}" var="r"> 
+            <tr style="background-color: {!r.casebackcolor};color:{!r.casecolor};">
+              <td >
+              <apex:outputPanel rendered="{!r.lExactMatch}">
+                  <img src="/img/msg_icons/confirm16.png"  title="Exact Match Found" />
+              </apex:outputPanel> 
+              </td>
+               <td>   
+               <apex:outputPanel rendered="{!strUserType=='START' && r.boolNoCase==false}">
+                    <apex:commandButton value="{!r.docketDisplay}" styleClass="buttonScreen"
+                        action="{!r.CreateNewIntakeonthisCaseSTART}" rerender="opScripts" status="asShowInterstitial"
+                        oncomplete="bindCriteriaValidations();"/>
+               </apex:outputPanel>
+  
+               <!-- Screen Client on a New Docket for Start     --> 
+<!--  LZ took out r.lScreenForNewProgram criteria  <apex:outputPanel rendered="{!strUserType == 'START' && r.lScreenForNewProgram && r.accountParent }"> -->  
+              <apex:outputPanel rendered="{!strUserType == 'START' && r.accountParent}">  
+                    <apex:commandButton value="A New Docket START" styleClass="buttonScreen"
+                        action="{!r.ScreenClientonNewDocketSTART}" rerender="opScripts, opCriteria, opResult" 
+                        status="asShowInterstitial" oncomplete="bindCriteriaValidations();"/>
+                    <apex:inputText value="{!r.strNewDocket}" style="width: 100px;"/>
+               </apex:outputPanel>
+  
+
+          <!-- START Clients w/o cases    --> 
+              <apex:outputPanel rendered="{!strUserType == 'START' && r.boolNoCase==true}">
+                    <apex:commandButton value="A New Docket START" styleClass="buttonScreen"
+                        action="{!r.ScreenClientonNewDocketSTART}" rerender="opScripts, opCriteria, opResults" 
+                        status="asShowInterstitial" oncomplete="bindCriteriaValidations();"/>
+                    <apex:inputText value="{!r.strNewDocket}" style="width: 100px;"/>
+               </apex:outputPanel>              
+
+               <apex:outputPanel rendered="{!strUserType=='CEP' && r.boolNoCase==false}">
+                    <apex:commandButton value="{!r.docketDisplay}" styleClass="buttonScreen"
+                        action="{!r.CreateNewIntakeonthisCaseCEP}" rerender="opScripts" status="asShowInterstitial"
+                        rendered="{!!r.bolIntakeCase || r.programStatus == 'Never Enrolled' || r.strProgram != 'CEP'}"
+                        oncomplete="bindCriteriaValidations();"/>
+                    <apex:outputLink value="/apex/courtPortal_CEP?StartDays={!r.strDaystillNextCourtDate}&EndDays={!r.strDaystillNextCourtDate}" 
+                        styleClass="buttonScreen"
+                        rendered="{!r.bolIntakeCase && r.programStatus != 'Never Enrolled' && r.strProgram == 'CEP'}">{!r.docketDisplay}</apex:outputLink>                        
+               </apex:outputPanel>
+    
+           <!-- Screen Client on a New Docket for CEP    --> 
+              <apex:outputPanel rendered="{!strUserType == 'CEP' && ((r.lScreenForNewProgram && r.accountParent) || r.boolNoCase==false)}">
+                    <apex:commandButton value="A New Docket CEP" styleClass="buttonScreen"
+                        action="{!r.ScreenClientonNewDocketCEP}" rerender="opScripts, opCriteria, opResults" 
+                        status="asShowInterstitial" oncomplete="bindCriteriaValidations();"/>
+                    <apex:inputText value="{!r.strNewDocket}" style="width: 100px;"/>
+               </apex:outputPanel>
+
+          <!-- CEP Clients w/o cases    --> 
+              <apex:outputPanel rendered="{!strUserType == 'CEP' && r.boolNoCase==true}">
+                    <apex:commandButton value="A New Docket CEP" styleClass="buttonScreen"
+                        action="{!r.ScreenClientonNewDocketCEP}" rerender="opScripts, opCriteria, opResults" 
+                        status="asShowInterstitial" oncomplete="bindCriteriaValidations();"/>
+                    <apex:inputText value="{!r.strNewDocket}" style="width: 100px;"/>
+               </apex:outputPanel>              
+               </td>  
+                           
+              <td>
+
+              <apex:outputPanel rendered="{!r.lContinueScreening}" styleClass="buttonScreen">
+                    <a href="/apex/STARTInterviewPage1?DocketName={!r.docketDisplay}&selectedDocket={!r.docketId}&ContactId={!r.contactId}&G_AccountId={!r.AccountId}">Continue Screening</a>
+             </apex:outputPanel>
+             <!-- apex:outputPanel rendered="{!r.lReinstate}" styleClass="buttonScreen">
+                  <a href="/apex/STARTFlowContainer?ContactId={!r.ContactId}&docketId={!r.docketId}&Flow=Reinstatement">Reinstate Mandate</a>
+             </apex:outputPanel --> 
+             <!-- apex:outputPanel rendered="{!r.lEnrollVoluntary}" styleClass="buttonScreen">
+                  <a href="/apex/STARTFlowContainer?ContactId={!r.contactId}&docketId={!r.DocketId}&Flow=Voluntary"> Enroll in Voluntary CCM</a>
+              </apex:outputPanel>  
+           <apex:outputPanel rendered="{!r.lOrientation}" styleClass="buttonScreen">
+                <a href="/apex/STARTFlowContainer?ContactId={!r.ContactId}&Flow=Orientation"> Orientation</a>
+           </apex:outputPanel>                           
+           <apex:outputPanel rendered="{!r.lScreeningOutcome}" styleClass="buttonScreen">
+                 <a href="/apex/STARTInterviewPage1?DocketName={!r.docketDisplay}&selectedDocket={!r.DocketId}&ContactId={!r.ContactId}&G_AccountId={!r.AccountId}">Change Screening Outcome</a>
+           </apex:outputPanel>                        
+              </td> 
+              
+               <td>
+                 <apex:outputLink value="/{!r.accountId}" target="_blank"
+                  rendered="{!r.caseParent}">  
+                  <apex:outPutText value="{!r.fullname}"/>
+                 </apex:outputLink>
+              </td>  
+
+              <td>
+                  <apex:outputText value="{!r.dob}" rendered="{!r.caseParent}" /> 
+              </td>
+                          
+              <td>
+                  <apex:outputText value="{!r.Nysid}" rendered="{!r.accountParent}" />
+              </td>
+
+              <td> 
+                 <apex:outputLink value="/{!r.contactId}" target="_blank">  
+                     <apex:outPutText value="{!r.strProgram}"/>
+                 </apex:outputLink>              
+              </td>
+              
+              <td>
+               <apex:outputText value="{!r.ProgramStatus}" >
+               </apex:outputText>
+              </td>
+              
+              <td>
+               <apex:outputText value="{!r.intake_dt} - {!r.exit_dt}" >
+               </apex:outputText>
+              </td>
+              </tr>
+                    </apex:repeat>    
+             </tbody>
+        </table>  
+      
+    </fieldset>
+    
+</apex:outputPanel>
+</apex:form>
+
+<apex:outputPanel id="opEmpty">
+    
+</apex:outputPanel>
+
+    <!-- ---------------------------- -->
+    <!-- jQuery Helper Objects / HTML -->
+    <!-- ---------------------------- -->
+    
+        <div id="divLoading" title="Page is Loading..." >
+            <p><span id="spnLoading">Loading....</span></p>
+        </div>    
+
+</apex:page>

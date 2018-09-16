@@ -1,0 +1,231 @@
+<apex:page title="Enter Mandate" controller="cirtMandateScreenController" id="pgMain" sidebar="true">
+   
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191, '/jQueryUI-1.10.3/ui/jquery-ui.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/corners/jquery.corner.js')}" /> 
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/css/ui-lightness/jquery-ui-1.8.13.custom.css')}" />
+
+<apex:outputPanel id="opScripts">
+
+<style>
+
+    span.topContainer {
+        margin: 1px; 
+        margin-bottom: 10px;
+        background: #BEE3F8; 
+        padding: 5px;
+        border:0; 
+        float: left;
+        width: auto;
+        clear: both;
+        white-space: nowrap;
+    }
+    
+    td.searchLabel {
+        vertical-align: middle;
+        width: 25%; 
+    }
+    
+    input.searchCriteria {
+        width: 150px;
+    
+    }
+    
+    .fsBorders {
+        border-color:#1797C0;
+        border-style: solid;
+        border-width: 1px;
+    }
+    
+    .criteriaInput { }
+        
+
+</style>
+
+<script>
+function setFocusOnLoad() {}
+</script> 
+
+<script>
+    
+    ////////////////////////////
+    // Always declare another instance of jQuery as not to conflict with SF's instance
+    ////////////////////////////
+    var j$ = jQuery.noConflict();
+    
+    ////////////////////////////
+    // Standard JS Functions
+    ////////////////////////////
+    function statusShow() {
+        //j$( "#dialog-modal" ).dialog( "open" );
+        document.getElementById('loadingGif').style.display = '';
+    }
+
+    function statusHide() {
+        //j$( "#dialog-modal" ).dialog( "close" );
+        document.getElementById('loadingGif').style.display = 'none';
+    }
+    
+    function parseDate(datestr) {
+        var date = datestr.match(/(\d{1,2})[/](\d{1,2})[/](\d{4})/);
+        return new Date(date[3], date[1]-1, date[2]);
+    }    
+    
+    function criteriaFieldGrouping() {
+    
+        var today = new Date();
+        var elMandateDate = document.getElementById('{!$Component.pgMain:frmMain:dteMandate}');
+        var elMandate = document.getElementById('{!$Component.pgMain:frmMain:txtMandate}'); 
+        var elReason = document.getElementById('{!$Component.pgMain:frmMain:pckReason}'); 
+        var elDAConsent = document.getElementById('{!$Component.pgMain:frmMain:txtDAConsent}'); 
+        var elDetStatus = document.getElementById('{!$Component.pgMain:frmMain:pckDetStatus}');  
+        var elJudge = document.getElementById('{!$Component.pgMain:frmMain:lkpJudge}');
+        
+        // Validation
+        if(j$(elMandateDate).val() == '' || j$(elDetStatus).val() == '' || j$(elJudge).val() == ''
+        || j$(elDAConsent).val() == '') { 
+            alert('Please fill in the Decision Date, the DA Consent, the Judge, and the Detention Status at Intake.');
+            return false;
+        } else if (j$(elMandate).val() == '' && j$(elReason).val() == '') {
+            alert('Please enter either a mandate or a reject reason.');
+            return false;          
+        } else if(j$(elMandate).val() != '' && j$(elReason).val() != '') {
+            alert('If the client was mandated, do not enter a reject reason.');
+            return false;        
+        } else if(parseDate(j$(elMandateDate).val()) > today.getTime()) {
+            alert('You cannot enter a consent date in the future.');
+            return false;            
+        } else {
+            return true;
+        }
+    
+    }    
+     
+     
+    function checkFields()  {
+        if(criteriaFieldGrouping() == true) {
+            afSubmitSave();
+            return true;
+        } else {
+            return false;
+        }
+    } 
+    
+</script>
+</apex:outputPanel>
+
+    <apex:outputPanel id="opTitleHeader">
+        <apex:sectionHeader subtitle="{!thisContact.FirstName} {!thisContact.LastName} / {!thisContact.P_C_ID__c}" />
+        <br />
+    </apex:outputPanel>
+
+<apex:form id="frmMain">
+
+    <apex:actionStatus id="asShowInterstitial" onstart="statusShow();" onstop="statusHide();" />
+    <apex:actionFunction name="afSubmitSave" action="{!saveMandate}" rerender="opFields, opScripts" status="asShowInterstitial"/>
+
+    <apex:outputPanel id="opFields">
+
+        <apex:pageMessages />
+
+        <apex:outputPanel styleClass="topContainer" id="opInput">
+        
+            <fieldset id="fsCriteria" class="fsBorders">
+            <legend>CIRT Mandate</legend>
+            
+                <table width="350px" border="0" cellPadding="2" cellSpacing="2">
+                    <tr>
+                        <td width="100%">
+                            
+                            <table width="100%" border="0" cellPadding="2" cellSpacing="2">
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Decision Date" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!newPC.Start_Date__c}" id="dteMandate" />
+                                    </td>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Detention Status<br>Prior To Appearance" escape = "false"/>
+                                    </td>
+                                    <td width="75%" align="left">   
+                                        <apex:selectList value="{!strDetentionStatus}" multiselect="false" size="1" id="pckDetStatus">
+                                            <apex:selectOptions value="{!lstDetentionStatus}"/>
+                                        </apex:selectList>
+                                    </td>                                                                  
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Mandate" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!newPC.Track__c}" id="txtMandate" />
+                                    </td>                                  
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Reject Reason" />
+                                    </td>
+                                    <td width="75%" align="left">   
+                                        <apex:selectList value="{!strRejectReason}" multiselect="false" size="1" id="pckReason">
+                                            <apex:selectOptions value="{!lstRejectReason}"/>
+                                        </apex:selectList>
+                                    </td> 
+                                    <td class="searchLabel" align="right">
+                                        <apex:outputText value="Judge" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisCase.Judge__c}" id="lkpJudge" />
+                                    </td>                                       
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="District Attorney's Consent?" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.District_Attorney_s_Consent__c}" id="txtDAConsent" />
+                                    </td>   
+                                </tr> 
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Judge's Conditions" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.Judge_s_Conditions__c}" id="txtConditions" />
+                                    </td>                                 
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <apex:commandButton id="cmdSave" value="Save" action="{!doNothing}" onclick="return checkFields();" rerender="emptyRerender"/>
+                                        <apex:commandButton id="cmdCancel" value="Cancel" action="{!goPortal}" />                                       
+                                    </td>                                
+                                </tr>                                                                                                                       
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            
+            </fieldset>
+        
+        </apex:outputPanel>                  
+        
+        <div id="loadingGif" title="Processing Search" style="display:none;">
+            <p align="center">
+                Please wait while the search is processed...<br />
+                <br />
+                <img src="{!URLFOR($Resource.CasesLogo)}" /><br />
+                <br />
+                <img src="{!URLFOR($Resource.loading)}" />
+            </p>
+        </div>          
+        
+    </apex:outputPanel>
+
+</apex:form>
+
+<apex:outputPanel id="opEmpty">
+    
+</apex:outputPanel>
+        
+
+</apex:page>

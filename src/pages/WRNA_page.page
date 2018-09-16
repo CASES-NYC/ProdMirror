@@ -1,0 +1,134 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="WRNApage" > 
+   <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+<apex:outPutPanel id="op" styleclass="span.resultContainer">
+<!--                     EDIT BLOCK  -->
+<apex:outputLabel value="Risk Factors: :{!WRNA.Result__c}" 
+	style="width:40px;color:blue;font-size:12px;background-color:white;font-weight:bold;border:none;" id="result"/>
+<apex:pageblock id="pbEdit" rendered="{!isEdit==true}">   
+  <apex:pageblocksection columns="2">
+    <apex:facet name="header" ><span style="color:black;font-size:14px;">Risk Factors</span></apex:facet>
+	<apex:inputfield value="{!WRNA.WRNA_Risk_Factor_Employment_Financial__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_RF_Adult_Abuse__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_Risk_Factor_Housing_Safety__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_RF_Physical_Abuse__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_RF_Anger_hostility__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_RF_Sexual_Abuse__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_RF_History_of_mental_illness__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_RF_PTSD__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_RF_Depression_anxiety__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_RF_Family_Conflict__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_RF_Psychosis__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_RF_Relationship_Dysfunction__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_RF_Child_abuse__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_RF_Parental_Stress__c}" style="width:30px;font-size:14px"/>
+  </apex:pageblocksection>
+  <apex:pageblocksection columns="2">
+    <apex:facet name="header"><span style="color:black;font-size:14px;">Strengths</span></apex:facet>
+	<apex:inputfield value="{!WRNA.WRNA_STR_Educational_Strengths__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_STR_Family_Support__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_STR_Relationship_Support__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_STR_Self_efficacy__c}" style="width:30px;font-size:14px"/>
+	<apex:inputfield value="{!WRNA.WRNA_STR_Parental_Involvement__c}" style="width:30px;font-size:14px"/>
+  </apex:pageblocksection>
+</apex:pageblock>
+<!--                     VIEW BLOCK  -->	
+<apex:pageblock id="pbView" rendered="{!isEdit==false}">   
+  <apex:pageblocksection columns="2"><apex:facet name="header" ><span style="color:black;font-size:14px;">Risk Factors</span></apex:facet>
+    <apex:inputtext value="{!WRNA.WRNA_Risk_Factor_Employment_Financial__c}" 
+	  style="color:{!if(WRNA.WRNA_Risk_Factor_Employment_Financial__c<>null&&WRNA.WRNA_Risk_Factor_Employment_Financial__c>=5,'red','blue')};
+	  width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>
+	<apex:inputtext value="{!WRNA.WRNA_RF_Adult_Abuse__c}" 
+	  style="color:blue;width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>
+	<apex:inputtext value="{!WRNA.WRNA_Risk_Factor_Housing_Safety__c}" 
+	  style="color:{!if(WRNA.WRNA_Risk_Factor_Housing_Safety__c<>null&&WRNA.WRNA_Risk_Factor_Housing_Safety__c>=2,'red','blue')};
+	  width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>
+	<apex:inputtext value="{!WRNA.WRNA_RF_Physical_Abuse__c}" 
+	  style="color:{!if(WRNA.WRNA_RF_Physical_Abuse__c<>null&&WRNA.WRNA_RF_Physical_Abuse__c>=1,'red','blue')};
+	  width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>
+	<apex:inputtext value="{!WRNA.WRNA_RF_Anger_hostility__c}" 
+	  style="color:{!if(WRNA.WRNA_RF_Anger_hostility__c<>null&&WRNA.WRNA_RF_Anger_hostility__c>=4,'red','blue')};
+	  width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>
+	<apex:inputtext value="{!WRNA.WRNA_RF_Sexual_Abuse__c}" 
+	  style="color:{!if(WRNA.WRNA_RF_Sexual_Abuse__c<>null&&WRNA.WRNA_RF_Sexual_Abuse__c>=1,'red','blue')};
+	  width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>	
+	<apex:inputtext value="{!WRNA.WRNA_RF_History_of_mental_illness__c}" 
+	  style="color:{!if(WRNA.WRNA_RF_History_of_mental_illness__c<>null&&WRNA.WRNA_RF_History_of_mental_illness__c>=3,'red','blue')};
+	  width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>			
+	<apex:inputtext value="{!WRNA.WRNA_RF_PTSD__c}" 
+	  style="color:{!if(WRNA.WRNA_RF_PTSD__c<>null&&WRNA.WRNA_RF_PTSD__c>=2,'red','blue')};width:30px;font-size:14px;
+	  background-color:white;border:none;" disabled="true"/>	
+  	<apex:inputtext value="{!WRNA.WRNA_RF_Depression_anxiety__c}" 
+	  style="color:{!if(WRNA.WRNA_RF_Depression_anxiety__c<>null&&WRNA.WRNA_RF_Depression_anxiety__c>=3,'red','blue')};
+	  width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>	
+	<apex:inputtext value="{!WRNA.WRNA_RF_Family_Conflict__c}" 
+	  style="color:{!if(WRNA.WRNA_RF_Family_Conflict__c<>null&&WRNA.WRNA_RF_Family_Conflict__c>=2,'red','blue')};
+	  width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>	
+	<apex:inputtext value="{!WRNA.WRNA_RF_Psychosis__c}" 
+	  style="color:{!if(WRNA.WRNA_RF_Psychosis__c<>null&&WRNA.WRNA_RF_Psychosis__c>=1,'red','blue')};width:30px;font-size:14px;
+	  background-color:white;border:none;" disabled="true"/>	
+	<apex:inputtext value="{!WRNA.WRNA_RF_Relationship_Dysfunction__c}" 
+	  style="color:{!if(WRNA.WRNA_RF_Relationship_Dysfunction__c<>null&&WRNA.WRNA_RF_Relationship_Dysfunction__c>=8,'red','blue')};
+	  background-color:white;border:none;width:30px;font-size:14px" disabled="true"/>	
+	<apex:inputtext value="{!WRNA.WRNA_RF_Child_abuse__c}" 
+	  style="color:{!if(WRNA.WRNA_RF_Child_abuse__c<>null&&WRNA.WRNA_RF_Child_abuse__c>=1,'red','blue')};width:30px;font-size:14px;
+	  background-color:white;border:none;" disabled="true"/>	
+	<apex:inputtext value="{!WRNA.WRNA_RF_Parental_Stress__c}" 
+	  style="color:{!if(WRNA.WRNA_RF_Parental_Stress__c<>null&&WRNA.WRNA_RF_Parental_Stress__c>=20,'red','blue')};
+	  width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>
+  </apex:pageblocksection>
+			 
+  <apex:pageblocksection columns="2">
+    <apex:facet name="header"><span style="color:black;font-size:14px;">Strengths</span></apex:facet>
+    <apex:inputtext value="{!WRNA.WRNA_STR_Educational_Strengths__c}" 
+	  style="color:blue;width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>					
+ 	<apex:inputtext value="{!WRNA.WRNA_STR_Family_Support__c}" 
+	  style="color:blue;width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>	
+  	<apex:inputtext value="{!WRNA.WRNA_STR_Relationship_Support__c}" 
+	  style="color:blue;width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>					
+	<apex:inputtext value="{!WRNA.WRNA_STR_Self_efficacy__c}" 
+	  style="color:blue;width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>					
+	<apex:inputtext value="{!WRNA.WRNA_STR_Parental_Involvement__c}" 
+	  style="color:blue;width:30px;font-size:14px;background-color:white;border:none;" disabled="true"/>
+  </apex:pageblocksection>
+</apex:pageblock>
+</apex:outPutPanel>	
+<br/>
+<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+  <table>
+    <tr>
+      <td width="400px" align="left">
+	    <apex:outputLabel value="Created by:"/>&nbsp;
+		<apex:outputLabel value="{!createdInfo}"/>					
+      </td>
+      <td width="400px"  align="right">
+	    <apex:outputLabel value="Last modified by:" />&nbsp;
+		<apex:outputLabel value="{!LastModifiedInfo}"/>
+      </td>
+    </tr>
+  </table> 
+</apex:outPutPanel>
+</apex:form>
+</apex:page>

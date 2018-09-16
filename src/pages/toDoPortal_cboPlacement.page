@@ -1,0 +1,125 @@
+<apex:page controller="toDoPortal_cboPlacement" cache="false">
+    <style> 
+        .err{
+            color:red;  
+        }
+        #CBOEventTable_TBody tr:nth-child(even) td{
+            background-color: #FFFFFF;
+            border-color:#EFEFEF;
+            border-style:solid;
+            border-width:1px;           
+        }
+        #CBOEventTable_TBody tr:nth-child(odd) td{
+            background-color: #DFDFDF;
+            border-color:#EFEFEF;
+            border-style:solid;
+            border-width:1px;
+        }
+        #CBOEventTable_TBody tr:hover > td {
+            background: #CFEEF8;
+            color: #000;
+        }
+    </style>
+    <div id="cboPlacementFilter" class="controlPanel">
+        <apex:form > 
+            <table width="100%" cellpadding="5px" border="0">
+                <tr>
+                    <td><strong>Client: </strong></td>
+                    <td>
+                        <apex:selectList value="{!selectedContact}" multiselect="false" size="1">
+                            <apex:selectOptions value="{!Caseload}"/>
+                        </apex:selectList>
+                    </td>
+                    <td><strong>Start Date for Appointments:</strong></td>
+                    <td>
+                        <apex:inputField id="ifStartDate" value="{!thisPortalFilter.CBO_Start_Date__c}" />
+                    </td>
+                    <td>
+                        <apex:commandbutton value="Go" action="{!logSearch}" reRender="exitNotificationDetails, ifStartDate"/> 
+                    </td>
+                </tr>
+            </table>
+        </apex:form>
+    </div>
+    <br />
+    <hr />
+    
+    <apex:outputPanel id="exitNotificationDetails">
+        <div class="controlPanel">
+            <div>
+                <strong>Exit Notification Details for: <a href="/{!ExitNotifictionDetails.Client__c}" target="_blank">{!ExitNotifictionDetails.Client__r.Name}</a></strong>
+                <br /><span class="err">{!exitAdminErrors}</span>
+            </div>
+            <br />
+            <br />
+            <table width="750px" border="0"  > 
+                <tr>
+                    <td><strong>Exit Date:</strong></td>
+                    <td>
+                        <a href="/{!ExitNotifictionDetails.id}" target="_blank">
+                            <apex:outputField value="{!ExitNotifictionDetails.Action_Date__c}" />
+                        </a>
+                    </td>
+                    <td><strong>CBO Activity:</strong></td>
+                    <td><apex:outputField value="{!ExitNotifictionDetails.CBO_Activity__c}" /></td>
+                    <td><strong>Placement Status:</strong></td>
+                    <td><apex:outputField value="{!ExitNotifictionDetails.Placement_Status__c}" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><strong>Activities Engaged in at Exit:</strong></td>
+                    <td><apex:outputField value="{!ExitNotifictionDetails.Activities_Engaged_in_at_Exit__c}" /></td>
+                    <td><strong>Placement St Dt:</strong></td>
+                    <td><apex:outputField value="{!ExitNotifictionDetails.Start_Date__c}" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><strong>Placement Agency:</strong></td>
+                    <td><apex:outputField value="{!ExitNotifictionDetails.Community_Placement__c}" /></td>
+                </tr>
+            </table>
+        </div>
+        <table id="myTable" class="tablesorter" id="cboEventTable" > 
+            <thead> 
+                <tr>   
+                    <th>Activity Date</th>   
+                    <th>Record Type</th>   
+                    <th>Subject</th>     
+                    <th>Description</th>     
+                    <th>Validation Status</th>     
+                    <th>Assigned To</th>
+                 </tr>  
+            </thead> 
+            <tbody id="CBOEventTable_TBody"> 
+                <apex:repeat value="{!ClientEvents}" var="thisEvent" >
+                    <tr>     
+                        <td>
+                            <a href="/{!thisEvent.id}" target="_blank">
+                                <apex:outputField value="{!thisEvent.Open_Date__c}" />
+                            </a>
+                        </td>
+                        <td><apex:outputField value="{!thisEvent.RecordType.Name}" /></td>
+                        <td><apex:outputField value="{!thisEvent.Subject}" /></td>
+                        <td><apex:outputField value="{!thisEvent.What.Name}" /> - <apex:outputField value="{!thisEvent.Instructions__c}" /></td>
+                        <td><apex:outputField value="{!thisEvent.Verification_Status__c}" /></td>
+                        <td><apex:outputField value="{!thisEvent.Owner.Name}" /> </td>
+                    </tr>       
+                </apex:repeat>
+            </tbody> 
+        </table>
+        
+        <script>
+            j$('#eventTaskTable').tablesorter({
+                        headers:{
+                            3:{sorter:false},
+                            4:{sorter:false}
+                        },                  
+                        theme:'default'
+                    });
+        </script>
+    </apex:outputPanel>
+</apex:page>

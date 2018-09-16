@@ -1,0 +1,1243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Client__c</fullName>
+        <externalId>false</externalId>
+        <label>Client</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Education</relationshipLabel>
+        <relationshipName>Education</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Completed_Credits_Entered__c</fullName>
+        <externalId>false</externalId>
+        <label>Completed Credits Entered</label>
+        <summarizedField>Semester__c.Total_Credits_Completed__c</summarizedField>
+        <summaryForeignKey>Semester__c.Education__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Completed_Major_Credits_Entered__c</fullName>
+        <externalId>false</externalId>
+        <label>Completed Major Credits Entered</label>
+        <summarizedField>Semester__c.Total_Credits_Completed_Toward_Major__c</summarizedField>
+        <summaryForeignKey>Semester__c.Education__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Credits_Already_Completed_Toward_Major__c</fullName>
+        <externalId>false</externalId>
+        <label>Credits Already Completed Toward Major</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Credits_Already_Completed__c</fullName>
+        <externalId>false</externalId>
+        <label>Credits Already Completed Toward Degree</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Credits_as_of_Date_RPT__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(and(not(ispickval(Year__c,&quot;&quot;)),not(ispickval(Semester__c,&quot;&quot;))),
+Date(value(text(Year__c)), 
+case(text(Semester__c), &quot;Fall&quot;,9,&quot;Winter&quot;,12,&quot;Spring&quot;, 3,&quot;Summer&quot;, 6, 9), 
+1 
+), null)</formula>
+        <label>Credits as of Date RPT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Dev_Ed_How_Math_1_Completed__c</fullName>
+        <externalId>false</externalId>
+        <label>How Math 1 Completed?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Regents</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Passed qualifying course</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Passed assessment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Dev_Ed_How_Math_2_Completed__c</fullName>
+        <externalId>false</externalId>
+        <label>How Math 2 Completed?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Regents</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Passed qualifying course</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Passed assessment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Dev_Ed_How_Reading_Completed__c</fullName>
+        <externalId>false</externalId>
+        <label>How Reading Completed?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Regents</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Passed qualifying course</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Passed assessment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Dev_Ed_How_Writing_Completed__c</fullName>
+        <externalId>false</externalId>
+        <label>How Writing Completed?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Regents</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Passed qualifying course</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Passed assessment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Dev_Ed_Math_1_Complete_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Math 1 Complete Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Dev_Ed_Math_1_Requirement_Complete__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Math 1 Requirement Complete?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Dev_Ed_Math_2_Complete_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Math 2 Complete Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Dev_Ed_Math_2_Requirement_Complete__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Math 2 Requirement Complete?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Dev_Ed_Reading_Complete_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Reading Complete Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Dev_Ed_Reading_Requirement_Complete__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Reading Requirement Complete?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Dev_Ed_Writing_Complete_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Writing Complete Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Dev_Ed_Writing_Requirement_Complete__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Writing Requirement Complete?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Diploma_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Diploma Type</label>
+        <picklist>
+            <controllingField>Institution_Type__c</controllingField>
+            <picklistValues>
+                <fullName>High School Diploma</fullName>
+                <default>false</default>
+                <controllingFieldValues>High School</controllingFieldValues>
+                <controllingFieldValues>PM School</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IEP Diploma</fullName>
+                <default>false</default>
+                <controllingFieldValues>High School</controllingFieldValues>
+                <controllingFieldValues>PM School</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Associate&apos;s Degree</fullName>
+                <default>false</default>
+                <controllingFieldValues>College</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bachelor&apos;s Degree</fullName>
+                <default>false</default>
+                <controllingFieldValues>College</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HSE Diploma</fullName>
+                <default>false</default>
+                <controllingFieldValues>HSE Program</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>First_Semester_Entered__c</fullName>
+        <externalId>false</externalId>
+        <label>First Semester Entered</label>
+        <summarizedField>Semester__c.Semester_Date_RPT__c</summarizedField>
+        <summaryForeignKey>Semester__c.Education__c</summaryForeignKey>
+        <summaryOperation>min</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Institution_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Institution Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>College</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High School</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HSE Program</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Middle School</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PM School</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Post-secondary Prep</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Major__c</fullName>
+        <externalId>false</externalId>
+        <label>Major</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Notes</label>
+        <length>600</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>OldId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Old ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_for_Leaving_Other__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Required if  &quot;Other&quot; entered above.</inlineHelpText>
+        <label>Reason for Leaving (Other)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_for_Leaving__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason for Leaving</label>
+        <picklist>
+            <controllingField>Institution_Type__c</controllingField>
+            <picklistValues>
+                <fullName>Graduated</fullName>
+                <default>false</default>
+                <controllingFieldValues>College</controllingFieldValues>
+                <controllingFieldValues>HSE Program</controllingFieldValues>
+                <controllingFieldValues>High School</controllingFieldValues>
+                <controllingFieldValues>PM School</controllingFieldValues>
+                <controllingFieldValues>Post-secondary Prep</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transferred</fullName>
+                <default>false</default>
+                <controllingFieldValues>College</controllingFieldValues>
+                <controllingFieldValues>HSE Program</controllingFieldValues>
+                <controllingFieldValues>High School</controllingFieldValues>
+                <controllingFieldValues>Middle School</controllingFieldValues>
+                <controllingFieldValues>PM School</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dropped Out</fullName>
+                <default>false</default>
+                <controllingFieldValues>College</controllingFieldValues>
+                <controllingFieldValues>HSE Program</controllingFieldValues>
+                <controllingFieldValues>High School</controllingFieldValues>
+                <controllingFieldValues>Middle School</controllingFieldValues>
+                <controllingFieldValues>PM School</controllingFieldValues>
+                <controllingFieldValues>Post-secondary Prep</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <controllingFieldValues>College</controllingFieldValues>
+                <controllingFieldValues>HSE Program</controllingFieldValues>
+                <controllingFieldValues>High School</controllingFieldValues>
+                <controllingFieldValues>Middle School</controllingFieldValues>
+                <controllingFieldValues>PM School</controllingFieldValues>
+                <controllingFieldValues>Post-secondary Prep</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Referred_by_CASES__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Referred by CASES</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>School_Institution_Hours_From_and_To__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Format: example   8:30 to 3:00</inlineHelpText>
+        <label>School/ Institution Hours (From and To)</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>School_Institution_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>School_Institution__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>School / Institution Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>School_Institution__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>School/ Institution</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>Education</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Semester__c</fullName>
+        <externalId>false</externalId>
+        <label>Class Data Entry begins in</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fall</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spring</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Summer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Winter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Total_Classes_Attempted__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Classes Attempted</label>
+        <summarizedField>Semester__c.Total_Classes_Attempted__c</summarizedField>
+        <summaryForeignKey>Semester__c.Education__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Classes_Completed__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Classes Completed</label>
+        <summarizedField>Semester__c.Total_Classes_Completed__c</summarizedField>
+        <summaryForeignKey>Semester__c.Education__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Credits_Completed_Toward_Major__c</fullName>
+        <externalId>false</externalId>
+        <formula>Completed_Major_Credits_Entered__c + Credits_Already_Completed_Toward_Major__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Credits Completed Toward Major</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Credits_Completed__c</fullName>
+        <externalId>false</externalId>
+        <formula>Credits_Already_Completed__c +  Completed_Credits_Entered__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Credits Completed Toward Degree</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_School_Days__c</fullName>
+        <externalId>false</externalId>
+        <formula>(End_Date__c - Start_Date__c) + 1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total School Days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Year</label>
+        <picklist>
+            <picklistValues>
+                <fullName>2008</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2009</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2010</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2011</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2012</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2013</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2014</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Education</label>
+    <nameField>
+        <displayFormat>Ed-{00000}</displayFormat>
+        <label>Edu-ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Education</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>College</fullName>
+        <active>true</active>
+        <description>Classes with grades. credits, etc can be attached to a college record.</description>
+        <label>College</label>
+        <picklistValues>
+            <picklist>Dev_Ed_How_Math_1_Completed__c</picklist>
+            <values>
+                <fullName>Passed assessment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Passed qualifying course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regents</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Dev_Ed_How_Math_2_Completed__c</picklist>
+            <values>
+                <fullName>Passed assessment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Passed qualifying course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regents</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Dev_Ed_How_Reading_Completed__c</picklist>
+            <values>
+                <fullName>Passed assessment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Passed qualifying course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regents</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Dev_Ed_How_Writing_Completed__c</picklist>
+            <values>
+                <fullName>Passed assessment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Passed qualifying course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regents</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Diploma_Type__c</picklist>
+            <values>
+                <fullName>Associate%27s Degree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bachelor%27s Degree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>HSE Diploma</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Institution_Type__c</picklist>
+            <values>
+                <fullName>College</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>HSE Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Post-secondary Prep</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason_for_Leaving__c</picklist>
+            <values>
+                <fullName>Dropped Out</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Graduated</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Semester__c</picklist>
+            <values>
+                <fullName>Fall</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spring</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Summer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Winter</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Year__c</picklist>
+            <values>
+                <fullName>2008</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2009</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2010</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2011</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2012</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2013</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2014</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Standard</fullName>
+        <active>true</active>
+        <description>The standard education record (does not include college classes/ semesters)</description>
+        <label>Standard</label>
+        <picklistValues>
+            <picklist>Dev_Ed_How_Math_1_Completed__c</picklist>
+            <values>
+                <fullName>Passed assessment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Passed qualifying course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regents</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Dev_Ed_How_Math_2_Completed__c</picklist>
+            <values>
+                <fullName>Passed assessment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Passed qualifying course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regents</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Dev_Ed_How_Reading_Completed__c</picklist>
+            <values>
+                <fullName>Passed assessment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Passed qualifying course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regents</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Dev_Ed_How_Writing_Completed__c</picklist>
+            <values>
+                <fullName>Passed assessment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Passed qualifying course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regents</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Diploma_Type__c</picklist>
+            <values>
+                <fullName>Associate%27s Degree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bachelor%27s Degree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>HSE Diploma</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>High School Diploma</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IEP Diploma</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Institution_Type__c</picklist>
+            <values>
+                <fullName>HSE Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>High School</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Middle School</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PM School</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Post-secondary Prep</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason_for_Leaving__c</picklist>
+            <values>
+                <fullName>Dropped Out</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Graduated</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Semester__c</picklist>
+            <values>
+                <fullName>Fall</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spring</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Summer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Winter</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Year__c</picklist>
+            <values>
+                <fullName>2008</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2009</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2010</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2011</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2012</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2013</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2014</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Client__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Institution_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>School_Institution__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Start_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>End_Date__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Client__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Institution_Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>School_Institution__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Start_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>End_Date__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Client__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Institution_Type__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>School_Institution__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Start_Date__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>End_Date__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Client__c</searchFilterFields>
+        <searchFilterFields>Institution_Type__c</searchFilterFields>
+        <searchFilterFields>School_Institution__c</searchFilterFields>
+        <searchFilterFields>Start_Date__c</searchFilterFields>
+        <searchFilterFields>End_Date__c</searchFilterFields>
+        <searchResultsAdditionalFields>Client__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Institution_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>School_Institution__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Start_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>End_Date__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Cred_Already_Comp_Before_1st_Semester</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(
+Credits_as_of_Date_RPT__c &gt;  First_Semester_Entered__c,
+not(isblank(Credits_as_of_Date_RPT__c))
+)</errorConditionFormula>
+        <errorDisplayField>Semester__c</errorDisplayField>
+        <errorMessage>You cannot set a &quot;Class Data Entry begins&quot; date that is later than the first semester entered.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Cred_Already_Comp_Needs_Date_and_Value</fullName>
+        <active>true</active>
+        <errorConditionFormula>and( 
+
+or( 
+ispickval(Semester__c,&quot;&quot;), isblank(Credits_Already_Completed__c), 
+ispickval(Year__c,&quot;&quot;) 
+), 
+
+or( 
+not(ispickval(Semester__c,&quot;&quot;)), not(isblank(Credits_Already_Completed__c)), not(ispickval(Year__c,&quot;&quot;)) 
+) 
+
+)</errorConditionFormula>
+        <errorDisplayField>Semester__c</errorDisplayField>
+        <errorMessage>You must enter the semester, year, and number of credits which the client had completed at that time.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Dev_Ed_Math_1_Complete</fullName>
+        <active>false</active>
+        <errorConditionFormula>and( 
+
+or( not(Dev_Ed_Math_1_Requirement_Complete__c), 
+isblank( Dev_Ed_Math_1_Complete_Date__c ), 
+ispickval( Dev_Ed_How_Math_1_Completed__c ,&quot;&quot;) 
+), 
+
+or( 
+Dev_Ed_Math_1_Requirement_Complete__c, 
+not(isblank(Dev_Ed_Math_1_Complete_Date__c)), 
+not(ispickval(Dev_Ed_How_Math_1_Completed__c,&quot;&quot;)) 
+) 
+
+)</errorConditionFormula>
+        <errorDisplayField>Dev_Ed_Math_1_Requirement_Complete__c</errorDisplayField>
+        <errorMessage>If the Math 1 Requirement is complete, then enter a date and method, and put a check in the box.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Dev_Ed_Math_2_Complete</fullName>
+        <active>false</active>
+        <errorConditionFormula>and( 
+
+or( not(Dev_Ed_Math_2_Requirement_Complete__c), 
+isblank( Dev_Ed_Math_2_Complete_Date__c ), 
+ispickval( Dev_Ed_How_Math_2_Completed__c ,&quot;&quot;) 
+), 
+
+or( 
+Dev_Ed_Math_2_Requirement_Complete__c, 
+not(isblank(Dev_Ed_Math_2_Complete_Date__c)), 
+not(ispickval(Dev_Ed_How_Math_2_Completed__c,&quot;&quot;)) 
+) 
+
+)</errorConditionFormula>
+        <errorDisplayField>Dev_Ed_Math_2_Requirement_Complete__c</errorDisplayField>
+        <errorMessage>If the Math 2 Requirement is complete, then enter a date and method, and put a check in the box.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Dev_Ed_Reading_Complete</fullName>
+        <active>false</active>
+        <errorConditionFormula>and( 
+
+or( not(Dev_Ed_Reading_Requirement_Complete__c), 
+isblank( Dev_Ed_Reading_Complete_Date__c ), 
+ispickval( Dev_Ed_How_Reading_Completed__c ,&quot;&quot;) 
+), 
+
+or( 
+Dev_Ed_Reading_Requirement_Complete__c, 
+not(isblank(Dev_Ed_Reading_Complete_Date__c)), 
+not(ispickval(Dev_Ed_How_Reading_Completed__c,&quot;&quot;)) 
+) 
+
+)</errorConditionFormula>
+        <errorDisplayField>Dev_Ed_Reading_Requirement_Complete__c</errorDisplayField>
+        <errorMessage>If the Reading Requirement is complete, then enter a date and method, and put a check in the box.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Dev_Ed_Writing_Complete</fullName>
+        <active>false</active>
+        <errorConditionFormula>and( 
+
+or( not(Dev_Ed_Writing_Requirement_Complete__c), 
+isblank( Dev_Ed_Writing_Complete_Date__c ), 
+ispickval( Dev_Ed_How_Writing_Completed__c ,&quot;&quot;) 
+), 
+
+or( 
+Dev_Ed_Writing_Requirement_Complete__c, 
+not(isblank(Dev_Ed_Writing_Complete_Date__c)), 
+not(ispickval(Dev_Ed_How_Writing_Completed__c,&quot;&quot;)) 
+) 
+
+)</errorConditionFormula>
+        <errorDisplayField>Dev_Ed_Writing_Requirement_Complete__c</errorDisplayField>
+        <errorMessage>If the Writing Requirement is complete, then enter a date and method, and put a check in the box.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>End_Date</fullName>
+        <active>true</active>
+        <description>End date is required to be filled if Reason For Leaving is any value other than &quot;Not Entered&quot;</description>
+        <errorConditionFormula>AND(
+ ISNULL( End_Date__c ), 
+AND(
+NOT(ISPICKVAL( Reason_for_Leaving__c, &quot;Not Entered&quot;)),
+NOT(ISPICKVAL( Reason_for_Leaving__c, &quot;&quot;))
+))</errorConditionFormula>
+        <errorDisplayField>Reason_for_Leaving__c</errorDisplayField>
+        <errorMessage>End Date cannot be left blank if Reason for Leaving is a value other than &quot;Not Entered&quot; or blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>End_date2</fullName>
+        <active>true</active>
+        <description>Reason For Leaving cannot be &quot;Not Entered&quot;  or blank if End date is filled</description>
+        <errorConditionFormula>AND( NOT( ISNULL( End_Date__c )), 
+OR(
+ISPICKVAL( Reason_for_Leaving__c, &quot;Not Entered&quot;),
+ISPICKVAL( Reason_for_Leaving__c, &quot;&quot;)
+))</errorConditionFormula>
+        <errorDisplayField>Reason_for_Leaving__c</errorDisplayField>
+        <errorMessage>Reason For Leaving cannot be &quot;Not Entered&quot; or blank if End Date is entered.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>GED_Program_GED_Diploma</fullName>
+        <active>true</active>
+        <errorConditionFormula>IF(AND(ISPICKVAL(Institution_Type__c, &quot;GED Program&quot;), ISPICKVAL(Reason_for_Leaving__c, &quot;Graduated&quot;), NOT(ISPICKVAL(Diploma_Type__c, &quot;GED Diploma&quot;))), true, false)</errorConditionFormula>
+        <errorDisplayField>Diploma_Type__c</errorDisplayField>
+        <errorMessage>If a client has attended a GED Program and Graduated, the Diploma Type must be set to &quot;GED Diploma&quot;.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>High_School_High_School_Diploma</fullName>
+        <active>true</active>
+        <errorConditionFormula>IF(ISPICKVAL(Institution_Type__c, &quot;High School&quot;) 
+&amp;&amp; ISPICKVAL(Reason_for_Leaving__c, &quot;Graduated&quot;) 
+&amp;&amp; Not(ISPICKVAL(Diploma_Type__c, &quot;High School Diploma&quot;)) &amp;&amp; NOT(ISPICKVAL(Diploma_Type__c, &quot;IEP Diploma&quot;)), true, false)</errorConditionFormula>
+        <errorDisplayField>Diploma_Type__c</errorDisplayField>
+        <errorMessage>If a client has attended High School and Graduated, the Diploma Type must be set to &quot;High School Diploma&quot; or &quot;IEP Diploma&quot;.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Other_Reason_for_Leaving</fullName>
+        <active>true</active>
+        <description>If Reason for Leaving is OTHER, then other text box has to be entered.</description>
+        <errorConditionFormula>AND( ISPICKVAL(  Reason_for_Leaving__c  ,&quot;Other&quot;) , (  Reason_for_Leaving_Other__c   = &quot;&quot;))</errorConditionFormula>
+        <errorDisplayField>Reason_for_Leaving_Other__c</errorDisplayField>
+        <errorMessage>If Reason for Leaving is OTHER, Other text box has to be entered.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>PM_School_High_School_Diploma</fullName>
+        <active>true</active>
+        <errorConditionFormula>IF(AND(ISPICKVAL(Institution_Type__c, &quot;PM School&quot;), ISPICKVAL(Reason_for_Leaving__c, &quot;Graduated&quot;), NOT(ISPICKVAL(Diploma_Type__c, &quot;High School Diploma&quot;))), true, false)</errorConditionFormula>
+        <errorDisplayField>Diploma_Type__c</errorDisplayField>
+        <errorMessage>If a client has attended PM School and Graduated, the Diploma Type must be set to &quot;High School Diploma&quot;.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Reason_for_Leaving</fullName>
+        <active>true</active>
+        <description>You can only enter data in the &quot;Other&quot; text box if the &quot;Reason for Leaving&quot; is &quot;Other&quot;</description>
+        <errorConditionFormula>AND ( NOT(ISPICKVAL(  Reason_for_Leaving__c  ,&quot;Other&quot;)),  (  Reason_for_Leaving_Other__c   &lt;&gt; &quot;&quot;))</errorConditionFormula>
+        <errorDisplayField>Reason_for_Leaving_Other__c</errorDisplayField>
+        <errorMessage>If Reason for Leaving is NOT OTHER, Other text box cannot entered.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Start_and_End_date_not_greater_than_toda</fullName>
+        <active>true</active>
+        <description>The School Start and End date cannot be greater than TODAY</description>
+        <errorConditionFormula>IF( Start_Date__c &gt; TODAY(), true,  IF( End_Date__c &gt; TODAY(), true, false) )</errorConditionFormula>
+        <errorMessage>The School Start and End date cannot be greater than today&apos;s date</errorMessage>
+    </validationRules>
+</CustomObject>

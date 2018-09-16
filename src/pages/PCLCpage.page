@@ -1,0 +1,95 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="PCLpage" >
+     <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+
+ <apex:outPutPanel id="op" styleclass="span.resultContainer">
+ <apex:pageblock id="pbEdit" rendered="{!isEdit==true}">
+   <apex:pageblocksection columns="2" > 
+     <apex:facet name="header" >
+      <span style="color:black;font-size:14px;">Questions</span> 
+    </apex:facet>
+                    <apex:inputfield value="{!PCL.PCLC_Disturbing_memories_thoughts__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Feeling_distant_or_cut_off__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Disturbing_dreams__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Feeling_emotionally_numb__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Reliving_a_stressful_experience__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Future_cut_short__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Upset_when_reminded_of_the_past__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Trouble_falling_or_staying_asleep__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Having_physical_reactions__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Feeling_irritable__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Avoid_thinking_about_the_past__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Having_difficulty_concentrating__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Avoid_activities_or_situations__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Being_super_alert_or_watchful__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Trouble_remembering__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Feeling_jumpy_or_easily_startled__c}"  />
+                    <apex:inputfield value="{!PCL.PCLC_Loss_of_interest__c}"  />
+                </apex:pageblocksection>
+ 
+</apex:pageblock>
+<apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+    <apex:pageblocksection columns="2" > 
+    <apex:facet name="header" >
+      <span style="color:black;font-size:14px;">Questions</span> 
+    </apex:facet>
+      <apex:inputtext value="{!PCL.PCLC_Disturbing_memories_thoughts__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Feeling_distant_or_cut_off__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Disturbing_dreams__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Feeling_emotionally_numb__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Reliving_a_stressful_experience__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Future_cut_short__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Upset_when_reminded_of_the_past__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Trouble_falling_or_staying_asleep__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Having_physical_reactions__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Feeling_irritable__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Avoid_thinking_about_the_past__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Having_difficulty_concentrating__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Avoid_activities_or_situations__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Being_super_alert_or_watchful__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Trouble_remembering__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Feeling_jumpy_or_easily_startled__c}" disabled="true" styleclass="txt100"/>
+      <apex:inputtext value="{!PCL.PCLC_Loss_of_interest__c}" disabled="true" styleclass="txt100"/>
+    </apex:pageblocksection>
+</apex:pageblock>
+</apex:outPutPanel>
+
+        <apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+                <table>
+                   <tr>
+                     <td width="400px" align="left">
+                       <apex:outputLabel value="Created by:"/>&nbsp;
+                       <apex:outputLabel value="{!createdInfo}"/>                   
+                     </td>
+                     <td width="400px"  align="right">
+                      <apex:outputLabel value="Last modified by:" />&nbsp;
+                      <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>
+     <br/>
+</apex:form>   
+</apex:page>

@@ -1,0 +1,323 @@
+<apex:page controller="SignInController" title="Client sign-in">
+<!-- 
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/style.css')}" rel="stylesheet"/> 
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/css/theme.default.css')}" rel="stylesheet"/>      
+-->
+<script>
+  function setFocusOnLoad() 
+   {
+   }
+</script> 
+<style type="text/css">
+    .col11 {background-color:#AFEEEE   }
+    .col21 {background-color:#8FBC8F   } 
+    .col31 {background-color:#AFEEEE   }
+} 
+</style>
+
+<style type="text/css">  
+        .imgclass:hover{  
+            background-image: url(/img/help/helpOrbs.gif); 
+            background-repeat: no-repeat;  
+            width: 16px;  
+            height: 15px;     
+            background-position: right;  
+         
+        }  
+        .imgclass{  
+            background-image: url(/img/help/helpOrbs.gif);  
+            background-repeat: no-repeat;  
+            width: 16px;  
+            height: 15px;  
+        }  
+        .verticalLine {
+       border-left: thick solid #ff0000;
+}
+ .fsBorders {
+        border-color:#1797C0;
+        border-style: solid;
+        border-width: 2px;
+        height: 25px;   
+    }
+</style>
+    
+ <script>
+    
+        function loadingApps(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('loadingGifData').style.display = '';
+            } else {
+                
+                document.getElementById('loadingGifData').style.display = 'none';
+            }
+        
+        }
+
+    </script>  
+<script>
+    
+        function createAppoint(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('createAppoint').style.display = '';
+            } else {
+                
+                document.getElementById('createAppoint').style.display = 'none';
+            }
+        
+        }
+
+    </script>  
+
+<apex:form >
+
+ <apex:actionFunction name="afsetBoro" action="{!findBoro}"  rerender="blockDetails,details"> 
+     <apex:param name="selectedBoro" assignTo="{!selectedBoro}" value="" />
+ </apex:actionFunction>
+ <!-- 
+ <apex:actionFunction name="afrefreshSelectedDate" action="{!doNothing}"  rerender="blockDetails,details">
+    <apex:param name="selecteddate" assignTo="{!selecteddate}" value="" />
+ </apex:actionFunction>
+  -->
+ 
+ 
+ <apex:actionFunction name="afAddEvent" action="{!AddEvent}"  
+    rerender="blockDetails,details,dt,t1,t2"> 
+    <apex:param name="contactselected" assignTo="{!contactselected}" value="" />
+    <apex:param name="caseid" assignTo="{!caseid}" value="" />
+ </apex:actionFunction>
+<!--  
+ <apex:actionFunction name="afprintReport" action="{!printReport}" rerender="blockDetails">
+        <apex:param name="selectedBoro" assignTo="{!selectedBoro}" value="" />
+ </apex:actionFunction>
+ -->
+ <apex:actionFunction name="afSaveRecord" action="{!saveRecord}" 
+   rerender="blockDetails,details,dt,t1,t2">
+  <apex:param name="eventId" assignTo="{!eventId}" value="" />
+  <apex:param name="fieldName" assignTo="{!fieldName}" value="" />
+  <apex:param name="fieldValue" assignTo="{!fieldValue}" value="" />
+  <apex:param name="fieldDateTime" assignTo="{!fieldDateTime}" value="" />
+    <apex:param name="fieldDuration" assignTo="{!fieldDuration}" value="" />
+</apex:actionFunction>
+ 
+<span id="theText" style="font-style:italic; font-size:16px;font-bold:true;">Sign In Form</span>
+       <apex:pageMessages id="mess"/>
+
+  <table columns="3" id="tblSelect" cellpadding="2" cellspacing="5" >
+    <tr>
+ 
+    <td>
+       <fieldset class="fsBorders">
+                   <legend style="color:blue" >Select Date&nbsp;&nbsp; 
+        <apex:inputField value="{!proxyObject.activitydate}"  id="aptDate" >
+             <apex:actionSupport event="onChange" rerender="cmdResetDate,pdfreport"/>
+        </apex:inputField>
+         <apex:commandLink id="cmdResetDate" value="Go" action="{!refreshdata}" styleClass="btn"
+     accesskey="" status="selectData" rerender="blockDetails,details,dow,dt1,mess,pdfreport"/>
+      </legend>
+      </fieldset>
+     </td>
+      <td width="20px"/>
+       <td width="550px">
+        <fieldset class="fsBorders">
+                   <legend style="color:blue" >Select dates for print&nbsp;&nbsp; 
+               <apex:inputField value="{!proxyObject.Open_Date__c}"  id="dateFrom" >
+                    <apex:actionSupport event="onChange"/>
+               </apex:inputField>
+                       &nbsp;&nbsp;
+               <apex:inputField value="{!proxyObject.Closing_Date__c}"  id="dateTo" >
+                   <apex:actionSupport event="onChange"/>
+               </apex:inputField>
+                       &nbsp;&nbsp;
+               <apex:commandLink onclick="gotoPrint()" value="Print" id="logreport" action="{!refreshdata}" />
+  <script>
+      function gotoPrint(){
+         var boroObject = document.getElementById('{!$Component.plboro1}');
+
+        var selectedBoro = boroObject.value;
+      //   alert(selectedBoro);
+       var dateObjectFrom = document.getElementById('{!$Component.dateFrom}');
+       dateInputFrom = dateObjectFrom.value;
+       var dateObjectto = document.getElementById('{!$Component.dateTo}');
+       var dateInputTo = dateObjectto.value;
+   //    alert('dateInputFrom' + dateInputFrom);
+   //    alert('dateInputTo' + dateInputTo);
+       
+ //        var dateTo = dateObjectTo.Value;
+  //     var dateObject = document.getElementById('{!$Component.aptDate}');
+   //     var dateInput = dateObject.value;
+    //           alert('dateInput ' + dateInput); 
+ //
+ //   alert('dateFrom: ' + dateFrom);
+ //   if (dateInput <= date.now()){
+  window.open('/apex/signinPrint?passedFrom='+dateInputFrom + '&passedTo='+dateInputTo+ '&passBoro='+selectedBoro,target='_blank');
+   //   window.open('/apex/signinPrint_new,target='_blank');
+   //   }
+      }
+   </script>   
+    
+
+           </legend>
+           </fieldset>
+     </td>
+         <td/>
+         <td width="100px"/>
+         <td > 
+    <a href="/00O600000042wXM" target="_blank">View unverified appointments</a>             
+     </td>
+     </tr>
+     </table>
+
+    <span id="loadingGifData" style="display:none;" >
+        <table> 
+          <tr>
+             <td>
+               Selecting Clients ...
+                            <apex:image value="/img/loading32.gif" />
+             </td>
+       </tr>
+       </table>
+    </span>
+  
+ 
+    &nbsp;&nbsp;&nbsp; &nbsp;
+
+ 
+   <apex:actionStatus startText=""  stopText="" id="selectData" onstart="loadingApps('1');" onstop="loadingApps('0');"/>
+   <span id="subject" style="font-style:italic; font-size:16px;font-bold:true;color:blue;">Active CEP clients
+                              &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+               &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+     Reporting boro:
+ 
+      <apex:selectList size="1" value="{!BoroList}" id="PLboro1"  
+          style="width:140px" onchange="SelectBoro(this.value)">
+           <apex:selectOption itemValue="All" itemLabel="All"/> 
+           <apex:selectOption itemValue="Brooklyn" itemLabel="Brooklyn"/> 
+           <apex:selectOption itemValue="Harlem" itemLabel="Harlem and Queens"/>   
+          </apex:selectList>           
+          <script>
+  function SelectBoro(selectedboro) { 
+ //    alert('boro: ' + selectedboro);
+     afsetBoro(selectedboro); 
+   }
+</script>
+ &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;                     
+  <apex:outputText value="{!dayOfWeek}" id="dow" style="font-style:regular;font-size:20px;font-bold:false;color:black;"
+  rendered="{!noSelect==false}"/>
+            &nbsp;&nbsp;&nbsp; &nbsp; 
+    <apex:outputText value="{0, date, long}" id="dt1" 
+    style="font-style:regular;font-size:20px;font-bold:false;color:black;" rendered="{!noSelect==false}">
+       <apex:param value="{!proxyObject.activitydate}" /> 
+    </apex:outputText>
+</span>  
+
+  <apex:pageBlock id="blockDetails" rendered="{!noSelect==false}">
+    <span id="createAppoint" style="display:none;" >
+        <table> 
+          <tr> 
+             <td>
+               Creating Appontment ...
+                            <apex:image value="/img/loading32.gif" />
+             </td> 
+         </tr>
+         </table> 
+   </span>
+   <apex:actionStatus startText=""  stopText="" id="addappointment" onstart="createAppoint('1');" onstop="createAppoint('0');"/>
+      <apex:pageBlockTable value="{!lstEventsShow}" var="e" columns="10" id="details"
+       rendered="{!noSelect==false}" style="font-style:regular;" >
+        <apex:column headerValue="#" style="width:15px;background-color:{!e.backcolor}" >
+            <apex:outputText value="{!e.rowNumber}"/>
+        </apex:column>
+        <apex:column headerValue="Boro" style="width:10px;background-color:{!e.backcolor}" >
+            <apex:outputText value="{!e.boro}"/>
+        </apex:column>
+ 
+        <apex:column headerValue="Client" style="width:100px;background-color:{!e.backcolor}" >
+ <!--            <apex:outputText value="{!e.eventForDisplay.whoid}" title="{!e.nametip}" style="color:red"/> 
+            <apex:outputText value="{!e.cname}" title="{!e.nametip}" style="color:{!e.namecolor}"/>
+-->            
+
+        <a href="/{!e.eventForDisplay.whoid}" target="_blank" style="color:{!e.namecolor}"
+            title="{!e.nametip}" >{!e.cname}</a>
+
+
+
+        </apex:column>
+        <apex:column headerValue="Case Coordinator" style="width:100px;background-color:{!e.backcolor}">
+            <apex:outputText value="{!e.caseCoordinator}"/>
+        </apex:column>
+        <apex:column headerValue="Attendance" style="width:100px;background-color:{!e.backcolor}" >
+              <apex:selectList value="{!e.eventForDisplay.Verification_Status__c}" 
+                  size="1" id="att"
+                onchange="saveRecord('{!e.eventForDisplay.id}', 'Attendance', this.value,
+                '{!e.eventForDisplay.ActivityDateTime}', '{!e.eventForDisplay.durationinminutes}')"
+                rendered="{!e.scheduled==true}"> 
+                <apex:selectOptions value="{!attendanceitems}" id="attitem" />
+                 </apex:selectList>
+ <script>
+    function saveRecord(eventId, fieldName, fieldValue, fieldDateTime, fieldDuration) {
+ //   alert(eventId + ' ' +  fieldName + ' ' +  fieldValue + ' ' +  fieldDateTime + ' ' +  fieldDuration);
+    afSaveRecord(eventId, fieldName, fieldValue,fieldDateTime, fieldDuration);
+   }
+</script>     
+     <apex:commandButton value="Create Appt" rendered="{!e.scheduled==false}" 
+     onclick="addAppt('{!e.eventForDisplay.whoid}','{!e.eventForDisplay.who.name}')" 
+     accesskey="" status="addappointment" rerender="details"/>
+        <script>
+       function addAppt(contactSelected, name){
+           if (confirm('Are you sure you want to create an appointment for : '+ name  + ' ?'))
+   {  
+             afAddEvent(contactSelected);
+   }
+   
+          }
+        </script>     
+         </apex:column>
+
+        <apex:column headerValue="Scheduled Time" style="width:100px;font-style:regular;background-color:{!e.backcolor}" >
+            <apex:outputField value="{!e.eventForDisplay.ActivityDateTime}" 
+            rendered="{!e.scheduled==true}" id="dt"/>
+        </apex:column>
+         
+   <apex:column style="width:60px;text-align:left;background-color:{!e.backcolor}"  headerValue="Time In">
+       <apex:selectList value="{!e.eventForDisplay.Time_In__c}" id="t1" size="1" 
+               onchange="saveRecord('{!e.eventForDisplay.id}', 'Time In',this.value,
+               '{!e.eventForDisplay.ActivityDateTime}', '{!e.eventForDisplay.durationinminutes}')"
+                disabled="{!e.eventForDisplay.Verification_Status__c!='Attended'
+              &&e.eventForDisplay.Verification_Status__c!='Late'}"
+              rendered="{!e.scheduled==true}" >
+           <apex:selectOptions value="{!e.timesin}" rendered="true" id="so"/>
+       </apex:selectList>
+    </apex:column>   
+          <apex:column style="width:60px;text-align:left;background-color:{!e.backcolor}" 
+          headerValue="Time Out" rendered="true">
+                 <apex:selectList value="{!e.eventForDisplay.Time_Out__c}" id="t2" size="1" 
+                 onchange="saveRecord('{!e.eventForDisplay.id}', 'Time Out', this.value,
+                 '{!e.eventForDisplay.ActivityDateTime}', '{!e.eventForDisplay.durationinminutes}')" 
+                 disabled="{!e.eventForDisplay.Verification_Status__c!='Attended'
+              &&e.eventForDisplay.Verification_Status__c!='Late'}"
+              rendered="{!e.scheduled==true}">
+             <apex:selectOptions value="{!e.timesout}" rendered="true"/>
+                </apex:selectList>
+      </apex:column>   
+                          <apex:column headerValue="Next Drug Test" style="width:70px;background-color:{!e.backcolor}">
+                          <apex:outputText value="{!e.nextdrugTest}" />
+                      </apex:column>     
+
+          <apex:column headerValue="Scheduled for this date" style="width:200px;text-align:left;background-color:{!e.backcolor}">
+            <apex:repeat value="{!e.lstOtherEventStrings}" var="t" ><br/>
+             <apex:outputText value="{!t}" />
+           </apex:repeat>
+                      </apex:column>
+      </apex:pageBlockTable>             
+ 
+  </apex:pageBlock>
+
+ 
+
+</apex:form>
+</apex:page>

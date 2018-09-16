@@ -1,0 +1,7 @@
+<apex:page controller="assessmentMethods" action="{!lockRecord}">
+<div>Error:</div>
+<apex:messages />
+<div>
+    <a href='/{!$CurrentPage.parameters.id}'>Return to Assessment</a>
+</div>
+</apex:page>

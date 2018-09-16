@@ -1,0 +1,356 @@
+<apex:page controller="DSM_4_Controller" cache="false">  
+<c:ClientInfo_component /> 
+ <apex:pagemessages rendered="true"/>
+ 
+<style type="text/css">
+       .customPopup{  
+           background-color: #98FB98;
+       //     background-color: "{!colorType}";
+            border-style: solid;
+            border-width: 2px;
+            left: 450px;
+            padding:10px;
+            position:absolute;
+            height: 230px;
+            z-index:9999;
+            width:650px;
+       //     margin-left:-270px;
+            top:200px;
+  }
+   span.jailContainer {
+        margin-top: 3px;
+        margin-left: 5px; 
+        margin-bottom: 10px;
+        padding: 5px;
+        border:0; 
+        float: left;
+        width: auto;
+        white-space: nowrap;
+    }  
+     .fsBorders {
+        border-color:#1797C0;
+        border-style: solid;
+        border-width: 1px;
+    }
+</style> 
+
+<script>  
+      function  savingDiagnos(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('savingGifData').style.display = '';
+            } else {
+                document.getElementById('savingGifData').style.display = 'none';
+            }
+        } 
+        
+      function  deleteDiagnosJail(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('deleteGifData').style.display = '';
+            } else {
+                document.getElementById('deleteGifData').style.display = 'none';
+            }
+        } 
+        
+   function  deleteDiagnosCurrent(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('deleteGifData1').style.display = '';
+            } else {
+                document.getElementById('deleteGifData1').style.display = 'none';
+            }
+        }         
+</script>        
+
+   <apex:form id="myForm">
+   
+    <apex:actionFunction name="afSaveSelectedDiag" action="{!SaveSelectedDiag}" rerender="popup,jail,current">
+      <apex:param name="pl1" assignTo="{!pl1}" value="" />
+      <apex:param name="pl2" assignTo="{!pl2}" value="" />
+      <apex:param name="pl3" assignTo="{!pl3}" value="" />
+      <apex:param name="pl4" assignTo="{!pl4}" value="" />
+      <apex:param name="pl5" assignTo="{!pl5}" value="" />
+ </apex:actionFunction>
+   
+   <apex:actionFunction name="afdeleteDiag" action="{!deleteDiag}"
+       rerender="jail,current,panel1,panel2,section1,section2">
+      <apex:param name="fieldValue" assignTo="{!id2delete}" value="" />
+   </apex:actionFunction>
+  
+     <apex:actionStatus startText=""  stopText="" id="savingDiagnos" 
+   onstart="savingDiagnos('1');" onstop="savingDiagnos('0');"/>
+  
+      <apex:actionStatus startText=""  stopText="" id="deleteDiagnosJail" 
+   onstart="deleteDiagnosJail('1');" onstop="deleteDiagnosJail('0');"/>
+   
+    <apex:actionStatus startText=""  stopText="" id="deleteDiagnosCurrent" 
+   onstart="deleteDiagnosCurrent('1');" onstop="DeleteDiagnosCurrent('0');"/>
+  <br/>
+   <apex:pageblock >
+   <script>
+  function deleteDiag(fieldValue, dname, typeValue ) {
+  //alert('fieldValue; ' + fieldValue);
+   if (confirm('Are you sure you want to delete ' + typeValue + ' Diagnosis: ' +  dname + '?'))
+   {  
+       afdeleteDiag(fieldValue);
+   }
+   }
+</script>
+   <br/>
+  
+      <apex:outputPanel id="panel1" >
+      <apex:outputLabel value="{!Message}" id="errorMessage" rendered="true"
+         style="color:red; font-size:16px;font-bold:true;" /> 
+         
+           <apex:pageBlockSection columns="1"  collapsible="true" id="section1" > 
+            <apex:facet name="header">
+                 
+               <span style="color:black;font-size:16px;background-color:#B0E0E6">
+                  Jail-based Diagnosises</span> 
+            </apex:facet> 
+             <apex:pageBlockTable id="jail" value="{!diagnosisJail}" 
+                var="c" columns="4" cellspacing="0" style="font-size:12px;background-color:#B0E0E6   "
+                columnsWidth="1px,1px,600px,20px">
+               <apex:column headerValue="#">
+                  <apex:outputText value="{!c.itemnumber}"/> 
+               </apex:column>
+               <apex:column >
+                  <apex:commandbutton value="delete" rendered="{!c.itemnumber!=0}" 
+                  onclick="deleteDiag('{!c.diagid}','{!c.diagname}','Jail-based')" 
+                     disabled="{!displayPopup==true}"
+                     status="deleteDiagnosJail" rerender="deleteDiagnosJail,section1">
+                  </apex:commandbutton>                      
+               </apex:column> 
+               <apex:column headerValue="Name">
+                  <apex:outputText value="{!c.diagname}" style="font-weight:bold;"/> 
+               </apex:column>
+               <apex:column headerValue="Type">
+                  <apex:outputText value="{!c.diagtype}" /> 
+               </apex:column>   
+            </apex:pageBlockTable>
+            <apex:outPutPanel >
+              </apex:outPutPanel>
+         </apex:pageBlockSection>
+         <apex:outputPanel id="gif">
+                  <table id="deleteGifData" style="display:none;" >        
+                     <tr> 
+                        <td>
+                           Processing ...Please wait
+                           <apex:image value="/img/loading32.gif" />
+                        </td>
+                     </tr>
+                  </table>    
+               </apex:outputPanel>   
+       
+      <apex:commandButton value="Add Jail-bases Diagnosis" action="{!showPopup}" rerender="popup,jail,current,inputBox1"
+       disabled="{!displayPopup==true}">
+             <apex:param name="diagtype" assignTo="{!diagType}" value="Jail"/>
+       </apex:commandButton>
+       </apex:outputPanel>
+   </apex:pageblock>
+           <apex:pageblock >
+           <apex:outputPanel id="panel2" >
+           <apex:pageBlockSection columns="1"  collapsible="true" id="section2"  > 
+            <apex:facet name="header" >
+               <span style="color:black;font-size:16px;background-color:#F0E68C">
+                Current Diagnosises</span> 
+            </apex:facet> 
+             <apex:pageBlockTable id="current" value="{!diagnosisCurrent}" 
+                var="cu" columns="4" cellspacing="0" style="font-size:12px;background-color:#F0E68C"
+                columnsWidth="1px,1px,600px,20px">
+               <apex:column headerValue="#">
+                  <apex:outputText value="{!cu.itemnumber}"/> 
+               </apex:column>
+               <apex:column >
+                  <apex:commandbutton value="delete" rendered="{!cu.itemnumber!=0}" 
+                      onclick="deleteDiag('{!cu.diagid}','{!cu.diagname}','Current')"
+                      disabled="{!displayPopup==true}"
+                  status="deleteDiagnosCurrent" rerender="deleteDiagnosCurrent,section2">
+                   </apex:commandbutton>                      
+               </apex:column> 
+               <apex:column headerValue="Name">
+                  <apex:outputText value="{!cu.diagname}" style="font-weight:bold;"/> 
+               </apex:column>
+               <apex:column headerValue="Type">
+                  <apex:outputText value="{!cu.diagtype}" /> 
+               </apex:column>   
+            </apex:pageBlockTable>
+            <apex:outPutPanel >
+              </apex:outPutPanel>
+         </apex:pageBlockSection>
+                 <apex:outputPanel id="gif">
+                  <table id="deleteGifData1" style="display:none;" >        
+                     <tr> 
+                        <td>
+                           Processing ...Please wait
+                           <apex:image value="/img/loading32.gif" />
+                        </td>
+                     </tr>
+                  </table>    
+               </apex:outputPanel>    
+      <apex:commandButton value="Add Current Diagnosis" action="{!showPopup}" rerender="popup,section2,section1"
+      disabled="{!displayPopup==true}">
+          <apex:param name="diagtype" assignTo="{!diagType}" value="Current"/>
+       </apex:commandButton>
+       </apex:outputPanel>
+   </apex:pageblock>
+   <!--     PopUp area  -->
+   <apex:outPutPanel id="popup"> 
+      <apex:pageBlock mode="inlineEdit" id="pb" > 
+         <apex:outputPanel styleClass="customPopup" layout="block" rendered="{!displayPopUp}"> 
+       <!--   style="background-color:{!colorType}" --> 
+            <apex:outputText value="Add {!diagtype} diagnosis" style="color:red;font-weight:bold;font-size:16px"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:outputpanel >
+           
+               <apex:outputPanel id="gif">
+                  <table id="savingGifData" style="display:none;" >        
+                     <tr> 
+                        <td>
+                           Processing ...Please wait
+                           <apex:image value="/img/loading32.gif" />
+                        </td>
+                     </tr>
+                  </table>    
+               </apex:outputPanel>   
+   
+            <apex:commandButton id="cmdSave" value="Save and Close" action="{!closePopup}" 
+               onclick="saveDiag('{!$Component.pl1}',
+                         '{!$Component.pl2}',
+                         '{!$Component.pl3}',
+                         '{!$Component.pl4}',
+                         '{!$Component.pl5}')"
+                         rerender="savingDiagnos,popup,section2,section1" status="savingDiagnos">
+            </apex:commandButton>
+  </apex:outputpanel>
+  <script>
+     function saveDiag(d1,d2,d3,d4,d5){
+        var pl1 = '';
+        var pl2 = '';
+        var pl3 = '';
+        var pl4 = '';
+        var pl5 = '';
+  
+        var Obj1 = document.getElementById(d1);
+        if (Obj1 != null){
+            var pl1 = Obj1.options[Obj1.selectedIndex].text;
+        }
+        var Obj2 = document.getElementById(d2);
+        if (Obj2 != null){
+           var pl2 = Obj2.options[Obj2.selectedIndex].text;
+           if (pl2 == pl1)
+                pl2 = '';
+        } 
+        var Obj3 = document.getElementById(d3);
+        if (Obj3 != null){
+           var pl3 = Obj3.options[Obj3.selectedIndex].text;
+           if (pl3 == pl2 || pl3 == pl1)
+               pl3 = '';
+        }
+        var Obj4 = document.getElementById(d4);
+        if (Obj4 != null){
+        var pl4 = Obj4.options[Obj4.selectedIndex].text;
+            if (pl4 == pl3 || pl4 == pl2 || pl4 == pl1)
+                pl4 = '';
+        }
+        var Obj5 = document.getElementById(d5);
+        if (Obj5 != null ){
+            var pl5 = Obj5.options[Obj5.selectedIndex].text;
+            if (pl5 == pl4 || pl5 == pl3 || pl5 == pl2 || pl5 == pl1)
+               pl5 = '';
+        }
+      //  alert('on page save pl1: ' + pl1 +  ' pl2: ' + pl2);
+        afSaveSelectedDiag(pl1,pl2,pl3,pl4,pl5);
+ 
+   }
+</script>
+  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <apex:commandButton value="Cancel" action="{!closePopup}" rerender="popup,section2,section1">
+       </apex:commandButton>
+       
+     <apex:outputPanel >
+        <br/> 
+         <br/>      
+           <apex:outPutPanel id="op1">
+           <apex:inputText value="{!inputValue1}" label="Enter string:" id="inputBox1"/>
+           <apex:commandLink type="image/png" action="{!doNothing}" rerender="pl1,op1" >
+             <apex:image value="{!$Resource.find}" title="Show list" style="border-width:1px;"/>
+           </apex:commandLink>  
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <apex:selectList size="1" required="false" value="{!CodesList1}" id="pl1" style="width:430px;" rendered="{!lfound1}">
+               <apex:selectOptions value="{!CodesItems1}"  />  
+           </apex:selectList>
+           <apex:outputText value="Diagnosis not found {!inputValue1}" rendered="{!lfound1==false&&inputValue1!=''}">
+           </apex:outputText>
+         </apex:outPutPanel>  
+          <br/>  
+          <br/> 
+             <apex:outPutPanel id="op2">      
+          <apex:inputText value="{!inputValue2}" label="Enter string:" id="inputBox2"/>
+           <apex:commandLink type="image/png" action="{!doNothing}" rerender="pl2,op2" >
+             <apex:image value="{!$Resource.find}" title="Show list" style="border-width:1px;"/>
+           </apex:commandLink>
+         
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <apex:selectList size="1" required="false" value="{!CodesList2}" id="pl2" style="width:430px;" rendered="{!lfound2}">
+                 <apex:selectOptions value="{!CodesItems2}" />  
+          </apex:selectList>
+          <apex:outputText value="Diagnosis not found {!inputValue2}" rendered="{!lfound2==false&&inputValue2!=''}"/>
+          </apex:outPutPanel>
+          <br/> 
+          <br/> 
+                     <apex:outPutPanel id="op3">      
+                  <apex:inputText value="{!inputValue3}" label="Enter string:" id="inputBox3"/>
+           <apex:commandLink type="image/png" action="{!doNothing}" rerender="pl3,op3" >
+            <apex:image value="{!$Resource.find}" title="Show list" style="border-width:1px;"/>
+           </apex:commandLink>
+         
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <apex:selectList size="1" required="false" value="{!CodesList3}" id="pl3" style="width:430px;" rendered="{!lfound3}">
+                 <apex:selectOptions value="{!CodesItems3}"  />  
+          </apex:selectList>
+          <apex:outputText value="Diagnosis not found {!inputValue3}" rendered="{!lfound3==false&&inputValue3!=''}"/>
+
+          </apex:outPutPanel>
+          <br/> 
+          <br/> 
+           <apex:outPutPanel id="op4">      
+              <apex:inputText value="{!inputValue4}" label="Enter string:" id="inputBox4"/>
+           <apex:commandLink type="image/png" action="{!doNothing}" rerender="pl4,op4" >
+            <apex:image value="{!$Resource.find}" title="Show list" style="border-width:1px;"/>
+           </apex:commandLink>
+         
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <apex:selectList size="1" required="false" value="{!CodesList4}" id="pl4" style="width:430px;" rendered="{!lfound4}">
+                 <apex:selectOptions value="{!CodesItems4}" />  
+          </apex:selectList>
+          <apex:outputText value="Diagnosis not found {!inputValue4}" rendered="{!lfound4==false&&inputValue4!=''}"/>
+          
+          </apex:outPutPanel>
+         <br/> 
+          <br/> 
+           <apex:outPutPanel id="op5">      
+                         <apex:inputText value="{!inputValue5}" label="Enter string:" id="inputBox5"/>
+           <apex:commandLink type="image/png" action="{!doNothing}" rerender="pl5,op5" >
+            <apex:image value="{!$Resource.find}" title="Show list" style="border-width:1px;"/>
+           </apex:commandLink>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <apex:selectList size="1" required="false" value="{!CodesList5}" id="pl5" style="width:430px;" rendered="{!lfound5}">
+                 <apex:selectOptions value="{!CodesItems5}" />  
+          </apex:selectList>
+          <apex:outputText value="Diagnosis not found {!inputValue5}" rendered="{!lfound5==false&&inputValue5!=''}"/>
+
+          </apex:outPutPanel>
+         </apex:outputPanel>
+          </apex:outputPanel>
+      </apex:pageBlock>
+      </apex:outPutPanel>
+</apex:form>
+</apex:page>

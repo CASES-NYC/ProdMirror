@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>32.0</apiVersion>
+    <description>Custom Visualforce Component that enables a PDF rendered Visualforce page to display repeating header and footers. This component supports displaying left, right, and center header text as well as page numbers.</description>
+    <label>PDFHeaderFooter</label>
+</ApexComponent>

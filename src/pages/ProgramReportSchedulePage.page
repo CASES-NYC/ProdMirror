@@ -1,0 +1,1170 @@
+<apex:page controller="ProgramReportScheduleController" cache="false"
+deferLastCommandUntilReady="true" sidebar="true">  
+<!--  
+	<apex:stylesheet value="{!URLFOR($Resource.jQuery,'/jQuery/style.css')}" />
+	<apex:stylesheet value="{!URLFOR($Resource.jQueryUI,'/css/redmond/jquery-ui-1.8.15.custom.css')}" />
+-->
+
+	<apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/style.css')}" />
+	<apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQueryUI-1.10.3/css/redmond/jquery-ui-1.8.15.custom.css')}" />
+<script>
+ function setFocusOnLoad()
+{
+}
+</script>  
+<script>
+function confirm(){
+//    if(something condition){
+       return true;
+//}
+//return false;
+}
+</script>
+
+<script>
+function pause(milliseconds) {
+ 	var dt = new Date();
+	while ((new Date()) - dt <= milliseconds) { /* Do nothing */ }
+}
+
+</script>
+
+
+<script>
+   function confirmTimeOut()
+   {
+      aftimeOut();
+   }
+</script>
+
+
+<script>  
+        function loadingApps(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('loadingGifData').style.display = '';
+            } else {
+                document.getElementById('loadingGifData').style.display = 'none';
+            }
+        } 
+      function savingData(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('savingGifData').style.display = '';
+            } else {
+                document.getElementById('savingGifData').style.display = 'none';
+            }
+        } 
+        function showSaving() {
+               document.getElementById('savingGifData').style.display = '';
+               afShowSaving();
+        } 
+        
+        function hideSaving() {
+               document.getElementById('savingGifData').style.display = 'none';
+        } 
+   
+
+</script> 
+ <script>
+     function setTimeOut(timeInValue, timeline)
+     {
+    //   pause(500);
+       if (timeline == 1)
+          {
+             afSetTimeOutStart1(timeInValue);}
+       else
+          if (timeline == 2)
+            {
+              afSetTimeOutStart2(timeInValue);
+            }
+       else
+          if (timeline == 3)
+            {
+               afSetTimeOutStart3(timeInValue);
+            }
+       else
+          if (timeline == 4)
+            {
+              afSetTimeOutStart4(timeInValue);
+            }
+       else
+          if (timeline == 5)
+           {
+             afSetTimeOutStart5(timeInValue);
+           }
+     } 
+</script>
+
+ <script>
+   function enableCheckDOW(ifchecked,id1,id2,id3,id4, in1,out1,
+   in2,out2,in3,out3,in4,out4) {  
+  //   pause(500); 
+     if (ifchecked == true){   
+        document.getElementById(id1).disabled = ifchecked;
+        document.getElementById(id2).disabled = ifchecked;
+        document.getElementById(id3).disabled = ifchecked;
+        document.getElementById(id4).disabled = ifchecked;}
+     else 
+   {
+      var objin1 = document.getElementById(in1);
+      var objout1 = document.getElementById(out1);
+      var t1 = objin1.value;
+      var t2 = objout1.value;
+      if (t1 == '' || t2 == '')
+         document.getElementById(id1).disabled = true;
+      else 
+        document.getElementById(id1).disabled = false; 
+      var objin2 = document.getElementById(in2);
+      var objout2 = document.getElementById(out2);
+      var t1 = objin2.value;
+      var t2 = objout2.value;
+      if (t1 == '' || t2 == '')
+         document.getElementById(id2).disabled = true;
+      else 
+        document.getElementById(id2).disabled = false;  
+     var objin3 = document.getElementById(in3);
+      var objout3 = document.getElementById(out3);
+      var t1 = objin3.value;
+      var t2 = objout3.value;
+      if (t1 == '' || t2 == '')
+         document.getElementById(id3).disabled = true;
+      else 
+        document.getElementById(id3).disabled = false;                      
+     var objin4 = document.getElementById(in4);
+      var objout4 = document.getElementById(out4);
+      var t1 = objin4.value;
+      var t2 = objout4.value;
+      if (t1 == '' || t2 == '')
+         document.getElementById(id4).disabled = true;
+      else 
+        document.getElementById(id4).disabled = false;                      
+     }
+ //    af1();
+  }    
+</script>
+<apex:form id="af">
+   <apex:actionFunction name="afSetTimeOutStart1" action="{!PK_timeInValue1}" rerender="timeEnd1">
+      <apex:param name="timeInValue" assignTo="{!timeInValue}" value="" />
+   </apex:actionFunction> 
+   <apex:actionFunction name="afSetTimeOutStart2" action="{!PK_timeInValue2}" rerender="timeEnd2">
+      <apex:param name="timeInValue" assignTo="{!timeInValue}" value="" />
+   </apex:actionFunction>
+   <apex:actionFunction name="afSetTimeOutStart3" action="{!PK_timeInValue3}" rerender="timeEnd3">
+        <apex:param name="timeInValue" assignTo="{!timeInValue}" value="" />
+   </apex:actionFunction>
+   <apex:actionFunction name="afSetTimeOutStart4" action="{!PK_timeInValue4}" rerender="timeEnd4">
+        <apex:param name="timeInValue" assignTo="{!timeInValue}" value="" />
+   </apex:actionFunction>
+   <apex:actionFunction name="afSetTimeOutStart5" action="{!PK_timeInValue5}" rerender="timeEnd5">
+        <apex:param name="timeInValue" assignTo="{!timeInValue}" value="" />
+   </apex:actionFunction>
+  
+   <apex:actionFunction name="afScheduleClients" action="{!ScheduleClients}" rerender="clients, lblInfo">
+      <apex:param name="mask1" assignTo="{!mask1}" value="" />
+      <apex:param name="mask2" assignTo="{!mask2}" value="" />
+      <apex:param name="mask3" assignTo="{!mask3}" value="" />
+      <apex:param name="mask4" assignTo="{!mask4}" value="" />
+      <apex:param name="mask5" assignTo="{!mask5}" value="" />
+      <apex:param name="In1"   assignTo="{!in1}" value="" />
+      <apex:param name="Out1"  assignTo="{!out1}" value="" />
+      <apex:param name="In2"   assignTo="{!in2}" value="" />
+      <apex:param name="Out2"  assignTo="{!out2}" value="" />
+      <apex:param name="In3"   assignTo="{!in3}" value="" />
+      <apex:param name="Out3"  assignTo="{!out3}" value="" />
+      <apex:param name="In4"   assignTo="{!in4}" value="" />
+      <apex:param name="Out4"  assignTo="{!out4}" value="" />
+      <apex:param name="In5"   assignTo="{!in5}" value="" />
+      <apex:param name="Out5"  assignTo="{!out5}" value="" />
+   </apex:actionFunction>
+   <apex:actionFunction name="aftimeOut" action="{!doNothing}" rerender="lbl">
+   </apex:actionFunction>
+   
+   <apex:actionFunction name="afResetEvents" action="{!resetEvents}" rerender="clients">
+   </apex:actionFunction>
+   
+   <apex:actionFunction name="afShowSaving" action="{!doNothing}" >
+   </apex:actionFunction>
+ 
+   <apex:pageBlock >
+   <table id="table1">
+     <tr>
+        <td width="200px">
+           <div align="left" style="color:blue" id="dates">
+               Dates between<br />
+                               <apex:inputField value="{!proxyobject.School_Start_Date__c}" /><br />
+                  and<br />
+                 <apex:inputField value="{!proxyObject.School_End_Date__c}" /><br />
+                 <br/>
+                 <div style="color:blue;align:left">
+                    Select Programs<br />
+                              <apex:selectCheckboxes id="selprg" border="1" style="font-size:11px" 
+                     layout="pageDirection" value="{!Programs}" rendered="true">
+                        <apex:selectOptions value="{!programitems}" id="item"  /> 
+                    </apex:selectCheckboxes>
+                 <br/>
+                 </div>
+                 <apex:commandLink id="cmdSelect" value="Show Active Clients" styleClass="btn" 
+                        accesskey="" status="selectData" rerender="clients,selprg,setup"
+                        action="{!resetEvents}" >
+                 </apex:commandLink>       
+                 <br/>
+                 <br/> 
+                 <outputPanel>
+                <apex:commandButton id="cmdAddRecords" value="Schedule Selected Clients" 
+                style="color:blue;"
+                 onclick="scheduleClients('{!$Component.checkMon1}','{!$Component.checkTue1}',
+                   '{!$Component.checkWed1}','{!$Component.checkThu1}','{!$Component.checkFri1}',
+                   '{!$Component.checkSat1}','{!$Component.checkSun1}',
+                   '{!$Component.checkMon2}','{!$Component.checkTue2}',
+                   '{!$Component.checkWed2}','{!$Component.checkThu2}','{!$Component.checkFri2}',
+                   '{!$Component.checkSat2}','{!$Component.checkSun2}',
+                   '{!$Component.checkMon3}','{!$Component.checkTue3}',
+                   '{!$Component.checkWed3}','{!$Component.checkThu3}','{!$Component.checkFri3}',
+                   '{!$Component.checkSat3}','{!$Component.checkSun3}',
+                   '{!$Component.checkMon4}','{!$Component.checkTue4}',
+                   '{!$Component.checkWed4}','{!$Component.checkThu4}','{!$Component.checkFri4}',
+                   '{!$Component.checkSat4}','{!$Component.checkSun4}',
+                   '{!$Component.checkMon5}','{!$Component.checkTue5}',
+                   '{!$Component.checkWed5}','{!$Component.checkThu5}','{!$Component.checkFri5}',
+                   '{!$Component.checkSat5}','{!$Component.checkSun5}',
+                   '{!$Component.timeBeg1}', '{!$Component.timeEnd1}',
+                   '{!$Component.timeBeg2}', '{!$Component.timeEnd2}',
+                   '{!$Component.timeBeg3}', '{!$Component.timeEnd3}',
+                   '{!$Component.timeBeg4}', '{!$Component.timeEnd4}',
+                   '{!$Component.timeBeg5}', '{!$Component.timeEnd5}', id)" rerender="clients"
+                  status="scheduleClients">
+  <script>
+    function scheduleClients(mon1, tue1,wed1,thu1,fri1,sat1,sun1,
+                             mon2, tue2,wed2,thu2,fri2,sat2,sun2,
+    						 mon3, tue3,wed3,thu3,fri3,sat3,sun3,
+                             mon4, tue4,wed4,thu4,fri4,sat4,sun4,
+                             mon5, tue5,wed5,thu5,fri5,sat5,sun5,
+                             beg1, end1, beg2, end2, beg3, end3, beg4, end4, beg5, end5)
+    {
+   
+  //    var cmdAdd = document.getElementById(cmd);
+  //    cmdAdd.Value = 'Saving records...';
+  //    cmdAdd.disabled = true;
+ //     showSaving();
+     
+ //    pause(500);
+ //     var conf  = confirm();
+      var In1 = document.getElementById(beg1).value;
+      var Out1 = document.getElementById(end1).value;
+
+      var In2 = document.getElementById(beg2).value;
+      var Out2 = document.getElementById(end2).value;
+      var In3 = document.getElementById(beg3).value;
+      var Out3 = document.getElementById(end3).value;
+      var In4 = document.getElementById(beg4).value;
+      var Out4 = document.getElementById(end4).value;
+      var In5 = document.getElementById(beg5).value;
+      var Out5 = document.getElementById(end5).value;
+
+
+      var mask1 = 0;
+      if (document.getElementById(mon1).checked == true)
+         mask1 = 2;
+      if (document.getElementById(tue1).checked == true)
+         mask1 += 4;
+      if (document.getElementById(wed1).checked == true)
+        mask1 += 8;
+     if (document.getElementById(thu1).checked == true)
+        mask1 += 16;
+     if (document.getElementById(fri1).checked == true)
+        mask1 += 32;
+     if (document.getElementById(sat1).checked == true)
+        mask1 += 64;
+     if (document.getElementById(sun1).checked == true)
+        mask1 += 1;
+ //     if (mask1 != 0)
+ //     {
+ //      afScheduleClients(mask1, In1, Out1)
+ //    }
+      var mask2 = 0;
+      if (document.getElementById(mon2).checked == true)
+         mask2 = 2;
+      if (document.getElementById(tue2).checked == true)
+         mask2 += 4;
+      if (document.getElementById(wed2).checked == true)
+        mask2 += 8;
+     if (document.getElementById(thu2).checked == true)
+        mask2 += 16;
+     if (document.getElementById(fri2).checked == true)
+        mask2 += 32;
+     if (document.getElementById(sat2).checked == true)
+        mask2 += 64;
+     if (document.getElementById(sun2).checked == true)
+        mask2 += 1;
+
+     var mask3 = 0;
+      if (document.getElementById(mon3).checked == true)
+         mask3 = 2;
+      if (document.getElementById(tue3).checked == true)
+         mask3 += 4;
+      if (document.getElementById(wed3).checked == true)
+        mask3 += 8;
+     if (document.getElementById(thu3).checked == true)
+        mask3 += 16;
+     if (document.getElementById(fri3).checked == true)
+        mask3 += 32;
+     if (document.getElementById(sat3).checked == true)
+        mask3 += 64;
+     if (document.getElementById(sun3).checked == true)
+        mask3 += 1;
+
+    var mask4 = 0;
+      if (document.getElementById(mon4).checked == true)
+         mask4 = 2;
+      if (document.getElementById(tue4).checked == true)
+         mask4 += 4;
+      if (document.getElementById(wed4).checked == true)
+        mask4 += 8;
+     if (document.getElementById(thu4).checked == true)
+        mask4 += 16;
+     if (document.getElementById(fri4).checked == true)
+        mask4 += 32;
+     if (document.getElementById(sat4).checked == true)
+        mask4 += 64;
+     if (document.getElementById(sun4).checked == true)
+        mask4 += 1;  
+
+   var mask5 = 0;
+      if (document.getElementById(mon5).checked == true)
+         mask5 = 2;
+      if (document.getElementById(tue5).checked == true)
+         mask5 += 4;
+      if (document.getElementById(wed5).checked == true)
+        mask5 += 8;
+     if (document.getElementById(thu5).checked == true)
+        mask5 += 16;
+     if (document.getElementById(fri5).checked == true)
+        mask5 += 32;
+     if (document.getElementById(sat5).checked == true)
+        mask5 += 64;
+     if (document.getElementById(sun5).checked == true)
+        mask5 += 1;          
+         
+ //      alert('mask1: ' + mask1 +  ' mask2: ' + mask2 +' mask3: ' + mask3 +' mask4: ' + mask4 +' mask5: ' + mask5 +
+ //        ' in1: ' + In1 + ' out1: ' +  Out1 + 
+ //       ' in2: ' + In2 + ' out2: ' +  Out2 +' in3: ' + In3 + ' out3: ' +  Out3 + 
+ //       ' in4: ' + In4 + ' out4: ' +  Out4 +' in4: ' + In5 + ' out5: ' +  Out5 );
+      if (mask1 != 0 && In1 == '' && Out1 == '')
+       {  alert("Please, select Days and Client(s) to schedule")
+          return;
+       } 
+      if (mask1 == 0 && mask2 == 0 && mask3 == 0 && mask4 == 0 && mask5 == 0)
+       {  alert("Please, select Time, Days and Client(s) to schedule")
+          return;
+       } 
+     
+      afScheduleClients(mask1, mask2, mask3, mask4, mask5,
+             In1, Out1, In2, Out2,In3, Out3,In4, Out4,In5, Out5)
+ //    alert('after save')
+ 
+  //  pause(500);
+ // afResetEvents(); 
+    } 
+</script>
+ </apex:commandButton>
+    </outputPanel>
+      <apex:outputLabel id="lblInfo" value="{!selectedInfo}" style="color:red;"  >
+      </apex:outputLabel>                 
+                 
+     <!-- 
+                 <apex:outputLabel id="lbl" value="nothing" style="display:none;" >
+                 </apex:outputLabel> 
+           -->   
+                 
+       <span id="loadingGifData" style="display:none;" > 
+          <table>       
+             <tr> 
+               <td>
+                Selecting Clients ...Please wait
+                  <apex:image value="{!$Resource.loading}" />
+               </td>
+             </tr>
+         </table>
+      </span>
+      <span id="savingGifData" style="display:none;" > 
+          <table>       
+             <tr> 
+               <td>
+                Saving records ...Please wait
+                  <apex:image value="/img/loading32.gif" />
+               </td>
+             </tr>
+         </table>
+      </span>
+     </div>                                  
+    </td>
+<td>
+<apex:outputPanel id="setup" style="font-size:20px;color:blue;font-bold:false;" layout="inline"> 
+   <table border="1" class="tableClass" id="days" >
+   <thead>
+   <tr style="background-color:#AFEEEE">
+              <td scope="col" width="100">Start Time </td>
+        <td scope="col" width="100px">End Time</td>
+        <td scope="col">Mon</td>
+        <td scope="col">Tue</td>
+        <td scope="col">Wed</td>
+        <td scope="col">Thu</td>
+        <td scope="col">Fri</td>
+        <td scope="col">Sat</td>
+        <td scope="col">Sun</td>
+  </tr> 
+    </thead>
+    <tbody> 
+       <tr>
+          <td>&nbsp;
+              <apex:selectList id="timeBeg1" style="width:80px" value="{!times}" size="1"
+                onchange="timeLineValidation(id,'{!$Component.timeEnd1}',
+                '{!$Component.checkMon1}','{!$Component.checkTue1}',
+                '{!$Component.checkWed1}','{!$Component.checkThu1}',
+                '{!$Component.checkFri1}','{!$Component.checkSat1}',
+                '{!$Component.checkSun1}',
+                '{!$Component.checkMon2}','{!$Component.checkTue2}',
+                '{!$Component.checkWed2}','{!$Component.checkThu2}',
+                '{!$Component.checkFri2}','{!$Component.checkSat2}',
+                '{!$Component.checkSun2}',
+                '{!$Component.checkMon3}','{!$Component.checkTue3}',
+                '{!$Component.checkWed3}','{!$Component.checkThu3}',
+                '{!$Component.checkFri3}','{!$Component.checkSat3}',
+                '{!$Component.checkSun3}',
+                '{!$Component.checkMon4}','{!$Component.checkTue4}',
+                '{!$Component.checkWed4}','{!$Component.checkThu4}',
+                '{!$Component.checkFri4}','{!$Component.checkSat4}',
+                '{!$Component.checkSun4}',
+                '{!$Component.checkMon5}','{!$Component.checkTue5}',
+                '{!$Component.checkWed5}','{!$Component.checkThu5}',
+                '{!$Component.checkFri5}','{!$Component.checkSat5}',
+                '{!$Component.checkSun5}', 'timein',1)" >  
+                <apex:selectOptions value="{!timeitems}" id="itemin1"/>
+              </apex:selectList>
+           </td>
+          <td width="100px">&nbsp;
+                <apex:selectList id="timeEnd1" style="width:80px" value="{!times}" size="1" 
+                 onchange="timeLineValidation(id,'{!$Component.timeBeg1}',
+                '{!$Component.checkMon1}','{!$Component.checkTue1}',
+                '{!$Component.checkWed1}','{!$Component.checkThu1}',
+                '{!$Component.checkFri1}','{!$Component.checkSat1}',
+                '{!$Component.checkSun1}',
+                '{!$Component.checkMon2}','{!$Component.checkTue2}',
+                '{!$Component.checkWed2}','{!$Component.checkThu2}',
+                '{!$Component.checkFri2}','{!$Component.checkSat2}',
+                '{!$Component.checkSun2}',
+                '{!$Component.checkMon3}','{!$Component.checkTue3}',
+                '{!$Component.checkWed3}','{!$Component.checkThu3}',
+                '{!$Component.checkFri3}','{!$Component.checkSat3}',
+                '{!$Component.checkSun3}',
+                '{!$Component.checkMon4}','{!$Component.checkTue4}',
+                '{!$Component.checkWed4}','{!$Component.checkThu4}',
+                '{!$Component.checkFri4}','{!$Component.checkSat4}',
+                '{!$Component.checkSun4}',
+                '{!$Component.checkMon5}','{!$Component.checkTue5}',
+                '{!$Component.checkWed5}','{!$Component.checkThu5}',
+                '{!$Component.checkFri5}','{!$Component.checkSat5}',
+                '{!$Component.checkSun5}', 'timeout',1)" > 
+                  <apex:selectOptions value="{!timeoutitems1}" id="itemout1" />
+            </apex:selectList>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkMon1" disabled="true" 
+              onclick="enableCheckDOW(this.checked, 
+             '{!$Component.checkMon2}','{!$Component.checkMon3}',
+             '{!$Component.checkMon4}','{!$Component.checkMon5}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkTue1"  disabled="true" 
+                   onclick="enableCheckDOW(this.checked, 
+             '{!$Component.checkTue2}','{!$Component.checkTue3}',
+             '{!$Component.checkTue4}','{!$Component.checkTue5}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkWed1" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkWed2}',
+             '{!$Component.checkWed3}','{!$Component.checkWed4}','{!$Component.checkWed5}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkThu1"  disabled="true"   
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkThu2}',
+             '{!$Component.checkThu3}','{!$Component.checkThu4}','{!$Component.checkThu5}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkFri1"  disabled="true"   
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkFri2}',
+             '{!$Component.checkFri3}','{!$Component.checkFri4}','{!$Component.checkFri5}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+           <apex:inputCheckbox id="checkSat1" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkSat2}',
+             '{!$Component.checkSat3}','{!$Component.checkSat4}','{!$Component.checkSat5}',
+               '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkSun1"  disabled="true"   
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkSun2}',
+             '{!$Component.checkSun3}','{!$Component.checkSun4}','{!$Component.checkSun5}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+       </tr>
+       <tr> 
+              <td>&nbsp;
+                <apex:selectList id="timeBeg2" style="width:80px" value="{!times}" size="1" 
+                 onchange="timeLineValidation(id,'{!$Component.timeEnd2}',
+                '{!$Component.checkMon2}','{!$Component.checkTue2}',
+                '{!$Component.checkWed2}','{!$Component.checkThu2}',
+                '{!$Component.checkFri2}','{!$Component.checkSat2}',
+                '{!$Component.checkSun2}',
+                '{!$Component.checkMon1}','{!$Component.checkTue1}',
+                '{!$Component.checkWed1}','{!$Component.checkThu1}',
+                '{!$Component.checkFri1}','{!$Component.checkSat1}',
+                '{!$Component.checkSun1}',
+                '{!$Component.checkMon3}','{!$Component.checkTue3}',
+                '{!$Component.checkWed3}','{!$Component.checkThu3}',
+                '{!$Component.checkFri3}','{!$Component.checkSat3}',
+                '{!$Component.checkSun3}',
+                '{!$Component.checkMon4}','{!$Component.checkTue4}',
+                '{!$Component.checkWed4}','{!$Component.checkThu4}',
+                '{!$Component.checkFri4}','{!$Component.checkSat4}',
+                '{!$Component.checkSun4}',
+                '{!$Component.checkMon5}','{!$Component.checkTue5}',
+                '{!$Component.checkWed5}','{!$Component.checkThu5}',
+                '{!$Component.checkFri5}','{!$Component.checkSat5}',
+                '{!$Component.checkSun5}', 'timein',2)" >                
+                  <apex:selectOptions value="{!timeitems}" id="itemin2"  />
+            </apex:selectList>
+            </td>
+          <td width="100px">&nbsp;
+                <apex:selectList id="timeEnd2" style="width:80px" value="{!times}" size="1"  
+                          onchange="timeLineValidation(id,'{!$Component.timeBeg2}',
+                '{!$Component.checkMon2}','{!$Component.checkTue2}',
+                '{!$Component.checkWed2}','{!$Component.checkThu2}',
+                '{!$Component.checkFri2}','{!$Component.checkSat2}',
+                '{!$Component.checkSun2}',
+                '{!$Component.checkMon1}','{!$Component.checkTue1}',
+                '{!$Component.checkWed1}','{!$Component.checkThu1}',
+                '{!$Component.checkFri1}','{!$Component.checkSat1}',
+                '{!$Component.checkSun1}',
+                '{!$Component.checkMon3}','{!$Component.checkTue3}',
+                '{!$Component.checkWed3}','{!$Component.checkThu3}',
+                '{!$Component.checkFri3}','{!$Component.checkSat3}',
+                '{!$Component.checkSun3}',
+                '{!$Component.checkMon4}','{!$Component.checkTue4}',
+                '{!$Component.checkWed4}','{!$Component.checkThu4}',
+                '{!$Component.checkFri4}','{!$Component.checkSat4}',
+                '{!$Component.checkSun4}',
+                '{!$Component.checkMon5}','{!$Component.checkTue5}',
+                '{!$Component.checkWed5}','{!$Component.checkThu5}',
+                '{!$Component.checkFri5}','{!$Component.checkSat5}',
+                '{!$Component.checkSun5}', 'timeout',2)" > 
+                  <apex:selectOptions value="{!timeoutitems2}" id="itemout2"  />
+            </apex:selectList>
+          </td>
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkMon2" disabled="true"  
+              onclick="enableCheckDOW(this.checked, '{!$Component.checkMon1}',
+              '{!$Component.checkMon3}','{!$Component.checkMon4}','{!$Component.checkMon5}',
+              '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkTue2" disabled="true"  
+              onclick="enableCheckDOW(this.checked, '{!$Component.checkTue1}',
+             '{!$Component.checkTue3}','{!$Component.checkTue4}','{!$Component.checkTue5}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkWed2" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkWed1}',
+             '{!$Component.checkWed3}','{!$Component.checkWed4}','{!$Component.checkWed5}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkThu2" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkThu1}',
+             '{!$Component.checkThu3}','{!$Component.checkThu4}','{!$Component.checkThu5}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkFri2" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkFri1}',
+             '{!$Component.checkFri3}','{!$Component.checkFri4}','{!$Component.checkFri5}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+           <apex:inputCheckbox id="checkSat2" disabled="true"   
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkSat1}',
+             '{!$Component.checkSat3}','{!$Component.checkSat4}','{!$Component.checkSat5}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkSun2" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkSun1}',
+             '{!$Component.checkSun3}','{!$Component.checkSun4}','{!$Component.checkSun5}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+         
+       </tr>
+       <tr>
+                <td>&nbsp;
+                <apex:selectList id="timeBeg3" style="width:80px" value="{!times}" size="1"  
+                         onchange="timeLineValidation(id,'{!$Component.timeEnd3}',
+                '{!$Component.checkMon3}','{!$Component.checkTue3}',
+                '{!$Component.checkWed3}','{!$Component.checkThu3}',
+                '{!$Component.checkFri3}','{!$Component.checkSat3}',
+                 '{!$Component.checkSun3}',
+                '{!$Component.checkMon1}','{!$Component.checkTue1}',
+                '{!$Component.checkWed1}','{!$Component.checkThu1}',
+                '{!$Component.checkFri1}','{!$Component.checkSat1}',
+                '{!$Component.checkSun1}',
+                '{!$Component.checkMon2}','{!$Component.checkTue2}',
+                '{!$Component.checkWed2}','{!$Component.checkThu2}',
+                '{!$Component.checkFri2}','{!$Component.checkSat2}',
+                '{!$Component.checkSun2}',
+                '{!$Component.checkMon4}','{!$Component.checkTue4}',
+                '{!$Component.checkWed4}','{!$Component.checkThu4}',
+                '{!$Component.checkFri4}','{!$Component.checkSat4}',
+                '{!$Component.checkSun4}',
+                '{!$Component.checkMon5}','{!$Component.checkTue5}',
+                '{!$Component.checkWed5}','{!$Component.checkThu5}',
+                '{!$Component.checkFri5}','{!$Component.checkSat5}',
+                '{!$Component.checkSun5}', 'timein',3)" >
+                  <apex:selectOptions value="{!timeitems}" id="itemin3"  />
+            </apex:selectList>
+            </td>
+          <td width="100px">&nbsp;
+                <apex:selectList id="timeEnd3" style="width:80px" value="{!times}" size="1"  
+                  onchange="timeLineValidation(id,'{!$Component.timeBeg3}',
+                '{!$Component.checkMon3}','{!$Component.checkTue3}',
+                '{!$Component.checkWed3}','{!$Component.checkThu3}',
+                '{!$Component.checkFri3}','{!$Component.checkSat3}',
+                '{!$Component.checkSun3}',
+                '{!$Component.checkMon1}','{!$Component.checkTue1}',
+                '{!$Component.checkWed1}','{!$Component.checkThu1}',
+                '{!$Component.checkFri1}','{!$Component.checkSat1}',
+                '{!$Component.checkSun1}',
+                '{!$Component.checkMon2}','{!$Component.checkTue2}',
+                '{!$Component.checkWed2}','{!$Component.checkThu2}',
+                '{!$Component.checkFri2}','{!$Component.checkSat2}',
+                '{!$Component.checkSun2}',
+                '{!$Component.checkMon4}','{!$Component.checkTue4}',
+                '{!$Component.checkWed4}','{!$Component.checkThu4}',
+                '{!$Component.checkFri4}','{!$Component.checkSat4}',
+                '{!$Component.checkSun4}',
+                '{!$Component.checkMon5}','{!$Component.checkTue5}',
+                '{!$Component.checkWed5}','{!$Component.checkThu5}',
+                '{!$Component.checkFri5}','{!$Component.checkSat5}',
+                '{!$Component.checkSun5}', 'timeout',3)" >
+                  <apex:selectOptions value="{!timeoutitems3}" id="itemout3"  />
+            </apex:selectList>
+          </td>
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkMon3" disabled="true"  
+            onclick="enableCheckDOW(this.checked, '{!$Component.checkMon1}',
+             '{!$Component.checkMon2}','{!$Component.checkMon4}','{!$Component.checkMon5}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkTue3" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkTue1}',
+             '{!$Component.checkTue2}','{!$Component.checkTue4}','{!$Component.checkTue5}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkWed3"  disabled="true"   
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkWed1}',
+             '{!$Component.checkWed2}','{!$Component.checkWed4}','{!$Component.checkWed5}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>  
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkThu3" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkThu1}',
+             '{!$Component.checkThu2}','{!$Component.checkThu4}','{!$Component.checkThu5}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkFri3" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkFri1}',
+             '{!$Component.checkFri2}','{!$Component.checkFri4}','{!$Component.checkFri5}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+           <apex:inputCheckbox id="checkSat3" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkSat1}',
+             '{!$Component.checkSat2}','{!$Component.checkSat4}','{!$Component.checkSat5}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkSun3" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkSun1}',
+             '{!$Component.checkSun2}','{!$Component.checkSun4}','{!$Component.checkSun5}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+       </tr>
+       <tr>
+           <td>&nbsp;
+                <apex:selectList id="timeBeg4" style="width:80px" value="{!times}" size="1"  
+                   onchange="timeLineValidation(id,'{!$Component.timeEnd4}',
+                '{!$Component.checkMon4}','{!$Component.checkTue4}',
+                '{!$Component.checkWed4}','{!$Component.checkThu4}',
+                '{!$Component.checkFri4}','{!$Component.checkSat4}',
+                '{!$Component.checkSun4}',
+                '{!$Component.checkMon3}','{!$Component.checkTue3}',
+                '{!$Component.checkWed3}','{!$Component.checkThu3}',
+                '{!$Component.checkFri3}','{!$Component.checkSat3}',
+                '{!$Component.checkSun3}',
+                '{!$Component.checkMon1}','{!$Component.checkTue1}',
+                '{!$Component.checkWed1}','{!$Component.checkThu1}',
+                '{!$Component.checkFri1}','{!$Component.checkSat1}',
+                '{!$Component.checkSun1}',
+                '{!$Component.checkMon2}','{!$Component.checkTue2}',
+                '{!$Component.checkWed2}','{!$Component.checkThu2}',
+                '{!$Component.checkFri2}','{!$Component.checkSat2}',
+                '{!$Component.checkSun2}',
+                '{!$Component.checkMon5}','{!$Component.checkTue5}',
+                '{!$Component.checkWed5}','{!$Component.checkThu5}',
+                '{!$Component.checkFri5}','{!$Component.checkSat5}',
+                '{!$Component.checkSun5}', 'timein',4)" >   
+                  <apex:selectOptions value="{!timeitems}" id="itemin4"  />
+            </apex:selectList>
+            </td>
+          <td width="100px">&nbsp;
+                <apex:selectList id="timeEnd4" style="width:80px" value="{!times}" size="1"  
+                  onchange="timeLineValidation(id,'{!$Component.timeBeg4}',
+                '{!$Component.checkMon4}','{!$Component.checkTue4}',
+                '{!$Component.checkWed4}','{!$Component.checkThu4}',
+                '{!$Component.checkFri4}','{!$Component.checkSat4}',
+                '{!$Component.checkSun4}',
+                '{!$Component.checkMon3}','{!$Component.checkTue3}',
+                '{!$Component.checkWed3}','{!$Component.checkThu3}',
+                '{!$Component.checkFri3}','{!$Component.checkSat3}',
+                '{!$Component.checkSun3}',               
+                '{!$Component.checkMon1}','{!$Component.checkTue1}',
+                '{!$Component.checkWed1}','{!$Component.checkThu1}',
+                '{!$Component.checkFri1}','{!$Component.checkSat1}',
+                '{!$Component.checkSun1}',
+                '{!$Component.checkMon2}','{!$Component.checkTue2}',
+                '{!$Component.checkWed2}','{!$Component.checkThu2}',
+                '{!$Component.checkFri2}','{!$Component.checkSat2}',
+                '{!$Component.checkSun2}',
+                '{!$Component.checkMon5}','{!$Component.checkTue5}',
+                '{!$Component.checkWed5}','{!$Component.checkThu5}',
+                '{!$Component.checkFri5}','{!$Component.checkSat5}',
+                '{!$Component.checkSun5}', 'timeout',4)" >  
+                  <apex:selectOptions value="{!timeoutitems4}" id="itemout4"  />
+            </apex:selectList>
+          </td>
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkMon4" disabled="true"  
+            onclick="enableCheckDOW(this.checked, '{!$Component.checkMon2}',
+             '{!$Component.checkMon3}','{!$Component.checkMon1}','{!$Component.checkMon5}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkTue4" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkTue1}',
+             '{!$Component.checkTue2}','{!$Component.checkTue3}','{!$Component.checkTue5}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkWed4" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkWed2}',
+             '{!$Component.checkWed3}','{!$Component.checkWed1}','{!$Component.checkWed5}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkThu4" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkThu2}',
+             '{!$Component.checkThu3}','{!$Component.checkThu1}','{!$Component.checkThu5}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkFri4" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkFri2}',
+             '{!$Component.checkFri3}','{!$Component.checkFri1}','{!$Component.checkFri5}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+           <apex:inputCheckbox id="checkSat4" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkSat2}',
+             '{!$Component.checkSat3}','{!$Component.checkSat1}','{!$Component.checkSat5}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkSun4" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkSun2}',
+             '{!$Component.checkSun3}','{!$Component.checkSun1}','{!$Component.checkSun5}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}',
+             '{!$Component.timeBeg5}','{!$Component.timeEnd5}')"/>
+          </td> 
+       </tr>
+       <tr> 
+              <td>&nbsp;
+                      <apex:selectList id="timeBeg5" style="width:80px" value="{!times}" size="1"  
+                   onchange="timeLineValidation(id,'{!$Component.timeEnd5}',
+                '{!$Component.checkMon5}','{!$Component.checkTue5}',
+                '{!$Component.checkWed5}','{!$Component.checkThu5}',
+                '{!$Component.checkFri5}','{!$Component.checkSat5}',
+                '{!$Component.checkSun5}',
+                '{!$Component.checkMon4}','{!$Component.checkTue4}',
+                '{!$Component.checkWed4}','{!$Component.checkThu4}',
+                '{!$Component.checkFri4}','{!$Component.checkSat4}',
+                '{!$Component.checkSun4}',
+                '{!$Component.checkMon3}','{!$Component.checkTue3}',
+                '{!$Component.checkWed3}','{!$Component.checkThu3}',
+                '{!$Component.checkFri3}','{!$Component.checkSat3}',
+                '{!$Component.checkSun3}',
+                '{!$Component.checkMon1}','{!$Component.checkTue1}',
+                '{!$Component.checkWed1}','{!$Component.checkThu1}',
+                '{!$Component.checkFri1}','{!$Component.checkSat1}',
+                '{!$Component.checkSun1}',
+                '{!$Component.checkMon2}','{!$Component.checkTue2}',
+                '{!$Component.checkWed2}','{!$Component.checkThu2}',
+                '{!$Component.checkFri2}','{!$Component.checkSat2}',
+                '{!$Component.checkSun2}',  'timein',5)" >   
+                  <apex:selectOptions value="{!timeitems}" id="itemin5"  />
+            </apex:selectList>
+            </td>
+          <td width="100px">&nbsp;
+               <apex:selectList id="timeEnd5" style="width:80px" value="{!times}" size="1"  
+                  onchange="timeLineValidation(id,'{!$Component.timeBeg5}',
+                    '{!$Component.checkMon5}','{!$Component.checkTue5}',
+                '{!$Component.checkWed5}','{!$Component.checkThu5}',
+                '{!$Component.checkFri5}','{!$Component.checkSat5}',
+                '{!$Component.checkSun5}',
+                '{!$Component.checkMon4}','{!$Component.checkTue4}',
+                '{!$Component.checkWed4}','{!$Component.checkThu4}',
+                '{!$Component.checkFri4}','{!$Component.checkSat4}',
+                '{!$Component.checkSun4}',
+                '{!$Component.checkMon3}','{!$Component.checkTue3}',
+                '{!$Component.checkWed3}','{!$Component.checkThu3}',
+                '{!$Component.checkFri3}','{!$Component.checkSat3}',
+                '{!$Component.checkSun3}',               
+                '{!$Component.checkMon1}','{!$Component.checkTue1}',
+                '{!$Component.checkWed1}','{!$Component.checkThu1}',
+                '{!$Component.checkFri1}','{!$Component.checkSat1}',
+                '{!$Component.checkSun1}',
+                '{!$Component.checkMon2}','{!$Component.checkTue2}',
+                '{!$Component.checkWed2}','{!$Component.checkThu2}',
+                '{!$Component.checkFri2}','{!$Component.checkSat2}',
+                '{!$Component.checkSun2}', 'timeout',5)" >  
+                  <apex:selectOptions value="{!timeoutitems5}" id="itemout5"  />
+            </apex:selectList>
+          </td>
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkMon5" disabled="true"  
+            onclick="enableCheckDOW(this.checked, '{!$Component.checkMon2}',
+             '{!$Component.checkMon3}','{!$Component.checkMon4}','{!$Component.checkMon1}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkTue5" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkTue2}',
+             '{!$Component.checkTue3}','{!$Component.checkTue4}','{!$Component.checkTue1}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkWed5" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkWed2}',
+             '{!$Component.checkWed3}','{!$Component.checkWed4}','{!$Component.checkWed1}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkThu5" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkThu2}',
+             '{!$Component.checkThu3}','{!$Component.checkThu4}','{!$Component.checkThu1}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}')"/>   
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkFri5" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkFri2}',
+             '{!$Component.checkFri3}','{!$Component.checkFri4}','{!$Component.checkFri1}');"/>
+          </td> 
+          <td width="60px">&nbsp;
+           <apex:inputCheckbox id="checkSat5" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkSat2}',
+             '{!$Component.checkSat3}','{!$Component.checkSat4}','{!$Component.checkSat1}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}')"/>
+          </td> 
+          <td width="60px">&nbsp;
+            <apex:inputCheckbox id="checkSun5" disabled="true"    
+             onclick="enableCheckDOW(this.checked, '{!$Component.checkSun2}',
+             '{!$Component.checkSun3}','{!$Component.checkSun4}','{!$Component.checkSun1}',
+             '{!$Component.timeBeg2}','{!$Component.timeEnd2}',
+             '{!$Component.timeBeg3}','{!$Component.timeEnd3}',
+             '{!$Component.timeBeg4}','{!$Component.timeEnd4}',
+             '{!$Component.timeBeg1}','{!$Component.timeEnd1}')"/>
+          </td> 
+       </tr>
+     </tbody>  
+</table> 
+    <apex:commandLink id="cmdRefresh" value="Refresh"  style="font-size:14px;color:blue;font-bold:false;" 
+                        accesskey="" status="selectData" rerender="clients,selprg,setup, lblInfo, table1"
+                        action="{!resetLabel}" >
+                 </apex:commandLink>
+</apex:outputPanel> 
+</td>        
+   </tr>
+     <apex:actionStatus startText=""  stopText="" id="selectData" onstart="loadingApps('1');" onstop="loadingApps('0');"/>
+     <apex:actionStatus startText=""  stopText="" id="scheduleClients" onstart="savingData('1');" onstop="savingData('0');"/>
+ </table>
+ <!-- 
+ <apex:pageblock title="Creating Schedule Records...">
+    <apex:actionStatus id="mySaveStatus1"> 
+    <apex:facet name="stop">  
+    </apex:facet>
+    <apex:facet name="start">
+    <apex:outputPanel >
+    <apex:image value="/img/loading32.gif" style="height: 15px;"/>
+      </apex:outputPanel>
+    </apex:facet>
+    </apex:actionStatus>
+ </apex:pageblock> 
+ -->
+</apex:pageBlock>
+     <apex:pageBlock id="clients" rendered="true" >
+     <apex:outputPanel id="details" >
+       <apex:pageBlockTable id="Apps" value="{!Contacts}" var="c" columns="6" cellspacing="0" 
+             style="font-size:12px;" border="1px">
+          <apex:column headerValue="to Schedule"  style="width:20px;"> 
+            <apex:inputCheckbox id="checkSched" value="{!c.chk}" onchange="pause(500)" /> 
+          </apex:column>
+          <apex:column headerValue="client"  style="width:100px;">
+              <apex:outputText value="{!c.cont.firstname + ' ' +  c.cont.lastname}" 
+              style="color: {!c.color};font-size:12px;"/> 
+           </apex:column>
+         <apex:column headerValue="ID"  style="width:40px;">
+              <apex:outputText value="{!c.cont.P_C_ID__c}" style="color: {!c.color}" /> 
+           </apex:column>
+           <apex:column headerValue="Current Schedule" style="width:100px;" >
+             <apex:outputLink value="{!serverURL}{!c.schedUrl}" 
+               target="_blank">
+                 open schedule
+              </apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="{!cperiod}"  style="width:250px;" >
+                <apex:outputText value="{!c.sched_dow}" />
+             </apex:column>
+            <apex:column headerValue="Number of Apps"  style="width:50px;" >
+                <apex:outputText value="{!c.numberOfApps}" />
+             </apex:column>
+              </apex:PageBlockTable>  
+         </apex:outputPanel> 
+ </apex:pageBlock>
+                <apex:outPutPanel > 
+                <apex:outputLabel id="lblInfo1" value="{!selectedInfo}"  >
+                 </apex:outputLabel>
+                 </apex:outPutPanel>       
+</apex:form>
+<apex:form id="functions">
+<script>
+   function timeLineValidation(objIn1,objOut1,
+      mon1,tue1,wed1,thu1,fri1,sat1,sun1,
+      mon2,tue2,wed2,thu2,fri2,sat2,sun2,
+      mon3,tue3,wed3,thu3,fri3,sat3,sun3,
+      mon4,tue4,wed4,thu4,fri4,sat4,sun4,
+      mon5,tue5,wed5,thu5,fri5,sat5,sun5, ctime, timeline) { 
+           pause(500); 
+      var objMon = document.getElementById(mon1);
+      var objTue = document.getElementById(tue1);
+      var objWed = document.getElementById(wed1);
+      var objThu = document.getElementById(thu1);
+      var objFri = document.getElementById(fri1);
+      var objSat = document.getElementById(sat1);
+      var objSun = document.getElementById(sun1);
+      var inEntered =  document.getElementById(objIn1); 
+      var outEntered = document.getElementById(objOut1);
+      var TimeInEntered  = inEntered.value;
+      var TimeOutEntered = outEntered.value;
+      if (TimeInEntered == '' || TimeOutEntered == '')
+         {
+           objMon.disabled = true;
+           objMon.checked = false;
+           objTue.disabled = true;
+           objTue.checked = false;
+           objWed.disabled = true;
+           objWed.checked = false;
+           objThu.disabled = true;
+           objThu.checked = false;
+           objFri.disabled = true;
+           objFri.checked = false;
+           objSat.disabled = true;
+           objSat.checked = false;
+           objSun.disabled = true;
+           objSun.checked = false;
+        }
+   else
+        {
+                var objMon2 = document.getElementById(mon2);
+                var objMon3 = document.getElementById(mon3);
+                var objMon4 = document.getElementById(mon4);
+                var objMon5 = document.getElementById(mon5);
+                if (objMon2.checked || objMon3.checked || objMon4.checked || objMon5.checked)
+                   objMon.disabled = true;
+                else 
+                   objMon.disabled = false;
+                var objTue2 = document.getElementById(tue2);
+                var objTue3 = document.getElementById(tue3);
+                var objTue4 = document.getElementById(tue4);
+                var objTue5 = document.getElementById(tue5);
+                if (objTue2.checked || objTue3.checked || objTue4.checked || objTue5.checked)
+                   objTue.disabled = true;
+                else 
+                   objTue.disabled = false;   
+                var objWed2 = document.getElementById(wed2);
+                var objWed3 = document.getElementById(wed3);
+                var objWed4 = document.getElementById(wed4);
+                var objWed5 = document.getElementById(wed5);
+                if (objWed2.checked || objWed3.checked || objWed4.checked || objWed5.checked)
+                   objWed.disabled = true;
+                else 
+                   objWed.disabled = false;   
+                var objThu2 = document.getElementById(thu2);
+                var objThu3 = document.getElementById(thu3);
+                var objThu4 = document.getElementById(thu4);
+                var objThu5 = document.getElementById(thu5);
+                if (objThu2.checked || objThu3.checked || objThu4.checked || objThu5.checked)
+                   objThu.disabled = true;
+                else 
+                   objThu.disabled = false;   
+                var objFri2 = document.getElementById(fri2);
+                var objFri3 = document.getElementById(fri3);
+                var objFri4 = document.getElementById(fri4);
+                var objFri5 = document.getElementById(fri5);
+                if (objFri2.checked || objFri3.checked || objFri4.checked || objFri5.checked)
+                   objFri.disabled = true;
+                else 
+                   objFri.disabled = false;   
+                var objSat2 = document.getElementById(sat2);
+                var objSat3 = document.getElementById(sat3);
+                var objSat4 = document.getElementById(sat4);
+                var objSat5 = document.getElementById(sat5);
+                if (objSat2.checked || objSat3.checked || objSat4.checked || objSat5.checked)
+                   objSat.disabled = true;
+                else 
+                   objSat.disabled = false;   
+
+               var objSun2 = document.getElementById(sun2);
+               var objSun3 = document.getElementById(sun3);
+               var objSun4 = document.getElementById(sun4);
+               var objSun5 = document.getElementById(sun5);
+               if (objSun2.checked || objSun3.checked || objSun4.checked || objSun5.checked)
+                   objSun.disabled = true;
+                else 
+                   objSun.disabled = false;   
+        }
+     //   pause(500);
+        if (ctime == 'timein')
+            setTimeOut(TimeInEntered, timeline);
+        else
+          confirmTimeOut();    
+          
+   }
+ </script>
+</apex:form>
+</apex:page>

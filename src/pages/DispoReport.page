@@ -1,0 +1,816 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" title="Dispo Results">
+    <script type="text/javascript">__sfdcSessionId = '{!$Api.Session_Id}';</script>
+    <script src="../../soap/ajax/11.0/connection.js" type="text/javascript"></script>
+    
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Dispo Results</title>
+<style type="text/css">
+
+td
+{
+    text-align: left;
+}
+
+.headerText {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.fieldLabelCaps {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+.fieldValue {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+}
+body,td,th {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+}
+.fieldLabel {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+}
+.label
+{
+    width:125px;
+}
+
+
+</style>
+<script type="text/javascript">
+
+function format_date(dates)
+{
+    if(dates)
+    {
+        var arr = dates.split("-");
+        var farmated_date = arr[1]+"/"+arr[2]+"/"+arr[0];
+        return farmated_date;
+    }
+    else
+    {
+        return ' - ';
+    }
+}
+
+// Returns the current date in an SF Friendly format
+function getPreFillDate() {
+    var now         = new Date();
+        
+        today = now.valueOf();
+    oneDay = 1000 * 24 * 60 * 60;
+        tomorrow = today + oneDay;
+        now.setTime(tomorrow);
+        
+    var monthnumber = now.getMonth();
+    monthnumber++;
+    var monthnum = '';
+    if(monthnumber < 10) {
+        monthnum = '0' + monthnumber;
+    } else {
+        monthnum = monthnumber;
+    }
+    var monthday    = now.getDate();
+        if(monthday < 10) {
+             monthday = '0' + monthday;
+        }
+    var year        = now.getYear();
+    if(year < 2000) { year = year + 1900; }
+    var dateString = monthnum + '/' + monthday + '/' + year;
+    
+    return dateString;
+}
+
+function getValue(table, field, id)
+{
+    var sql = sforce.connection.query("SELECT "+field+" FROM "+table+" WHERE Id = '"+id+"' LIMIT 1");
+    if (sql.getBoolean("done") && sql.size!=0)
+    {
+        var recs = sql.getArray("records");
+        return recs[0].get(field);
+    }
+    else
+    {
+        return "N/A"
+    }
+}
+
+function validate(rep, borough, date_from, date_till)
+{
+    if(isDate(date_from) && isDate(date_till))
+    {
+        search(rep, borough, date_from, date_till);
+    }
+}
+
+
+var dtCh= "/";
+var minYear=1900;
+var maxYear=2100;
+
+function isInteger(s){
+    var i;
+    for (i = 0; i < s.length; i++){   
+        // Check that current character is number.
+        var c = s.charAt(i);
+        if (((c < "0") || (c > "9"))) return false;
+    }
+    // All characters are numbers.
+    return true;
+}
+
+function stripCharsInBag(s, bag){
+    var i;
+    var returnString = "";
+    // Search through string's characters one by one.
+    // If character is not in bag, append to returnString.
+    for (i = 0; i < s.length; i++){   
+        var c = s.charAt(i);
+        if (bag.indexOf(c) == -1) returnString += c;
+    }
+    return returnString;
+}
+
+function daysInFebruary (year){
+    // February has 29 days in any year evenly divisible by four,
+    // EXCEPT for centurial years which are not also divisible by 400.
+    return (((year % 4 == 0) && ( (!(year % 100 == 0)) || (year % 400 == 0))) ? 29 : 28 );
+}
+function DaysArray(n) {
+    for (var i = 1; i <= n; i++) {
+        this[i] = 31
+        if (i==4 || i==6 || i==9 || i==11) {this[i] = 30}
+        if (i==2) {this[i] = 29}
+   } 
+   return this
+}
+
+function isDate(dtStr){
+    var daysInMonth = DaysArray(12)
+    var pos1=dtStr.indexOf(dtCh)
+    var pos2=dtStr.indexOf(dtCh,pos1+1)
+    var strMonth=dtStr.substring(0,pos1)
+    var strDay=dtStr.substring(pos1+1,pos2)
+    var strYear=dtStr.substring(pos2+1)
+    if(strMonth.length!=2)
+    {
+        alert("Please enter a valid 2 digit month");
+        return false;
+    }
+    if(strDay.length!=2)
+    {
+        alert("Please enter a valid 2 digit day");
+        return false;
+    }
+    
+    strYr=strYear
+    if (strDay.charAt(0)=="0" && strDay.length>1) strDay=strDay.substring(1)
+    if (strMonth.charAt(0)=="0" && strMonth.length>1) strMonth=strMonth.substring(1)
+    for (var i = 1; i <= 3; i++) {
+        if (strYr.charAt(0)=="0" && strYr.length>1) strYr=strYr.substring(1)
+    }
+    month=parseInt(strMonth)
+    day=parseInt(strDay)
+    year=parseInt(strYr)
+    if (pos1==-1 || pos2==-1){
+        alert("The date format should be : mm/dd/yyyy")
+        return false
+    }
+    if (strMonth.length<1 || month<1 || month>12){
+        alert("Please enter a valid month")
+        return false
+    }
+    if (strDay.length<1 || day<1 || day>31 || (month==2 && day>daysInFebruary(year)) || day > daysInMonth[month]){
+        alert("Please enter a valid day")
+        return false
+    }
+    if (strYear.length != 4 || year==0 || year<minYear || year>maxYear){
+        alert("Please enter a valid 4 digit year between "+minYear+" and "+maxYear)
+        return false
+    }
+    if (dtStr.indexOf(dtCh,pos2+1)!=-1 || isInteger(stripCharsInBag(dtStr, dtCh))==false){
+        alert("Please enter a valid date")
+        return false
+    }
+return true
+}
+
+function ValidateForm(){
+    var dt=document.frmSample.txtDate
+    if (isDate(dt.value)==false){
+        dt.focus()
+        return false
+    }
+    return true
+ }
+
+function init()
+{
+    var sql;
+    var records;
+    var court_rep='';
+    sql = sforce.connection.query("SELECT Id, FirstName, LastName FROM User Where IsActive = True ORDER BY LastName");
+    if (sql.getBoolean("done") && sql.size!=0)
+    {
+        records = sql.getArray("records");
+        for(i=0;i<records.length;i++)
+        {
+            court_rep=court_rep+'<option value="'+records[i].get('Id')+'">'+records[i].get('LastName')+', '+records[i].get('FirstName')+'</option>';
+        }
+    }
+    else
+    {
+        court_rep="<option value=''>N/A</option>"
+    }
+    
+    var form='';
+    
+    form=form+'<form onsubmit="validate(document.search_form.court_rep.value, document.search_form.borough.value, document.search_form.court_date_from.value, document.search_form.court_date_till.value);" name="search_form" action="" method="POST">';
+    form=form+'<table border="0" align="center">';
+    form=form+'<tr><td class="fieldLabel label">Court Rep:</td><td colspan="3"><select name="court_rep" id="court_rep">';
+    form=form+'<option value="all">All</option>';
+    form=form+court_rep;
+    form=form+'</select></td></tr>';
+    form=form+'<tr><td class="fieldLabel label">Borough:</td><td colspan="3"><select name="borough" id=borough">';
+    form=form+'<option value="Bronx">Bronx</option>';
+    form=form+'<option value="Brooklyn">Brooklyn</option>';
+    form=form+'<option value="Manhattan">Manhattan</option>';
+    form=form+'<option value="Nassau">Nassau</option>';
+    form=form+'<option value="Out of NY State">Out of NY State</option>';
+    form=form+'<option value="Putnam">Putnam</option>';
+    form=form+'<option value="Queens">Queens</option>';
+    form=form+'<option value="Staten Island">Staten Island</option>';
+    form=form+'<option value="Suffolk">Suffolk</option>';
+    form=form+'<option value="Unknown">Unknown</option>';
+    form=form+'<option value="Westchester">Westchester</option>';
+    form=form+'</select></td></tr>';
+    form=form+'<tr><td class="fieldLabel label">Court Date Range:</td><td class="fieldLabel"><input type="text" name="court_date_from" id="court_date_from" value="' + getPreFillDate() + '" style="width:80px" /><br />(mm/dd/yyyy)</td>';
+    form=form+'<td class="fieldLabel" style="width:30px; text-align:center;">to</td><td class="fieldLabel"><input type="text" name="court_date_till" id="court_date_till" value="' + getPreFillDate() + '" style="width:80px" /><br />(mm/dd/yyyy)</td></tr>';
+    form=form+'<tr><td colspan="4" style="text-align:center"><input type="button" value="Generate Report" onclick="validate(document.search_form.court_rep.value, document.search_form.borough.value, document.search_form.court_date_from.value, document.search_form.court_date_till.value);"/></td></tr>';
+    form=form+'</table></form>';
+    
+    document.getElementById("content").innerHTML = form;
+}
+
+//var progress_div='';
+
+function showProgresBar(rep, borough, date_from, date_till)
+{
+    var par;
+   var div   = document.createElement('div');
+   var img   = document.createElement('img');
+   
+    table= window.parent.document.getElementById('AppBodyHeader');
+    table.appendChild(div);
+    div.style.textAlign="center";
+    div.appendChild(img);
+    img.src="/img/loading32.gif";
+    //progress_div=div;
+    
+    setTimeout('search("'+rep+'", "'+borough+'", "'+date_from+'", "'+date_till+'")', 2000);
+}
+
+function search(rep, borough, date_from, date_till)
+{
+    var arr = date_from.split("/");
+    var date_from = arr[2]+"-"+arr[0]+"-"+arr[1];
+    arr = date_till.split("/");
+    var date_till = arr[2]+"-"+arr[0]+"-"+arr[1];
+
+    var date= '';
+    var court_rep_id= new Array();
+    var client_list_id = new Array();
+    var client_id= new Array();
+    var case_id= new Array();
+    var clients= new Array();
+    var events= new Array();
+    var cases= new Array();
+    
+    document.getElementById("content").innerHTML = 'An Error Occurred While Generating This Report.';
+    var sql;
+    var results = new Array();
+    
+    if(rep!='all')
+    {
+        sql = sforce.connection.query("Select c.Id, c.Name, c.CEP_Num__c, c.Intake_Date__c, c.Client_Status__c, c.Court_Rep__c From Contact c WHERE c.Court_Rep__c='"+rep+"' AND c.CEP_Num__c!=null AND Borough_of_Intake_Formula__c='"+borough+"'");
+    }
+    else
+    {
+        sql = sforce.connection.query("Select e.WhoId, e.WhatId, e.ActivityDate From Event e Where e.RecordType.Name = 'Court Date' AND e.ActivityDate >= " + date_from + " AND e.ActivityDate <= " + date_till + "");
+
+        console.log('ACTIVITY QUERY - ' + sql.size + ' RECORDS');
+
+        if (sql.getBoolean("done") && sql.size!=0)
+        {
+            records = sql.getArray("records");
+            for(i=0;i<records.length;i++)
+            {
+                client_list_id.push(records[i].get('WhoId'));
+            }
+        }
+
+        sql = sforce.connection.query("Select c.Id, c.Name, c.CEP_Num__c, c.Intake_Date__c, c.Client_Status__c, c.Court_Rep__c From Contact c WHERE c.Id in ('"+client_list_id.join("', '")+"') AND c.CEP_Num__c!=null AND Borough_of_Intake_Formula__c='"+borough+"'");
+    }
+
+    console.log('STEP 1 - ' + sql.getBoolean("done") + ' - ' + sql.size + ' RECORDS');
+    
+    if (sql.getBoolean("done") && sql.size!=0)
+    {
+        var clients_res = sql.getArray("records");
+        for(i=0;i<clients_res.length;i++)
+        {
+            
+            var id=clients_res[i].get('Id');
+            client_id.push(id);
+            clients[id]= new Array();
+            clients[id]['cep']=parseInt(clients_res[i].get('CEP_Num__c'));
+            clients[id]['client_name']=clients_res[i].get('Name');
+            clients[id]['status']=clients_res[i].get('Client_Status__c');
+            clients[id]['arrest_date']=clients_res[i].get('Intake_Date__c');
+            clients[id]['rep']=clients_res[i].get('Court_Rep__c');
+        }
+
+        var ok= false;
+        var ii=0;
+        while(ii<client_id.length)
+        {
+            var client_str='';
+            if(ii+40<client_id.length)
+            {
+                for(iii=ii;iii<ii+40;iii++)
+                {
+                    client_str=client_str+client_id[iii]+"', '";
+                }
+            }
+            else
+            {
+                for(iii=ii;iii<client_id.length;iii++)
+                {
+                    client_str=client_str+client_id[iii]+"', '";
+                }
+            }
+            client_str=client_str.substring(0,client_str.length-3);
+            ii=ii+40;
+            sql = sforce.connection.query("Select e.Part__c, e.RecordType.Name, e.WhatId, e.Report_Type__c, e.Appearance_Required__c, e.ActivityDate, e.Outcome__c, e.Description, e.WhoId  from Event e where e.WhoId IN ('"+client_str+") AND e.ActivityDate>="+date_from+" AND e.ActivityDate<="+date_till);
+
+            console.log('ACTIVITY QUERY 2 - ' + sql.size + ' RECORDS');
+
+            if (sql.getBoolean("done") && sql.size!=0)
+            {
+                ok=true;
+                var events_res = sql.getArray("records");
+                for(i=0;i<events_res.length;i++)
+                {
+                    var id=events_res[i].get('WhoId') + '' + events_res[i].get('WhatId');
+                    
+                                        if(events_res[i].get('WhatId')) {
+                                           case_id.push(events_res[i].get('WhatId'));
+                                        }
+                    
+                    events[id]= new Array();
+                    events[id]['court_part']=events_res[i].get('Part__c');
+                    events[id]['outcome']=events_res[i].get('Outcome__c')+'<br />'+events_res[i].get('Description');
+                    if(events_res[i].get('Appearance_Required__c'))
+                    {
+                        events[id]['appeareance_required']='X';
+                    }
+                    else
+                    {
+                        events[id]['appeareance_required']=' ';
+                    }
+                    if(events_res[i].get('Report_Type__c'))
+                    {
+                        events[id]['report_needed']=events_res[i].get('Report_Type__c');
+                    }
+                    else
+                    {
+                        events[id]['report_needed']=' - ';
+                    }
+                    events[id]['date']=events_res[i].get('ActivityDate');
+                }
+            }
+        }
+
+        var ii=0;               
+        if (ok)
+        {
+            var xx=0;
+            while(xx<case_id.length)
+            {
+                var case_str='';
+                if(xx+40<case_id.length)
+                {
+                    for(iii=xx;iii<xx+40;iii++)
+                    {
+                        case_str=case_str+case_id[iii]+"', '";
+                    }
+                }
+                else
+                {
+                    for(iii=xx;iii<case_id.length;iii++)
+                    {
+                        case_str=case_str+case_id[iii]+"', '";
+                    }
+                }
+                case_str=case_str.substring(0, case_str.length-3);
+                xx=xx+40;
+                
+                var myQuery = "SELECT Contact__c, Docket__c, Contact__r.Final_Outcome__c, Docket__r.Name, Docket__r.Arrest_Date__c, Docket__r.RecordType.Name, Docket__r.Judge__c, Contact__r.Detention_Status_at_Intake__c, Docket__r.Current_Case_Status__c, Docket__r.Borough__c, Docket__r.Indictment__c, Docket__r.Sentence__c, Docket__r.Defense_Attorney_Law_Guardian__c, Case_Type__c FROM Case_Relationship__c WHERE Case_Type__c <> \'Post-Exit\' AND Docket__c IN ('" + case_str + ") AND Contact__c IN ('" + client_str +")";
+                sql = sforce.connection.query(myQuery);
+                //sql = sforce.connection.query('SELECT Contact__c, Docket__c, Contact__r.Final_Outcome__c, Docket__r.Name, Docket__r.Arrest_Date__c, Docket__r.RecordType.Name, Docket__r.Judge__c, Contact__r.Detention_Status_at_Intake__c, Docket__r.Current_Case_Status__c, Docket__r.Borough__c, Docket__r.Indictment__c, Docket__r.Sentence__c, Docket__r.Defense_Attorney_Law_Guardian__c, Case_Type__c FROM Case_Relationship__c WHERE Case_Type__c <> \'Post-Exit\' AND Docket__c IN  ('' + case_str + ')');
+                console.log(sql.getBoolean('done'));
+                
+
+                if (sql.getBoolean("done") && sql.size!=0)
+                {
+                    
+                    var cases = sql.getArray("records");
+                    for(k=0;k<cases.length;k++)
+                    {
+                        var id=cases[k].get('Contact__c'); // Client_id
+                        var cases_id=cases[k].get('Docket__c'); // Client_id
+                        var eventId = id + '' + cases_id; // Composite Id for uniquely identifying events
+                        results[ii] = new Array();
+                        results[ii]['rep'] = getValue('User','Name',clients[id]['rep']); 
+    // clients                          
+                        results[ii]['cep']=clients[id]['cep'];
+                        results[ii]['client_name']=clients[id]['client_name'];
+                        results[ii]['status']=clients[id]['status'];
+                        results[ii]['arrest_date']=cases[k].Docket__r.Arrest_Date__c;
+                                
+    // events
+                        results[ii]['court_part']=events[eventId]['court_part'];
+                        results[ii]['outcome']=events[eventId]['outcome'];
+                        results[ii]['appeareance_required']=events[eventId]['appeareance_required'];
+                        results[ii]['report_needed']=events[eventId]['report_needed'];
+                        results[ii]['court_date']=events[eventId]['date'] ;
+            
+    // next event
+                        results[ii]['next_court_date']='';
+                        results[ii]['next_court_part']='';
+                        results[ii]['next_coments']='';
+                        results[ii]['next_appeareance_required']=' ';
+                        results[ii]['next_report_needed']= new Array();
+                        results[ii]['next_report_needed']['none']=' ';
+                        results[ii]['next_report_needed']['oral']=' ';
+                        results[ii]['next_report_needed']['progress']=' ';
+                        results[ii]['next_report_needed']['exit']=' ';
+                        results[ii]['next_report_needed']['interim']=' ';
+                
+                        sql = sforce.connection.query("Select e.Part__c, e.RecordType.Name, e.WhatId, e.Report_Type__c, e.Appearance_Required__c, e.ActivityDate, e.Outcome__c, e.Description, e.WhoId  from Event e where e.WhatId IN ('"+cases_id+"') AND e.ActivityDate>"+events[eventId]['date']+" order by ActivityDate ASC limit 1");
+                        if (sql.getBoolean("done") && sql.size!=0)
+                        {
+                            var events_res = sql.getArray("records");
+                            
+                            results[ii]['next_court_date']=format_date(events_res[0].get('ActivityDate'));
+                            results[ii]['next_court_part']=events_res[0].get('Part__c');
+                            if(events_res[0].get('Description'))
+                            {
+                                results[ii]['next_coments']=events_res[0].get('Description');
+                            }
+                            else
+                            {
+                                results[ii]['next_coments']='';
+                            }
+                            if(events_res[0].get('Appearance_Required__c'))
+                            {
+                                results[ii]['next_appeareance_required']='X';
+                            }
+                            else
+                            {
+                                results[ii]['next_appeareance_required']=' ';
+                            }
+                
+                            results[ii]['next_report_needed']= new Array();
+                            results[ii]['next_report_needed']['none']=' ';
+                            results[ii]['next_report_needed']['oral']=' ';
+                            results[ii]['next_report_needed']['progress']=' ';
+                            results[ii]['next_report_needed']['exit']=' ';
+                            results[ii]['next_report_needed']['interim']=' ';
+                            switch(events_res[0].get('Report_Type__c'))
+                            {
+                                case "None": results[ii]['next_report_needed']['none']='<b>X</b>'; break;
+                                case "Oral": results[ii]['next_report_needed']['oral']='<b>X</b>'; break;
+                                case "Progress": results[ii]['next_report_needed']['progress']='<b>X</b>'; break;
+                                case "Exit": results[ii]['next_report_needed']['exit']='<b>X</b>'; break;
+                                case "Interim": results[ii]['next_report_needed']['interim']='<b>X</b>'; break;
+                                default : results[ii]['next_report_needed']['none']='<b>X</b>'; break;
+                            }
+                        }
+    // cases            
+    
+                        var attorney_id=cases[k].Docket__r.Defense_Attorney_Law_Guardian__c;
+                        if(attorney_id)
+                        {
+                            results[ii]['attorney']=getValue('Contact', 'Name', attorney_id);
+                            results[ii]['phone']=getValue('Contact', 'Phone', attorney_id);
+                        }
+                        else
+                        {
+                            results[ii]['attorney']=' - ';
+                            results[ii]['phone']=' - ';
+                        }
+                            
+                            
+                    
+                        results[ii]['indicment']=cases[k].Docket__r.Indictment__c;
+                        results[ii]['docket']=cases[k].Docket__r.Name;
+                        results[ii]['record_type']=cases[k].Docket__r.RecordType.Name;
+                        results[ii]['case_type']=cases[k].get('Case_Type__c');
+                        if(results[ii]['case_type'] == null)
+                        {
+                            results[ii]['case_type'] = '';
+                        }
+                        if(cases[k].Docket__r.Judge__c != null)
+                        {
+                            results[ii]['judge']=getValue('Contact', 'Name', cases[k].Docket__r.Judge__c);
+                        }
+                        else
+                        {
+                            results[ii]['judge']=' - '; 
+                        }
+                        results[ii]['case_id']=cases[k].get('Docket__c');
+                        
+                        if(cases[k].Docket__r.Detention_Status_at_Intake__c != null)
+                        {
+                            results[ii]['detention_status']=cases[k].Docket__r.Detention_Status_at_Intake__c;
+                            results[ii]['detention_status_x']='X';
+                        }
+                        else
+                        {
+                            results[ii]['detention_status']=' - ';
+                            results[ii]['detention_status_x']=' ';
+                        }
+                        if(cases[k].Docket__r.Current_Case_Status__c != null)
+                        {
+                            results[ii]['current_case']=cases[k].Docket__r.Current_Case_Status__c;
+                            results[ii]['current_case_x']='X';
+                        }
+                        else
+                        {
+                            results[ii]['current_case']=' - ';
+                            results[ii]['current_case_x']=' ';
+                        }
+                        if(cases[k].Docket__r.Sentence__c != null)
+                        {
+                            results[ii]['sentence']=cases[k].Docket__r.Sentence__c;
+                        }
+                        else
+                        {
+                            results[ii]['sentence']=' - ';
+                        }
+                        if(cases[k].Docket__r.Final_Outcome__c != null)
+                        {
+                            results[ii]['outcome']=cases[k].Docket__r.Final_Outcome__c;
+                        }
+                        else if(results[ii]['case_type'] != null 
+                            && getValue('Contact', 'Client_Status__c', cases[k].get('Contact__c')) == 'Exited')
+                        {
+                            results[ii]['outcome']='No Longer Tracking';
+                        }
+                        else
+                        {
+                            results[ii]['outcome']=' - ';
+                        }
+                        ii=ii+1;
+                    }
+                }
+            }
+        }
+    }
+    if(date_from==date_till)
+    {
+        if(rep=='all')  
+        {
+            ok=false;
+            while(ok==false)
+            {
+                ok=true;
+                for(i=0;i<ii-1;i++)
+                {
+                    if(results[i]['rep']>results[i+1]['rep'])
+                    {
+                        var aux=new Array();
+                        aux=results[i];
+                        results[i]=results[i+1];
+                        results[i+1]=aux;
+                        ok=false;
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        ok=false;
+        while(ok==false)
+        {
+            ok=true;
+            for(i=0;i<ii-1;i++)
+            {
+                if(results[i]['court_date']>results[i+1]['court_date'])
+                {
+                    var aux=new Array();
+                    aux=results[i];
+                    results[i]=results[i+1];
+                    results[i+1]=aux;
+                    ok=false;
+                }
+            }
+        }
+    }
+
+    if(ii>0)
+    {
+        var content='';
+        content=content+'<table width="813" border="0" cellpadding="5" cellspacing="0"><tr><td width="803" height="54" align="center"><table width="400" border="2" cellspacing="0" cellpadding="5" align="center"><tr><td><p align="center" class="text1"><span class="headerText">CASES, Inc.<br />Court Employment Project<br />Court Rep Daily Activity Report</span></p></td></tr></table><p style=>&nbsp;</p>';
+        content=content+'</td></tr></table>';
+        for(i=0;i<ii;i++)
+        {
+            content=content+'<table width="813" border="1" cellspacing="0" cellpadding="1"><tr><td><table width="100%" border="0" cellspacing="0" cellpadding="1"><tr>';
+            content=content+'<td><span class="fieldLabelCaps">COURT REP:</span> '+results[i]['rep']+'</td>';
+            content=content+'<td class="fieldLabelCaps">'+borough+'</td>';
+            content=content+'<td><span class="fieldLabelCaps">COURT DATE:</span> '+format_date(results[i]['court_date'])+'</td>';
+            content=content+'</tr></table></td></tr><tr><td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="1"><tr>';
+            content=content+'<td><span class="fieldLabelCaps">CEP #:</span> '+results[i]['cep']+' '+results[i]['client_name']+'</td>';
+            content=content+'<td><span class="fieldLabelCaps">STATUS:</span> '+results[i]['status']+'</td>';
+            content=content+'</tr></table></td></tr></table><table width="813" height="632" border="1" cellpadding="1" cellspacing="0"';
+            if(i<ii-1)
+            {
+                content=content+' style="page-break-after:always"';
+            }
+            content=content+'><tr><td height="166"><table width="100%" border="0" cellspacing="0" cellpadding="1"><tr>';
+            content=content+'<td><span class="fieldLabel">Docket #</span>: '+results[i]['docket']+'</td>';
+            content=content+'<td><span class="fieldLabel">Indictment #:</span> '+results[i]['indicment']+'</td>';
+            content=content+'<td><span class="fieldLabel">Arrest Date:</span> '+format_date(results[i]['arrest_date'])+'</td>';
+            content=content+'</tr><tr><td><span class="fieldLabel">Case Type:</span> '+results[i]['record_type']+' <br />' + results[i]['case_type'] +' </td>';
+            content=content+'<td><span class="fieldLabel">County:</span> '+borough+'</td>';
+            content=content+'<td><span class="fieldLabel">Attorney:</span>'+results[i]['attorney']+'<br /><span class="fieldLabel">Phone:</span> '+results[i]['phone']+'</td>';
+            content=content+'</tr></table>';
+            
+            sql = sforce.connection.query("Select c.Charge__r.Id, c.Charge__r.Name, c.Charge__r.Class__c, c.Charge__r.Description__c, c.Type__c from Case_Charges__c c Where c.Docket_No__c = '"+results[i]['case_id']+"' Order By c.Type__c");
+            var charge= new Array();
+            if (sql.getBoolean("done") && sql.size!=0)
+            {
+                var charges = sql.getArray("records");
+                
+                var x=-1;
+                var ok;
+                for(j=0;j<charges.length;j++)
+                {
+                    ok=-1;
+                    for(k=0;k<charge.length;k++)
+                    {
+                        if(charge[k]['type']==charges[j].get('Type__c'))
+                        {
+                            ok=k;
+                            break;
+                        }
+                    }
+                    if(ok==-1)
+                    {
+                        x=x+1;
+                        charge[x]= new Array();
+                        charge[x]['type']= charges[j].get('Type__c');
+                        charge[x]['values']= new Array();
+                        charge[x]['values'][0]= new Array();
+                        charge[x]['values'][0]['number']=charges[j].get('Charge__r').get('Name');
+                        var myClass1 = charges[j].get('Charge__r').get('Class__c');
+                        if(myClass1)
+                        {
+                            charge[x]['values'][0]['class'] = myClass1 ;
+                        } else
+                        {
+                            charge[x]['values'][0]['class'] = '';
+                        }
+                        charge[x]['values'][0]['description']= charges[j].get('Charge__r').get('Description__c');
+                        // charge[x]['values'][0]['description']=charges[j].get('Charge__r').get('Class__c')+' '+charges[j].get('Charge__r').get('Description__c');
+                    }
+                    else
+                    {
+                        var next=charge[ok]['values'].length;
+                        charge[ok]['values'][next]= new Array();
+                        charge[ok]['values'][next]['number']=charges[j].get('Charge__r').get('Name');
+                        var myCharge = charges[j].get('Charge__r').get('Class__c');
+                        if(myCharge)
+                        {
+                            charge[ok]['values'][next]['class'] = myCharge ;
+                        } else 
+                        {
+                            charge[ok]['values'][next]['class'] = '';
+                        }
+                        charge[ok]['values'][next]['description']= charges[j].get('Charge__r').get('Description__c');
+                        // charge[ok]['values'][next]['description']=charges[j].get('Charge__r').get('Class__c')+' '+charges[j].get('Charge__r').get('Description__c');
+                    }
+                }
+            }
+            
+            content=content+'<table width="100%" border="0" cellspacing="0" cellpadding="1">';
+            for(j=0;j<charge.length;j++)
+            {
+                content=content+'<tr><td width="59%"><span class="fieldLabel">'+charge[j]['type']+'</span></td><td width="17%"><span class="fieldLabel">Class</span></td><td width="24%"><span class="fieldLabel">&nbsp;</span></td></tr>';
+                for(k=0;k<charge[j]['values'].length;k++)
+                {
+                    content=content+'<tr><td width="59%">'+charge[j]['values'][k]['number']+'</td><td width="17%">'+charge[j]['values'][k]['class']+'</td><td width="24%">'+charge[j]['values'][k]['description']+'</td></tr>';
+                }
+            }
+            content=content+'</table>';
+            content=content+'</td></tr><tr><td height="120"><table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td><div align="center" class="fieldLabel">COURT DISPOSITION<br /><br /></div></td></tr></table>';
+           content=content+'<table width="100%" border="0" cellspacing="0" cellpadding="7"><tr>';      
+           content=content+'<td><span class="fieldLabel">COURT DATE:</span> '+format_date(results[i]['court_date'])+'</td>';      
+           content=content+'<td class="fieldLabel">['+results[i]['appeareance_required']+'] Court Appearance Required</td>';      
+           content=content+'</tr><tr>';      
+           content=content+'<td><span class="fieldLabel">Court Part:</span> '+results[i]['court_part']+'</td>';      
+           content=content+'<td><span class="fieldLabel">Judge:</span> '+results[i]['judge']+'</td>';      
+           content=content+'</tr></table><table width="100%" border="0" cellspacing="0" cellpadding="7"><tr>';      
+           content=content+'<td class="fieldLabel">DETENTION STATUS</td>';      
+           content=content+'<td class="fieldLabel">CURRENT CASE STATUS</td>';      
+           content=content+'</tr><tr><td>&nbsp;</td><td>['+results[i]['current_case_x']+'] '+results[i]['current_case']+'</td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="7"><tr>';      
+           content=content+'<td height="23"><span class="fieldLabel">COURT REP:</span> '+results[i]['rep']+'</td>';      
+           content=content+'<td><span class="fieldLabel">REPORT NEEDED:</span> '+results[i]['report_needed']+'</td>';      
+           content=content+'</tr></table></td></tr><tr><td height="97"><table width="100%" border="0" cellspacing="0" cellpadding="5"><tr>';      
+           content=content+'<td><span class="fieldLabel"><br />COURT OUTCOME:</span> '+results[i]['outcome']+'</td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="1"><tr>';      
+           content=content+'<td><span class="fieldLabel">Sentenced To:</span><br /><span class="fieldLabel">(If Sentenced)</span> '+results[i]['sentence']+'<br /></td>';
+           content=content+'<td><span class="fieldLabel">Plead To</span>: <br /><span class="fieldLabel">(If Plead)</span>  - <br /></td>';
+           content=content+'</tr></table></td></tr><tr><td height="179"><table width="100%" border="0" cellspacing="0" cellpadding="8"><tr>';
+           content=content+'<td><span class="fieldLabel">NEXT COURT DATE:</span> '+results[i]['next_court_date']+'</td>';
+           content=content+'<td class="fieldLabel">['+results[i]['next_appeareance_required']+'] Court Apperance Required </td>';
+           content=content+'</tr><tr>';
+           content=content+'<td><span class="fieldLabel">Court Part:</span> '+results[i]['next_court_part']+'</td>';
+           content=content+'<td><span class="fieldLabel">Judge:</span> '+results[i]['judge']+'</td>';
+           content=content+'</tr></table><table width="100%" border="0" cellspacing="0" cellpadding="6"><tr>';
+           content=content+'<td class="fieldLabel">Report Needed</td><td>['+results[i]['next_report_needed']['none']+'] None</td><td>['+results[i]['next_report_needed']['oral']+'] Oral</td><td>['+results[i]['next_report_needed']['progress']+'] Progress</td><td>['+results[i]['next_report_needed']['exit']+'] Exit</td><td>['+results[i]['next_report_needed']['interim']+'] Interim</td>';
+           content=content+'</tr></table><table width="100%" border="0" cellspacing="0" cellpadding="8"><tr><td height="52" class="fieldLabel">COMMENTS: <span style="font-weight:normal">'+results[i]['next_coments']+'</span><br /><br /></td></tr></table></td></tr></table>';
+           content=content+'<p>&nbsp;</p><p>&nbsp;</p>';
+        }
+        content=content+'<p style="text-align:center"><input type="button" value="Print this page" onclick="window.print();"></p>';
+        //progress_div.style.display='none';
+    }
+    else
+    {
+        var sql;
+        var records;
+        var court_rep='';
+        sql = sforce.connection.query("SELECT Id, FirstName, LastName FROM User Where IsActive = True ORDER BY LastName");
+        if (sql.getBoolean("done") && sql.size!=0)
+        {
+            records = sql.getArray("records");
+            for(i=0;i<records.length;i++)
+            {
+                court_rep=court_rep+'<option value="'+records[i].get('Id')+'">'+records[i].get('LastName')+', '+records[i].get('FirstName')+'</option>';
+            }
+        }
+        else
+        {
+            court_rep="<option value=''>N/A</option>"
+        }
+        
+        var form='';
+        
+        form=form+'<form onsubmit="validate(document.search_form.court_rep.value, document.search_form.borough.value, document.search_form.court_date_from.value, document.search_form.court_date_till.value);" name="search_form" action="" method="POST">';
+        form=form+'<table border="0" align="center">';
+        form=form+'<tr><td class="fieldLabel label">Court Rep:</td><td colspan="3"><select name="court_rep" id="court_rep">';
+        form=form+'<option value="all">All</option>';
+        form=form+court_rep;
+        form=form+'</select></td></tr>';
+        form=form+'<tr><td class="fieldLabel label">Borough:</td><td colspan="3"><select name="borough" id=borough">';
+        form=form+'<option value="Bronx">Bronx</option>';
+        form=form+'<option value="Brooklyn">Brooklyn</option>';
+        form=form+'<option value="Manhattan">Manhattan</option>';
+        form=form+'<option value="Nassau">Nassau</option>';
+        form=form+'<option value="Out of NY State">Out of NY State</option>';
+        form=form+'<option value="Putnam">Putnam</option>';
+        form=form+'<option value="Queens">Queens</option>';
+        form=form+'<option value="Staten Island">Staten Island</option>';
+        form=form+'<option value="Suffolk">Suffolk</option>';
+        form=form+'<option value="Unknown">Unknown</option>';
+        form=form+'<option value="Westchester">Westchester</option>';
+        form=form+'</select></td></tr>';
+        form=form+'<tr><td class="fieldLabel label">Court Date Range:</td><td class="fieldLabel"><input type="text" name="court_date_from" id="court_date_from" value="' + getPreFillDate() + '" style="width:80px" /><br />(mm/dd/yyyy)</td>';
+        form=form+'<td class="fieldLabel" style="width:30px; text-align:center;">to</td><td class="fieldLabel"><input type="text" name="court_date_till" id="court_date_till" value="' + getPreFillDate() + '" style="width:80px" /><br />(mm/dd/yyyy)</td></tr>';
+        form=form+'<tr><td colspan="4" style="text-align:center"><input type="button" value="Generate Report" onclick="validate(document.search_form.court_rep.value, document.search_form.borough.value, document.search_form.court_date_from.value, document.search_form.court_date_till.value);"/></td></tr>';
+        form=form+'</table></form>';
+        content = form;
+    }
+    document.getElementById("content").innerHTML = content;
+    //progress_div.style.display='none';
+}
+</script>
+</head>
+    <body onload="init()">
+        <div id='sql' style="display: none"><img src="/img/loading32.gif" /></div>
+        <div id='content'></div>
+    </body>
+</html>
+
+
+</apex:page>

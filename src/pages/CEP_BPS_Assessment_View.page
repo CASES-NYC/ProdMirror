@@ -1,0 +1,200 @@
+<apex:page standardcontroller="Assessment__c" extensions="assessPreloadCon">
+<apex:PageMessages />
+<table width="1000px"><tr><td>
+    <apex:sectionheader subtitle="{!IF(ISNULL(Assessment__c.Contact__c), 'NO NAME FOUND', Assessment__c.Client_Name__c)}" title="CEP Biopsychosocial"/>
+    <chatter:feedwithfollowers entityId="{!Assessment__c.Id}"/>  
+    <apex:form >
+        <apex:pageblock mode="edit" title="CEP BIOPSYCHOSOCIAL">
+            <apex:pageblockbuttons >
+                <apex:commandbutton value="Edit" action="{!Edit}" rendered="{!(Assessment__c.Locked__c==False)}"/>
+                <apex:commandbutton value="Delete" action="{!Delete}" rendered="{!(Assessment__c.Locked__c==False)}"/>                
+                <apex:commandbutton value="Cancel" action="{!Cancel}"/>
+                <apex:commandbutton value="Lock Record" action="{!LockRecord}" rendered="{!(Assessment__c.Locked__c==False)}"/>                 
+            </apex:pageblockbuttons>
+
+            <apex:outputpanel >
+                <apex:pageblocksection title="Information" showheader="false" collapsible="false" columns="2">
+                    <apex:outputText value="Assessment is Locked" style="font-size:1.2em; text-align:right;color:red" rendered="{!(Assessment__c.Locked__c==True)}"/ >                     
+                    <apex:outputText value="" rendered="{!(Assessment__c.Locked__c==True)}"/>                
+                    <apex:outputField value="{!Assessment__c.Name}"/>
+                    <apex:outputfield value="{!Assessment__c.Assessment_Completed_on__c}"/>
+                    <apex:outputField value="{!Assessment__c.Contact__c}"/>
+                    <apex:outputField value="{!Assessment__c.Assessment_Completed_by__c}"/>
+                    <apex:pageblockSectionItem >
+                        <apex:outputLabel value="Date Assessment Given" for="assessment_date"/>
+                        <apex:outputField value="{!Assessment__c.Assessment_Date__c}" id="assessment_date"/>
+                    </apex:pageblockSectionItem>
+                    <apex:pageblocksectionitem />
+                    <apex:pageblocksectionitem />
+                </apex:pageblocksection>
+                <apex:pageblocksection title="HISTORY OF HEALTH ISSUES" showheader="true" collapsible="true" columns="1">
+                    <apex:panelGrid width="600px">
+                        <apex:outputText value="Mark if participant has had any of the following:"/>
+                        <apex:outputField value="{!Assessment__c.Health_Issues__c}"/>
+                        <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                        <apex:outputText value="Q: Have you ever experienced any major surgeries or traumatic events? (Examples: 
+                    witnessed a death, experienced or witnessed a form of abuse, natural disaster, etc.)"/>
+                        <apex:outputField value="{!Assessment__c.Traumatic_Events__c}" style="height:100px;width:600px"/>
+                        <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                        <apex:outputText >Q: What types (if any) of treatments, therapies, medications, or other forms of care have you had?</apex:outputText>
+                        <apex:outputField value="{!Assessment__c.Treatments__c}" style="height:100px;width:600px"/>
+                    </apex:panelGrid>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="PRESENT HEALTH CONDITION" showheader="true" collapsible="true" columns="1">
+                    <apex:panelGrid width="600px">
+                    <apex:outputText value="Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in,
+                     and for what issues? Who/where are your care providers?"/>
+                    </apex:panelGrid>
+                    <apex:panelGrid columns="3" >
+                        <apex:outputText value="Issue(s)"/>
+                        <apex:outputText value="Treatment(s)"/>
+                        <apex:outputText value="Care Provider(s)"/>                                    
+
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_Issues_1__c}" />
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_1__c}" />
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_Provider_1__c}" />
+
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_Issues_2__c}" />
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_2__c}" />
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_Provider_2__c}" />
+
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_Issues_3__c}" />
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_3__c}" />
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_Provider_3__c}" />
+
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_Issues_4__c}" />
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_4__c}" />
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_Provider_4__c}" />
+
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_Issues_5__c}" />
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_5__c}" />
+                             <apex:outputField value="{!Assessment__c.Current_Treatments_Provider_5__c}" />
+                    </apex:panelGrid>
+                </apex:pageBlockSection>
+                <apex:pageblocksection title="PRESENT HEALTH CONDITION" showheader="false" collapsible="false" columns="1">
+                    <apex:panelGrid columns="1">
+                    <apex:outputText value="Q: What do you consider your strengths as a person, as a student, and as a worker?"></apex:outputText>
+                    <apex:outputText value="PERSONAL STRENGTHS"/>
+                    <apex:outputField value="{!Assessment__c.Personal_Strengths__c}" style="height:100px;width:600px"/>
+                    <apex:outputText value="ACADEMIC STRENGTHS"/>
+                    <apex:outputField value="{!Assessment__c.Academic_Strengths__c}" style="height:100px;width:600px"/>
+                    <apex:outputText value="WORKFORCE STRENGTHS"/>
+                    <apex:outputField value="{!Assessment__c.Workforce_Strengths__c}" style="height:100px;width:600px"/>
+                    <apex:outputText ><hr/></apex:outputText>
+                    <apex:outputText value="Q: What are current issues, obstacles and problems that could hold you back from progressing?"/>
+                    <apex:outputField value="{!Assessment__c.Obstacles_to_Progress__c}" style="height:100px;width:600px"/>
+                    <apex:outputText value="Q: What is your spiritual identification/life philosophy, and to what extent is it important to you?"/> 
+                    <apex:outputField value="{!Assessment__c.Spiritual_Identity__c}" style="height:100px;width:600px"/>
+                    <apex:outputText value="Q: What is your cultural identity, and to what extent is it important to you?"/>
+                    <apex:outputField value="{!Assessment__c.Cultural_Identity__c}" style="height:100px;width:600px"/>
+                    </apex:panelGrid>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="FUTURE CARE" showheader="true" columns="1">
+                    <apex:panelgrid width="600px"/>
+                    <apex:outputText >Q: What are the current, external care providers you are using and will be attending during your 
+                    six months at CASES? </apex:outputText>
+                    <apex:panelGrid columns="3" >
+                        <apex:outputText value="Provider(s)"/>
+                        <apex:outputText value="Meeting Schedule"/>
+                        <apex:outputText value="Expected End Date"/>
+
+                        <apex:outputField value="{!Assessment__c.Current_External_Provider_1__c}"/>
+                        <apex:outputField value="{!Assessment__c.Current_External_Schedule_1__c}"/>
+                        <apex:outputField value="{!Assessment__c.Current_External_End_1__c}"/>
+
+                        <apex:outputField value="{!Assessment__c.Current_External_Provider_2__c}"/>
+                        <apex:outputField value="{!Assessment__c.Current_External_Schedule_2__c}"/>
+                        <apex:outputField value="{!Assessment__c.Current_External_End_2__c}"/>
+
+                        <apex:outputField value="{!Assessment__c.Current_External_Provider_3__c}"/>
+                        <apex:outputField value="{!Assessment__c.Current_External_Schedule_3__c}"/>
+                        <apex:outputField value="{!Assessment__c.Current_External_End_3__c}"/>
+    
+                    </apex:panelGrid>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="FUTURE CARE" showheader="false" collapsible="false" columns="1">
+                    <apex:panelGrid width="600px" >
+                        <apex:outputText value="Q: How do you currently cope with stress/emotions, other than treatments
+                     and medications? Are there any spiritual or cultural practices that you use?"/>
+                        <apex:outputField value="{!Assessment__c.Coping_with_Stress__c}" style="height:100px;width:600px"/>
+                        <apex:pageblocksectionitem />
+                        <apex:outputText >Q: What goals do you have for yourself 6 months from now?</apex:outputText>
+                        <apex:outputField value="{!Assessment__c.Six_Month_Goals__c}" style="height:100px;width:600px"/>
+                        <apex:pageblocksectionitem />
+                        <apex:outputText >Q: Would you like to meet with one of our counselors with the Nathaniel Clinic for further assessment?</apex:outputText>
+                        <apex:outputField value="{!Assessment__c.Meet_with_Counselor__c}"/>
+                    </apex:panelGrid>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="DIAGNOSTIC IMPRESSIONS" showheader="true" collapsible="false" columns="1">
+                    <apex:panelgrid >
+                    <apex:outputField value="{!Assessment__c.Diagnostic_Impressions__c}" style="height:100px;width:600px"/>
+                    </apex:panelgrid>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="RECOMMENDATIONS" showheader="true" collapsible="true" columns="1">
+                    <apex:panelGrid >
+                        <apex:outputText >Does the client present a need for mental health services?</apex:outputText>
+                        <apex:outputField value="{!Assessment__c.Need_for_MHS__c}"/>
+                        <apex:outputText >If yes, what services are recommended?</apex:outputText>
+                        <apex:outputField value="{!Assessment__c.Service_Recommendations__c}" style="height:100px;width:600px"/>
+                    </apex:panelGrid>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="FOLLOW UP" showheader="true" columns="1">
+                    <apex:panelgrid >
+                        <apex:outputText >Were referrals made for service? </apex:outputText>
+                        <apex:outputField value="{!Assessment__c.Referrals_Made_YN__c}"/>
+                        <apex:outputText >If yes, where?</apex:outputText>
+                        <apex:outputField value="{!Assessment__c.Referrals_Made__c}" style="width:300px"/>
+                        <apex:outputText >If no, reasons why:</apex:outputText>
+                        <apex:outputField value="{!Assessment__c.Referrals_Not_Made__c}" style="width:300px"/>
+                    </apex:panelgrid>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="ADDITIONAL COMMENTS" showheader="true"  columns="1">
+                    <apex:panelGrid >
+                        <apex:outputText >Physical health needs, need for further support (i.e. health insurance), etc.</apex:outputText>
+                        <apex:outputField value="{!Assessment__c.Additional_Comments__c}" style="height:100px;width:600px"/>
+                    </apex:panelGrid>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="GENOGRAM/LIVING SITUATION" showheader="true" collapsible="true" columns="1">
+                    <apex:panelGrid width="600px">
+                        <apex:outputField value="{!Assessment__c.Genogram__c}"/>
+                    </apex:panelGrid>
+                    <apex:pageblockSectionItem ></apex:pageblockSectionItem>
+                    <apex:pageblockSectionItem ></apex:pageblockSectionItem>    
+                    <apex:panelGrid columns="2" columnClasses="col3,col2">
+                        <apex:outputText ><b>Living Situation:</b></apex:outputText>
+                        <apex:outputText >Include comments on current living situation, history of housing, and any major events
+                     that influenced a change in household and/or a move to a new location.</apex:outputText>
+                        <apex:outputField value="{!Assessment__c.Living_Situation_Picklist__c}"/>
+                        <apex:outputField value="{!Assessment__c.Living_Situation_Detail__c}" style="width:400px"/>
+                    </apex:panelGrid>
+                </apex:pageblocksection>
+                <apex:pageblocksection title="System Information" showheader="false" collapsible="false" columns="2">
+                    <apex:pageblocksectionitem >
+                        <apex:outputlabel value="Created By"/>
+                        <apex:outputpanel >
+                            <apex:outputField value="{!Assessment__c.CreatedById}"/>
+                            <apex:outputField value="{!Assessment__c.CreatedDate}"/>
+                        </apex:outputpanel>
+                    </apex:pageblocksectionitem>
+                    <apex:pageblocksectionitem >
+                        <apex:outputlabel value="Last Modified By"/>
+                        <apex:outputpanel >
+                            <apex:outputField value="{!Assessment__c.LastModifiedById}"/> 
+                            <apex:outputField value="{!Assessment__c.LastModifiedDate}"/>
+                        </apex:outputpanel>
+                    </apex:pageblocksectionitem>
+                </apex:pageblocksection>
+            </apex:outputpanel>
+        </apex:pageblock>
+    </apex:form>
+<Script>
+    function setFocusOnLoad() {}
+</Script>
+<style type="text/css">
+    .col0 {width:50px; text-align:right;}
+    .col1 {width:400px; text-align:left;}
+    .col2 {width:450px; text-align:left;}
+    .col3 {width:100px; text-align:left;}    
+</style>
+</td></tr></table>
+</apex:page>

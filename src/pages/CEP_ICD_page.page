@@ -1,0 +1,219 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="ICDpage" >
+ <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+  <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+<br/>
+
+ <!-- rendered="{!isEdit==true}" -->
+<apex:outPutPanel id="op" styleclass="span.resultContainer">
+<!--                     EDIT BLOCK  -->
+  <apex:pageblock id="pbEdit" rendered="{!isEdit==true}" > 
+    <apex:pageblocksection columns="1">
+      <apex:facet name="header"><span style="color:black;font-size:14px;">Education - ICD</span></apex:facet>
+   <apex:panelGrid columns="4" id="pgrid" columnClasses="col16,col26,col36,col46" >   
+      <apex:pageblock >
+      <apex:pageblocksection columns="1">
+      <apex:inputfield value="{!ICD.Last_School_Attended__c}" styleclass="txt200edit"/>
+      </apex:pageblocksection>
+      </apex:pageblock>
+    <apex:pageblock >  
+        <apex:pageblocksection columns="1">
+      <apex:inputfield value="{!ICD.Credits_Attained__c}" styleclass="txt40edit"/>
+    </apex:pageblocksection>
+    </apex:pageblock>
+   <apex:pageblock > 
+      <apex:pageblocksection columns="1"> 
+    <apex:inputfield value="{!ICD.Mo_Yr_Last_Attended_School__c}" styleclass="txt60edit"/>
+    </apex:pageblocksection>
+    </apex:pageblock>
+   <apex:pageblock >  
+      <apex:pageblocksection columns="1">
+    <apex:inputfield value="{!ICD.Last_Grade_Completed__c}"  styleclass="txt60edit"/>
+    </apex:pageblocksection>
+    </apex:pageblock>
+   </apex:panelGrid>
+ 
+      <apex:panelGrid columns="2" id="pgrid2" title="Other Education" >   
+       <apex:pageblock > 
+       <apex:outputlabel value="Other Education" style="font-size:14px;font-weight:bold;"/>
+       <apex:pageblocksection columns="2">
+        <apex:inputfield value="{!ICD.Other_Education_Attended__c}" styleclass="txt250edit"/>
+         <apex:inputfield value="{!ICD.Mo_Yr_Last_Attended_Other__c}" styleclass="txt60edit"/>
+      </apex:pageblocksection>
+        </apex:pageblock>
+      
+      </apex:panelGrid>
+    </apex:pageblocksection>  
+    <apex:pageblocksection columns="1">
+      <apex:facet name="header"><span style="color:black;font-size:14px;">Testing</span></apex:facet>
+      <apex:panelGrid columns="4" border="0" rowclasses="oddrow,evenrow" width="600px"
+        columnclasses="colstyle14,colstyle24,colstyle34,colstyle44">    
+        <apex:outputlabel value="Test name" style="font-size:16px;font-weight:bold;"/> 
+        <apex:outputlabel value="Taken" style="font-size:16px;font-weight:bold;"/> 
+        <apex:outputlabel value="Mo/Yr taken" style="font-size:16px;font-weight:bold;"/> 
+        <apex:outputlabel value="Section Passed" style="font-size:16px;font-weight:bold;"/>
+           
+        <apex:outputlabel value="Regents"/>
+        <apex:inputfield value="{!ICD.Regents__c}"/>
+        <apex:inputfield value="{!ICD.Mo_Yr_Taken_Regents__c}"/>
+        <apex:inputfield value="{!ICD.Sections_Passed_Regents__c}"/>
+
+        <apex:outputlabel value="GED"/>
+        <apex:inputfield value="{!ICD.GED__c}"/>
+        <apex:inputfield value="{!ICD.Mo_Yr_Taken_GED__c}"/>
+        <apex:inputfield value="{!ICD.Sections_Passed_GED__c}"/>
+
+        <apex:outputlabel value="TASC"/>
+        <apex:inputfield value="{!ICD.TASC__c}"/>
+        <apex:inputfield value="{!ICD.Mo_Yr_Taken_TASC__c}"/>
+        <apex:inputfield value="{!ICD.Sections_Passed_TASC__c}"/>
+      </apex:panelGrid>
+    </apex:pageblocksection>                
+    <apex:pageblocksection columns="1">
+      <apex:inputfield value="{!ICD.Education_Client_Narrative__c}" styleclass="textareaedit"/>
+      <apex:inputfield value="{!ICD.Employment_Section_1__c}" styleclass="textareaedit" />
+      <apex:inputfield value="{!ICD.Education_Plan__c}" styleclass="textareaedit" />
+      <apex:inputfield value="{!ICD.ICD_Services__c}"  />
+    </apex:pageblocksection>
+  </apex:pageblock>
+  <!--                     VIEW BLOCK  -->
+  <apex:pageblock id="pbView" rendered="{!isEdit==false}" > 
+   <apex:pageblocksection columns="2">
+      <apex:facet name="header"><span style="color:black;font-size:14px;">Education - ICD</span></apex:facet>
+    <apex:pageblocksectionItem >	
+    <apex:outputlabel value="Last School Name" for="l1"/>
+	      <apex:outputlabel value="{!schoolName}" style="color:blue;width:300px;background-color:white;" id="l1"/>
+		  </apex:pageblocksectionItem>
+	     
+    <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Credits Attained" for="l2"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(ICD.Credits_Attained__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:60px;background-color:white;" id="l2"/>
+		  </apex:pageblocksectionItem>
+
+    <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Mo/Yr Last Attended" for="l3"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(ICD.Mo_Yr_Last_Attended_School__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:250px;background-color:white;" id="l3"/>
+		  </apex:pageblocksectionItem>
+
+  <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Last Grade Completed" for="l4"/>		
+	        <apex:outputlabel value="{!ICD.Last_Grade_Completed__c}" 
+                 style="color:blue;width:60px;background-color:white;" id="l4"/>
+		  </apex:pageblocksectionItem>
+     </apex:pageblocksection>
+<hr/>
+       <apex:outputlabel value="Other Education" style="font-size:14px;font-weight:bold;"/>
+       <apex:pageblocksection columns="2">
+          <apex:pageblocksectionItem >	
+             <apex:outputlabel value="School name" for="s1"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(ICD.Other_Education_Attended__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:250px;background-color:white;" id="s1"/>
+		  </apex:pageblocksectionItem>
+       
+          <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Last Attended:" for="s2"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(ICD.Mo_Yr_Last_Attended_Other__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:250px;background-color:white;" id="s2"/>
+		  </apex:pageblocksectionItem>
+    </apex:pageblocksection>
+ 
+    <apex:pageblocksection columns="1">
+      <apex:facet name="header"><span style="color:black;font-size:14px;">Testing</span></apex:facet>
+      <apex:panelGrid columns="4" border="0" rowclasses="oddrow,evenrow" 
+        columnclasses="colstyle14,colstyle24,colstyle34,colstyle44" width="600px">    
+        <apex:outputlabel value="Test name" style="font-size:16px;font-weight:bold;"/> 
+        <apex:outputlabel value="Taken" style="font-size:16px;font-weight:bold;"/> 
+        <apex:outputlabel value="Mo/Yr taken" style="font-size:16px;font-weight:bold;"/> 
+        <apex:outputlabel value="Section Passed" style="font-size:16px;font-weight:bold;"/>
+           
+             
+        <apex:outputlabel value="Regents"/>
+        <apex:outputfield value="{!ICD.Regents__c}"/>
+        <apex:outputlabel value="{!ICD.Mo_Yr_Taken_Regents__c}"/>
+        <apex:outputlabel value="{!ICD.Sections_Passed_Regents__c}"/>
+
+         <apex:outputlabel value="GED"/>
+         <apex:outputfield value="{!ICD.GED__c}"/>
+         <apex:outputlabel value="{!ICD.Mo_Yr_Taken_GED__c}"/>
+         <apex:outputlabel value="{!ICD.Sections_Passed_GED__c}"/>
+
+         <apex:outputlabel value="TASC"/>
+         <apex:outputfield value="{!ICD.TASC__c}"/>
+         <apex:outputlabel value="{!ICD.Mo_Yr_Taken_TASC__c}"/>
+         <apex:outputlabel value="{!ICD.Sections_Passed_TASC__c}"/>
+       </apex:panelGrid>
+      </apex:pageblocksection>
+<hr/>     
+   
+     <apex:pageblocksection columns="1">
+     
+     <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Education - Client Narrative" for="a1"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(ICD.Education_Client_Narrative__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:250px;background-color:white;" id="a1"/>
+		  </apex:pageblocksectionItem>
+                  
+     <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Employment - Participant Narrative" for="a2"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(ICD.Employment_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:250px;background-color:white;" id="a2"/>
+		  </apex:pageblocksectionItem>
+
+     <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Education_Plan(Staff Recommendations)" for="a3"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(ICD.Education_Plan__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:250px;background-color:white;" id="a3"/>
+		  </apex:pageblocksectionItem>
+  
+   <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Participant Choices)" for="a4"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(ICD.ICD_Services__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:250px;background-color:white;" id="a4"/>
+		  </apex:pageblocksectionItem>
+  
+    </apex:pageblocksection>          
+  </apex:pageblock>
+</apex:outPutPanel>
+<br/>
+<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+  <table>
+    <tr>
+      <td width="400px" align="left">
+	    <apex:outputLabel value="Created by:"/>&nbsp;
+		<apex:outputLabel value="{!createdInfo}"/>					
+      </td>
+      <td width="400px"  align="right">
+	    <apex:outputLabel value="Last modified by:" />&nbsp;
+		<apex:outputLabel value="{!LastModifiedInfo}"/>
+      </td>
+    </tr>
+  </table> 
+</apex:outPutPanel>
+</apex:form>
+</apex:page>

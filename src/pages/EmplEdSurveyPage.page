@@ -1,0 +1,152 @@
+<apex:page controller="AssessmentController">
+<apex:form id="surveypage" >
+  <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+  <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+
+ <apex:outPutPanel id="op" styleclass="span.resultContainer">
+ <apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+	<apex:pageblocksection columns="2">
+	  <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Employment/Education Survey</span> 
+    </apex:facet> 	
+<!-- 	<apex:inputfield value="{!Survey.Survey_Date__c}" required="true"/>-->
+	<apex:inputfield value="{!Survey.Survey_Date__c}" />
+	<apex:inputfield value="{!Survey.Home_Phone__c}" />
+<!-- 					<apex:inputfield value="{!Survey.Client_Contact_Method__c}" required="{!if(isedit||isnew,true,false)}"/>-->
+				<apex:inputfield value="{!Survey.Client_Contact_Method__c}"/>
+					 
+					<apex:inputfield value="{!Survey.Most_Recent_Alumni_Survey__c}" required="false"/>
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="2">
+	  <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Education- Update this info on the client's Education record</span> 
+    </apex:facet> 
+					<apex:inputfield value="{!Survey.Education_Information_Confirmed__c}" required="false"/>
+					<apex:inputfield value="{!Survey.School_Start_Date__c}" required="false"/>
+					<apex:inputfield value="{!Survey.Current_School_Enrollment__c}" required="false"/> 
+					<apex:inputfield value="{!Survey.School_End_Date__c}" required="false"/>
+					<apex:inputfield value="{!Survey.Last_School_Attended__c}" required="false"/>
+					<apex:inputfield value="{!Survey.Reason_for_Leaving_School_Other__c}" required="false"/>
+					<apex:inputfield value="{!Survey.Reason_for_Leaving_School__c}" required="false"/>
+					<apex:inputfield value="{!Survey.Diploma_Type__c}" required="false"/>
+					<apex:inputfield value="{!Survey.Diploma_Date__c}" required="false"/>
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="2">
+ <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Employment-  Update this info on client's Employment record</span> 
+    </apex:facet> 				
+					<apex:inputfield value="{!Survey.Employment_Information_Confirmed__c}" required="false"/>
+					<apex:inputfield value="{!Survey.Current_Employment__c}" required="false"/>
+					<apex:inputfield value="{!Survey.Hourly_Pay__c}" required="false"/>
+					<apex:inputfield value="{!Survey.Employer__c}" required="false"/>
+					<apex:inputfield value="{!Survey.Job_Title__c}" required="false"/>
+				</apex:pageblocksection> 
+					<apex:pageblocksection columns="1">
+				<apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Notes/Follow-up</span> 
+    </apex:facet> 	
+				<apex:pageblocksection columns="1">
+<!-- 					<apex:inputfield value="{!Survey.Survey_Notes__c}" required="true"/>-->
+				<apex:inputfield value="{!Survey.Survey_Notes__c}" styleclass="textshortedit"/>
+	            </apex:pageblocksection>
+	            			<apex:pageblocksection columns="2">
+					<apex:inputfield value="{!Survey.Follow_up_Needed__c}"  />
+					<apex:inputfield value="{!Survey.Follow_up_Date__c}" />
+				</apex:pageblocksection>
+				</apex:pageblocksection>
+</apex:pageblock>
+<apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+	<apex:pageblocksection columns="2">
+	  <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Employment/Education Survey</span> 
+    </apex:facet> 	
+	<apex:outputfield value="{!Survey.Survey_Date__c}" />
+	<apex:outputfield value="{!Survey.Client_s_True_Name__c}" />
+	<apex:outputfield value="{!Survey.Home_Phone__c}" />
+					<apex:outputfield value="{!Survey.Client_Contact_Method__c}"/>
+					 
+					<apex:outputfield value="{!Survey.Most_Recent_Alumni_Survey__c}"/>
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="2">
+	  <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Education- Update this info on the client's Education record</span> 
+    </apex:facet> 
+					<apex:outputfield value="{!Survey.Education_Information_Confirmed__c}"/>
+					<apex:outputfield value="{!Survey.School_Start_Date__c}"  />
+					<apex:outputfield value="{!Survey.Current_School_Enrollment__c}"  /> 
+					<apex:outputfield value="{!Survey.School_End_Date__c}"  />
+					<apex:outputfield value="{!Survey.Last_School_Attended__c}"  />
+					<apex:outputfield value="{!Survey.Reason_for_Leaving_School_Other__c}"  />
+					<apex:outputfield value="{!Survey.Reason_for_Leaving_School__c}"  />
+					<apex:outputfield value="{!Survey.Diploma_Type__c}"  />
+					<apex:outputfield value="{!Survey.Diploma_Date__c}"  />
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="2">
+ <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Employment-  Update this info on client's Employment record</span> 
+    </apex:facet> 				
+					<apex:outputfield value="{!Survey.Employment_Information_Confirmed__c}"  />
+					<apex:outputfield value="{!Survey.Current_Employment__c}"  />
+					<apex:outputfield value="{!Survey.Hourly_Pay__c}"  />
+					<apex:outputfield value="{!Survey.Employer__c}"  />
+					<apex:outputfield value="{!Survey.Job_Title__c}"  />
+				</apex:pageblocksection> 
+				<apex:pageblocksection columns="1">
+				<apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Notes/Follow-up</span> 
+    </apex:facet> 	
+				<apex:pageblocksection columns="1">
+					<apex:outputfield value="{!Survey.Survey_Notes__c}" />
+	            </apex:pageblocksection>
+	            			<apex:pageblocksection columns="2">
+					<apex:outputfield value="{!Survey.Follow_up_Needed__c}"  />
+					<apex:outputfield value="{!Survey.Follow_up_Date__c}" />
+				</apex:pageblocksection>
+				</apex:pageblocksection>
+</apex:pageblock>
+</apex:outPutPanel>
+
+	<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>               	
+				
+<br/> 
+</apex:form>
+
+
+</apex:page>

@@ -1,0 +1,298 @@
+<apex:page title="Update Court Date" controller="UnifiedUpdateCourtDateController" id="pgMain" sidebar="true">
+   
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191, '/jQueryUI-1.10.3/ui/jquery-ui.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/corners/jquery.corner.js')}" /> 
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/css/ui-lightness/jquery-ui-1.8.13.custom.css')}" />
+
+<script>
+    function pageClose(){
+     //  alert('open here');
+       windows.history.back();
+   //    alert('back'); 
+       window.close();
+ </script>
+
+<apex:outputPanel id="opScripts">
+
+<style>
+
+    span.topContainer {
+        margin: 1px; 
+        margin-bottom: 10px;
+        background: #BEE3F8; 
+        padding: 5px;
+        border:0; 
+        float: left;
+        width: auto;
+        clear: both;
+        white-space: nowrap;
+    }
+    
+    td.searchLabel {
+        vertical-align: middle;
+        width: 25%; 
+    }
+    
+    input.searchCriteria {
+        width: 150px;
+    
+    }
+    
+    .fsBorders {
+        border-color:#1797C0;
+        border-style: solid;
+        border-width: 1px;
+    }
+    
+    .criteriaInput { }
+        
+
+</style>
+
+<script>
+    
+    ////////////////////////////
+    // Always declare another instance of jQuery as not to conflict with SF's instance
+    ////////////////////////////
+    var j$ = jQuery.noConflict();
+    
+    ////////////////////////////
+    // Standard JS Functions
+    ////////////////////////////
+    function statusShow() {
+        //j$( "#dialog-modal" ).dialog( "open" );
+        document.getElementById('loadingGif').style.display = '';
+    }
+
+    function statusHide() {
+        //j$( "#dialog-modal" ).dialog( "close" );
+        document.getElementById('loadingGif').style.display = 'none';
+    }
+    
+    function parseDate(datestr) {
+        var date = datestr.match(/(\d{1,2})[/](\d{1,2})[/](\d{4})/);
+        return new Date(date[3], date[1]-1, date[2]);
+    }    
+    
+    function criteriaFieldGrouping() {
+    
+        var today = new Date();
+        var elDate = document.getElementById('{!$Component.pgMain:frmMain:dteThisCourtDate}'); 
+        var elNextDate = document.getElementById('{!$Component.pgMain:frmMain:dteNextCourtDate}'); 
+        var elAssignedTo = document.getElementById('{!$Component.pgMain:frmMain:lkpAssignedTo}');
+        
+        // Require fields
+        if(j$(elAssignedTo).val() == '' || j$(elDate).val() == '' ) {
+            alert('The court date and assigned to user cannot be blank.');
+            return false;
+        } else {
+            return true;
+        }
+    
+    }    
+     
+     
+    function checkFields()  {
+        if(criteriaFieldGrouping() == true) {
+            afSubmitSave();
+            return true;
+        } else {
+            return false;
+        }
+    } 
+    
+</script>
+
+<script>
+    function setFocusOnLoad(){
+    }
+</script>
+</apex:outputPanel>
+
+    <apex:outputPanel id="opTitleHeader">
+        <apex:sectionHeader subtitle="{!thisContact.FirstName} {!thisContact.LastName} / {!thisContact.P_C_ID__c}" />
+        <br />
+    </apex:outputPanel>
+
+<apex:form id="frmMain">
+
+    <apex:actionStatus id="asShowInterstitial" onstart="statusShow();" onstop="statusHide();" />
+    <apex:actionFunction name="afSubmitSave" action="{!updateCourtDate}" rerender="opFields, opScripts" status="asShowInterstitial"/>
+
+    <apex:outputPanel id="opFields">
+
+        <apex:pageMessages />
+
+        <apex:outputPanel styleClass="topContainer" id="opInput">
+        
+            <fieldset id="fsCriteria" class="fsBorders">
+            <legend>Edit/Reassign Court Date</legend>
+            
+            
+                <table width="500px" border="0" cellPadding="2" cellSpacing="2">
+                    <tr>
+                        <td width="100%">
+                            
+                            <table width="100%" border="0" cellPadding="2" cellSpacing="2">
+                                <tr>
+                                    <td width="10%" class="searchLabel">
+                                        <apex:outputText value="Date" />
+                                    </td>
+                                    <td width="23%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisCourtDate.ActivityDate}" id="dteThisCourtDate" />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                    <td width="10%" class="searchLabel">
+                                        <apex:outputText value="Part" />
+                                    </td>
+                                    <td width="23%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisCourtDate.Part__c}" id="pckPart" />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                    <td width="10%" class="searchLabel">
+                                        <apex:outputText value="Assigned Court Staff" />
+                                    </td>
+                                    <td width="23%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisCourtDate.ownerId}" id="lkpAssignedTo" />
+                                    </td>
+                                </tr>                            
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputLink id="btnEditOldCourtDate" value="/{!thisCourtDate.id}" rendered="{!bolSaveSuccessful}">Edit full court date record</apex:outputLink>
+                                    </td>
+                                </tr>                                
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </apex:outputPanel>    
+        <apex:outputPanel styleClass="topContainer" id="opInput2">            
+            <fieldset id="fsCriteria2" class="fsBorders">
+                <legend>Verify</legend>                
+                <table width="500px" border="0" cellPadding="2" cellSpacing="2">
+                    <tr>
+                        <td width="100%">
+                            <table width="100%" border="0" cellPadding="2" cellSpacing="2">
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Action" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisCourtDate.Action__c}" id="pckAction" />
+                                    </td>
+                               </tr>
+                               <tr>
+                                   <td colspan="2">
+                                   <table width="100%" border="0" cellPadding="2" cellSpacing="2">
+                                       <tr>
+                                           <td class="searchLabel">
+                                                <apex:outputText value="Outcome" />
+                                           </td>
+                                           <td align="left">
+                                               <apex:inputField styleClass="criteriaInput" value="{!thisCourtDate.Outcome__c}" id="pckOutcome" />
+                                           </td>
+                                           <td class="searchlabel">
+                                            <apex:outputText value="Staff Attended"/>
+                                           </td>
+                                           <td>
+                                               <apex:inputField value="{!thisCourtDate.Court_Staff_Attended__c}"/>
+                                           </td>
+                                       </tr>    
+                                        <tr>   
+                                            <td class="searchLabel">
+                                                <apex:outputText value="Write a progress note" />
+                                            </td>
+                                            <td align="left">
+                                                <apex:inputField styleClass="criteriaInput" value="{!thisCourtDate.Description}" id="txtNote"/>
+                                            </td>
+                                            <td>
+                                                <apex:outputText value="Service Plan Submitted"/>
+                                            </td>                                        
+                                            <td>
+                                                <apex:inputField value="{!thisCourtDate.Service_Plan_Submitted__c}"/>
+                                            </td>
+                                        </tr>
+                                   </table>
+                                   </td>
+                                </tr>
+                                                          
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </apex:outputPanel>    
+
+
+
+        <apex:outputPanel styleClass="topContainer" id="opInput3">              
+            <fieldset id="fsCriteria" class="fsBorders">                 
+                <legend>Next Court Date</legend>                
+                <table border="0" cellPadding="2" cellSpacing="2">
+                    <tr>
+                        <td>
+                            <table width="100%" border="0" cellPadding="2" cellSpacing="2">
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Next Court Date" rendered="{!bolShowCourtDate}"/>
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!nextCourtDate.ActivityDate}" id="dteNextCourtDate" 
+                                        rendered="{!bolShowCourtDate}"/>
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:outputText styleClass="criteriaInput" 
+                                        value="This client already has a next court date scheduled. Save and return to the Court Portal to see it." 
+                                        id="strAlreadyScheduledMessage" rendered="{!not(bolShowCourtDate)}"/>
+                                    </td>                                    
+                                    <td class="searchLabel">
+                                        <apex:outputLink id="btnEditNewCourtDate" value="/{!nextCourtDate.id}"  
+                                        rendered="{!bolNewCourtDateCreated}">Edit next court date record</apex:outputLink>
+                                    </td>
+                                </tr>                                                                                         
+                            </table>
+                        </td>
+                    </tr>
+                </table>                            
+            
+            </fieldset>
+        
+        </apex:outputPanel>
+        <apex:outputPanel styleClass="topContainer" id="opButtons">
+            
+                <table border="0" cellPadding="2" cellSpacing="2">        
+                     <tr>
+                         <td align="left" style="vertical-align: bottom;">
+                             <apex:commandButton id="cmdSave" value="Save" action="{!doNothing}" onclick="return checkFields();" rerender="emptyRerender"/>
+                             <apex:commandButton id="cmdCancel" value="Cancel" action="{!goPortal}" />
+<!--                              <apex:commandButton id="cmdPortal" value="Return to Court Portal" action="{!goPortal}" disabled="{!bolSaveSuccessful != True}"/>-->
+                           <apex:commandButton id="cmdPortal" value="Return to Unified Court Portal" action="{!goPortal}" disabled="{!bolSaveSuccessful != True}"/>
+                         </td>
+                    </tr>   
+                    
+                </table>
+        
+        </apex:outputPanel>                      
+        
+        <div id="loadingGif" title="Processing Search" style="display:none;">
+            <p align="center">
+                Please wait while the search is processed...<br />
+                <br />
+                <img src="{!URLFOR($Resource.CasesLogo)}" /><br />
+                <br />
+                <img src="{!URLFOR($Resource.loading)}" />
+            </p>
+        </div>          
+        
+    </apex:outputPanel>
+
+</apex:form>
+
+<apex:outputPanel id="opEmpty">
+    
+</apex:outputPanel>
+        
+
+</apex:page>

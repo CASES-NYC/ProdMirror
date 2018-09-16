@@ -1,0 +1,9 @@
+<apex:component >
+ <apex:outputLabel value="The Court Employment Project, a program of the Center for Alternative Sentencing and Employment Services, offers an alternative to incarceration for defendants charged with 
+   felony offenses that includes daily supervision, academic and vocational training, employment opportunities , and drug relapse prevention services."
+    style="font-size:9px"/>
+    <br/>
+  <apex:outputLabel value="Pursuant to 42 CFR Part 2, which governs confidentiality of alcohol and drug abuse patient records, information concerning substance abuse and its treatment may be redisclosed 
+    by the recipients of such information only in connection with their official duties."
+              style="font-size:9px"/>
+</apex:component>

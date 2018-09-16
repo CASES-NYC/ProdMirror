@@ -1,0 +1,141 @@
+<apex:page controller="toDoPortal" action="{!logPageLoad}" cache="false">
+    
+    <script src="{!URLFOR($Resource.jQuery_191,'jQuery-191/jquery-1.9.1.min.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'jQuery-191/jquery.tablesorter.widgets.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/css/theme.default.css')}" rel="stylesheet"/>
+    
+    <script type="text/javascript">
+        var j$ = jQuery.noConflict();
+        
+        function logTabEnter(strCurrentTab) {
+        
+            Visualforce.remoting.Manager.invokeAction(
+                 '{!$RemoteAction.toDoPortal.logTabEnter}',
+                 strCurrentTab,
+                 function(result, event) {
+                 
+                 }
+            );
+        }       
+        
+        function hidFilterPanes() {
+         
+            if(document.getElementById('taskSectionOne').style.display == 'none') {
+            
+                document.getElementById('taskSectionOne').style.display = 'block';
+                document.getElementById('ueSection').style.display = 'block';
+                document.getElementById('courtFilterSection').style.display = 'block';
+                document.getElementById('eventTaskControlPanel').style.display = 'block';
+                document.getElementById('cboPlacementFilter').style.display = 'block';
+                
+            } else {
+            
+                
+                document.getElementById('taskSectionOne').style.display = 'none';
+                document.getElementById('ueSection').style.display = 'none';
+                document.getElementById('courtFilterSection').style.display = 'none';
+                document.getElementById('eventTaskControlPanel').style.display = 'none';
+                document.getElementById('cboPlacementFilter').style.display = 'none';
+            }
+            
+        }
+        
+        function defaultList(obj) {
+        
+            if(obj.value != 'Staff') {
+                document.getElementById('staffDiv1').style.display= 'none';
+                document.getElementById('staffDiv2').style.display= 'none';
+            } else{
+                document.getElementById('staffDiv1').style.display= 'block';
+                document.getElementById('staffDiv2').style.display= 'block';
+            }
+            
+            if(obj.value != 'Unit') {
+                document.getElementById('unitDiv1').style.display= 'none';
+                document.getElementById('unitDiv2').style.display= 'none';
+            } else{
+                document.getElementById('unitDiv1').style.display= 'block';
+                document.getElementById('unitDiv2').style.display= 'block';
+            }
+            
+            if(obj.value != 'Caseload') {
+                document.getElementById('caseloadDiv1').style.display= 'none';
+                document.getElementById('caseloadDiv2').style.display= 'none';
+            } else{
+                
+                document.getElementById('caseloadDiv1').style.display= 'block';
+                document.getElementById('caseloadDiv2').style.display= 'block';
+            }
+            
+            
+        
+        }
+    </script>
+    <style>
+    
+        .label{width: 100px;}
+        
+       .activeTab {background-color: #236FBD; color:white;
+             background-image:none; border-color: white}
+             
+       .inactiveTab {background-color: #cccccc; color:black;
+                     background-image:none; border-color: black}
+//#a1bd68
+//#cccccc           
+    </style>
+    
+    <apex:tabPanel switchType="client" selectedTab="Tasks" id="theTabPanel" 
+    tabClass="activeTab" inactiveTabClass="inactiveTab">
+<!-- ------------------------------------------------------------------------------------------------------------------------------- 
+  
+    TASKS
+
+ ------------------------------------------------------------------------------------------------------------------------------- -->    
+        
+        <apex:tab label="Tasks" name="Tasks" id="tabTasks" onTabEnter="logTabEnter('Tasks');">    
+            <div align="right"><input type="button" value="Show/Hide Filter" onClick="hidFilterPanes();" /></div>
+            <apex:include pageName="toDoPortal_tasks" />
+        </apex:tab>
+ <!-- ------------------------------------------------------------------------------------------------------------------------------- 
+  
+    UNVERIFIED APPOINTMENTS
+
+ ------------------------------------------------------------------------------------------------------------------------------- -->    
+               
+        <apex:tab label="Unverified Appointments" name="UnverifiedAppts" id="tabUnverifiedAppts" onTabEnter="logTabEnter('Unverified Appointments');">
+            <div align="right"><input type="button" value="Show/Hide Filter" onClick="hidFilterPanes();" /></div>
+            <apex:include pageName="toDoPortal_unverifiedAppointments" />
+        </apex:tab>
+<!-- ------------------------------------------------------------------------------------------------------------------------------- 
+  
+    COURT DATES
+
+ -------------------------------------------------------------------------------------------------------------------------------    
+        <apex:tab label="Court Dates" name="courtDates" id="tabcourtDates" onTabEnter="logTabEnter('Court Dates');">
+            <div align="right"><input type="button" value="Show/Hide Filter" onClick="hidFilterPanes();" /></div>
+            <apex:include pageName="toDoPortal_courtDates" /> 
+        </apex:tab> --> 
+ <!-- ------------------------------------------------------------------------------------------------------------------------------- 
+  
+    CLIENTS
+
+ ------------------------------------------------------------------------------------------------------------------------------- -->    
+        
+        <apex:tab label="Client" name="Client" id="tabClient" onTabEnter="logTabEnter('Client');">
+            <div align="right"><input type="button" value="Show/Hide Filter" onClick="hidFilterPanes();" /></div>
+            <apex:include pageName="toDoPortal_Client" />
+        </apex:tab>
+ <!-- ------------------------------------------------------------------------------------------------------------------------------- 
+  
+    CBO PLAECEMENT
+
+ ------------------------------------------------------------------------------------------------------------------------------- -->    
+        
+        <apex:tab label="CBO Placement" name="CBOplacement" id="tabCBOplacement" onTabEnter="logTabEnter('CBO Placement');">
+            <div align="right"><input type="button" value="Show/Hide Filter" onClick="hidFilterPanes();" /></div>
+            <apex:include pageName="toDoPortal_cboPlacement" />
+        </apex:tab>
+    </apex:tabPanel>
+
+</apex:page>

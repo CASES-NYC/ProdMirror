@@ -1,0 +1,742 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="srppage" >
+   <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+<br/>
+
+ <!-- rendered="{!isEdit==true}" -->
+<apex:outPutPanel id="op" styleclass="span.resultContainer">
+
+<apex:pageblock >
+ <apex:pageBlockSection collapsible="true" id="basic" columns="4">
+       <apex:facet name="header" >
+        <span style="color:black;font-size:14px;">Basic Client Info</span> 
+       </apex:facet> 
+      <apex:pageBlockSectionItem >
+      <apex:outputlabel value="Intake date:" for="a1" />  
+      <apex:outputtext value="{!sIntakeDate}" styleclass="txt60" id="a1"/> 
+      </apex:pageBlockSectionItem>
+       <apex:pageBlockSectionItem >
+      <apex:outputlabel value="DOB:" for="a2" />  
+     <apex:outputtext value="{!sDOB}" styleclass="txt60" id="a2"/>
+ </apex:pageBlockSectionItem>
+       <apex:pageBlockSectionItem >
+      <apex:outputlabel value="Parent/Guardian:"/> 
+       <apex:outputtext value="{!ParentGuard}" styleclass="txt60" id="a3"/>
+  </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+      <apex:outputlabel value="Rel. to Client:" for="a4" /> 
+     <apex:outputtext value="{!rel2client}" styleclass="txt60" id="a4"/> 
+  </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+     <apex:outputlabel value="Primary Address:" for="a5" /> 
+     <apex:outputtext value="{!address}" styleclass="txt60" id="a5"/>
+  </apex:pageBlockSectionItem>
+   </apex:pageBlockSection>
+</apex:pageblock>
+  <apex:pageblock id="pbEdit" rendered="{!isEdit==true}" > 
+  <apex:pageblocksection columns="2" >
+        <apex:facet name="header" >
+          <span style="color:black;font-size:14px;">Social Support</span> 
+        </apex:facet>
+        <apex:inputfield value="{!SRP.How_safe_do_you_feel__c}" styleclass="textareanarrowedit"/>
+        <apex:inputfield value="{!SRP.Reliable_Access_Food__c}" styleclass="textareanarrowedit"/>
+        <apex:inputfield value="{!SRP.Reliable_Access_Clothing__c}" styleclass="textareanarrowedit"/>
+        <apex:inputfield value="{!SRP.Other_legal_issues__c}" styleclass="textareanarrowedit"/>
+        <apex:inputfield value="{!SRP.Level_of_Social_Support__c}"/>
+    <apex:inputfield value="{!SRP.Other_legal_issues__c}" styleclass="textareanarrowedit"/>
+   
+      </apex:pageblocksection>
+      
+      <apex:pageblocksection columns="1">
+        <apex:facet name="header" >
+          <span style="color:black;font-size:14px;">Mental Health</span> 
+        </apex:facet> 
+        <apex:inputfield value="{!SRP.Psychiatric_Diagnosis_Information__c}" />
+      </apex:pageblocksection>
+    
+      <apex:pageblocksection >
+        <apex:inputfield value="{!SRP.Psy_Diagnosis_Other__c}" />
+        <apex:inputfield value="{!SRP.MH_Ever_Hospitalized__c}"  />
+        <apex:inputField value="{!SRP.Hospitalized_Details__c}" styleclass="text250edit"/>                             
+        <apex:inputfield value="{!SRP.Currently_seeing_psych__c}"  />
+        <apex:inputfield value="{!SRP.Satisfied_with_psych__c}"  />
+        <apex:inputfield value="{!SRP.Psychiatrist__c}" />
+        <apex:inputfield value="{!SRP.Psychiatrist_Agency__c}" />
+        <apex:inputfield value="{!SRP.Psychiatrist_Address__c}"/>
+        <apex:inputfield value="{!SRP.Psychiatrist_Phone__c}" />
+        <apex:inputfield value="{!SRP.Currently_seeing_therapist__c}" />
+        <apex:inputfield value="{!SRP.Satisfied_with_therapist__c}" />
+        <apex:inputfield value="{!SRP.Therapist__c}" />
+        <apex:inputfield value="{!SRP.Therapist_Agency__c}" />
+        <apex:inputfield value="{!SRP.Therapist_Address__c}" />
+        <apex:inputfield value="{!SRP.Therapist_Phone__c}" />
+        <apex:inputfield value="{!SRP.Taking_Meds_for_MH__c}" />
+        <apex:inputfield value="{!SRP.Medications_Dosage__c}" styleclass="text250edit"/>
+        <apex:inputfield value="{!SRP.Hurt_others__c}" />
+        <apex:inputfield value="{!SRP.Hurt_others_when__c}" styleclass="text250edit"/>
+        <apex:inputfield value="{!SRP.Hurt_others_What_going_on__c}" styleclass="text250edit"/>
+        <apex:inputfield value="{!SRP.Hurt_Others_What_you_do__c}" styleclass="text250edit"/>
+        <apex:inputfield value="{!SRP.Hurt_Others_happening_now__c}" />
+        <apex:inputfield value="{!SRP.Hurt_Self__c}" />
+        <apex:inputfield value="{!SRP.Hurt_self_when__c}" styleclass="text250edit"/>
+        <apex:inputfield value="{!SRP.Hurt_Self_What_going_on__c}" styleclass="text250edit"/>
+        <apex:inputfield value="{!SRP.Hurt_Self_What_you_do__c}" styleclass="text250edit"/>
+        <apex:inputfield value="{!SRP.Hurt_Self_happening_now__c}" styleclass="text250edit"/>
+      </apex:pageBlockSection>
+     
+      <apex:pageblocksection columns="2" >
+        <apex:facet name="header" >
+          <span style="color:black;font-size:14px;">Substance Abuse</span> 
+        </apex:facet> 
+        <apex:inputfield value="{!SRP.SA_in_treatment__c}" />
+         <apex:inputField value="{!SRP.SA_Treatment_Details__c}" styleclass="text250edit"/>
+        <apex:inputField value="{!SRP.SA_Substances_Used__c}" styleclass="text250edit"/>                    
+        <apex:inputfield value="{!SRP.SA_satisfied_with_support__c}"  />
+        <apex:inputfield value="{!SRP.SA_caused_legal_problems__c}" />
+        <apex:inputfield value="{!SRP.SA_overdose__c}" />
+        <apex:inputField value="{!SRP.SA_Overdose_Details__c}" styleclass="text250edit"/>                    
+        <apex:inputfield value="{!SRP.SA_looking_for_support__c}"  />
+     </apex:pageblocksection>
+     <apex:pageblocksection columns="3" >
+        <apex:inputfield value="{!SRP.Smoke_cigarettes__c}"  />
+        <apex:inputfield value="{!SRP.Cigarettes_How_Many__c}" />
+        <apex:inputfield value="{!SRP.Cutting_down__c}"  />
+         </apex:pageblocksection> 
+       
+      <apex:pageblocksection columns="1">
+        <apex:facet name="header" >
+          <span style="color:black;font-size:14px;">Medical Status Questions</span> 
+        </apex:facet>
+        <apex:inputField value="{!SRP.Health_Insurance__c}" />
+       </apex:pageblocksection>
+       <apex:pageblocksection columns="2"> 
+        <apex:InputField value="{!SRP.Insurance_Number__c}" />                                
+        <apex:inputfield value="{!SRP.Medicaid_Sequence_Number__c}" />
+       </apex:pageblocksection>
+       <apex:pageblocksection columns="1"> 
+        <apex:inputField value="{!SRP.Medical_Issues__c}"/>
+       </apex:pageblocksection> 
+       <apex:pageblocksection columns="2"> 
+        <apex:inputField value="{!SRP.Other_medical_issues__c}" styleclass="text250edit"/>
+        <apex:inputfield value="{!SRP.Support_needed_for_medical_issues__c}" />
+        <apex:inputfield value="{!SRP.Current_Medical_Care_Provider_YN__c}" />
+        <apex:inputfield value="{!SRP.Primary_Care_Physician__c}" />
+        <apex:inputfield value="{!SRP.PCP_Clinic__c}" />
+        <apex:inputfield value="{!SRP.Physician_Address__c}" />
+        <apex:inputfield value="{!SRP.Physician_Phone__c}"/>
+        <apex:inputfield value="{!SRP.Last_Physical_Exam__c}" />
+        <apex:outputText style="align:left" > WOMEN ONLY&nbsp;&nbsp;&nbsp;&nbsp;========
+        </apex:outputText>
+        <apex:inputfield value="{!SRP.Have_OBGYN__c}"  />
+        <apex:inputfield value="{!SRP.OBGYN_Clinic__c}" />
+        <apex:inputfield value="{!SRP.OBGYN_Address__c}" />
+        <apex:inputfield value="{!SRP.OBGYN_Phone__c}" />
+        <apex:inputfield value="{!SRP.Last_Pap_Smear__c}" />                                                                        
+      </apex:pageblocksection>
+      
+      
+      <apex:pageblocksection columns="2">
+      <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">Educational Attainment</span> 
+         </apex:facet>
+        <apex:inputfield value="{!SRP.Ed_currently_enrolled__c}"/>
+        <apex:inputfield value="{!SRP.Current_School_Enrollment__c}" styleclass="text250edit"/>
+        <apex:inputfield value="{!SRP.Ed_continue_studies__c}" />
+        <apex:inputfield value="{!SRP.Educational_Goals__c}" styleclass="text250edit"/>
+        <apex:inputfield value="{!SRP.Ed_vocational_training__c}"  />
+        <apex:inputfield value="{!SRP.Employment_Goals__c}" styleclass="text250edit"/>
+      </apex:pageblocksection>
+      
+     <apex:pageblocksection showheader="true" columns="2">
+      <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">Needs Assessment</span> 
+            </apex:facet> 
+      <apex:inputfield value="{!SRP.Need_medical_referrals__c}"  />
+      <apex:inputField value="{!SRP.Need_Medical_Referrals_Txt__c}"/>
+        <apex:inputfield value="{!SRP.Primary_caregiver__c}"  />
+      <apex:inputField value="{!SRP.Caregiver_Referrals__c}" styleclass="text250edit"/>
+  <!--     <apex:outputText >What are your current sources of income/benefits?</apex:outputText>-->
+      <apex:inputField value="{!SRP.Income_Wages__c}"/>
+   
+      <apex:inputField value="{!SRP.Income_PA_CASH__c}" />
+      <apex:inputField value="{!SRP.Income_Family__c}" />
+      <apex:inputField value="{!SRP.Income_SSD__c}" />
+  
+      <apex:inputField value="{!SRP.Income_Veteran_Benefits__c}" />
+      <apex:inputField value="{!SRP.Income_Other__c}" />
+      <apex:inputField value="{!SRP.Income_SSI__c}" />
+      <apex:inputField value="{!SRP.Income_Pension__c}" />
+ 
+       <apex:inputcheckbox value="{!SRP.Income_None__c}" styleclass="chk"/>
+
+      <span style="color:blue;font-size:14px;">SNAP/WIC/EBT/Food Stamps?</span>
+      <apex:inputfield value="{!SRP.Food_Stamps_YN__c}"  />
+      <apex:inputField value="{!SRP.Food_Stamps_Amount__c}"/>
+    <!--   <apex:inputfield value="{!SRP.Health_home_care_coordinator__c}"  />-->
+      <apex:inputfield value="{!SRP.Half_Fare_Metrocard__c}"  />
+     <apex:inputfield value="{!SRP.Have_case_worker__c}"  />
+       <apex:inputfield value="{!SRP.Case_Worker__c}"/>
+       <apex:inputfield value="{!SRP.Case_Worker_Agency__c}"/>
+       <apex:inputfield value="{!SRP.Case_Worker_Address__c}"/>
+       <apex:inputfield value="{!SRP.Case_Worker_Phone__c}"/>
+  
+     </apex:pageblocksection>
+
+    <apex:pageBlockSection columns="1">
+      <apex:inputField value="{!SRP.Most_Important_Needs__c}" styleclass="textareaedit"/>
+      <apex:inputField value="{!SRP.Most_Helpful_Needs__c}" styleclass="textareaedit"/>
+      <apex:inputfield value="{!SRP.Immediate_Needs__c}" />
+   </apex:pageblocksection> 
+  <!-- 
+   <apex:pageBlockSection columns="2">
+   <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">Supervision Level - Aggravating Factors</span> 
+    </apex:facet> 
+                <apex:actionRegion id="aggravating">
+                <apex:inputfield value="{!SRP.Aggravating_Factors__c}" required="true">
+                    <apex:actionSupport event="onchange" reRender="sl" status="status"/>
+                </apex:inputfield>
+                 </apex:actionRegion>
+                <apex:inputfield value="{!SRP.Aggravating_Factors_Description__c}"/>                                 
+    </apex:pageBlockSection>
+ 
+   <apex:pageblocksection id="sl" >
+    <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">Select Intake Supervision Level</span> 
+    </apex:facet> 
+                    <apex:inputfield value="{!SRP.Supervision_Recommendation__c}" required="true"/>
+                    <apex:inputfield value="{!SRP.Three_word_explanation__c}"/>                    
+            </apex:pageblocksection>
+   -->
+    </apex:pageblock>
+ 
+   <!--    VIEW mode --> 
+ 
+    <apex:pageblock id="pbView" rendered="{!isEdit==false}" > 
+    
+      <apex:pageblocksection columns="2">
+        <apex:facet name="header" >
+          <span style="color:black;font-size:14px;">Social Support</span> 
+        </apex:facet>
+            <apex:pageblocksectionItem >
+          <apex:outputlabel value="How safe do you feel currently?" for="q1"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.How_safe_do_you_feel__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q1"/>
+         </apex:pageblocksectionItem>
+      
+          <apex:pageblocksectionItem >    
+          <apex:outputlabel value="Do you have reliable access to food?" for="q2"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Reliable_Access_Food__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q2"/>
+             </apex:pageblocksectionItem>
+                
+       <apex:pageblocksectionItem >
+          <apex:outputlabel value="Do you have reliable access to clean clothes?" for="q3"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Reliable_Access_Clothing__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q3"/>
+             </apex:pageblocksectionItem>
+     
+        <apex:pageblocksectionItem >
+          <apex:outputlabel value="How is your level of social support right now?" for="q4"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Level_of_Social_Support__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q4"/>
+             </apex:pageblocksectionItem>
+    
+       <apex:pageblocksectionItem >
+          <apex:outputlabel value="Besides the case that brought you here, are there other legal issues you are dealing with currently?" for="q6"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Other_legal_issues__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q6"/>
+             </apex:pageblocksectionItem>
+      </apex:pageblocksection>
+   
+      <apex:pageblocksection columns="1">
+        <apex:facet name="header" >
+          <span style="color:black;font-size:14px;">Mental Health</span> 
+        </apex:facet> 
+     <apex:pageblocksectionItem >
+          <apex:outputlabel value="Psychiatric Diagnosis Information" for="q7"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Psychiatric_Diagnosis_Information__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="q7"/>
+             </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+          <apex:outputlabel value="Psych Diagnosis (Other)" for="q8"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Psy_Diagnosis_Other__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q8"/>
+             </apex:pageblocksectionItem>
+ 
+ 
+      </apex:pageblocksection>
+        <apex:pageblocksection columns="2">
+ 
+       <apex:pageblocksectionItem >
+          <apex:outputlabel value="Ever hospitalized?" for="q9"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.MH_Ever_Hospitalized__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="q8"/>
+             </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+          <apex:outputlabel value="Details" for="q10"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Hospitalized_Details__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q10"/>
+             </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+          <apex:outputlabel value="Currently seening a psychiatrist" for="q11"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Currently_seeing_psych__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="q11"/>
+             </apex:pageblocksectionItem>
+ 
+       <apex:pageblocksectionItem >
+          <apex:outputlabel value="Satisfied with psychiatrist?" for="q12"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Satisfied_with_psych__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="q12"/>
+             </apex:pageblocksectionItem>
+
+       <apex:pageblocksectionItem >
+          <apex:outputlabel value="Psychiatrist" for="q13"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Psychiatrist__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="q13"/>
+             </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+          <apex:outputlabel value="Psychiatrist Agency" for="q14"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Psychiatrist_Agency__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q14"/>
+             </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+          <apex:outputlabel value="Psychiatrist address" for="q15"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Psychiatrist_Address__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q15"/>
+             </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+          <apex:outputlabel value="Psyciatrist phone" for="q16"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Psychiatrist_Phone__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q16"/>
+             </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+          <apex:outputlabel value="Currently seening a therapist" for="q17"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Currently_seeing_therapist__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="q17"/>
+             </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+          <apex:outputlabel value="Satisfied with therapist?" for="q18"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Satisfied_with_therapist__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="q18"/>
+             </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+          <apex:outputlabel value="Therapist" for="q19"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Therapist__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q19"/>
+             </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+          <apex:outputlabel value="Therapist Agency" for="q20"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Therapist_Agency__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q20"/>
+             </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+          <apex:outputlabel value="Therapist address" for="q21"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Therapist_Address__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q21"/>
+             </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+          <apex:outputlabel value="Therapist phone" for="q22"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Therapist_Phone__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q22"/>
+             </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+          <apex:outputlabel value="Taking meds for mental health issues" for="q23"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Taking_Meds_for_MH__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="q23"/>
+             </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+          <apex:outputlabel value="Medications and Dosage" for="q24"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Medications_Dosage__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q24"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Thoughts of hurting others" for="q25"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Hurt_others__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q25"/>
+             </apex:pageblocksectionItem>
+ <apex:pageblocksectionItem >
+          <apex:outputlabel value="When was that?" for="q26"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Hurt_others_when__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q26"/>
+             </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="What was going on?" for="q27"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Hurt_others_What_going_on__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q27"/>
+             </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="What did you do?" for="q28"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Hurt_Others_What_you_do__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q28"/>
+             </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="Still happening now?" for="q29"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Hurt_Others_happening_now__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q29"/>
+             </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="Thoughts of hurting self" for="q30"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Hurt_Self__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q30"/>
+             </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="When was that?" for="q31"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Hurt_self_when__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q31"/>
+             </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="What was going on?" for="q32"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Hurt_Self_What_going_on__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q32"/>
+             </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="What did you do?" for="q33"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Hurt_Self_What_you_do__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q33"/>
+             </apex:pageblocksectionItem>
+
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="Still happening now?" for="q34"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Hurt_Self_happening_now__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="q34"/>
+             </apex:pageblocksectionItem>
+      </apex:pageBlockSection>
+  
+ 
+      <apex:pageblocksection columns="2" >
+        <apex:facet name="header" >
+          <span style="color:black;font-size:14px;">Substance Abuse</span> 
+        </apex:facet> 
+        <apex:pageblocksectionItem >
+          <apex:outputlabel value="Are you in treatment or attending support groups for any drug and/or alcohol use?" for="s1"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.SA_in_treatment__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="s1"/>
+             </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+          <apex:outputlabel value="Explain" for="s2"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.SA_Treatment_Details__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="s2"/>
+             </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+          <apex:outputlabel value="If yes, substance(s) used:" for="s3"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.SA_Substances_Used__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="s3"/>
+             </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+          <apex:outputlabel value="Are you satisfied with the level of support you receive for any drug and/or alcohol use?" for="s4"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.SA_satisfied_with_support__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="s4"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Has any drug and/or alcohol use caused legal problems for you?" for="s5"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.SA_caused_legal_problems__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="s5"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Have you ever overdosed or been at risk for an overdose?" for="s6"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.SA_overdose__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="s6"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="If yes, explain" for="s7"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.SA_Overdose_Details__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="s7"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Are you looking for further support regarding your drug and/or alcohol use?" for="s8"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.SA_looking_for_support__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="s8"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Do you smoke cigarettes?" for="s9"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Smoke_cigarettes__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="s9"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="	count per day" for="s10"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Cigarettes_How_Many__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="s10"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="If yes, are you interested in cutting down or quitting?" for="s11"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Cutting_down__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="s11"/>
+             </apex:pageblocksectionItem>
+     </apex:pageblocksection>
+                  
+      <apex:pageblocksection columns="2">
+        <apex:facet name="header" >
+          <span style="color:black;font-size:14px;">Medical Status Questions</span> 
+        </apex:facet>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Health Insurance" for="m1"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Health_Insurance__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="m1"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Insurance Number" for="m2"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Insurance_Number__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="m2"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Medicaid Sequence Number" for="m3"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Medical_Issues__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="m3"/>
+             </apex:pageblocksectionItem>
+       </apex:pageblocksection>
+  
+       <apex:pageblocksection columns="1"> 
+        <apex:pageblocksectionItem >
+          <apex:outputlabel value="Medical Issues" for="m4"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Medical_Issues__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="m4"/>
+             </apex:pageblocksectionItem>
+       </apex:pageblocksection> 
+              <apex:pageblocksection columns="2"> 
+     <apex:pageblocksectionItem >
+          <apex:outputlabel value="Other medical issues" for="m5"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Other_medical_issues__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="m5"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Support needed for medical issues" for="m6"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Support_needed_for_medical_issues__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="m6"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Current Medical Care Provider " for="m7"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Primary_Care_Physician__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="m7"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Primary Care Physician" for="m8"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Current_Medical_Care_Provider_YN__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="m8"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Primary Care Clinic" for="m9"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.PCP_Clinic__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="m9"/>
+             </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="Physician address" for="m10"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Physician_Address__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="m10"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Physician phone" for="m11"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Physician_Phone__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="m11"/>
+             </apex:pageblocksectionItem>
+
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Last Physical Exam" for="m12"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Last_Physical_Exam__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="m12"/>
+             </apex:pageblocksectionItem>
+        <apex:outputText style="align:left" > WOMEN ONLY&nbsp;&nbsp;&nbsp;&nbsp;========</apex:outputText>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="Have OBGYN" for="m13"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Have_OBGYN__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="m13"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="OB GYN Clinic" for="m14"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.OBGYN_Clinic__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="m14"/>
+             </apex:pageblocksectionItem>
+  <apex:pageblocksectionItem >
+          <apex:outputlabel value="OBGYN address" for="m15"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.OBGYN_Address__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="m15"/>
+             </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="OBGYN phone" for="m16"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.OBGYN_Phone__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="m16"/>
+             </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="Last Pap Smear" for="m17"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Last_Pap_Smear__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="m17"/>
+    </apex:pageblocksectionItem>
+      </apex:pageblocksection>
+      <apex:pageblocksection columns="2">
+      <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">Educational Attainment</span> 
+         </apex:facet>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="What is the highest level of education that you have attained?" for="e1"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Ed_currently_enrolled__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="e1"/>
+    </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="Current school enrollment" for="e2"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Highest_Level_of_Education__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="e2"/>
+    </apex:pageblocksectionItem>
+    <apex:pageblocksectionItem >
+       <apex:outputLabel value="If yes, where and at what level?" for="c1" />
+      <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Current_School_Enrollment__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="c1"/>
+    </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="Would you like to continue your studies?" for="e3"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Ed_continue_studies__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="e3"/>
+    </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="	If yes, what are your educational goals?" for="e4"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Educational_Goals__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="e4"/>
+    </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="Are you interested in vocational or technical training?" for="e5"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Ed_vocational_training__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="e5"/>
+    </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="	If yes, what are your employment goals" for="e6"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Employment_Goals__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="e6"/>
+    </apex:pageblocksectionItem>
+       </apex:pageblocksection>
+
+     <apex:pageblocksection columns="2">
+      <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">Needs Assessment</span> 
+            </apex:facet> 
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="Need medical referral?" for="r1"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Need_medical_referrals__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="r1"/>
+    </apex:pageblocksectionItem>
+<apex:pageblocksectionItem >
+          <apex:outputlabel value="Need medical referral?" for="r2"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Need_Medical_Referrals_Txt__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:300px;background-color:white;" id="r2"/>
+    </apex:pageblocksectionItem>
+    
+      <apex:inputtext value="{!SRP.Primary_caregiver__c}" styleclass="txt40" disabled="true"/>
+       <apex:inputtext value="{!SRP.Caregiver_Referrals__c}" styleclass="txt300" disabled="true"/>
+   <!--   <apex:outputText >What are your current sources of income/benefits?</apex:outputText>-->
+      <apex:inputtext value="{!SRP.Income_Wages__c}" styleclass="txt100" disabled="true"/>
+
+      <apex:inputtext value="{!SRP.Income_PA_CASH__c}" styleclass="txt100" disabled="true"/>
+      <apex:inputtext value="{!SRP.Income_Family__c}" styleclass="txt100" disabled="true"/>
+      <apex:inputtext value="{!SRP.Income_SSD__c}" styleclass="txt100" disabled="true"/>
+      <apex:inputtext value="{!SRP.Income_Veteran_Benefits__c}" styleclass="txt100" disabled="true"/>
+
+      <apex:inputtext value="{!SRP.Income_Other__c}" styleclass="txt100" disabled="true"/>
+      <apex:inputtext value="{!SRP.Income_SSI__c}" styleclass="txt100" disabled="true"/>
+      <apex:inputtext value="{!SRP.Income_Pension__c}" styleclass="txt100" disabled="true"/>
+
+      <apex:outputField value="{!SRP.Income_None__c}" />
+
+       <apex:outputLabel value="SNAP/WIC/EBT/Food Stamps?"/> 
+
+      <apex:inputtext value="{!SRP.Food_Stamps_YN__c}"  styleclass="txt40" disabled="true"/>
+      <apex:inputtext value="{!SRP.Food_Stamps_Amount__c}" styleclass="txt100" disabled="true"/>
+      <apex:inputtext value="{!SRP.Health_home_care_coordinator__c}" styleclass="txt300"  disabled="true"/>
+      <apex:inputtext value="{!SRP.Half_Fare_Metrocard__c}"  styleclass="txt200" disabled="true"/>
+   
+     <apex:inputtext value="{!SRP.Have_case_worker__c}"  styleclass="txt40" disabled="true"/>
+       <apex:inputtext value="{!SRP.Case_Worker__c}" styleclass="txt300" disabled="true"/>
+       <apex:inputtext value="{!SRP.Case_Worker_Agency__c}" styleclass="txt300" disabled="true"/>
+       <apex:inputtext value="{!SRP.Case_Worker_Address__c}" styleclass="txt300" disabled="true"/>
+       <apex:inputtext value="{!SRP.Case_Worker_Phone__c}" styleclass="txt300" disabled="true"/>
+     </apex:pageblocksection>
+
+    <apex:pageBlockSection columns="1">
+    <apex:pageblocksectionItem >
+          <apex:outputlabel value="Most important needs to work on" for="k1"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Most_Important_Needs__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="k1"/>
+    </apex:pageblocksectionItem>
+      <apex:pageblocksectionItem >
+          <apex:outputlabel value="Most helpful to avoid rearrest" for="k2"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Most_Helpful_Needs__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="k2"/>
+    </apex:pageblocksectionItem>
+      <apex:pageblocksectionItem >
+          <apex:outputlabel value="Immediate Needs" for="k3"/> 
+            <apex:outputtext value="{!substitute(substitute(JSENCODE(SRP.Immediate_Needs__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:40px;background-color:white;" id="k3"/>
+    </apex:pageblocksectionItem>
+   </apex:pageblocksection> 
+ 
+        </apex:pageblock>
+ <apex:pageblock id="opaction1" >
+ 
+       
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an1" 
+   style="font-size:14px;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad1" 
+   style="font-size:14px;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+   <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}" status="selectData"
+ id="btnEdit1" rerender="opaction,op,pbEdit,opaction1,pbEdit1" immediate="true"/>
+
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel1" rerender="aPage,m,opaction,op,pbEdit,opaction1,pbEdit1" />
+
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+ <apex:commandButton value="Save" id="btnSave1" rendered="{!isedit}" action="{!saveAssessment}" rerender="opaction,op" status="selectData">
+ </apex:commandButton>
+
+
+</apex:pageblock>  
+</apex:outPutPanel>
+   
+<br/>
+		<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>
+        
+    </apex:form>
+    
+</apex:page>

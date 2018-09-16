@@ -1,0 +1,33 @@
+<apex:component controller="ClientInfoController">
+<br/>
+  <apex:outputText value="Client:" style="font-size:12px;"/> 
+  &nbsp;
+  <apex:outputLink value="/{!clientId}" id="i" target="_blank" title="Open contact"> 
+                    <apex:outputText value="{!clientName}" style="font-size:16px;font-weight:bold;color:black"/>
+                  </apex:outputLink>
+ 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <apex:outputText value="Intake Case:" />
+&nbsp;  
+  <apex:outputLink value="/{!intakeCaseId}" id="d" target="_blank" title="Open Case"> 
+                    <apex:outputText value="{!docket}" style="font-size:16px;font-weight:bold;color:black"/>
+                  </apex:outputLink>
+ 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+  <apex:outputText value="PC ID:" />
+&nbsp;  
+   <apex:outputText value="{!PcId}" style="font-size:16px;font-weight:bold;color:black"/>
+   
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <apex:outputText value="Program Plan:" />
+&nbsp;  
+ <!--  <apex:outputLink value="/{!prgId}" id="p" target="_blank" title="Open Case"> --> 
+     <apex:outputText value="{!prgname}" style="font-size:16px;font-weight:bold;color:black"/>
+ <!-- </apex:outputLink> -->  
+   
+</apex:component>

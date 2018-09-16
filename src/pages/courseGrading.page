@@ -1,0 +1,459 @@
+<apex:page controller="courseGrading" title="Grading and Verification" id="pgCourseGrading" action="{!initPage}" cache="false">
+   <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" />
+     <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/css/theme.default.css')}" rel="stylesheet"/>    
+       
+    <script src="{!URLFOR($Resource.jQuery_191,'jQueryUI-1.10.3/jquery-1.9.1.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'jQueryUI-1.10.3/ui/jquery-ui.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />      
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/style.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQueryUI-1.10.3/css/redmond/jquery-ui-1.8.15.custom.css')}" />
+<!--    <apex:includeScript value="{!URLFOR($Resource.tablesorter, 'jquery.tablesorter.js')}"/>-->
+
+ <script type="text/javascript">
+        $j = jQuery.noConflict();    
+        $j(document).ready(function () {
+        $j("[id$=infoTable]").tablesorter();
+        });    
+    </script>
+
+    <script type="text/javascript"> function setFocusOnLoad() {} </script>
+
+    <script type="text/javascript">
+        j$ = jQuery.noConflict(); 
+        var attendeeId = '';
+        
+        function startCancel() {
+            document.getElementById('spnLoading').innerHTML = 'Cancelling session for all enrolled clients.  Please wait...';
+            statusShow();
+        }
+
+
+        function startGroupNoteSave() {
+            document.getElementById('spnLoading').innerHTML = 'The group note is being applied to all enrolled clients.  Please wait...';
+            statusShow();
+        }
+        
+        function startShowAttendees() {
+            document.getElementById('spnLoading').innerHTML = 'Retrieving Enrolled Clients.  Please wait...';
+            statusShow();
+        }
+
+
+        function stopGroupNoteSave() {
+            alert("Group Note Saved.");
+        }
+        
+    
+        function confirmCancelSession() { 
+
+            document.getElementById('spnConfirm').innerHTML = 'Cancel session for all enrolled clients?';
+            j$("#divConfirm").dialog("open"); 
+        }       
+
+
+        /*function printTRPExitLetters(apiSessionId, apiServerUrl, classId, sessionStartDate) {
+        
+            var filename = 'TRP Exit Letters - ' + sessionStartDate;
+
+            congaUrl = 'https://www.appextremes.com/apps/Conga/PointMerge.aspx';
+            congaUrl += '?sessionId=' + apiSessionId;
+            congaUrl += '&serverUrl=' + apiServerUrl;
+            congaUrl += '&Id=' + classId;
+            congaUrl += '&QueryId=[qryEnrolledClients]a0M6000000FY1KD?pv0=' + classId;
+            congaUrl += '&DV0=' + sessionStartDate;     
+            congaUrl += '&TemplateId=a0v60000000yoG9';
+            congaUrl += '&OFN=' + filename;
+            congaUrl += '&enc=UTF-8&ic=1&DS7=3&FP0=0&BML=Click+Download+to+Save+and+View+Compliance+Letter';
+
+            window.open(congaUrl, 'Conga', 'height=250,width=400');
+        }*/ 
+        
+                
+        ////////////////////////////////////////
+        // jQuery Functions
+        ////////////////////////////////////////    
+        j$(function() {
+
+            //j$( "#divLoading" ).dialog( "close" );
+            //j$( "#divConfirm" ).dialog( "close" );            
+
+            
+            /////////////////////////////////
+            // jQuery Modal Dialog - LOADING STATUS
+            /////////////////////////////////
+            
+            j$( "#divLoading" ).dialog({
+                autoOpen: false,
+                height: 180,
+                modal: true,
+                resizable: false,
+                draggable: false,
+            });
+
+            
+            j$("#divConfirm").dialog({
+                            autoOpen: false,
+                            modal:true, 
+                            buttons : { 
+                                "Yes" : function(){ 
+                                    j$(this).dialog("close"); 
+                                    cancelSession();         
+                                },
+                                "No" : function(){ 
+                                    j$(this).dialog("close"); 
+                                }         
+                            } 
+                        });             
+
+        }); 
+
+        function statusShow() {
+            j$( "#divLoading" ).dialog( "open" );
+        }
+        
+        function statusHide() {
+            j$( "#divLoading" ).dialog( "close" );
+        }
+
+
+
+    </script>       
+
+
+    
+    
+    
+    <apex:pageBlock title="Grading and Verification">
+    
+        <apex:pageBlockSection collapsible="false" columns="1" title="Class/Session Selection">
+        
+            <apex:outputPanel id="taskSection">
+            
+                <apex:form id="criteria">
+
+                    <apex:actionFunction name="cancelSession" action="{!cancelSession}" status="cancelStatus" rerender="cancelStatus, pnlSessionInfo, frmAttendees"/>
+
+                    <div class="controlPanel">
+
+                        <table border="0" cellpadding="2" cellspacing="0" width="100%">
+                            <tr>
+                                <td width="40%">
+                                    <table border="0" cellpadding="2" cellspacing="0" width="100%">
+                                        <tr>
+                                            <td>Area:</td>
+                                            <td>
+                                                <apex:inputField value="{!coSearch.Area__c}">
+                                                    <apex:actionSupport event="onchange" action="{!returnClassList}" rerender="slClass, slSession" />
+                                                </apex:inputField>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Category:</td>
+                                            <td>
+                                                <apex:inputField value="{!coSearch.Category__c}">
+                                                    <apex:actionSupport event="onchange" action="{!returnClassList}" rerender="slClass, slSession" />
+                                                </apex:inputField>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Class:</td>
+                                            <td>
+                                                <apex:selectList id="slClass" value="{!strSelectedClassId}" size="1">
+                                                    <apex:actionSupport event="onchange" 
+                                                                        action="{!returnSessionList}" 
+                                                                        rerender="slSession"/>
+                                                                        
+                                                    <apex:selectOptions value="{!soClass}"/>
+                                                    
+                                                </apex:selectList>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Session:</td>
+                                            <td>
+                                                <apex:selectList id="slSession" value="{!strSelectedSession}" size="1">
+                                                    <apex:actionSupport status="showAttendees"
+                                                                        event="onchange" 
+                                                                        action="{!returnSessionInfo}" 
+                                                                        rerender="pnlRosterButtons,pnlGroupNote,pnlSessionInfo,frmAttendees"/>
+            
+                                                    <apex:selectOptions value="{!soSession}"/>
+                                                </apex:selectList>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                        
+                                    <br />
+
+                                    <fieldset id="fsSessionInfo" style="width:90%">
+                                        <legend >Session Details</legend>
+                                            
+                                        <apex:outputPanel id="pnlSessionInfo" >
+                                            <table>
+                                                <tr>
+                                                    <td><b><apex:outputText value="Date:" rendered="{!bDisplaySessionDetails}" /></b></td>
+                                                    <td><apex:outputText value="{!sesSelected.SessionDate}" id="sessionDate" rendered="{!bDisplaySessionDetails}" /></td>
+                                                    <td><b><apex:outputText value="Start Time:" rendered="{!bDisplaySessionDetails}" /></b></td>
+                                                    <td><apex:outputText value="{!sesSelected.StartTime}" id="sessionStart" rendered="{!bDisplaySessionDetails}" /></td>
+                                                    <td>
+                                                        <b><apex:outputText value="End Time:" rendered="{!bDisplaySessionDetails}" /></b>&nbsp;
+                                                        <apex:outputText value="Choose a Session" rendered="{!bShowChooseSession}"/>
+                                                    </td>
+                                                    <td><apex:outputText value="{!sesSelected.EndTime}" rendered="{!bDisplaySessionDetails}"  id="sessionEnd" />&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b><apex:outputLabel value="Instructor 1:" for="instructor" rendered="{!bDisplaySessionDetails}" /></b>&nbsp;</td>
+                                                    <td colspan="3"><apex:outputField value="{!sesSelected.session.Assigned_To__c}" rendered="{!bDisplaySessionDetails}" id="instructor" />&nbsp;</td>
+                                                    <td colspan="2"><apex:outputText value="{!IF(sesSelected.session.Cancelled__c=true, 'SESSION CANCELLED', '')}" style="color:red" rendered="{!bDisplaySessionDetails}" />&nbsp;</td>
+                                                </tr>
+                                            </table>
+                                        </apex:outputPanel>
+                                                                                                    
+                                    </fieldset>
+                                                                        
+                                </td>
+                                
+                                <td width="30%">                                    
+                                    <table border="0" cellPadding="2" cellSpacing="0" width="100%">
+                                        <tr>
+                                            <td align="left">
+                                                <apex:outputPanel id="pnlGroupNote" >
+                                                    <apex:outputText id="lblGroup" value="Group Note (adds Progress Note to each client):" rendered="{!bDisplaySessionDetails}" />&nbsp;&nbsp;&nbsp;
+                                                    <apex:commandButton id="cmdSaveGroupNote" action="{!saveGroupNote}" value="Save Group Note" status="groupNoteStatus" rendered="{!bDisplaySessionDetails}"  rerender="frmAttendees" /><br />
+
+                                                    <apex:inputField id="groupNote" value="{!sesSelected.session.Group_Note__c}" style="width:90%" rendered="{!bDisplaySessionDetails}" />
+                                                </apex:outputPanel>
+                                            </td>
+                                        </tr>
+
+                                        
+                                        <tr>
+                                            <td align="left">
+                                                <apex:outputPanel id="pnlRosterButtons" >
+                                                    <apex:commandLink id="cmdRefreshRoster" 
+                                                        styleClass="btn" 
+                                                        action="{!returnAttendees}" 
+                                                        status="showAttendees" 
+                                                        value="Refresh Roster" 
+                                                        rendered="{!bDisplaySessionDetails}"  
+                                                        rerender="pnlRosterButtons, pnlGroupNote, pnlSessionInfo, frmAttendees" 
+                                                    />
+                                                    <apex:commandLink id="cmdPrintRoster" 
+                                                        styleClass="btn" 
+                                                        target="_blank" 
+                                                        action="{!printRoster}" 
+                                                        value="Print Roster" 
+                                                        rendered="{!bDisplaySessionDetails}"
+                                                    />
+                                                    <apex:commandLink id="cmdCancelSession" 
+                                                        styleClass="btn" 
+                                                        onclick="confirmCancelSession();" 
+                                                        value="Cancel Session" 
+                                                        rendered="{!bDisplaySessionDetails}"  
+                                                        rerender="frmAttendees"
+                                                    />
+                                                </apex:outputPanel> 
+                                            </td>
+                                        </tr>   
+                                        <tr> 
+                                            <td>
+                                                <apex:outputPanel rendered="false">
+                                                    <apex:outputText value=" " />   
+                                                </apex:outputPanel> 
+                                            </td>
+                                        </tr>   
+                                        <tr>
+                                            <td align="left">
+                                                <!--<apex:outputPanel id="pnlCompLetterButton" >    
+                                                    <apex:commandLink id="cmdPrintExitLetter" 
+                                                        styleClass="btn" 
+                                                        onclick="printTRPExitLetters('{!$Api.Session_ID}', '{!$Api.Partner_Server_URL_80}', '{!strSelectedClassId}', '{!sesSelected.SessionDate}')" 
+                                                        action="{!doNothing}"
+                                                        value="Print Compliance Letters" 
+                                                        rendered="{!bShowRoster == true && coSearch.Category__c == 'TRP One Day Session'}"
+                                                        rerender="cmdPrintExitLetter"
+                                                    />
+                                                </apex:outputPanel>-->
+                                               <apex:outputLink value="/apex/complianceLetterSTART?trpClass={!strSelectedClassId}"
+                                               rendered="{!bShowRoster == true && coSearch.Category__c == 'TRP One Day Session'}"
+                                               >Print Compliance Letters</apex:outputLink>
+                                            </td>
+                                        </tr>
+                                        
+                                    </table>    
+                                    
+                                </td>
+                            </tr>
+                            
+                        </table>
+                        
+                    </div>
+                </apex:form>
+                
+            </apex:outputPanel>
+            
+        </apex:pageBlockSection>
+        
+    </apex:pageBlock>
+
+        
+    <apex:form id="frmAttendees">
+      <!--  
+        <apex:pageBlock id="pgbBottom">
+            <apex:pageBlockButtons location="both" rendered="{!bShowRoster}"> 
+                <apex:commandButton value="Save" action="{!saveSessionAttendees2}" id="saveButton" />
+                <apex:commandButton value="Cancel" action="{!returnAttendees}" id="cancelButton" />
+            </apex:pageBlockButtons> 
+            
+            <apex:pageBlockSection collapsible="false" columns="1" title="Session Roster" >
+                <apex:outputText style="color: red; font-weight: bold" value="{!strErrorMessage}" rendered="{!strErrorMessage != ''}" />
+                <apex:pageBlockTable value="{!lstSessionAttendees}" var="attendee" id="tblAttendees" rendered="{!bShowRoster}">
+      
+                    <apex:column style="vertical-align: top"> 
+                        <apex:facet name="header">Last First</apex:facet>
+                        <apex:outputText value="{!attendee.lastfirst}"/>
+                    </apex:column>
+                <apex:column style="vertical-align: top">
+                        <apex:facet name="header">Client</apex:facet>
+                        <apex:outputField value="{!attendee.oEvt.whoid}"/>
+                    </apex:column>
+                      <apex:column style="vertical-align: top">
+                        <apex:facet name="header">Progress Note</apex:facet>
+                        <apex:inputTextArea value="{!attendee.oProgressNote.Progress_Note__c}" cols="40" rows="10" />
+                    </apex:column>
+            
+                    <apex:column style="vertical-align: top" id="colVerification">
+                        <apex:facet name="header">Verification</apex:facet>
+                        <apex:inputField value="{!attendee.oEvt.Verification_Status__c}" rendered="{!IF(attendee.oEvt.Verification_Status__c != '' && attendee.oEvt.Verification_Status__c != 'Not Verified', False, True)}"/>
+                        <apex:outputText value="{!attendee.oEvt.Verification_Status__c}" rendered="{!IF(attendee.oEvt.Verification_Status__c != '' && attendee.oEvt.Verification_Status__c != 'Not Verified', True, False)}"/>
+                    </apex:column>
+    
+                    <apex:column style="vertical-align: top">
+                        <apex:facet name="header">Participation</apex:facet>
+                        <apex:inputField value="{!attendee.oEvt.Participation__c}"/>
+                    </apex:column>
+
+                    <apex:column style="vertical-align: top">
+                        <apex:facet name="header">W/D</apex:facet>
+                        <apex:inputField value="{!attendee.oEvt.Withdrawn__c}" rendered="{!IF(attendee.oEvt.Verification_Status__c == 'Withdrawn', False, True)}"/>
+                    </apex:column>
+    
+                    <apex:column style="vertical-align: top">
+                        <apex:facet name="header">Withdrawal Reason</apex:facet>
+                        <apex:inputField value="{!attendee.oEvt.Withdrawal_Reason__c}" style="font-size: 8pt"/>
+                    </apex:column>
+                        
+                                        
+                </apex:pageBlockTable>
+                
+                <apex:outputText value="No clients are currently enrolled in the selected session." rendered="{!bShowRosterEmpty}" />
+
+            </apex:pageBlockSection>
+        
+        </apex:pageBlock>
+-->
+
+     <apex:pageBlock id="blockTable">
+      <apex:pageBlockButtons location="both" rendered="{!bShowRoster}"> 
+                <apex:commandButton value="Save" action="{!saveSessionAttendees2}" id="saveButton" />
+                <apex:commandButton value="Cancel" action="{!returnAttendees}" id="cancelButton" />
+            </apex:pageBlockButtons> 
+   <!--       <apex:pageBlockSection collapsible="false" columns="1" title="Session Roster" >-->
+                <apex:outputText style="color: red; font-weight: bold" value="{!strErrorMessage}" rendered="{!strErrorMessage != ''}" />
+<!--
+            <div id="div1" style="height:600px; overflow-y: scroll;">
+         <apex:outputPanel id="allRecords" >
+    -->
+         <table id="infoTable" class="tablesorter" border="0" cellpadding="0" cellspacing="2"> 
+               <thead> 
+                  <tr> 
+                     <th>Name(last-first)</th>    
+                     <th>Name(first-last)</th>    
+                     <th>Progress Note</th>    
+                     <th>Verification</th>    
+                     <th>Paticipation</th>    
+                     <th>W/D</th>    
+                     <th>Withdrawal Reason</th>    
+           
+                  </tr>  
+               </thead>
+               <apex:repeat value="{!lstSessionAttendees}" var="att" id="rows" > 
+               <tr>
+                   <td width="60px">
+                     <apex:outputText value="{!att.lastfirst}"/>
+                  </td>
+                  <td width="60px">
+                     <apex:outputField value="{!att.oEvt.whoid}"/>
+                  </td>
+                  <td>
+                        <apex:inputTextArea value="{!att.oProgressNote.Progress_Note__c}" cols="40" rows="10" />
+                  </td>
+                  <td>
+                        <apex:inputField value="{!att.oEvt.Verification_Status__c}" rendered="{!IF(att.oEvt.Verification_Status__c != '' && att.oEvt.Verification_Status__c != 'Not Verified', False, True)}"/>
+                        <apex:outputText value="{!att.oEvt.Verification_Status__c}" rendered="{!IF(att.oEvt.Verification_Status__c != '' && att.oEvt.Verification_Status__c != 'Not Verified', True, False)}"/>
+                  </td>
+                  <td>
+                        <apex:inputField value="{!att.oEvt.Participation__c}"/>
+                  </td> 
+                  <td>
+                       <apex:inputField value="{!att.oEvt.Withdrawn__c}" rendered="{!IF(att.oEvt.Verification_Status__c == 'Withdrawn', False, True)}"/>
+                </td>
+                <td>
+                     <apex:inputField value="{!att.oEvt.Withdrawal_Reason__c}" style="font-size: 8pt"/>
+        </td>
+
+                               </tr> 
+              </apex:repeat>
+          </table>
+    
+           <script type="Text/javascript">
+                j$("#infoTable").tablesorter(
+                    {
+                        widgets: ['zebra'],
+                        headers: { 
+                                // assign the first column (we start counting zero) 
+                                0: { sorter: true},
+                                1: { sorter: true},
+                                2: { sorter: false},
+                                3: { sorter: false},
+                                4: { sorter: false},
+                                5: { sorter: false},
+                                6: { sorter: false},
+                               
+                               }
+                        }
+                );    
+         </script>
+   <!--
+          </apex:outputPanel>
+          </div>    
+      
+        </apex:pageBlockSection>    
+       -->
+                          <apex:outputText value="No clients are currently enrolled in the selected session." rendered="{!bShowRosterEmpty}" />
+
+    
+     </apex:pageBlock>       
+
+
+
+
+
+
+    </apex:form>
+    
+    <apex:actionStatus onstart="startCancel();" onstop="statusHide();" id="cancelStatus" />
+    <apex:actionStatus onstart="startProgressNoteSave();" onstop="statusHide();" id="progressNoteStatus" />
+    <apex:actionStatus onstart="startGroupNoteSave();" onstop="statusHide();" id="groupNoteStatus" />
+    <apex:actionStatus onstart="startShowAttendees();" onstop="statusHide();" id="showAttendees" />
+    
+    <div id="divLoading" title="Performing Action" >
+        <p><span id="spnLoading">Text set in javascript functions depending on which action status is called</span></p>
+    </div>  
+    
+    <div id="divConfirm" title="Confirmation Requested" >
+        <p><span id="spnConfirm">Are you sure?</span></p>
+    </div>
+    
+</apex:page>

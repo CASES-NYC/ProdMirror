@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This custom object is the top-level of the Course Registration module.  This holds informational fields on what educational course / offering will be placed into a Class.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Area__c</fullName>
+        <externalId>false</externalId>
+        <label>Area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Case Coordination</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Substance Abuse</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Category</label>
+        <picklist>
+            <controllingField>Area__c</controllingField>
+            <picklistValues>
+                <fullName>Academic Class</fullName>
+                <default>false</default>
+                <controllingFieldValues>Education</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Career Exploration Alumni Group</fullName>
+                <default>false</default>
+                <controllingFieldValues>Employment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Career Exploration Support</fullName>
+                <default>false</default>
+                <controllingFieldValues>Employment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Career Exploration Training</fullName>
+                <default>false</default>
+                <controllingFieldValues>Employment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>College Trip</fullName>
+                <default>false</default>
+                <controllingFieldValues>Education</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Drop-in Group</fullName>
+                <default>false</default>
+                <controllingFieldValues>Employment</controllingFieldValues>
+                <controllingFieldValues>Mental Health</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Education / Job Fair</fullName>
+                <default>false</default>
+                <controllingFieldValues>Education</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Interim SA Group</fullName>
+                <default>false</default>
+                <controllingFieldValues>Substance Abuse</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Job Readiness Class</fullName>
+                <default>false</default>
+                <controllingFieldValues>Employment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mandatory Class</fullName>
+                <default>false</default>
+                <controllingFieldValues>Case Coordination</controllingFieldValues>
+                <controllingFieldValues>Education</controllingFieldValues>
+                <controllingFieldValues>Employment</controllingFieldValues>
+                <controllingFieldValues>Mental Health</controllingFieldValues>
+                <controllingFieldValues>Substance Abuse</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MH Group</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mental Health</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-Academic Class</fullName>
+                <default>false</default>
+                <controllingFieldValues>Education</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recreation Activity</fullName>
+                <default>false</default>
+                <controllingFieldValues>Case Coordination</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stages of Change</fullName>
+                <default>false</default>
+                <controllingFieldValues>Substance Abuse</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>START Group</fullName>
+                <default>false</default>
+                <controllingFieldValues>Case Coordination</controllingFieldValues>
+                <controllingFieldValues>Education</controllingFieldValues>
+                <controllingFieldValues>Employment</controllingFieldValues>
+                <controllingFieldValues>Mental Health</controllingFieldValues>
+                <controllingFieldValues>Substance Abuse</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TASC Readiness Test</fullName>
+                <default>false</default>
+                <controllingFieldValues>Education</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TASC Test</fullName>
+                <default>false</default>
+                <controllingFieldValues>Education</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TRP One Day Session</fullName>
+                <default>false</default>
+                <controllingFieldValues>Substance Abuse</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tutoring</fullName>
+                <default>false</default>
+                <controllingFieldValues>Education</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Youth Development</fullName>
+                <default>false</default>
+                <controllingFieldValues>Case Coordination</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Course_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Course Description</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Enroll_Referral_Only__c</fullName>
+        <externalId>false</externalId>
+        <label>Enroll Referral Only</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Hidden_On_Course_Catalog__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If checked, the classes associated with this course should default to not appearing on the Course Catalog, unless specifically marked otherwise</description>
+        <externalId>false</externalId>
+        <label>Hidden On Course Catalog</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Programs_Served__c</fullName>
+        <description>Set if course is for specific youth programs</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set if course is for specific youth programs</inlineHelpText>
+        <label>Program(s) Served</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Adolescent Portable Therapy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BK PEAK</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bronx Choices</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brooklyn Justice Corps</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BX PEAK</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CCI START</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CCM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CEP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CIRT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CITE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Civic Justice Corps</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DTC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Family Court Screening (FCS)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Harlem Plus</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>JAG</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Justice Scholars</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manhattan Choices</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non CEP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>One</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Queens Justice Corps</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Supervised Release</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TRP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Serves_All_Programs__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>For validation only. If checked, Programs Served multi-select must be empty.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check this box if course has open enrollment (available to participants of all youth programs).</inlineHelpText>
+        <label>Serves All Programs</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Course</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Area__c</columns>
+        <columns>Category__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Mandatory_Classes</fullName>
+        <columns>NAME</columns>
+        <columns>Area__c</columns>
+        <columns>Category__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Category__c</field>
+            <operation>equals</operation>
+            <value>Mandatory Class</value>
+        </filters>
+        <label>Mandatory Classes</label>
+    </listViews>
+    <listViews>
+        <fullName>Pick_a_course</fullName>
+        <columns>NAME</columns>
+        <columns>Area__c</columns>
+        <columns>Category__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>NAME</field>
+            <operation>startsWith</operation>
+            <value>what</value>
+        </filters>
+        <label>Pick a course</label>
+    </listViews>
+    <nameField>
+        <label>Course Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Courses</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Area__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Category__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Course_Description__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LAST_UPDATE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Area__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Category__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Course_Description__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Area__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Category__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Course_Description__c</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Area__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Category__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Course_Description__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Programs_Served_Selection</fullName>
+        <active>true</active>
+        <description>If &quot;Serves All Programs&quot; is checked, &quot;Programs Served&quot; may not have any values selected</description>
+        <errorConditionFormula>or( 
+
+and(Serves_All_Programs__c , NOT(ISBLANK(Programs_Served__c))), 
+
+and(not(Serves_All_Programs__c), isblank(Programs_Served__c)) 
+)</errorConditionFormula>
+        <errorDisplayField>Serves_All_Programs__c</errorDisplayField>
+        <errorMessage>You must either check off &quot;Serves All Programs&quot;, or select specific programs from the list.</errorMessage>
+    </validationRules>
+</CustomObject>

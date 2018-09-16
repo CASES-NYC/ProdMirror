@@ -1,0 +1,329 @@
+<apex:page controller="PEAKreportPrintController" id="pgMain" cache="false" renderAs="pdf" 
+    applyBodyTag="false" >
+ <head>
+        <style type="text/css" media="print">
+            @page {@top-right {
+                   content: "Page " counter(page) " of " counter(pages);
+                }
+{                margin-left:0.15in;
+margin-right:0.15in;
+margin-bottom:0.1in;
+margin-top:0.1in;
+ }               
+                @top-center {
+                    content: element(header);
+                }
+    
+                @bottom-left {
+                    content: element(footer);
+                }
+                 margin-bottom: 2.5cm; 
+                 size:letter;
+            }
+                   
+            div.footer {
+                display: block;
+                padding: 5px;
+                position: running(footer);
+            }
+            .pagenumber:before {
+                content: counter(page);
+            }
+            
+            .pagecount:before {
+                content: counter(pages);
+            }
+                 
+            .centered {
+                text-align: center;
+            }
+            
+            .right {
+                text-align: right;
+            }
+            
+            </style>
+    </head>
+ 
+ <apex:form id="frmPrint">
+ <apex:pageBlock id="printRep"  >
+ <apex:image id="theImage" value="{!$Resource.cases_small}" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:outPutlabel value="P E A K" style="font-size:20px;font-weight:bold;"/>
+<br/> 
+  <table>
+    <tr>
+ 
+    <td width="500px" align="center">
+  <!--      <apex:outPutlabel value="P E A K" style="font-size:20px;font-weight:bold;"/>
+<br/>
+
+           <apex:outputField value="{!proxyObject.activitydate}"/>
+-&nbsp;&nbsp;
+           <apex:outputField value="{!proxyObject.Catalog_End_Date__c}"/>
+-->
+  <apex:outPutLabel value="{!reportPeriod}"/>
+
+    </td>
+   
+    <td> 
+        <table cellspacing="0" cellpadding="3" border="1">
+         <tr>          
+         <td>
+           <apex:outPutlabel value="PEAK start Date:" style="font-size:14px;font-weight:bold;"/>
+         </td>  
+         <td> 
+           <apex:outPutlabel value="{!dintake}" />
+         </td>
+         </tr>
+         <tr>        
+               <td>
+            <apex:outPutlabel value="Days in PEAK:" style="font-size:14px;font-weight:bold;"/>
+          </td>
+          <td>
+           <apex:outPutlabel value="{!daysInPeak}" />
+          </td>
+       </tr>
+     </table>
+   </td>
+   </tr>
+   </table>
+   <apex:outPutlabel value="{!boro}" style="font-size:20px;font-weight:bold;"/>
+  	<apex:outPutlabel value="{!repDateString}" style="font-size:20px;"/>
+  	&nbsp;&nbsp;
+  	<apex:outputLabel value="PO:" style="font-size:16px;font-weight:bold;" />
+  	<apex:outPutlabel value="{!poName}" style="font-size:20px;"/>
+  	  
+<br/><br/>
+         <apex:outputLabel value="Case Coordinator:" style="font-size:16px;font-weight:bold;" />
+         <apex:outputLabel value="{!CC}" style="font-size:18px" />
+<br/><br/>
+         <apex:outputLabel value="Last Name:" style="font-size:16px;font-weight:bold;" />
+       
+         <apex:outputLabel value="{!lname}" style="font-size:18px"/>
+       &nbsp;
+       &nbsp;
+         <apex:outputLabel value="First Name:" style="font-size:16px;font-weight:bold;"/>
+      
+         <apex:outputLabel value="{!fname}" style="font-size:18px"/>
+  <br/><br/>
+     <apex:outputLabel value="DOB:" style="font-size:14px;font-weight:bold;"/>
+    &nbsp;
+    <apex:outputLabel value="{!dob}" />
+  <br/><br/>
+ 
+     <apex:outputLabel value="Street Address:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!address}" />
+      
+   &nbsp;&nbsp; 
+      <apex:outputLabel value="City:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!city}" />
+   &nbsp;&nbsp; 
+      <apex:outputLabel value="State:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!state}" />
+   &nbsp;&nbsp; 
+      <apex:outputLabel value="Zip Code:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!zip}" />
+    <br/>
+    <br/>
+      <apex:outputLabel value="Home Phone:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!homephone}" />
+      &nbsp;&nbsp; 
+      <apex:outputLabel value="Cell Phone:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!cell}" />
+      <br/>
+    <br/>
+      <apex:outputLabel value="Resides With:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!last_livewith}" />
+  <br/>
+    <br/>
+      <apex:outputLabel value="Cell Phone:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!cell_livewith}" />
+
+
+ <br/>
+    <br/>
+<table border="1" width="100%" cellpadding="7" >
+  <tr>
+    <td width="150px">
+        <apex:outputLabel value="School" style="font-size:16px;font-weight:bold;"/>
+        <br/>
+        <apex:outputLabel value="{!schoolName}" style="font-size:12px;"/>
+        <br/>
+        <apex:outputLabel value="{!schoolAddress}" style="font-size:12px;"/>
+    </td>
+    <td>
+        <apex:outputLabel value="Compliant:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+ &nbsp;
+        <apex:outputLabel value="{!schoolCompleted}" />
+    <br/><br/>
+           <apex:outputLabel value="Non-Compliant:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+ &nbsp;
+        <apex:outputLabel value="{!schoolNotCompleted}" />
+    </td>
+   </tr>
+   <tr> 
+    <td>
+           <apex:outputLabel value="Employment" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    </td>
+   <td>
+      <apex:outputText value="{!employment}" style="width:400px;"/>
+   </td>
+   </tr>
+   <tr>
+    <td>
+           <apex:outputLabel value="Program Attendance" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    </td>
+        <td>
+        <apex:outputLabel value="Compliant:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+ &nbsp;
+        <apex:outputLabel value="{!programCompleted}" />
+    <br/><br/>
+           <apex:outputLabel value="Non-Compliant:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+ &nbsp;
+        <apex:outputLabel value="{!programNotCompleted}" />
+    </td>
+  </tr>
+</table>
+<br/>
+ <apex:outputLabel value="NOTE:" />
+  <br/>
+      <apex:outputText value="{!narrative}" 
+                 style="height:150px;width:400px; font-size:16px;background-color:white;"/>
+</apex:pageBlock>
+<!-- 
+<apex:pageBlock id="printRep">
+ <apex:image id="theImage" value="{!$Resource.cases_small}" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:outPutlabel value="P E A K" style="font-size:20px;font-weight:bold;"/>
+<br/>
+  <table>
+    <tr>
+ 
+    <td width="500px" align="center">
+
+           <apex:outputField value="{!proxyObject.activitydate}"/>
+-&nbsp;&nbsp;
+           <apex:outputField value="{!proxyObject.Catalog_End_Date__c}"/>
+    </td>
+   
+    <td> 
+        <table cellspacing="0" cellpadding="3" border="1">
+         <tr>          
+         <td>
+           <apex:outPutlabel value="PEAK start Date:" style="font-size:14px;font-weight:bold;"/>
+         </td>  
+         <td> 
+           <apex:outPutlabel value="{!dintake}" />
+         </td>
+         </tr>
+         <tr>        
+               <td>
+            <apex:outPutlabel value="Days in PEAK:" style="font-size:14px;font-weight:bold;"/>
+          </td>
+          <td>
+           <apex:outPutlabel value="{!daysInPeak}" />
+          </td>
+       </tr>
+     </table>
+   </td>
+   </tr>
+   </table>
+   <apex:outPutlabel value="{!boro}" style="font-size:20px;font-weight:bold;"/>
+  	<apex:outPutlabel value="{!repDate}" style="font-size:20px;font-weight:bold;"/>
+<br/><br/>
+         <apex:outputLabel value="Case Coordinator:" style="font-size:16px;font-weight:bold;" />
+         <apex:outputLabel value="{!CC}" style="font-size:18px" />
+<br/><br/>
+         <apex:outputLabel value="Last Name:" style="font-size:16px;font-weight:bold;" />
+       
+         <apex:outputLabel value="{!lname}" style="font-size:18px"/>
+       &nbsp;
+       &nbsp;
+         <apex:outputLabel value="First Name:" style="font-size:16px;font-weight:bold;"/>
+      
+         <apex:outputLabel value="{!fname}" style="font-size:18px"/>
+  <br/><br/>
+     <apex:outputLabel value="DOB:" style="font-size:14px;font-weight:bold;"/>
+    &nbsp;
+    <apex:outputLabel value="{!dob}" />
+  <br/><br/>
+ 
+     <apex:outputLabel value="Street Address:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!address}" />
+      
+   &nbsp;&nbsp; 
+      <apex:outputLabel value="City:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!city}" />
+   &nbsp;&nbsp; 
+      <apex:outputLabel value="State:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!state}" />
+   &nbsp;&nbsp; 
+      <apex:outputLabel value="Zip Code:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!zip}" />
+    <br/>
+    <br/>
+      <apex:outputLabel value="Home Phone:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!homephone}" />
+      &nbsp;&nbsp; 
+      <apex:outputLabel value="Cell Phone:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!cell}" />
+      <br/>
+    <br/>
+      <apex:outputLabel value="Resides With:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!last_livewith}" />
+  <br/>
+    <br/>
+      <apex:outputLabel value="Cell Phone:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    <apex:outputLabel value="{!cell_livewith}" />
+
+
+ <br/>
+    <br/>
+<table border="1" width="100%" cellpadding="7" >
+  <tr>
+    <td width="150px">
+        <apex:outputLabel value="School" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    </td>
+    <td>
+        <apex:outputLabel value="Compliant:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+ &nbsp;
+        <apex:outputLabel value="{!schoolCompleted}" />
+    <br/><br/>
+           <apex:outputLabel value="Non-Compliant:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+ &nbsp;
+        <apex:outputLabel value="{!schoolNotCompleted}" />
+    </td>
+   </tr>
+   <tr> 
+    <td>
+           <apex:outputLabel value="Employment" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    </td>
+   <td>
+      <apex:outputText value="{!employment}" style="width:400px;"/>
+   </td>
+   </tr>
+   <tr>
+    <td>
+           <apex:outputLabel value="Program Attendance" style="font-size:16px;font-weight:bold;"/>&nbsp;
+    </td>
+        <td>
+        <apex:outputLabel value="Compliant:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+ &nbsp;
+        <apex:outputLabel value="{!programCompleted}" />
+    <br/><br/>
+           <apex:outputLabel value="Non-Compliant:" style="font-size:16px;font-weight:bold;"/>&nbsp;
+ &nbsp;
+        <apex:outputLabel value="{!programNotCompleted}" />
+    </td>
+  </tr>
+</table>
+<br/>
+ <apex:outputLabel value="NOTE:" />
+  <br/>
+      <apex:outputText value="{!narrative}" 
+                 style="height:150px;width:400px; font-size:16px;background-color:white;"/>
+</apex:pageBlock>
+-->
+ </apex:form>
+</apex:page>

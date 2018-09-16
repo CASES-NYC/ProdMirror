@@ -1,0 +1,630 @@
+<apex:page controller="sfDocumentcontroller" cache="false" sidebar="false" showHeader="false"
+  doctype="html-5.0">
+
+<head>
+
+<style type="text/css">
+    .col1 {width:550px;height:570px}
+    .col2 {width:500px;height:570px}
+    .col3 {width:100px;height:570px}        
+</style>
+<style type="text/css">
+       .notesPopup{  
+           background-color: #98FB98;
+           border-style: solid;
+            border-width: 2px;
+            padding:10px;
+            position:absolute;
+            height: 450px; 
+            z-index:9999;
+            width:500px;
+            top:100px;
+            heght:900px;
+            overflow:auto;
+  }   
+</style> 
+
+<style type="text/css">
+       .warningPopup{  
+           background-color: #FFF8DC;
+           border-style: solid;
+            border-color: #FF0000;
+            border-width: 2px;
+            padding:10px;
+            position:absolute;
+            height: 100px; 
+            z-index:9999;
+            left:250px;
+            width:250px;
+            top:160px;
+  }   
+</style> 
+
+<style type="text/css">
+       .notesArea{  
+           border-color: #98FB98;
+           border-style: solid;
+           border-width: 2px;
+  }   
+</style>  
+
+<style type="text/css">
+       .respondArea{  
+           border-style: solid;
+           border-width: 2px;
+  }   
+</style>  
+</head>
+<script>  
+        function loadingApps(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('loadingGifData').style.display = '';
+            } else {
+                document.getElementById('loadingGifData').style.display = 'none';
+            }
+        } 
+</script> 
+
+
+<!-- action="{!update_PDF_field}" -->
+  <script>
+  
+  function printall(t){
+    printLegal(t) ;   
+    printnarrative(t);
+    printCoverPage(t);
+   }
+  
+ 
+  function printnarrative(t){
+<!--       window.open('/apex/sfPrintNarrativePage?selectedReport='+t+'&passDoc='+'narr', target='_blank');-->
+window.open('/apex/sfCRW_PrintAllPage?selectedReport='+t+'&passDoc='+'narrOnly', target='_blank');
+  } 
+  function printCoverPage(t){
+        //         alert('event ' + t);
+//                window.open('/apex/sfCRWdocument?selectedDocket='+docketInput, target='_parent');
+//                window.open('/apex/sfPrintCoverPage?selectedReport='+t, target='_blank');
+                window.open('/apex/sfCRW_PrintAllPage?selectedReport='+t+'&passDoc='+'CP', target='_blank');
+             
+                } 
+                     function printLetter(t){
+                window.open('/apex/sfCRW_PrintAllPage?selectedReport='+t+'&passDoc='+'letter', target='_blank');
+             
+                } 
+  
+                 function printLegal(t){
+                window.open('/apex/sfCRW_PrintAllPage?selectedReport='+t+'&passDoc='+'legalOnly', target='_blank');
+             
+                } 
+ 
+                function printAppendixPage(t){
+        //         alert('event ' + t);
+//                window.open('/apex/sfCRWdocument?selectedDocket='+docketInput, target='_parent');
+               window.open('/apex/sfCRW_PrintAllPage?selectedReport='+t+'&passDoc='+'appx', target='_blank');
+             
+                }                
+
+
+                 function printAllpages(t){
+                window.open('/apex/sfCRW_PrintAllPage?selectedReport='+t+'&passDoc='+'all', target='_blank');
+             
+                } 
+
+
+
+
+ </script>
+<apex:form id="frm">  
+<apex:outputLabel value="SF Admin:" style="display:none"/>&nbsp;&nbsp;
+<apex:outputLabel value="{!sfAdmin}" style="display:none"/>
+<br/>
+<apex:outputPanel id="resultPanel">
+<!-- <apex:PageBlock id="resultPanel">-->
+<!-- <apex:actionStatus startText="requesting..." stopText="" id="myStatus" /> -->
+&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:outputLink value="/{!contactPassed}" id="dd" target="_blank" >
+                 <apex:outputText value="{!clientName}" style="font-size:16px;font-weight:bold;color:black"/> 
+              </apex:outputLink> 
+             &nbsp;
+               <apex:outputText value="{!pc_id}" style="font-size:16px;"/> 
+             &nbsp;&nbsp;  
+               <apex:outputLabel value="{!courtName}" style="font-size:16px;color:black"/>
+          &nbsp;&nbsp;
+                  <apex:outputLabel value="Docket/ Indictment:" style="font-size:12px;" />              
+         &nbsp;
+            <apex:outputLink value="/{!docketId}" id="did" target="_blank" >
+         <apex:outputText value="{!docket_ind}" style="font-size:16px;color:black"/> 
+         </apex:outputLink>  
+         &nbsp;&nbsp;    
+               <apex:outputLabel value="Intake boro:" style="font-size:12px;font-weight:bold" /> 
+         &nbsp;               
+               <apex:outputText value="{!intakeboro}" style="font-size:16px;color:black" />
+       &nbsp;&nbsp; 
+       <apex:outputLabel value="{!IF(status=='Active','Active','not Active')}" style="font-size:16px;color:black;font-weight:bold"
+              />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;
+             <apex:commandLink value="return to main CRW page" id="ret" action="{!pageClose}" style="font-size:10px;color:black;">
+             </apex:commandLink>
+   
+            <table>
+                 <tr >
+                   <td align="right" width="150px">
+                  <apex:outputLabel value="Case Coordinator:" style="font-size:12px;2" />&nbsp;
+                   </td>
+                 <td width="100px" align="left">
+                 <apex:outputLabel value="{!CaseCoordinator}" style="font-size:12px;"/>&nbsp;&nbsp;&nbsp;
+              </td>
+                  <td align="right">
+                 <apex:outputLabel value="Team Leader:" style="font-size:12x;" />
+              </td>
+                <td align="left" width="100px">
+                 <apex:outputLabel value="{!teamleader}" style="font-size:12px;"/>
+              </td>
+                <td align="right">
+                  <apex:outputLabel value="Court Representative:" style="font-size:12px;"/>
+                </td>
+                <td align="left" width="200px">
+                  <apex:outputLabel value="{!courtrep}" style="font-size:12px;"/>
+            </td>
+            </tr>
+            <tr>
+         <td align="right" width="150px">
+                 <apex:outputLabel value="Intake Date:"  style="font-size:12px;"/>
+             </td>
+              <td width="100px">
+                 <apex:outputLabel value="{!intakedate}" style="font-size:12px;"/>&nbsp;
+             </td>     
+                    <td align="right">
+            <apex:outputLabel value="Proj. Exit Date:" style="font-size:12px;"/>
+              </td>
+           <td align="left">
+             <apex:outputLabel value="{!exitprojected}" style="font-size:12px;"/>     
+              </td>
+          <td align="right">
+         <apex:outputLabel value="Actual Exit Date:" style="font-size:12px;"
+            rendered="{!status!='Active'}"/>
+           </td>
+           <td align="left" width="200px">
+         <apex:outputLabel value="{!dexit}"  style="font-size:12px;"
+rendered="{!status!='Active'}"/>
+              </td>
+          <td>              
+          <apex:outputLabel value="Admin user" rendered="{!SFadmin==true}" />   
+          <apex:outputLabel value="CRW user" rendered="{!CRWuser==true}" />   
+          <apex:outputLabel value="CR user" rendered="{!CRuser==true}" />   
+          <apex:outputLabel value="CM user" rendered="{!CMuser==true}" />   
+           </td>
+                 </tr>
+</table>
+<table>
+   <tr>
+     <td align="middle" width="300px">
+          <apex:outputLabel value="Status:" style="font-size:12px;" rendered="{!status!='Active'}"/>
+   &nbsp;
+            <apex:outPutLabel value="{!status}" style="font-size:12px;" rendered="{!status!='Active'}"/> 
+     </td>
+     <td align="middle" width="380px">
+              <apex:outputLabel value="Exit reason:" style="font-size:12px;"
+              rendered="{!status!='Active'}"/>
+      &nbsp;
+              <apex:outPutLabel value="{!exitreason}"  style="font-size:12px;"/>            
+     </td>
+   </tr>      
+</table>                  
+<br/>
+&nbsp;&nbsp;
+<apex:outputLabel value="{!reporttype}" style="color:{!reportColor};font-size:16px" id="reptype"/>&nbsp;&nbsp;
+ <apex:outputLabel value="{!courtDate}" id="ctdate" style="color:blue;font-size:16px"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+  <apex:commandButton image="{!$Resource.delete_bmp}"  
+  style="width:15px;height:15px" title="Delete" rendered="{!(sfAdmin==true||CRWuser==true)&&deleted==false}" 
+      rerender="repbuttons,wpopup,cmdEditBMP,blockreport,lstReview,lstEdit,lstSigned" 
+      action="{!showWarning}">
+       </apex:commandButton>    
+       
+ 
+ <!--       <div id="divWarning" rendered="{!displayWarning}" >-->
+  
+<!--           </div>--> 
+  <td>
+  <span id="loadingGifData" style="display:none;" > 
+        <table>       
+           <tr>
+             <td width="200px">
+                Processing ...Please wait
+                     <apex:image value="/img/loading32.gif" />
+             </td>
+           </tr>
+         </table>
+        </span>
+</td>
+<!--</tr>
+</table>
+-->
+ <apex:actionStatus startText=""  stopText="" id="selectData" onstart="loadingApps('1');" onstop="loadingApps('0');"/>
+
+ <script>
+    function pageClose(){
+       alert('closing');
+       windows.history.back();
+       alert('back'); 
+       window.close();
+ </script>
+<!-- </apex:PageBlock>-->
+</apex:outputPanel>
+<apex:actionFunction name="afdonothing" action="{!showWarning}"  rerender="wpopup,left"> 
+ </apex:actionFunction>
+ 
+
+<apex:actionFunction name="afDelete" action="{!showWarning}" 
+    rerender="narr,left,blockreport,lstReview,lstEdit,lstSigned,lstToApprove,reptype,ctdate,pbnotes,wpopup"> 
+   <apex:param name="repid" value="" assignTo="{!SelectedReportId}" />
+   <apex:param name="type" value="" assignTo="{!del_call}" />
+</apex:actionFunction>
+
+
+
+<apex:actionFunction name="afnoteAction" action="{!executeNoteAction}" rerender="blnotes"> 
+   <apex:param name="statusPassed" assignTo="{!statusPassed}" value="" />
+   <apex:param name="noteAction" assignTo="{!noteAction}" value="" />
+</apex:actionFunction>
+
+<apex:actionFunction name="afopenReport" action="{!openReport}" 
+   rerender="blockreport,lstReview,lstEdit,lstSigned,lstToApprove,reptype,ctdate"> 
+<!--    <apex:param name="ReportFromHistory" assignTo="{!ReportFromHistory}" value="" /> -->
+   <apex:param name="reportPassed" assignTo="{!reportPassed}" value="" />
+</apex:actionFunction>
+
+
+
+<apex:actionFunction name="afchangeNoteStages" action="{!executeNoteAction}" 
+   rerender="pbnotes,pageblockNotes,blocknotetable,statusBy,blockreport"> 
+   <apex:param name="statusPassed" assignTo="{!statusPassed}" value="" />
+    <apex:param name="notesPassed" assignTo="{!notesPassed}" value="" /> 
+   <apex:param name="noteAction" assignTo="{!noteAction}" value="" />
+</apex:actionFunction>
+
+
+
+<apex:actionFunction name="afchangeStages" action="{!changeStages}" 
+   rerender="blockreport,lstReview,lstEdit,lstSigned,lstToApprove,pg1,lblSign,lblCR,cmdCM,cmdCR"> 
+   <apex:param name="Stagepassed" assignTo="{!Stagepassed}" value="" />
+</apex:actionFunction>
+  
+  
+       <apex:panelGrid columns="3" id="pg1"  columnClasses="col1, col2, col3"  cellpadding="5" cellspacing="5">
+ 
+         <apex:pageblock id="blockreport">
+            <table>
+              <tr>  
+     
+              <td >
+            <apex:commandButton value="Create" rendered="{!repstage=='to Do'&&(CRWuser==true||sfAdmin==true)}"
+               action="{!createReportNarrative}" 
+               rerender="blockreport,lstReview,lstEdit,lstSigned,pg1,lblSign,lblBy,lblWhen">
+                      <apex:param name="rid" value="{!reportid}" assignto="{!reportpassed}"/>
+            </apex:commandButton>
+            <apex:selectList size="1" value="{!repstage}" id="lstReview"  
+                 style="width:100px"  rendered="{!(sfAdmin==true||CRWuser==true)&&repstage=='Review'&&displayWarning==false}"
+                 onchange="changeStage(this.value,'{!reportid}')" disabled="{!iseditnotes}">
+                 <apex:selectOptions value="{!reviewItems}" id="selreview" 
+                 rendered="{!repStage=='Review'}" />
+            </apex:selectList> 
+
+            <apex:outputLabel rendered="{!sfAdmin==false&&CRWuser==false&&repstage=='Review'}" value="Reviewing" style="font-size:12px;font-weight:bold;"/>     
+            <apex:selectList size="1" value="{!repstage}" id="lstEdit" 
+                 style="width:100px"  rendered="{!(sfAdmin==true||CRWuser==true)&&repstage=='Editing'&&displayWarning==false}"
+                 onchange="changeStage(this.value,'{!reportid}')" disabled="{!iseditnotes}">             
+            <apex:selectOptions value="{!editItems}" id="selEdit" rendered="{!repStage=='Editing'}"/>
+            </apex:selectList>
+  
+              <apex:outputLabel rendered="{!sfAdmin==false&&CRWuser==false&&repStage=='Editing'}" value="Editing" style="font-size:12px;font-weight:bold;"/>     
+            <apex:selectList size="1" value="{!repstage}" id="lstToApprove"
+                 style="width:100px"  rendered="{!(sfAdmin==true||CRWuser==true)&&repstage=='to Approve'&&displayWarning==false}"
+                onchange="changeStage(this.value,'{!reportid}')" disabled="{!iseditnotes}">                
+                <apex:selectOptions value="{!toApprovedItems}" id="selappr" 
+                rendered="{!repStage=='to Approve'}"/>
+            </apex:selectList>
+            <apex:outputLabel rendered="{!sfAdmin==false&&CRWuser==false&&repstage=='to Approve'}" 
+                  value="to Approve" style="font-size:12px;font-weight:bold;"/>    
+           <apex:selectList size="1" value="{!repstage}" id="lstSigned"
+                 style="width:100px"  rendered="{!(sfAdmin==true||CRWuser==true)&&repstage=='Final'&&displayWarning==false}"
+                onchange="changeStage(this.value,'{!reportid}')" disabled="{!iseditnotes}">                
+                  <apex:selectOptions value="{!SignedItems}" id="selsigned" rendered="{!repStage=='Final'}"/>
+              </apex:selectList>
+              <apex:outputLabel rendered="{!sfAdmin==false&&CRWuser==false&&repstage=='Final'}" value="Final" style="font-size:12px;font-weight:bold;"/>     
+  
+                </td>
+  <script>
+          function changeStage(s,id){
+  //         alert(' stage: ' + s );
+//           alert(' stage: ' + s + ' id: ' + id);
+           afchangeStages(s);
+          }
+   
+       </script>
+              
+        <td>
+       <apex:commandButton value="Sign Report" 
+              rendered="{!cansign==true&&repstage!='Editing'&&repStage!='Final'&&repstage!='to Do'
+                      &&(sfAdmin==true||CRWuser==true)}"
+            rerender="lblCR,cmdCM,cmdCR"                      
+            onclick="changeStage('Signed','{!reportid}')" id="cmdSign"/>&nbsp;&nbsp;
+            <apex:outputLabel value="Signed by: {!signedby}" 
+                rendered="{!repstage=='Final'}" id="lblSign"/>
+     </td>
+<td>
+        <apex:commandButton value="CM to approve" id="cmdCM" 
+         rendered="{!(sfAdmin==true||CMuser==true)&&repstage=='to Approve'&&approvalStatus!='CM approved'
+             &&approvalStatus!='CM-CR approved'}" 
+         onclick="changeStage('CM approved','{!reportid}')" 
+         rerender="lblCR,cmdCM,cmdCR" >
+       </apex:commandButton>
+        <apex:commandButton value="CR to approve" id="cmdCR"
+         onclick="changeStage('CR approved','{!reportid}')"
+         rendered="{!(sfAdmin==true||CRuser==true)&&repstage=='to Approve'&&approvalStatus!='CR approved'&&approvalStatus!='CM-CR approved'}" 
+         rerender="lblCR,cmdCM,cmdCR" >
+       </apex:commandButton>
+
+</td>
+<td>
+
+       <apex:outputText value="{!approvalStatus}" id="lblCR"/>
+
+</td>
+   <td>
+   <apex:outputPanel id="repbuttons">
+ 
+       <apex:commandButton image="{!$Resource.Edit_bmp}" id="cmdEditBMP" style="width:20px;height:20px"
+         title="Edit" rendered="{!(sfAdmin==true||CRWuser==true)&&isedit==false&&displayWarning==false&&
+         deleted==false&&(repstage=='Editing'||repstage=='Drafting')}" 
+           action="{!changeCaption}" rerender="narr,repbuttons" >
+           <apex:param name="buttonName" value="Edit" assignTo="{!cmdCaption}" />
+           <apex:param name="repid" value="{!SelectedReportId}" assignTo="{!SelectedReportId}" />
+        </apex:commandButton>   &nbsp;&nbsp;
+             <apex:commandButton image="{!$Resource.Save_bmp}" id="cmdSaveBMP" style="width:20x;height:20px"
+         title="Save" rendered="{!isedit==true}" action="{!changeCaption}" 
+         rerender="narr,repbuttons,lblBy,lblWhen">
+           <apex:param name="buttonName" value="Save" assignTo="{!cmdCaption}" />
+           <apex:param name="repid" value="{!SelectedReportId}" assignTo="{!SelectedReportId}" />
+        </apex:commandButton>
+         &nbsp;&nbsp;
+        
+        <apex:commandButton image="{!$Resource.Cancel_bmp}" id="cmdCancelBMP" style="width:20px;height:20px"
+        title="Cancel" rendered="{!isedit==true}" action="{!CancelChanges}" rerender="narr,repbuttons,lstEdit">
+        </apex:commandButton>
+         <apex:outputPanel styleClass="warningPopup" layout="block"  id="wpopup" rendered="{!displayWarning}">
+                <apex:outputLabel value="Would you like to delete this report?" />
+                <br/><br/>
+                  <apex:commandButton value="Delete" action="{!delete_recallReport}"  
+                    rerender="narr,left,blockreport,lstReview,lstEdit,lstSigned,reptype,
+                    ctdate,pbnotes,repbuttons,wpopup,pb,cmdRecall,allreps,narr">
+                     <apex:param name="repid" value="{!SelectedReportId}" assignTo="{!SelectedReportId}" />
+                     <apex:param name="del_call" value="delete" assignTo="{!del_call}" />
+                  </apex:commandButton>
+                     &nbsp;&nbsp;&nbsp;&nbsp;
+                 <apex:commandButton value="Close" action="{!hideWarning}" 
+                     rerender="narr,left,blockreport,lstReview,lstSign,lstEdit,lstSigned,reptype,ctdate,pbnotes,repbuttons,wpopup"/>
+          </apex:outputPanel>
+     
+             <script>
+          function deleteReport(repid,type){
+            alert('report: ' + repid + ' type: ' + type);
+          //  afDelete(repid,type);
+          }
+        </script>  
+<!-- 
+       <apex:commandButton image="{!$Resource.delete_bmp}"  style="width:20px;height:20px" title="Delete"
+         rendered="{!sfAdmin==true&&deleted==false}" onClick="deleteReport('{!SelectedReportId}','delete')">
+       
+        
+        
+           </apex:commandButton>            
+-->     
+ 
+   </apex:outputPanel>
+   </td>
+                       </tr>
+            </table> 
+    
+            <div id="left" style="height:500px;width:550px;background-color:white">
+               <apex:inputTextArea value="{!narrative}" id="narr" 
+                 style="height:480px;width:545px; 
+                 font-size:13px;background-color:white;color:{!textColor}"
+              disabled="{!isedit==false}"   />
+<!-- 
+               <apex:inputTextArea value="{!narrative}" id="narrRTF" richText="true"
+                 style="height:480px;width:545px; 
+                 font-size:13px;background-color:white;color:{!textColor}"
+               />
+-->          
+   <apex:outputLabel value="Created/Edited by {!assigned}" style="font-size:10px" id="lblBy"/>
+   &nbsp;        
+   <apex:outputLabel value="on {!reportEditedWhen}" style="font-size:10px" id="lblWhen"/>        
+            </div>
+     <br/>
+         <apex:commandButton value="Narrative" id="cmdPrint" style="width:90x"
+            onclick="printnarrative('{!reportPassed}')" rendered="{!reptype!='Letter'}"/> 
+         &nbsp;
+         <apex:commandButton value="Letter" onclick="printLetter('{!reportpassed}')" 
+             rendered="{!reptype=='Letter'}" style="width:90px"/>
+         <apex:commandButton value="Cover Page" onclick="printCoverPage('{!reportpassed}')" style="width:70px"
+         rendered="{!reptype!='Letter'}"/>             
+        &nbsp;        
+         <apex:commandButton value="Legal Page" onclick="printLegal('{!reportpassed}')" style="width:70px"
+         rendered="{!reptype!='LegalOnly'&&reptype!='Letter'}"/>  
+   
+              &nbsp;        
+    <!--      <apex:commandButton value="All Pages" onclick="printall('{!reportpassed}')" style="width:90px"/>-->  
+
+              &nbsp;        
+         <apex:commandButton value="All Pages" onclick="printAllpages('{!reportpassed}')" style="width:90px"
+           rendered="{!reptype!='Letter'}"/>  
+ 
+   
+         
+       </apex:pageBlock> 
+      
+      <!--                     NOTES     --> 
+    <apex:pageBlock id="pbnotes" > 
+ 
+     <apex:commandbutton title="New Comments" image="{!$Resource.Question_bmp}" action="{!showPopup}" 
+                  rerender="pbnotes" style="width:22px;height:22px" disabled="{!iseditnotes}">
+             <apex:param name="passNoteType" value="N" assignTo="{!notestype}" />
+    </apex:commandbutton>
+                  <br/> 
+               
+     <div id="div1" rendered="{!displayPopUp}">
+    
+     <apex:outputPanel styleClass="notesPopup" layout="block" rendered="{!displayPopUp}" id="popup">
+           <apex:outPutLabel value="{!IF(notestype=='N','N o t e s', 'R e s p o n d')}"/>
+    &nbsp;&nbsp;
+        <br/>
+       <table>
+         <tr style="background-color:white">
+           <td>
+              <apex:outputText value="{!commentsPassed}" />                       
+           </td>
+         </tr>
+       </table>
+       <table>
+         <tr>
+          <td width="60%">
+    
+          </td>
+          <td>
+          <apex:commandButton image="{!$Resource.Save_bmp}" id="cmdSaveBMPnotes" style="width:20px;height:20px" action="{!savenotes}"
+             title="Save Note and Close" rendered="{!notestype=='N'}" >
+           </apex:commandButton>   
+          <apex:commandButton image="{!$Resource.Save_bmp}" id="cmdSaveBMPresp" style="width:20px;height:20px" action="{!savenotes}"
+             title="Save Respond and Close" rendered="{!notestype=='R'}" >
+              <apex:param name="passNoteId" value="true" assignTo="{!notesPassed}" /> 
+           </apex:commandButton>   
+           </td >
+           <td align="right" width="35%">
+             <apex:commandButton title="Close Pop up" action="{!closePopup}" 
+                  rerender="pbnotes" image="{!$Resource.Exit_bmp}" style="width:20px;height:20px"/>
+          
+      
+          </td>
+         </tr>
+        </table> 
+        
+        <apex:inputTextArea value="{!inputNotes}" rendered="{!displayPopUp}" id="cont"
+        style="width:470px;height:330px;overflow:scroll"/>
+     </apex:outputPanel>
+     
+     </div> 
+        <apex:outputPanel layout="block" style="overflow:scroll;width:500px;height:550px"  >
+        <apex:repeat value="{!ClientNotesToShow}" var="note">
+           <apex:pageBlock id="pageblockNotes" >
+              <apex:PageBlockTable value="{!note}" var="q" 
+                 style="width:470px;border-left:3px solid green"
+                id="blocknotetable">
+                 <apex:column >
+                       <apex:outputLabel value="Comments Status:" />
+                          <apex:selectList size="1" value="{!q.status}" id="lstStatus"  
+                             style="width:100px" onchange="changeNoteStage(this.value,'{!q.noteid}')">
+                             <apex:selectOptions value="{!NotesStatus}" id="selstatus" />
+                          </apex:selectList>&nbsp;by&nbsp;
+                        <apex:outPutText value="{!q.commentsUser}" id="statusBy"/>  
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                  
+                  <apex:commandbutton title="send Email" image="{!$Resource.mail_bmp}" action="{!sendEmail}"
+                      style="width:22px;height:22px;color:blue;" rerender="pbnotes" disabled="{!iseditnotes}">
+                       <apex:param name="passNoteId" value="{!note.noteid}" assignTo="{!notesPassed}" />
+                    </apex:commandbutton>
+                  
+                  <br/><br/>
+                    <apex:outPutText escape="false" 
+   value="{!substitute(substitute(JSENCODE(q.question),'\\n','<br/>'),'\\r','')}"
+                       style="font-size:12px;border:blue;overflow:scroll;"  />
+                 </apex:column>
+              </apex:PageBlockTable> 
+              <apex:PageBlockTable value="{!note}" var="r" columns="2" cellspacing="0" columnsWidth="400px,30px"
+                    style="width:470px;border-left:3px solid {!note.respondcolor}">
+                 <apex:column > 
+                    <apex:outPutText value="{!substitute(JSENCODE(r.respond),'\\r\n','<br/>')}"  escape="false"
+                     style="font-size:12px;overflow:scroll;height:30px;color:blue;"  />
+                 </apex:column>
+                 <apex:column >
+                    <apex:commandbutton title="New Respond" image="{!$Resource.write_bmp}" action="{!showPopup}"
+                       rendered="{!note.status!='Closed'}"
+                       style="width:22px;height:22px;color:blue;" rerender="pbnotes" disabled="{!iseditnotes}">
+                       <apex:param name="passNoteType" value="R" assignTo="{!notestype}" />
+                       <apex:param name="passComments" value="{!note.question}" assignTo="{!commentsPassed}" />
+                      <apex:param name="passNoteId" value="{!note.noteid}" assignTo="{!notesPassed}" />
+                    </apex:commandbutton>
+                 </apex:column> 
+              </apex:PageBlockTable>
+           </apex:pageBlock>    
+        </apex:repeat>
+
+    <script>
+          function changeNoteStage(s,id){
+         //  var notid = id;
+      //        alert(' id: ' + id);        
+    //        alert(' stage: ' + s + ' id: ' + id);
+//            afchangeNoteStages(s,id);}
+            afchangeNoteStages(s,id,'comments');}
+       </script>
+       </apex:outputPanel>
+     <!--  </div> -->
+      </apex:pageBlock>
+       <apex:pageBlock id="pb"> 
+           <table>
+              <tr>
+                 <td>
+                   <apex:outPutLabel value="Reports Dates"/> 
+                 </td>
+              </tr>
+              <apex:repeat value="{!ClientRepsToShow}" var="r" id="allreps">
+                   <tr>   
+                      <td>
+                      <apex:commandButton value="{!r.ctdate}" style="width:60px" 
+                         action="{!openReport}" disabled="{!r.repstage=='to Do'||r.Deleted==true}" 
+                         rerender="narr,left,blockreport,lstReview,lstSign,lstEdit,lstSigned,reptype,ctdate,pbnotes,lblBy,lblWhen"
+                         accesskey="" status="selectData" >
+                      <apex:param name="selectedReport" value="{!r.repid}" assignTo="{!reportPassed}" />
+                       </apex:commandButton>
+                       
+                       <br/>
+<script>
+   function openReport(repid){
+   //alert('repid: ' +repid); 
+      afopenReport(repid);
+   }
+</script>
+                    </td>
+                    <td>
+                      <apex:outputText value="{!r.repcaption}" />
+                   </td> 
+                    <td>
+                      <apex:commandButton value="Recall" id="cmdRecall"
+                      rendered="{!r.Deleted==true&&sfAdmin==true}" action="{!delete_recallReport}"
+                      rerender="narr,left,blockreport,lstReview,lstSign,lstEdit,lstSigned,reptype,
+                    ctdate,pbnotes,repbuttons,wpopup,pb,cmdRecall,allreps,narr">
+                   <apex:param name="selectedReport" value="{!r.repid}" assignTo="{!SelectedReportId}" />
+                  <apex:param name="del_call" value="recall" assignTo="{!del_call}" />
+                      </apex:commandButton>
+                   </td> 
+                   </tr>       
+                  </apex:repeat>
+              </table>
+        <script type="text/javascript">
+  function CancelChanges(i){
+   //   alert('repid: ' + i);
+      afCancelChanges(i);
+   }
+</script>
+       </apex:pageblock>
+   
+</apex:panelGrid> 
+ 
+</apex:form>
+</apex:page>

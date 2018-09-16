@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Activity_Limitations__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicate if participants&apos; activities are limited due to injuries sustained.</inlineHelpText>
+        <label>Activity Limitations</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Adult_Protective_Services_Notified_By__c</fullName>
+        <externalId>false</externalId>
+        <label>Adult Protective Services Notified By</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Allegation_Against_Employee__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Allegation Against Employee?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CASES_Staff_Involved__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>List any CASES staff who were involved in the incident (as victims, witnesses, provided assistance, etc). If the staffperson was contacted later, list them under &quot;Personnel Contacted&quot; below.</inlineHelpText>
+        <label>CASES Staff Involved</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Date_Adult_Protective_Services_Notified__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Adult Protective Services Notified</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date_Registry_Notified__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Registry Notified</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Defect_at_Incident_Site__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If an injury was caused due to a defect or dangerous condition at a CASES site, indicate the nature of the defect.</inlineHelpText>
+        <label>Defect at Incident Site</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Degree_of_Harm_Caused__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>No harm: no harm
+Low harm: minor harm, first aid only
+Moderate harm: moderate physical harm
+Severe harm: serious physical injury</inlineHelpText>
+        <label>Degree of Harm Caused</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No Harm</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Incident_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Incident Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Threat of bodily harm to self or others</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Harassment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weapons possession</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Assault</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Victim of assault, harassment or crime</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fight</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Allegation of abuse/neglect by parent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Allegation of abuse/neglect by staff</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medical emergency</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Possession of contraband</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Theft</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Behavior that raises concerns for safety</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Incident_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Incident Date</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Incident_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Incident Description</label>
+        <length>10000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Incident_Outcome__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Provide update on the status of participants at the time of report submission.</inlineHelpText>
+        <label>Incident Outcome</label>
+        <length>500</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Incident_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Incident Time</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Initial_Actions_Taken__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>List any actions taken immediately after the incident occurred or was first reported, in order to treat injuries or minimize risk of future harm.</inlineHelpText>
+        <label>Initial Actions Taken</label>
+        <length>500</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Measures_Taken_to_Remedy_Defect__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If an injury was caused due to a defect or condition at a CASES site, then indicate the measures taken to remove the hazard.</inlineHelpText>
+        <label>Measures Taken to Remedy Defect</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Medical_Treatment_Provided__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If participants were injured, list the treatments provided and the name/contact info of the personnel/ institution that provided care.</inlineHelpText>
+        <label>Medical Treatment Provided</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Notified_Adult_Protective_Services__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Notified Adult Protective Services?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Notified_NYC_Child_Abuse_Registry__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Notified NYC Child Abuse Registry?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>OldId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Old ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Individuals_Involved__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>List other individuals (not clients/CASES staff) who were involved in the incident in any way. Include name, age, type of involvement, contact info, and relationship to clients.</inlineHelpText>
+        <label>Other Individuals Involved</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Participants_Injured__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Participants Injured?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Participants_Involved__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>List the CASES clients who were involved in any way (perpetrators, victims, witnesses, provided assistance, etc)</inlineHelpText>
+        <label>Participants Involved</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Participants_Projected_Return_to_Program__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please indicate the date of the injured participants&apos; projected return to the program.</inlineHelpText>
+        <label>Participants Projected Return to Program</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Personnel_Contacted__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>List all emergency services personnel/CASES staff who were contacted or responded to the incident. Include name, title, time called/arrived, and badge number (if applicable).</inlineHelpText>
+        <label>Personnel Contacted</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Police_Notified_of_Property_Loss__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If the police were notified of the alleged lost property, include the complaint number and a description of the response.</inlineHelpText>
+        <label>Police Notified of Property Loss?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Property_Losses__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicate all property alleged lost, damaged or stolen. Include the item, description, serial # and value.</inlineHelpText>
+        <label>Property Losses</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Property_Lost_Damaged_or_Stolen__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Property Lost, Damaged or Stolen?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Registry_Notified_By__c</fullName>
+        <externalId>false</externalId>
+        <label>Registry Notified By</label>
+        <length>25</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk_of_Future_Harm__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicate potential for future injury (if a threat was made, etc). 
+Low: low risk of complications
+Medium: potential for moderate injury
+High: risk of life-threatening harm</inlineHelpText>
+        <label>Risk of Future Harm</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Moderate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Severe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No Risk of Harm</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Incident Report</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Incident_Description__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Brief Description</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Incident Reports</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <validationRules>
+        <fullName>Check_Injury_Box_if_Completing_Fields</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(not(Participants_Injured__c), 
+or(
+not(isblank( Medical_Treatment_Provided__c )),
+not(isblank( Participants_Projected_Return_to_Program__c )),
+not(isblank( Activity_Limitations__c )),
+not(isblank( Defect_at_Incident_Site__c )),
+not(isblank( Measures_Taken_to_Remedy_Defect__c ))
+)
+)</errorConditionFormula>
+        <errorDisplayField>Participants_Injured__c</errorDisplayField>
+        <errorMessage>If filling out the injury report fields, check the Participants Injured checkbox.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Check_Injury_Box_if_Harm_Caused</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(
+not(ispickval(Degree_of_Harm_Caused__c, &quot;No Harm&quot;)),
+not(Participants_Injured__c)
+)</errorConditionFormula>
+        <errorDisplayField>Participants_Injured__c</errorDisplayField>
+        <errorMessage>If you filled out the &quot;Degree of Harm Caused&quot; field, then check the &quot;Participants Injured&quot; box and fill out the Injury section.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Check_Property_Box_if_Completing_Fields</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(not(Property_Lost_Damaged_or_Stolen__c), 
+or(
+not(isblank(  Property_Losses__c  )),
+not(isblank(  Police_Notified_of_Property_Loss__c  ))
+)
+)</errorConditionFormula>
+        <errorDisplayField>Property_Lost_Damaged_or_Stolen__c</errorDisplayField>
+        <errorMessage>If filling out the property loss report fields, check the Property Lost, Damaged or Stolen checkbox.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Incident_Name_less_than_35_characters</fullName>
+        <active>true</active>
+        <errorConditionFormula>len(Name) &gt; 35</errorConditionFormula>
+        <errorDisplayField>Name</errorDisplayField>
+        <errorMessage>Please enter a brief incident description of 35 characters or less.</errorMessage>
+    </validationRules>
+</CustomObject>

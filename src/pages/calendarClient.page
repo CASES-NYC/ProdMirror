@@ -1,0 +1,151 @@
+<apex:page controller="calendarClient" id="pgClientCalendar" title="Client Calendar" tabStyle="Contact">
+
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/style.css')}" rel="stylesheet"/> 
+    
+    <apex:sectionHeader title="Client Calendar" />
+    <script> function setFocusOnLoad() {} </script>
+
+    <apex:pageBlock >
+        <apex:pageBlockSection collapsible="true" title="Search Criteria">
+            <apex:outputPanel id="eventSection">
+                <apex:form id="frmCriteria">
+
+                    <div class="controlPanel">
+                    <fieldset style="width:800px">
+                        <legend>Search Criteria</legend>
+                        <table border="0" cellpadding="2" cellspacing="0" width="100%" id="tblSearch">
+                            <tr >
+                                <td colspan="4">Choose to search for a specific Client's calendar or for a Coordinator's case load, then press Go!<br /><br /></td>
+                            </tr>
+                            
+                            <tr >
+                                <td colspan="2" valign="top">
+                                    <apex:selectRadio id="selectSearchType" value="{!searchType}" onclick="rerenderSearch(this.value);">
+
+                                        <apex:selectOptions value="{!searchOptions}"/>
+                                        
+                                    </apex:selectRadio>
+                                                                        
+                                </td>
+                                
+                                <td colspan="2" valign="top">
+                                    <table border="0" cellpadding="2" cellspacing="0" width="100%">
+
+                                        <tr id="clientSearchRow" style="display:{!if(searchType='Client', '', 'none')}">
+                                            <td width="100px">Client:</td>
+                                            <td colspan="2">
+                                                <apex:inputField value="{!dummyCon.Client__c}" />
+                                            </td>
+                                        </tr>
+                                    
+                                        <tr id="coordinatorSearchRow" style="display:{!if(searchType='Coordinator', '', 'none')}">
+                                            <td width="100px">Case Load For:</td>
+                                            <td colspan="2">
+                                                <apex:inputField value="{!dummyCon.Case_Coordinator__c}" />
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td width="100px">Start Date:</td>
+                                            <td colspan="2">
+                                                <apex:inputField value="{!dummyEvt_Start.ActivityDate}" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="100px">End Date:</td>
+                                            <td width="200px">
+                                                <apex:inputField value="{!dummyEvt_End.ActivityDate}" />
+                                            </td>
+                                            <td >
+                                                <apex:commandbutton value="Go!" status="counterStatus" reRender="allResults" action="{!findClientEvents}"/>&nbsp;&nbsp;
+                                            </td>
+
+                                        </tr>
+
+
+                                    </table>
+                                </td>
+                            </tr>
+
+                        </table>
+                        </fieldset>
+                    </div>
+                    
+                    
+                </apex:form>
+            </apex:outputPanel>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+    <apex:outputPanel id="allResults">
+        <apex:outputPanel id="results" rendered="{!if(strResult='', false, true)}">
+            <table border="0" width="100%" cellPadding="3">
+                <tr>
+                    <td width="100%" style="background-color: green; color: white;">
+                        <strong>NOTIFICATION:&nbsp;&nbsp;{!strResult}</strong>
+                    </td>
+                </tr>
+            </table>
+        </apex:outputPanel>
+    
+        <apex:outputPanel id="calendarDisplaySection">
+            <apex:form id="frmClientCalendar">
+
+                <apex:outputPanel id="filterDisplay" rendered="{!if(eventCount>0,true,false)}" > 
+                    <apex:commandLink id="cmdPrintCalendar" action="{!printableView}" styleClass="btn" target="_blank" value="Printable View" />
+                    &nbsp;&nbsp;&nbsp;
+                    <b>Applied Filter: </b><apex:outputText value="{!filterDisplay}" />
+                </apex:outputPanel>
+
+                <br />              
+
+                <table id="myTable" class="tablesorter"> 
+                    <thead> 
+                        <tr> 
+                            <th>Client</th>   
+                            <th>Day</th>   
+                            <th>Date</th>   
+                            <th>Start Time</th>     
+                            <th>End Time</th>     
+                            <th>Assigned To</th>     
+                            <th>Subject</th>
+                            <th>Instructions</th>
+                         </tr>  
+                    </thead> 
+                    <tbody > 
+                        <apex:repeat value="{!contactsForDisplay}" var="thisContact">
+                            <apex:repeat value="{!thisContact.eventsForDisplay}" var="thisEvent" >
+                                <tr>   
+                                    <td width="15%"><apex:outputText value="{!thisEvent.ClientName}" /></td>
+                                    <td><apex:outputText value="{!thisEvent.ActivityDay}" /></td>
+                                    <td><apex:outputText value="{!thisEvent.ActivityDate}" /></td>
+                                    <td><apex:outputText value="{!thisEvent.StartTime}" /></td>
+                                    <td><apex:outputText value="{!thisEvent.EndTime}" /></td>
+                                    <td><apex:outputText value="{!thisEvent.evt.Owner.Name}" /></td>
+                                    <td width="25%"><apex:outputText value="{!thisEvent.evt.Subject}" /></td>
+                                    <td width="25%"><apex:outputText value="{!thisEvent.evt.Instructions__c}" /></td>
+                                </tr>       
+                            </apex:repeat>
+                        </apex:repeat>
+                    </tbody> 
+                </table>
+
+                    
+                <script type="text/javascript">
+                    function rerenderSearch(vSearchType) {
+                        if (vSearchType == 'Coordinator') {
+                            document.getElementById('coordinatorSearchRow').style.display = '';
+                            document.getElementById('clientSearchRow').style.display = 'none';
+                        } else {
+                            document.getElementById('coordinatorSearchRow').style.display = 'none';
+                            document.getElementById('clientSearchRow').style.display = '';
+                        }
+                    }
+                </script>
+                                
+            </apex:form>
+        </apex:outputPanel>
+    </apex:outputPanel>
+</apex:page>

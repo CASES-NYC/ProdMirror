@@ -1,0 +1,202 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="sacpage" >
+   <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+
+
+ 
+<apex:outPutPanel id="op" styleclass="span.resultContainer">
+  <apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+  <!-- 
+    <apex:pageblocksection showheader="true" columns="2">
+    <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                CRAFFT Part A</span> 
+            </apex:facet>
+      <apex:inputfield value="{!SAA.CRAFFT_A1_Drink_any_alcohol__c}" /> 
+	  <apex:inputfield value="{!SAA.CRAFFT_A1_Drink_any_alcohol__c}"  />
+      <apex:inputfield value="{!SAA.CRAFFT_A3_Use_anything_else_to_get_high__c}"  />
+	  <apex:inputfield value="{!SAA.CRAFFT_A2_Smoke_any_marijuana_or_hashish__c}"  />
+    </apex:pageblocksection>
+ 
+    <apex:pageblocksection showheader="true" columns="2">
+    <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+               CRAFFT Part B (fill out if any questions in Part A are 'Yes')</span> 
+            </apex:facet>
+  	  <apex:inputfield value="{!SAA.CRAFFT_B1_In_CAR_driven_by_someone_high__c}"  />
+	  <apex:inputfield value="{!SAA.CRAFFT_B4_Ever_FORGET_what_you_did__c}"  />
+	  <apex:inputfield value="{!SAA.CRAFFT_B2_Use_drugs_or_alcohol_to_RELAX__c}"  />
+	  <apex:inputfield value="{!SAA.CRAFFT_B5_FAMILY_FRIENDS_say_to_cut_down__c}"  />
+	  <apex:inputfield value="{!SAA.CRAFFT_B3_Use_drugs_or_alcohol_ALONE__c}"  />
+	  <apex:inputfield value="{!SAA.CRAFFT_B6_In_TROUBLE_while_using_drugs__c}"  />
+    </apex:pageblocksection> 
+		-->		
+	<apex:pageblocksection showheader="true" columns="1">
+	  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Assessment Notes-Substance Abuse</span> 
+            </apex:facet>
+	  <apex:inputfield value="{!SAA.Substance_Abuse_Section_1__c}"   styleclass="textarea"/>
+	  
+	</apex:pageblocksection>
+	<apex:pageblocksection showheader="true" columns="2">
+	<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Data Capture-Substance Abuse</span> 
+            </apex:facet>
+	  <apex:inputfield value="{!SAA.Do_you_have_Insurance__c}"  />
+	  <apex:inputfield value="{!SAA.Update_Has_Insurance__c}"  />
+	  <apex:inputfield value="{!SAA.Insurance_Provider__c}"   style="width:300px"/>
+	  <apex:inputfield value="{!SAA.Update_Insurance_Provider__c}"  style="width:300px"/>
+	  <apex:inputfield value="{!SAA.Insurance_Number__c}"  style="width:300px"/>
+	  <apex:inputfield value="{!SAA.Update_Insurance_Number__c}" style="width:300px" />
+	  <apex:inputfield value="{!SAA.Substance_Abuse_at_Interview__c}" style="width:300px" />
+	  <apex:inputfield value="{!SAA.Current_Substance_Abuse_Problems__c}" style="width:40px" />
+	  <apex:inputfield value="{!SAA.Drugs_Used__c}"  />
+	  <apex:inputfield value="{!SAA.Drugs_Used_Other__c}"  style="width:300px"/>
+	  <apex:inputfield value="{!SAA.Tried_to_stop_using_on_your_own__c}" style="width:80px" />
+	  <apex:inputfield value="{!SAA.Have_had_treatment__c}"  style="width:80px"/>
+	  <apex:inputfield value="{!SAA.Drug_Test_Frequency__c}" style="width:80px" />
+	</apex:pageblocksection>
+	<apex:pageblocksection showheader="true" columns="1">
+	<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Assessment Notes-Physical Health</span> 
+            </apex:facet>
+	  <apex:inputfield value="{!SAA.Physical_Health_Section_1__c}" style="width:600px" />
+	</apex:pageblocksection>
+	<apex:pageblocksection showheader="true" columns="2">
+	<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+               Data Capture-Physical Health</span>   
+            </apex:facet>
+	  <apex:inputfield value="{!SAA.Indication_of_Phys_Health_Problem__c}"  />
+	  <apex:inputfield value="{!SAA.Update_Indication_of_Phys_Health_Problem__c}"  />
+	  <apex:inputfield value="{!SAA.Other_Phys_Health_Problem__c}" style="width:300px" />
+	  <apex:inputfield value="{!SAA.Update_Other_Phys_Health_Problem__c}" style="width:300px" />
+	  </apex:pageblocksection>
+  </apex:pageblock>
+  
+  
+  <apex:pageblock id="pbView" rendered="{!isEdit==false}">  
+   <!-- 
+   <apex:pageblocksection showheader="true" columns="2" >
+   <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                CRAFFT Part A</span> 
+            </apex:facet>
+      <apex:inputText value="{!SAA.CRAFFT_A1_Drink_any_alcohol__c}" 
+      styleclass="txt40" disabled="true"/> 
+	  <apex:inputText value="{!SAA.CRAFFT_A1_Drink_any_alcohol__c}" disabled="true" styleclass="txt40"/> 
+      <apex:inputText value="{!SAA.CRAFFT_A3_Use_anything_else_to_get_high__c}" styleclass="txt40" disabled="true"/> 
+	  <apex:inputText value="{!SAA.CRAFFT_A2_Smoke_any_marijuana_or_hashish__c}" styleclass="txt40" disabled="true"/> 
+    </apex:pageblocksection>
+ 
+    <apex:pageblocksection showheader="true" columns="2">
+    <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                CRAFFT Part B (fill out if any questions in Part A are 'Yes')</span> 
+            </apex:facet>
+  	  <apex:inputText value="{!SAA.CRAFFT_B1_In_CAR_driven_by_someone_high__c}" styleclass="txt40" disabled="true"/> 
+	  <apex:inputText value="{!SAA.CRAFFT_B4_Ever_FORGET_what_you_did__c}" styleclass="txt40" disabled="true"/>
+	  <apex:inputText value="{!SAA.CRAFFT_B2_Use_drugs_or_alcohol_to_RELAX__c}" styleclass="txt40" disabled="true"/>
+	  <apex:inputText value="{!SAA.CRAFFT_B5_FAMILY_FRIENDS_say_to_cut_down__c}" styleclass="txt40" disabled="true"/>
+	  <apex:inputText value="{!SAA.CRAFFT_B3_Use_drugs_or_alcohol_ALONE__c}" styleclass="txt40" disabled="true"/>
+	  <apex:inputText value="{!SAA.CRAFFT_B6_In_TROUBLE_while_using_drugs__c}" styleclass="txt40" disabled="true"/>
+    </apex:pageblocksection> 
+	-->			
+	<apex:pageblocksection showheader="true" columns="1">
+	<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Assessment Notes-Substance Abuse</span> 
+            </apex:facet>
+      <apex:pageblocksectionItem >
+      <apex:outputlabel value="Substance Abuse Section 1" for="s1"/>             
+	  <apex:outputtext value="{!substitute(substitute(JSENCODE(SAA.Substance_Abuse_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="s1"/>
+      </apex:pageblocksectionItem>
+      </apex:pageblocksection>
+	<apex:pageblocksection showheader="true" columns="2">
+	<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Data Capture-Substance Abuse</span> 
+            </apex:facet>
+	  <apex:inputText value="{!SAA.Do_you_have_Insurance__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Update_Has_Insurance__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Insurance_Provider__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Update_Insurance_Provider__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Insurance_Number__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Update_Insurance_Number__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Substance_Abuse_at_Interview__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Current_Substance_Abuse_Problems__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Drugs_Used__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Drugs_Used_Other__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Tried_to_stop_using_on_your_own__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Have_had_treatment__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Drug_Test_Frequency__c}" styleclass="txt300" disabled="true"/>
+	</apex:pageblocksection>
+
+	<apex:pageblocksection showheader="true" columns="1">
+	<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Assessment Notes-Physical Health</span> 
+            </apex:facet>
+	    <apex:pageblocksectionItem >
+      <apex:outputlabel value="Physical Health Section 1" for="s2"/>             
+	  <apex:outputtext value="{!substitute(substitute(JSENCODE(SAA.Physical_Health_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="s2"/>
+      </apex:pageblocksectionItem>
+	 </apex:pageblocksection> 
+	<apex:pageblocksection showheader="true" columns="2">
+	<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Data Capture-Physical Health</span> 
+            </apex:facet>
+	  <apex:inputText value="{!SAA.Indication_of_Phys_Health_Problem__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Update_Indication_of_Phys_Health_Problem__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Other_Phys_Health_Problem__c}" styleclass="txt300" disabled="true"/>
+	  <apex:inputText value="{!SAA.Update_Other_Phys_Health_Problem__c}" styleclass="txt300" disabled="true"/>
+	  </apex:pageblocksection>
+  </apex:pageblock>
+</apex:outPutPanel>
+
+	<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>               	
+				
+<br/>
+</apex:form>
+</apex:page>

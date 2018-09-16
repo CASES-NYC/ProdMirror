@@ -1,0 +1,227 @@
+<apex:page title="Screening/Arraignment Outcome" controller="srpOutcomeScreenCon" id="pgMain" sidebar="false" showHeader="false">
+   
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191, '/jQueryUI-1.10.3/ui/jquery-ui.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/corners/jquery.corner.js')}" /> 
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/css/ui-lightness/jquery-ui-1.8.13.custom.css')}" />
+
+    <apex:outputPanel >
+    <apex:outputPanel id="opTitleHeader">
+        <apex:sectionHeader subtitle="{!thisContact.FirstName} {!thisContact.LastName}" />
+        <br />
+    </apex:outputPanel>
+    <apex:form id="frmMain">
+    <apex:actionStatus id="asShowInterstitial" onstart="statusShow();" onstop="statusHide();" />
+    <apex:actionFunction name="afSubmitSave" action="{!saveOutcome}" rerender="opFields, opScripts" status="asShowInterstitial"/>
+    <apex:outputPanel id="opFields">
+        <apex:pageMessages />
+        <apex:outputPanel styleClass="topContainer">
+          <fieldset id="fsCriteria" class="fsBorders">
+            <legend>Screening Outcome</legend>
+            <table width="600px" border="0" cellPadding="2" cellSpacing="2">
+            <tr>
+                <td>
+                                <apex:outputText value="Screening Outcome" escape="false"/>
+                 </td>
+                            <td width="75%" align="left">
+                                <apex:inputField value="{!thisContact.Screening_Outcome_srp__c}" />
+                 </td>
+                 </tr>                          
+                        <tr>
+                            <td class="searchLabel">
+                               <apex:outputText escape="false" value="Ineligible reason(s). <br>if 'Other'." />
+                            </td>                                  
+                             <td align="left">
+                                <apex:inputField styleClass="criteriaInput" value="{!thisContact.Ineligible_Reason_Other__c}" id="txtReason" />
+                             </td>
+                        </tr>
+           </table>
+            </fieldset>
+           <p/><p/><p/><P/>
+
+           <fieldset  class="fsBorders">
+           <legend>Arraignment Outcome</legend>
+            <table width="600px" border="0" cellPadding="2" cellSpacing="2">                                                                  
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Decision Date" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.Intake_Date__c}" />
+                                    </td>
+                                    <td class="searchLabel" align="right">
+                                        <apex:outputText value="Judge" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisCase.Judge__c}"  />
+                                    </td>                                                                   
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Arraignment Outcome" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.Arraignment_Outcome__c}"  />
+                                    </td>                                  
+                                </tr>                                
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="District Attorney's Offer" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisCase.DA_Offer_SRP__c}" id="txtDAConsent" />
+                                    </td>
+                                    <td class="searchLabel" align="right">Days in Jail</td>
+                                    <td><apex:inputField value="{!thisCase.DA_No_of_Days_DS__c}" styleClass="criteriaInput"/></td>
+                                </tr>               
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Bail Recommended?" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisCase.Bail_Recommended__c}"  />
+                                    </td>
+                                    <td><apex:inputField value="{!thisCase.Bail_Set_Cash__c}" styleClass="criteriaInput"/>&nbsp;Cash</td>
+                                    <td><apex:inputField value="{!thisCase.Bail_Set_Bond__c}" styleClass="criteriaInput"/>&nbsp;Bond</td>
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Judge's Conditions" style="text-align:top" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField style="width:300px;height:75px" styleClass="criteriaInput" value="{!thisContact.Judge_s_Conditions__c}" id="txtConditions" />
+                                    </td>                                 
+                                </tr>
+                                <tr><td colspan="3" height="30px"></td></tr>
+           </table>
+            </fieldset>
+           <p/><p/><p/><P/>
+
+           <fieldset  class="fsBorders">
+           <legend>Next Court Date</legend>
+            <table width="600px" border="0" cellPadding="2" cellSpacing="2">                                                                                                                                  
+                <tr>
+                    <td width="10%" class="searchLabel">
+                                        <apex:outputText value="Adjournment Date" />
+                    </td>
+                    <td width="23%" align="left">
+                        <apex:inputField styleClass="criteriaInput" value="{!nextCourtDate.ActivityDate}" id="dteNextCourtDate" />
+                    </td>
+                    <td width="10%" class="searchLabel">
+                        <apex:outputText value="Adjournment Part" />
+                    </td>
+                    <td width="23%" align="left">
+                        <apex:selectList value="{!nextCourtDate.Part__c}" id="pckPart" multiselect="false" size="4" >
+<apex:selectOption itemValue="A" itemLabel="A"/>
+<apex:selectOption itemValue="B" itemLabel="B"/>
+<apex:selectOption itemValue="C" itemLabel="C"/>
+<apex:selectOption itemValue="D" itemLabel="D"/>
+<apex:selectOption itemValue="E" itemLabel="E"/>
+<apex:selectOption itemValue="F" itemLabel="F"/>
+<apex:selectOption itemValue="N" itemLabel="N"/>
+<apex:selectOption itemValue="AR1" itemLabel="AR1"/>
+<apex:selectOption itemValue="AR2/DAT" itemLabel="AR2/DAT"/>
+<apex:selectOption itemValue="AR3" itemLabel="AR3"/>
+<apex:selectOption itemValue="AR3A" itemLabel="AR3A"/>
+<apex:selectOption itemValue="ASC" itemLabel="ASC"/>
+<apex:selectOption itemValue="001" itemLabel="001"/>
+<apex:selectOption itemValue="021" itemLabel="021"/>
+<apex:selectOption itemValue="022" itemLabel="022"/>
+<apex:selectOption itemValue="023" itemLabel="023"/>
+<apex:selectOption itemValue="031" itemLabel="031"/>
+<apex:selectOption itemValue="032" itemLabel="032"/>
+<apex:selectOption itemValue="037 - JHO" itemLabel="037 - JHO"/>
+<apex:selectOption itemValue="041" itemLabel="041"/>
+<apex:selectOption itemValue="042" itemLabel="042"/>
+<apex:selectOption itemValue="043" itemLabel="043"/>
+<apex:selectOption itemValue="044" itemLabel="044"/>
+<apex:selectOption itemValue="048" itemLabel="048"/>
+<apex:selectOption itemValue="051" itemLabel="051"/>
+<apex:selectOption itemValue="052" itemLabel="052"/>
+<apex:selectOption itemValue="055" itemLabel="055"/>
+<apex:selectOption itemValue="056" itemLabel="056"/>
+<apex:selectOption itemValue="059" itemLabel="059"/>
+<apex:selectOption itemValue="061" itemLabel="061"/>
+<apex:selectOption itemValue="062" itemLabel="062"/>
+<apex:selectOption itemValue="065" itemLabel="065"/>
+<apex:selectOption itemValue="066" itemLabel="066"/>
+<apex:selectOption itemValue="071" itemLabel="071"/>
+<apex:selectOption itemValue="072" itemLabel="072"/>
+<apex:selectOption itemValue="073" itemLabel="073"/>
+<apex:selectOption itemValue="077" itemLabel="077"/>
+<apex:selectOption itemValue="081" itemLabel="081"/>
+<apex:selectOption itemValue="082" itemLabel="082"/>
+<apex:selectOption itemValue="085" itemLabel="085"/>
+<apex:selectOption itemValue="092" itemLabel="092"/>
+<apex:selectOption itemValue="093" itemLabel="093"/>
+<apex:selectOption itemValue="094" itemLabel="094"/>
+<apex:selectOption itemValue="095" itemLabel="095"/>
+<apex:selectOption itemValue="IDV" itemLabel="IDV"/>
+<apex:selectOption itemValue="N-SCT" itemLabel="N-SCT"/>
+<apex:selectOption itemValue="VTL" itemLabel="VTL"/>
+                        
+                        </apex:selectList>
+                    </td>                                                                                                
+                </tr>
+            </table>
+
+            </fieldset>
+            <table>
+                <tr><td>
+                    <apex:commandButton id="cmdSave" value="Save" action="{!saveOutcome}"/> <!-- onclick="return checkFields();" rerender="emptyRerender"/ -->
+                    <apex:commandButton id="cmdCancel" value="Cancel" action="{!goPortal}" />                                       
+                    </td>                                
+                </tr>         
+            </table>
+        </apex:outputPanel>                  
+        
+        <div id="loadingGif" title="Processing Search" style="display:none;">
+            <p align="center">
+                Please wait while the search is processed...<br />
+                <br />
+                <img src="{!URLFOR($Resource.CasesLogo)}" /><br />
+                <br />
+                <img src="{!URLFOR($Resource.loading)}" />
+            </p>
+        </div>          
+        
+    </apex:outputPanel>
+</apex:form>
+</apex:outputPanel>    
+<style>
+    span.topContainer {
+        margin: 1px; 
+        margin-bottom: 10px;
+        background: #BEE3F8; 
+        padding: 5px;
+        border:0; 
+        float: left;
+        width: auto;
+        clear: both;
+        white-space: nowrap;
+    }
+    
+    td.searchLabel {
+        vertical-align:top;
+        width: 25%; 
+    }
+    
+    input.searchCriteria {
+        width: 150px;
+    
+    }
+    
+    .fsBorders {
+        border-color:#1797C0;
+        border-style: solid;
+        border-width: 1px;
+    }
+    
+    .criteriaInput { }
+        
+
+</style>
+<script>
+    function setFocusOnLoad() {}
+</script> 
+</apex:page>

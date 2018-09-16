@@ -1,0 +1,352 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="edpage" >
+   <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+<br/>
+ <apex:outPutPanel id="op" styleclass="span.resultContainer">
+  <apex:pageblock id="pbEdit" rendered="{!isEdit==true}">
+ 		 <apex:pageblocksection columns="1">
+		  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+              Case Coordinator Comments</span>  
+          </apex:facet>
+		
+		  <apex:inputfield value="{!PSYCHO.Case_Coordinator_Comments__c}" styleclass="textshortedit"/>
+ 		</apex:pageblocksection>
+     
+        <apex:pageblocksection columns="1">
+	      <apex:facet name="header" >
+          <span style="color:black;font-size:14px;">
+              Assessment notes-Family and Peers</span>  
+          </apex:facet>
+		  <apex:inputfield value="{!PSYCHO.Family_Peers_Section_1__c}" styleclass="textshortedit"/>
+		</apex:pageblocksection>
+	
+		<apex:pageblocksection columns="2">
+  		  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+              Data Capture-Family and Peers</span>  
+          </apex:facet>
+		  <apex:inputfield value="{!PSYCHO.Do_you_have_Insurance__c}"  />
+		  <apex:inputfield value="{!PSYCHO.Update_Has_Insurance__c}"  /> 
+		  <apex:inputfield value="{!PSYCHO.Insurance_Provider__c}"  />  
+		  <apex:inputfield value="{!PSYCHO.Update_Insurance_Provider__c}"  />
+		  <apex:inputfield value="{!PSYCHO.Insurance_Number__c}"  />
+		  <apex:inputfield value="{!PSYCHO.Update_Insurance_Number__c}"  />
+		</apex:pageblocksection>
+	
+		<apex:pageblocksection columns="1">
+		  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+             Assessment Notes-Education</span>  
+          </apex:facet>
+		  <apex:inputfield value="{!PSYCHO.Education_Section_1__c}"  styleclass="textshortedit"/>
+		  <apex:inputfield value="{!PSYCHO.Education_Section_2__c}"  styleclass="textshortedit"/> 
+		  </apex:pageblocksection>
+	
+		<apex:pageblocksection columns="1">
+		  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+             Assessment Notes-Employment</span>  
+          </apex:facet>
+		  <apex:inputfield value="{!PSYCHO.Employment_Section_1__c}"   styleclass="textshortedit"/> 
+		</apex:pageblocksection>
+	
+		<apex:pageblocksection columns="1">
+		  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+             Assessment Notes-Physical Health</span>  
+          </apex:facet>
+		  <apex:inputfield value="{!PSYCHO.Physical_Health_Section_1__c}"   styleclass="textshortedit"/> 
+		</apex:pageblocksection>
+	
+		<apex:pageblocksection columns="1">
+		  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+            Data Capture-Physical Health</span>  
+          </apex:facet>
+		  <apex:inputfield value="{!PSYCHO.Indication_of_Phys_Health_Problem__c}"   />  
+		  <apex:inputfield value="{!PSYCHO.OTHER_PHYS_HEALTH_PROBLEM__c}" styleclass="textshortedit"/>
+		</apex:pageblocksection>
+	
+		<apex:pageblocksection columns="1">
+	 	  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+            Assessment Notes-Mental Health</span></apex:facet>				
+		  <apex:inputfield value="{!PSYCHO.MAYSI_2__c}" />
+		  <apex:inputfield value="{!PSYCHO.Mental_Health_Issues_at_Interview__c}" style="width:700px" />
+		  <apex:inputfield value="{!PSYCHO.Mental_Health_Section_1__c}" styleclass="textshortedit"/>
+		  <apex:inputfield value="{!PSYCHO.Mental_Health_History__c}" />
+		</apex:pageblocksection>
+	
+		<apex:pageblocksection columns="1">
+	      <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+            Assessment Notes-Substance Abuse</span>  
+          </apex:facet>
+		  <apex:inputfield value="{!PSYCHO.Substance_Abuse_Section_1__c}"  styleclass="textshortedit"/>
+		</apex:pageblocksection>
+		<apex:pageblocksection columns="2">
+			<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+            Data Capture-Substance Abuse</span>  
+            </apex:facet>
+			<apex:inputfield value="{!PSYCHO.Drugs_Used__c}"  />
+			<apex:inputfield value="{!PSYCHO.Update_Drugs_Used__c}"  />
+			<apex:inputfield value="{!PSYCHO.Drugs_Used_Other__c}"  />
+			<apex:inputfield value="{!PSYCHO.Update_Drugs_Used_Other__c}"  />
+		</apex:pageblocksection>
+		<apex:pageblocksection columns="1">
+  		  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+            Assessment Notes-Summary and Recommendations</span>  
+          </apex:facet>
+		  <apex:inputfield value="{!PSYCHO.Community_based_Care_Recommended__c}" />
+		  <apex:inputfield value="{!PSYCHO.Summary_Recommendations_Section_1__c}"  styleclass="textshortedit"/>
+		</apex:pageblocksection>
+		
+  </apex:pageblock>
+  
+  <apex:pageblock id="pbView" rendered="{!isEdit==false}">
+  		<apex:pageblocksection columns="1">
+		  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+              Case Coordinator Comments</span>  
+          </apex:facet>
+             <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Case Coordinator Comments" for="c1"/>		
+		        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Case_Coordinator_Comments__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="c1"/>
+		  </apex:pageblocksectionItem>
+  	</apex:pageblocksection>
+        <apex:pageblocksection columns="1">
+	      <apex:facet name="header" >
+          <span style="color:black;font-size:14px;">
+              Assessment notes-Family and Peers</span>  
+          </apex:facet>
+          <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Family & Peers Section 1" for="f1"/>		
+		        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Family_Peers_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="f1"/>
+		  </apex:pageblocksectionItem>
+		</apex:pageblocksection>
+		<apex:pageblocksection columns="2">
+  		  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+              Data Capture-Family and Peers</span>  
+          </apex:facet>
+		  <apex:inputtext value="{!PSYCHO.Do_you_have_Insurance__c}" styleclass="txt40" disabled="true" />
+		  
+		  <apex:pageblocksectionItem >
+         <apex:outputlabel value="Update Has Insurance" for="n1"/>		
+		        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Update_Has_Insurance__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="n1"/>
+		  </apex:pageblocksectionItem>
+		  
+	  <apex:pageblocksectionItem >
+         <apex:outputlabel value="Insurance Provider" for="n2"/>		
+		        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Insurance_Provider__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="n2"/>
+		  </apex:pageblocksectionItem>
+		  
+	  <apex:pageblocksectionItem >
+         <apex:outputlabel value="Update Insurance Provider" for="n3"/>		
+		        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Update_Insurance_Provider__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="n3"/>
+		  </apex:pageblocksectionItem>
+		  		  
+	  <apex:pageblocksectionItem >
+         <apex:outputlabel value="Insurance Number" for="n4"/>		
+		        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Insurance_Number__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="n4"/>
+	</apex:pageblocksectionItem>
+	
+	 <apex:pageblocksectionItem >
+         <apex:outputlabel value="Update Insurance Number" for="n5"/>		
+		        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Update_Insurance_Number__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="n5"/>
+	</apex:pageblocksectionItem>
+	
+		</apex:pageblocksection>
+		<apex:pageblocksection columns="1">
+		  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+             Assessment Notes-Education</span>  
+          </apex:facet>
+	
+	<apex:pageblocksectionItem >	
+             <apex:outputlabel value="Education Section 1" for="e1"/>		
+		        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Education_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="e1"/>
+		  </apex:pageblocksectionItem>
+	<apex:pageblocksectionItem >
+         <apex:outputlabel value="Education Section 2" for="e2"/>		
+		        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Education_Section_2__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="e2"/>
+		  </apex:pageblocksectionItem>
+	  </apex:pageblocksection>
+		<apex:pageblocksection columns="1">
+		  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+             Assessment Notes-Employment</span>  
+          </apex:facet>
+	  <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Employment Section 1" for="emp"/>		
+		        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Employment_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="emp"/>
+		  </apex:pageblocksectionItem>
+		</apex:pageblocksection>
+	
+		<apex:pageblocksection columns="1">
+		  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+             Assessment Notes-Physical Health</span>  
+          </apex:facet>
+	
+	     <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Physical Health Section 1" for="p1"/>		
+		        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Physical_Health_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="p1"/>
+		  </apex:pageblocksectionItem>
+	
+		</apex:pageblocksection>
+		<apex:pageblocksection columns="2">
+		  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+            Data Capture-Physical Health</span>  
+          </apex:facet>
+	    <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Indication of Phys Health Problem" for="p2"/>		
+		        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Indication_of_Phys_Health_Problem__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:400px;background-color:white;" id="p2"/>
+	   </apex:pageblocksectionItem>
+	    <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Other Phys Health Problem" for="o"/>		
+             <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.OTHER_PHYS_HEALTH_PROBLEM__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:400px;background-color:white;" id="o"/>
+        </apex:pageblocksectionItem>
+   	 </apex:pageblocksection>
+		<apex:pageblocksection columns="1">
+	 	  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+            Assessment Notes-Mental Health</span>  
+          </apex:facet>	
+          <apex:pageblocksectionItem >	
+             <apex:outputlabel value="MAYSI - 2" for="mm1"/>		
+		        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.MAYSI_2__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="mm1"/>
+		  </apex:pageblocksectionItem>
+          <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Mental Health Issues at Interview" for="mm2"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Mental_Health_Issues_at_Interview__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="mm2"/>
+		  </apex:pageblocksectionItem>
+		   <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Mental Health Section 1" for="mm3"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Mental_Health_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="mm3"/>
+		  </apex:pageblocksectionItem>
+          <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Mental Health History" for="mm4"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Mental_Health_History__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="mm4"/>
+		  </apex:pageblocksectionItem>
+
+   
+		</apex:pageblocksection>
+		<apex:pageblocksection columns="1">
+	      <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+            Assessment Notes-Substance Abuse</span>  
+          </apex:facet>
+		
+		   <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Substance Abuse Section 1" for="s2"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Substance_Abuse_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="s2"/>
+		  </apex:pageblocksectionItem>
+		</apex:pageblocksection>
+		<apex:pageblocksection columns="2">
+			<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+            Data Capture-Substance Abuse</span>  
+            </apex:facet>
+            <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Drugs Used" for="d1"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Drugs_Used__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:250px;background-color:white;" id="d1"/>
+		  </apex:pageblocksectionItem>
+
+            <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Update Drugs Used" for="d2"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Update_Drugs_Used__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:250px;background-color:white;" id="d2"/>
+		  </apex:pageblocksectionItem>
+
+	        <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Drugs Used (Other)" for="d3"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Drugs_Used_Other__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:250px;background-color:white;" id="d3"/>
+		  </apex:pageblocksectionItem>
+	
+	        <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Update Drugs Used (Other)" for="d4"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Update_Drugs_Used_Other__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:250px;background-color:white;" id="d4"/>
+		  </apex:pageblocksectionItem>
+		</apex:pageblocksection>
+		<apex:pageblocksection columns="1">
+  		  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+            Assessment Notes-Summary and Recommendations</span>  
+          </apex:facet>
+		  <apex:inputtext value="{!PSYCHO.Community_based_Care_Recommended__c}"  styleclass="txt40" disabled="true" />
+		   <apex:pageblocksectionItem >	
+             <apex:outputlabel value="Summary & Recommendations Section 1" for="s1"/>		
+	        <apex:outputtext value="{!substitute(substitute(JSENCODE(PSYCHO.Summary_Recommendations_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+                escape="false" style="color:blue;width:700px;background-color:white;" id="s1"/>
+		  </apex:pageblocksectionItem>
+		</apex:pageblocksection>
+  </apex:pageblock>
+</apex:outPutPanel> 
+
+<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>               	
+				
+<br/>  
+
+	</apex:form>
+</apex:page>

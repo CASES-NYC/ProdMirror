@@ -1,0 +1,175 @@
+<apex:page controller="SignInPrintController" showHeader="false" sidebar="false" 
+standardStylesheets="false" renderAs="pdf" applyHtmlTag="false" applyBodyTag="false" >
+ 
+ 
+
+  <head>
+   <style>
+      @page {
+            size: letter;
+               margin: 10mm;
+                @top-center {
+                    content: "Sign-in log:{!from_to}";
+                }
+                @top-right {
+                    content: "Page " counter(page) " of " counter(pages);
+                }
+                @top-left {
+                    content: "Printed:  {!currentDate}";
+                }
+            }
+     </style>
+       </head>
+  
+   <apex:form id="singForm" > 
+     <apex:pageBlock id="pageblockAppts"  rendered="{!boro=='All'}">
+       <apex:pageBlocksection rendered="{!BrooklynData==true}">
+         <apex:outPutLabel value="Brooklyn" rendered="{!BrooklynData==true}" />
+         <br/>
+            <apex:PageBlockTable value="{!lstReportBrooklyn}" var="e" columns="9" 
+                    cellspacing="0" style="font-size:12px;" frame="1"  
+                    border="0.5" cellpadding="4" >
+         <apex:column headerValue="#" style="width:15px;" >
+            <apex:outputText value="{!e.rowNumber}" rendered="{!e.repboro=='Brooklyn'}" />
+        </apex:column> 
+      <apex:column headerValue="Boro" style="width:10px;" >
+            <apex:outputText value="{!e.boro}" rendered="{!e.repboro=='Brooklyn'}" />
+        </apex:column> 
+        <apex:column headerValue="Client"  style="width:100px;align:center"  >
+            <apex:outputText value="{!e.cname}" rendered="{!e.repboro=='Brooklyn'}" />
+         </apex:column>
+         <apex:column headerValue="Scheduled Time" style="width:120px;" >
+             <apex:outputText value="{!e.schedtimestr}" rendered="{!e.repboro=='Brooklyn'}" /> 
+        </apex:column>                      
+        <apex:column headerValue="Attendance" >
+           <apex:outPutText value="{!e.Verstatus}" rendered="{!e.repboro=='Brooklyn'}" />
+        </apex:column>   
+          <apex:column style="width:60px;text-align:left"  headerValue="Time In" >
+           <apex:outputText value="{!e.timein}" rendered="{!e.repboro=='Brooklyn'}" />
+        </apex:column>     
+        <apex:column style="width:85px;text-align:left" headerValue="Time Out" >
+            <apex:outputText value="{!e.timeout}" rendered="{!e.repboro=='Brooklyn'}" />
+        </apex:column> 
+        <apex:column style="width:85px;text-align:left" headerValue="Verifyed by" >
+           <apex:outputText value="{!e.VerifiedBy }" rendered="{!e.repboro=='Brooklyn'}" /> 
+		 </apex:column>
+         <apex:column style="width:85px;text-align:left" headerValue="Verifyed on" >
+                   <apex:outputText value="{!e.VerifiedOn}" rendered="{!e.repboro=='Brooklyn'}" /> 
+		 </apex:column>
+       </apex:pageBlockTable> 
+     </apex:PageBlockSection>
+        <div style="page-break-before:always"/>
+     <apex:pageBlocksection rendered="{!HarlemData==true}">
+ 
+         <apex:outPutLabel value="Harlem and Queens" rendered="{!HarlemData==true}" />  
+   <br/>
+   <!--    <apex:repeat value="{!lstEventsReportShow}" var="app" >-->
+            <apex:PageBlockTable value="{!lstReportHarlem}" var="h" columns="9" 
+                    cellspacing="0" style="font-size:12px;" frame="1"  
+                    border="0.5" cellpadding="4" >
+         <apex:column headerValue="#" style="width:15px;" >
+            <apex:outputText value="{!h.rowNumber}" rendered="{!h.repboro!='Brooklyn'}" />
+        </apex:column>
+     <apex:column headerValue="Boro" style="width:10px;" >
+            <apex:outputText value="{!h.boro}" rendered="{!h.repboro!='Brooklyn'}" />
+        </apex:column> 
+        <apex:column headerValue="Client"  style="width:100px;align:center" >
+            <apex:outputText value="{!h.cname}" rendered="{!h.repboro!='Brooklyn'}" />
+         </apex:column>
+         <apex:column headerValue="Scheduled Time" style="width:120px;" >
+             <apex:outputText value="{!h.schedtimestr}" rendered="{!h.repboro!='Brooklyn'}" /> 
+        </apex:column>                      
+        <apex:column headerValue="Attendance" >
+           <apex:outPutText value="{!h.Verstatus}" rendered="{!h.repboro!='Brooklyn'}" />
+        </apex:column>   
+          <apex:column style="width:60px;text-align:left"  headerValue="Time In" >
+           <apex:outputText value="{!h.timein}" rendered="{!h.repboro!='Brooklyn'}" />
+        </apex:column>     
+        <apex:column style="width:85px;text-align:left" headerValue="Time Out" >
+            <apex:outputText value="{!h.timeout}" rendered="{!h.repboro!='Brooklyn'}" />
+        </apex:column> 
+        <apex:column style="width:85px;text-align:left" headerValue="Verifyed by"  >
+           <apex:outputText value="{!h.VerifiedBy }" rendered="{!h.repboro!='Brooklyn'}" /> 
+		 </apex:column>
+         <apex:column style="width:85px;text-align:left" headerValue="Verifyed on"  >
+                   <apex:outputText value="{!h.VerifiedOn}" rendered="{!h.repboro!='Brooklyn'}" />
+		 </apex:column>
+              </apex:pageBlockTable> 
+     </apex:PageBlockSection>
+       </apex:pageblock>
+       
+    <apex:pageBlock id="pageblockApptBoro"  rendered="{!boro!='All'}">
+    <apex:pageBlocksection rendered="{!boro=='Brooklyn'}">
+         <apex:outPutLabel value="Brooklyn" rendered="{!BrooklynData==true}" />
+         <br/>
+            <apex:PageBlockTable value="{!lstReportBrooklyn}" var="a" columns="9" 
+                    cellspacing="0" style="font-size:12px;" frame="1"  
+                    border="0.5" cellpadding="4" >
+         <apex:column headerValue="#" style="width:15px;" >
+            <apex:outputText value="{!a.rowNumber}" rendered="{!a.repboro=='Brooklyn'}" />
+        </apex:column> 
+       <apex:column headerValue="Boro" style="width:10px;" >
+            <apex:outputText value="{!a.boro}" rendered="{!a.repboro=='Brooklyn'}" />
+        </apex:column>
+        <apex:column headerValue="Client"  style="width:100px;align:center"  >
+            <apex:outputText value="{!a.cname}" rendered="{!a.repboro=='Brooklyn'}" />
+         </apex:column>
+         <apex:column headerValue="Scheduled Time" style="width:120px;" >
+             <apex:outputText value="{!a.schedtimestr}" rendered="{!a.repboro=='Brooklyn'}" /> 
+        </apex:column>                      
+        <apex:column headerValue="Attendance" >
+           <apex:outPutText value="{!a.Verstatus}" rendered="{!a.repboro=='Brooklyn'}" />
+        </apex:column>   
+          <apex:column style="width:60px;text-align:left"  headerValue="Time In" >
+           <apex:outputText value="{!a.timein}" rendered="{!a.repboro=='Brooklyn'}" />
+        </apex:column>     
+        <apex:column style="width:85px;text-align:left" headerValue="Time Out" >
+            <apex:outputText value="{!a.timeout}" rendered="{!a.repboro=='Brooklyn'}" />
+        </apex:column> 
+        <apex:column style="width:85px;text-align:left" headerValue="Verifyed by" >
+           <apex:outputText value="{!a.VerifiedBy }" rendered="{!a.repboro=='Brooklyn'}" /> 
+		 </apex:column>
+         <apex:column style="width:85px;text-align:left" headerValue="Verifyed on" >
+                   <apex:outputText value="{!a.VerifiedOn}" rendered="{!a.repboro=='Brooklyn'}" /> 
+		 </apex:column>
+       </apex:pageBlockTable> 
+     </apex:PageBlockSection>
+
+     <apex:pageBlocksection rendered="{!boro!='Brooklyn'}">
+         <apex:outPutLabel value="Harlem and Queens" rendered="{!HarlemData==true}" />  
+   <br/>
+            <apex:PageBlockTable value="{!lstReportHarlem}" var="h" columns="9" 
+                    cellspacing="0" style="font-size:12px;" frame="1"  
+                    border="0.5" cellpadding="4" >
+         <apex:column headerValue="#" style="width:15px;" >
+            <apex:outputText value="{!h.rowNumber}" rendered="{!h.repboro!='Brooklyn'}" />
+        </apex:column>
+      <apex:column headerValue="Boro" style="width:10px;" >
+            <apex:outputText value="{!h.boro}" rendered="{!h.repboro!='Brooklyn'}" />
+        </apex:column>
+        <apex:column headerValue="Client"  style="width:100px;align:center" >
+            <apex:outputText value="{!h.cname}" rendered="{!h.repboro!='Brooklyn'}" />
+         </apex:column>
+         <apex:column headerValue="Scheduled Time" style="width:120px;" >
+             <apex:outputText value="{!h.schedtimestr}" rendered="{!h.repboro!='Brooklyn'}" /> 
+        </apex:column>                      
+        <apex:column headerValue="Attendance" >
+           <apex:outPutText value="{!h.Verstatus}" rendered="{!h.repboro!='Brooklyn'}" />
+        </apex:column>   
+          <apex:column style="width:60px;text-align:left"  headerValue="Time In" >
+           <apex:outputText value="{!h.timein}" rendered="{!h.repboro!='Brooklyn'}" />
+        </apex:column>     
+        <apex:column style="width:85px;text-align:left" headerValue="Time Out" >
+            <apex:outputText value="{!h.timeout}" rendered="{!h.repboro!='Brooklyn'}" />
+        </apex:column> 
+        <apex:column style="width:85px;text-align:left" headerValue="Verifyed by"  >
+           <apex:outputText value="{!h.VerifiedBy }" rendered="{!h.repboro!='Brooklyn'}" /> 
+		 </apex:column>
+         <apex:column style="width:85px;text-align:left" headerValue="Verifyed on"  >
+                   <apex:outputText value="{!h.VerifiedOn}" rendered="{!h.repboro!='Brooklyn'}" />
+		 </apex:column>
+              </apex:pageBlockTable> 
+     </apex:PageBlockSection>
+       </apex:pageblock>
+</apex:form>
+</apex:page>

@@ -1,0 +1,905 @@
+<apex:page controller="addChargesController" cache="false" sidebar="false">
+<!-- <div id="my-timeline" style="height:1500px; border: 1px solid #aaa"> -->
+
+
+<script>
+ function setFocusOnLoad()
+{
+}
+</script> 
+<script>  
+        function showProcessing(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('loadingGifData').style.display = '';
+            } else {
+                document.getElementById('loadingGifData').style.display = 'none';
+            }
+        } 
+</script> 
+
+<script> 
+  function confirmTimeOut()
+   {
+      aftimeOut();
+   }
+   function deleteCharge(fieldValue, codeValue, typeValue) {
+   if (confirm('Are you sure you want to delete ' + typeValue + ' charge ' + codeValue + '?'))
+   {  
+        afdeleteCharge(fieldValue);
+         showProcessing(1);
+   }
+    } 
+</script>
+<script>  
+      function  savingArrestchg(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('savingArrestGifData').style.display = '';
+            } else {
+                document.getElementById('savingArrestGifData').style.display = 'none';
+            }
+        } 
+      function  savingArrainchg(dir) { 
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('savingArrainGifData').style.display = '';
+            } else {
+                document.getElementById('savingArrainGifData').style.display = 'none';
+            }
+        } 
+      function  savingIndictmentchg(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('savingIndictmentGifData').style.display = '';
+            } else {
+                document.getElementById('savingIndictmentGifData').style.display = 'none';
+            }
+        } 
+      function  savingPleachg(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('savingPleaGifData').style.display = '';
+            } else {
+                document.getElementById('savingPleaGifData').style.display = 'none';
+            }
+         }
+         
+    function  savingFamilychg(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('savingFamilyGifData').style.display = '';
+            } else {
+                document.getElementById('savingFamilyGifData').style.display = 'none';
+            }
+         }
+  
+ 
+     }
+         
+    </script> 
+ <style type="text/css"> 
+       .customPopup{
+            background-color: 	#FFF5EE;
+            border-style: solid;
+            border-width: 3px;
+            border-color:red;
+            left: 25%;
+            padding:10px;
+            position:absolute;
+            height: 450px;
+            z-index:9999;
+            width:750px;
+            margin-left:-250px;
+            top:120px;
+            modal:true;
+         }
+</style>  
+<!-- absolute-->
+<script type="text/javascript">
+function closeWin() {
+alert('close?');
+  window.close();   // Closes the new window
+  return false;
+ }
+</script>
+
+<apex:form style="height:700px;width:800px" id="frm">
+<!-- <apex:commandButton value="close" onClick="closeWin()" />-->
+
+ <apex:actionFunction name="afRefreshPickList" action="{!RefreshPickList}" rerender="popup">
+ </apex:actionFunction>
+<!-- 
+<apex:actionFunction name="afshowsSelcode1" action="{!showsSelcode1}" >
+     <apex:param name="sel" assignTo="{!selectedName1}" value="" />
+     <apex:param name="fromSelect" assignTo="{!fromSelect}" value="true" />
+ 
+</apex:actionFunction>
+-->
+   <apex:outputPanel id="popup"  >
+      <apex:pageBlock mode="inlineEdit" id="pb" > 
+         <apex:outputPanel styleClass="customPopup" layout="block" rendered="{!displayPopUp}" id="op">
+    
+        <apex:selectlist value="{!chgtype}" size="1" > 
+                        <apex:selectOption itemValue="" itemLabel=""/> 
+                        <apex:selectOption itemValue="Arrest Charges" itemLabel="Arrest Charges"/> 
+                        <apex:selectOption itemValue="Criminal Court Arraignment Charges" itemLabel="Criminal Court Arraignment Charges"/> 
+                        <apex:selectOption itemValue="Indictment Charges" itemLabel="Indictment Charges"/> 
+                        <apex:selectOption itemValue="Plea/ Finding Charges" itemLabel="Plea/ Finding Charges"/>
+        <apex:actionSupport event="onchange" rerender="ctype" action="{!refreshType}" /> 
+        </apex:selectlist>                
+    
+             <apex:outputText value="{!chgtype}" style="color:red;font-weight:bold;font-size:12px" id="ctype"/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <apex:commandButton id="cmdSaveUp" title="Start" value="Save Charges" 
+                        onclick="saveCharges('{!$Component.Plcodes1}',
+                       '{!$Component.Plcodes2}','{!$Component.Plcodes3}',
+                       '{!$Component.Plcodes4}', '{!$Component.Plcodes5}',
+                        '{!$Component.Plcodes6}', '{!$Component.Plcodes7}',
+                         '{!$Component.Plcodes8}', '{!$Component.Plcodes9}', '{!$Component.Plcodes10}')">
+<!--                       status="savingArrestchg" rerender="savingArrestchg">-->
+                     </apex:commandButton>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     
+               <apex:commandLink value="Close" style="color:blue" title="close"
+                              rerender="popup,panelAllcharges" action="{!closePopUp}"/>
+ <!-- 
+ <table>
+   <tr>
+     <td>
+       <td>
+   <span id="loadingGifData" style="display:none;" >
+        <table> 
+          <tr>
+             <td>
+               Processing.Please wait...
+                            <apex:image value="/img/loading32.gif" />
+             </td>
+       </tr>
+       </table>
+    </span>
+  </td>
+     </td>
+   </tr>
+ </table>
+ -->
+          <script>
+      function noenter(ev)  {
+    //  alert(window.event);
+   if (window.event && (window.event.keyCode == 13 || ev.which == 13)) {
+  //      if (window.event.keyCode == 13) {
+        showProcessing(1);
+            afRefreshPickList();
+             return false;
+    } 
+      }
+      </script>
+      <script>
+      function selectList {
+   //     showProcessing(1);
+        afRefreshPickList();
+        } 
+      }
+      </script>
+   <script>   
+  function saveCharges(code1,code2,code3,code4,code5,code6,code7,code8,code9,code10){
+  //  showProcessing(1);
+//      alert('in save');
+      var chgString = '';
+      var selectedCode;
+      var codeObj = document.getElementById(code1);
+      var index = codeObj.selectedIndex;
+   //   alert('index: ' + index);
+      if (index != -1){
+       selectedCode = codeObj.options[index].value;
+       if (selectedCode != '')
+          chgString = selectedCode;
+      }
+ 
+      codeObj = document.getElementById(code2);
+      index = codeObj.selectedIndex;
+      if (index != -1){
+         selectedCode = codeObj.options[index].value;
+         if (chgString == '')
+           chgString = selectedCode;
+         else
+            chgString += ',' + selectedCode;
+         }  
+         
+     codeObj = document.getElementById(code3);
+      index = codeObj.selectedIndex;
+      if (index != -1){
+      selectedCode = codeObj.options[index].value;
+         if (chgString == '')
+           chgString = selectedCode;
+         else
+            chgString += ',' + selectedCode;
+         }           
+   codeObj = document.getElementById(code4);
+      index = codeObj.selectedIndex;
+        if (index != -1){
+  
+      selectedCode = codeObj.options[index].value;
+         if (chgString == '')
+           chgString = selectedCode;
+         else
+            chgString += ',' + selectedCode;
+         }  
+
+   codeObj = document.getElementById(code5);
+      index = codeObj.selectedIndex;
+        if (index != -1){
+      selectedCode = codeObj.options[index].value;
+         if (chgString == '')
+           chgString = selectedCode;
+         else
+            chgString += ',' + selectedCode;
+      }                
+   
+   codeObj = document.getElementById(code6);
+      index = codeObj.selectedIndex;
+        if (index != -1){
+      selectedCode = codeObj.options[index].value;
+         if (chgString == '')
+           chgString = selectedCode;
+         else
+            chgString += ',' + selectedCode;
+      }                
+   codeObj = document.getElementById(code7);
+      index = codeObj.selectedIndex;
+        if (index != -1){
+      selectedCode = codeObj.options[index].value;
+         if (chgString == '')
+           chgString = selectedCode;
+         else
+            chgString += ',' + selectedCode;
+      }                
+   codeObj = document.getElementById(code8);
+      index = codeObj.selectedIndex;
+        if (index != -1){
+      selectedCode = codeObj.options[index].value;
+         if (chgString == '')
+           chgString = selectedCode;
+         else
+            chgString += ',' + selectedCode;
+      }                
+
+   codeObj = document.getElementById(code9);
+      index = codeObj.selectedIndex;
+        if (index != -1){
+      selectedCode = codeObj.options[index].value;
+         if (chgString == '')
+           chgString = selectedCode;
+         else
+            chgString += ',' + selectedCode;
+      }                
+   codeObj = document.getElementById(code10);
+      index = codeObj.selectedIndex;
+        if (index != -1){
+      selectedCode = codeObj.options[index].value;
+         if (chgString == '')
+           chgString = selectedCode;
+         else
+            chgString += ',' + selectedCode;
+      }                
+
+
+   //     alert('save');
+     // alert('chgString: ' + chgString);
+     
+//     if (chgString != ''){
+  //   alert('not empty');
+ //    }
+ //    else
+ //    {
+ //    alert('empty');
+  //    }
+     if (chgString != ''){
+             showProcessing(1);
+         
+        afsaveSelectedCharges(chgString);
+        afclosePopUp();}
+       else{
+         return;
+       } 
+  
+   }   
+  
+  
+   </script>
+            
+<br/><br/>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputLabel value="Code" style="font:16px;font-weight:bold;"/>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <apex:outputLabel value="Select from list of charges based on code entered" style="font:16px;font-weight:bold;"/>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <apex:commandButton value="Clear" style="color:blue" title="Clear objects"
+                              rerender="popup" action="{!clearCharges}"/>
+<br/>
+                             <apex:inputText value="{!chargeCode1}" style="width:120px"
+                    onkeypress="return noenter(event);"  >
+               <apex:actionSupport event="onblur" action="{!RefreshPickList}" rerender="PLcodes1" />
+                    </apex:inputText>
+ <script>
+    function blur(){
+    alert('eee');
+      showProcessing(1);
+      afRefreshPickList();
+    }
+ </script>
+ <!-- 
+      <apex:commandButton style="width:15px;height:15px" onClick="selectList()" status="showProcessing"
+        rerender="savingCharges"/>
+-->
+&nbsp;
+
+          <apex:selectList size="1" required="false" value="{!codesList1}" 
+                 style="width:550px" id="PLcodes1" > 
+                       <apex:selectOptions value="{!CodesItems1}"  rendered="true" />  
+                        </apex:selectList>
+
+<br/><br/>
+             
+                    <apex:inputText value="{!chargeCode2}" style="width:120px"
+                    onkeypress="return noenter(event);">
+                                <apex:actionSupport event="onblur" action="{!RefreshPickList}" rerender="PLcodes2" />
+                    </apex:inputText>
+
+&nbsp;
+                  <apex:selectList size="1" required="false" value="{!codesList2}" 
+                      style="width:550px"
+                      id="PLcodes2"> 
+                      <apex:selectOptions value="{!CodesItems2}"  rendered="true" />  
+                        </apex:selectList>
+<br/><br/>
+         
+                    <apex:inputText value="{!chargeCode3}" style="width:120px"
+                    onkeypress="return noenter(event);">
+                                <apex:actionSupport event="onblur" action="{!RefreshPickList}" rerender="PLcodes3" />
+                    </apex:inputText>
+
+&nbsp;
+                      <apex:selectList size="1" required="false" value="{!codesList3}" 
+                        style="width:550px"
+                        id="PLcodes3"> 
+                           <apex:selectOptions value="{!CodesItems3}"  rendered="true" />  
+                        </apex:selectList>
+<br/><br/>
+            
+                    <apex:inputText value="{!chargeCode4}" style="width:120px"
+                    onkeypress="return noenter(event);">
+                                <apex:actionSupport event="onblur" action="{!RefreshPickList}" rerender="PLcodes4" />
+                    </apex:inputText>
+
+&nbsp;
+         
+                      <apex:selectList size="1" required="false" value="{!codesList4}" 
+                        style="width:550px"
+                        id="PLcodes4"> 
+                           <apex:selectOptions value="{!CodesItems4}"  rendered="true" />  
+                        </apex:selectList>
+<br/><br/>
+            
+                    <apex:inputText value="{!chargeCode5}" style="width:120px"
+                    onkeypress="return noenter(event);">
+            <apex:actionSupport event="onblur" action="{!RefreshPickList}" rerender="PLcodes5" />
+                    </apex:inputText>
+&nbsp;
+            
+                      <apex:selectList size="1" required="false" value="{!codesList5}" 
+                        style="width:550px"
+                        id="PLcodes5"> 
+                           <apex:selectOptions value="{!CodesItems5}"  rendered="true" />  
+                        </apex:selectList>
+    
+<br/><br/>
+            
+                    <apex:inputText value="{!chargeCode6}" style="width:120px"
+                    onkeypress="return noenter(event);">
+            <apex:actionSupport event="onblur" action="{!RefreshPickList}" rerender="PLcodes6" />
+                    </apex:inputText>
+&nbsp;
+            
+                      <apex:selectList size="1" required="false" value="{!codesList6}" 
+                        style="width:550px"
+                        id="PLcodes6"> 
+                           <apex:selectOptions value="{!CodesItems6}"  rendered="true" />  
+                        </apex:selectList>
+<br/><br/>
+            
+                    <apex:inputText value="{!chargeCode7}" style="width:120px"
+                    onkeypress="return noenter(event);">
+            <apex:actionSupport event="onblur" action="{!RefreshPickList}" rerender="PLcodes7" />
+                    </apex:inputText>
+&nbsp;
+            
+                      <apex:selectList size="1" required="false" value="{!codesList7}" 
+                        style="width:550px"
+                        id="PLcodes7"> 
+                           <apex:selectOptions value="{!CodesItems7}"  rendered="true" />  
+                        </apex:selectList>
+<br/><br/>
+            
+                    <apex:inputText value="{!chargeCode8}" style="width:120px"
+                    onkeypress="return noenter(event);">
+            <apex:actionSupport event="onblur" action="{!RefreshPickList}" rerender="PLcodes8" />
+                    </apex:inputText>
+&nbsp;
+            
+                      <apex:selectList size="1" required="false" value="{!codesList8}" 
+                        style="width:550px"
+                        id="PLcodes8"> 
+                           <apex:selectOptions value="{!CodesItems8}"  rendered="true" />  
+                        </apex:selectList>
+<br/><br/>
+            
+                    <apex:inputText value="{!chargeCode9}" style="width:120px"
+                    onkeypress="return noenter(event);">
+            <apex:actionSupport event="onblur" action="{!RefreshPickList}" rerender="PLcodes9" />
+                    </apex:inputText>
+&nbsp;
+            
+                      <apex:selectList size="1" required="false" value="{!codesList9}" 
+                        style="width:550px"
+                        id="PLcodes9"> 
+                           <apex:selectOptions value="{!CodesItems9}"  rendered="true" />  
+                        </apex:selectList>
+
+<br/><br/>
+            
+                    <apex:inputText value="{!chargeCode10}" style="width:120px"
+                    onkeypress="return noenter(event);">
+            <apex:actionSupport event="onblur" action="{!RefreshPickList}" rerender="PLcodes10" />
+                    </apex:inputText>
+&nbsp;
+            
+                      <apex:selectList size="1" required="false" value="{!codesList10}" 
+                        style="width:550px"
+                        id="PLcodes10"> 
+                           <apex:selectOptions value="{!CodesItems10}"  rendered="true" />  
+                        </apex:selectList>
+
+           <script>
+         function closePopUp()
+         {
+           afclosePopUp();
+         }
+         
+    
+            </script>
+   <table>
+   <tr>
+     <td>
+       <td>
+   <span id="loadingGifData" style="display:none;" >
+        <table> 
+          <tr>
+             <td>
+               Processing.Please wait...
+                            <apex:image value="/img/loading32.gif" />
+             </td>
+       </tr>
+       </table>
+    </span>
+  </td> 
+     </td> 
+   </tr>
+ </table>
+    <!-- 
+       <apex:outPutLabel value="Duplicate: {!showNotAdd}" id="validate" rendered="{!bshowNotAdd}"
+       style="color:red;font:16px;font-weight:bold;"/>
+     -->
+       <br/>
+ 
+  <apex:outputText value="Penal code picklist values are based on what you enter in the Code text box. Please type the penal code in the Code text box and hit ENTER, then select the code needed from the list of charges provided in the corresponding picklist." />
+ 
+     <apex:actionStatus startText=""  stopText="" id="savingCharges" 
+   onstart="showProcessing('1');" onstop="showProcessing('0');"/>
+  
+        </apex:outputPanel> 
+         
+      </apex:pageBlock>
+   </apex:outputPanel> 
+  
+   <apex:outputPanel id="panelActions" >
+   <apex:actionFunction name="afdeleteCharge" action="{!deleteCharge}"
+       rerender="panelAllcharges">
+      <apex:param name="fieldValue" assignTo="{!id2delete}" value="" />
+   </apex:actionFunction>
+  <apex:actionFunction name="afsaveSelectedCharges" action="{!saveSelectedCharges}" rerender="popup,panelAllcharges">
+      <apex:param name="chgString" assignTo="{!chgString}" value="" />
+   </apex:actionFunction>
+   
+   <apex:actionFunction name="afclosePopUp" action="{!closePopUp}" 
+     rerender="panelAllcharges">
+   </apex:actionFunction>
+   
+  
+ 
+   <apex:actionStatus startText=""  stopText="" id="savingArrestchg" 
+   onstart="savingArrestchg('1');" onstop="savingArrestchg('0');"/>
+   
+   <apex:actionStatus startText=""  stopText="" id="savingArrainchg" 
+   onstart="savingArrainchg('1');" onstop="savingArrainchg('0');"/>
+   
+   <apex:actionStatus startText=""  stopText="" id="savingIndictmentchg" 
+   onstart="savingIndictmentchg('1');" onstop="savingIndictmentchg('0');"/>
+  
+   <apex:actionStatus startText=""  stopText="" id="savingPleachg" 
+   onstart="savingPleachg('1');" onstop="savingPleachg('0');"/>
+
+   <apex:actionStatus startText=""  stopText="" id="savingFamilychg" 
+   onstart="savingFamilychg('1');" onstop="savingFamilychg('0');"/>
+    
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+    &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   <apex:outPutText value="{!fullname}" style="font-size:16px;font-weight:bold;color:black"/>
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   <apex:outPutText value="Docket: " style="color:black;font-size:16px;"/>
+   <apex:outputLink value="/{!docketId}" id="dd" rendered="{!docketName<>''}"> 
+      <apex:outPutText value="{!docketName}" style="font-size:16px;font-weight:bold;color:black"/>
+   </apex:outputLink>
+   <apex:outputLabel value="no Docket" rendered="{!docketName==''}"/>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   <apex:commandbutton value="Refresh" action="{!resetInfo}" rerender="charges,savingArrestchg"
+   status="savingArrestchg"  />
+   <apex:pageBlock id="charges" >
+      <apex:outputPanel id="panelHeader" >
+         <apex:pageBlockSection columns="3"  collapsible="true" > 
+            <apex:facet name="header">
+               <apex:outPutText value="{!caseTypeCourt}" style="color:black;font-size:16px;"/>
+            </apex:facet>
+            <apex:pageBlockSectionItem >
+               <apex:outputLabel value="Case Status at Intake: {!IntakeStatus}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+               <apex:outputLabel value="Supreme Court Period: {!courtPeriod}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+               <apex:outputLabel value="Indictment: {!indictment}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+               <apex:outputLabel value="Current Case Status: {!currentStatus}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+               <apex:outputLabel value="Specialized Court: {!specCourt}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+               <apex:outputLabel value="Borough: {!boro}" />
+            </apex:pageBlockSectionItem>
+         </apex:pageBlockSection>   
+      </apex:outputPanel>
+      <apex:outputPanel id="panelAllcharges" >
+  
+ <table>
+   <tr>
+     <td>
+       <td>
+   <span id="loadingGifData" style="display:none;" >
+        <table> 
+          <tr>
+             <td>
+               Processing.Please wait...
+                            <apex:image value="/img/loading32.gif" />
+             </td>
+       </tr>
+       </table>
+    </span>
+  </td>
+     </td>
+   </tr>
+ </table>
+
+       <!--    Arrest charges -->
+         <apex:pageBlockSection columns="1"  collapsible="true" id="sectionArrest" > 
+            <apex:facet name="header">
+               <span style="color:black;font-size:16px;">
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  Arrest Charges</span> 
+            </apex:facet> 
+            <apex:pageBlockTable id="arrest" value="{!arrestCharges}" 
+                var="c" columns="7" cellspacing="0" style="width:80%;font-size:12px;background-color:#F0E68C"
+                columnsWidth="1%,2%,10%,50%px,5%,5%,5%">
+               <apex:column headerValue="#">
+                  <apex:outputText value="{!c.itemnumber}"/> 
+               </apex:column>
+               <apex:column >
+                  <apex:commandbutton value="delete" rendered="{!c.chgcode<>''}" 
+                     onclick="deleteCharge('{!c.chargeid}','{!c.chgcode}','Arrest')" 
+                     status="savingArrestchg" rerender="savingArresthg,sectionArrest">
+                  </apex:commandbutton>                      
+               </apex:column> 
+               <apex:column headerValue="Charges">
+                  <apex:outputText value="{!c.chgcode}" style="font-weight:bold;"/> 
+               </apex:column>
+               <apex:column headerValue="Description">
+                  <apex:outputText value="{!c.chgDescription}" /> 
+               </apex:column>   
+               <apex:column headerValue="Level" >
+                  <apex:outputText value="{!c.chgLevel}" /> 
+               </apex:column> 
+               <apex:column headerValue="Degree">
+                  <apex:outputText value="{!c.chgdegree}" /> 
+               </apex:column> 
+               <apex:column headerValue="Class" >
+                  <apex:outputText value="{!c.chgClass}" /> 
+               </apex:column> 
+            </apex:pageBlockTable>
+            <apex:outPutPanel >
+              </apex:outPutPanel>
+         </apex:pageBlockSection>
+         <apex:commandbutton value="Refresh" action="{!resetInfo}" status="savingArrestchg" 
+          rerender="savingArresthg,sectionArrest" />
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         <apex:commandButton value="new Arrest Charge(s)" action="{!showPopup}" 
+             rerender="popup,sectionArrest,pb,op,cmdArrest,cmdFam,cmdArraig,cmdInd,cmdPlea" disabled="{!displayPopUp}" id="cmdArrest">
+              <apex:param name="chgtype" value="Arrest Charges" assignTo="{!chgType}"/>
+         </apex:commandButton>
+         <br/>
+         
+              <!--    Criminal Court Arraignment Charges -->
+         <apex:pageBlockSection columns="1" collapsible="true" id="sectionArraignment" rendered="{!lCriminalArrainchg}">  
+            <apex:facet name="header">
+               <span style="color:black;font-size:16px;">
+                 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                 Criminal Court Arraignment Charges</span>
+            </apex:facet>
+            <apex:pageBlockTable id="arraignment" value="{!ArraignmentCharges}" var="ar"
+                columns="7" cellspacing="0" style="width:80%;font-size:12px;background-color:#90EE90"
+                 columnsWidth="1%,2%,10%,50%px,5%,5%,5%">
+               <apex:column headerValue="#">
+                  <apex:outputText value="{!ar.itemnumber}"/> 
+               </apex:column>
+               <apex:column >
+                  <apex:commandbutton value="delete" rendered="{!ar.chgcode<>''}" 
+                    onclick="deleteCharge('{!ar.chargeid}','{!ar.chgcode}','Criminal Court Arrainment')" 
+                    status="savingArrainchg" rerender="savingArrainchg,sectionArraignment">
+                  </apex:commandbutton>                     
+               </apex:column>
+               <apex:column headerValue="Charges"  > 
+                  <apex:outputText value="{!ar.chgcode}" style="font-weight:bold;"/> 
+               </apex:column>
+               <apex:column headerValue="Description" >
+                  <apex:outputText value="{!ar.chgDescription}" /> 
+               </apex:column>
+               <apex:column headerValue="Level" >
+                  <apex:outputText value="{!ar.chgLevel}" /> 
+               </apex:column>
+               <apex:column headerValue="Degree" >
+                  <apex:outputText value="{!ar.chgdegree}" /> 
+               </apex:column> 
+               <apex:column headerValue="Class">
+                  <apex:outputText value="{!ar.chgClass}" /> 
+               </apex:column> 
+            </apex:pageBlockTable>
+         </apex:pageBlockSection>
+    <!-- 
+         <table id="savingArrainGifData" style="display:none;" >        
+            <tr> 
+              <td>
+                Processing ...Please wait
+                  <apex:image value="/img/loading32.gif" />
+               </td>
+             </tr>
+         </table>
+      -->
+         <apex:commandbutton value="Refresh" action="{!resetInfo}" rendered="{!lCriminalArrainchg}"
+              status="savingArrainchg" 
+              rerender="savingArrainchg,sectionArraignment"/>
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+  
+         <apex:commandButton value="new Criminal Court Arraignment Charge(s)" rendered="{!lCriminalArrainchg}"
+              action="{!showPopup}" rerender="popup,pb,op,sectionArraignment,cmdArrest,cmdFam,cmdArraig,cmdInd,cmdPlea" disabled="{!displayPopUp}"  id="cmdArraig">
+              <apex:param name="chgtype" value="Criminal Court Arraignment Charges"
+              assignTo="{!chgType}"/>
+         </apex:commandButton>     
+         <br/>
+ 
+       <apex:pageBlockSection title="Indictment Charges" columns="1" collapsible="true" id="sectionIndictment" rendered="{!lIndictment}">
+             <apex:facet name="header">
+               <span style="color:black;font-size:16px;">
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                Indictment Charges</span>
+            </apex:facet>
+ 
+             <apex:pageBlockTable id="indictment"  
+               value="{!IndictmentCharges}" var="a" columns="7" cellspacing="0" 
+               style="width:80%;font-size:12px;background-color:#ADD8E6"
+               columnsWidth="1%,2%,10%,50%px,5%,5%,5%">
+               <apex:column headerValue="#">
+                  <apex:outputText value="{!a.itemnumber}"/> 
+               </apex:column>
+               <apex:column >
+                  <apex:commandbutton value="delete" rendered="{!a.chgcode<>''}"
+                      onclick="deleteCharge('{!a.chargeid}','{!a.chgcode}','Indictment')"
+                      status="savingIndictmentchg" rerender="savingIndictmentchg,sectionIndictment"/> 
+                  </apex:column>
+               <apex:column headerValue="Charges" > 
+                  <apex:outputText value="{!a.chgcode}" style="font-weight:bold;"/>   
+               </apex:column>
+               <apex:column headerValue="Description">
+                  <apex:outputText value="{!a.chgDescription}" /> 
+               </apex:column>
+               <apex:column headerValue="Level">
+                  <apex:outputText value="{!a.chgLevel}" /> 
+               </apex:column>
+               <apex:column headerValue="Degree">
+                  <apex:outputText value="{!a.chgdegree}" /> 
+               </apex:column> 
+               <apex:column headerValue="Class" >
+                  <apex:outputText value="{!a.chgClass}" /> 
+               </apex:column>              
+               </apex:pageBlockTable>
+             </apex:pageBlockSection>
+         <table id="savingIndictmentGifData" style="display:none;" >       
+            <tr> 
+              <td>
+                Processing ...Please wait
+                  <apex:image value="/img/loading32.gif" />
+               </td>
+             </tr>
+         </table>
+               <apex:commandbutton value="Refresh" action="{!resetInfo}" rendered="{!lIndictment}"
+                status="savingIndictmentchg"   rerender="savingIndictmentchg,sectionIndictment"/>               
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+          <apex:commandButton value="new Indictment Charge(s)" rendered="{!lIndictment}"
+                action="{!showPopup}" rerender="popup,sectionIndictment,pb,op,cmdArrest,cmdFam,cmdArraig,cmdInd,cmdPlea" disabled="{!displayPopUp}"  id="cmdInd">
+               <apex:param name="chgtype" value="Indictment Charges" assignTo="{!chgType}"/>
+          </apex:commandButton>
+         <br/>
+    <apex:pageBlockSection columns="1" collapsible="true" id="sectionFamily"  rendered="{!lFamilyArrainchg}">   
+             <apex:facet name="header">
+               <span style="color:black;font-size:16px;">
+         		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		        Family Court Arragnment Charges</span>
+     		</apex:facet>
+          	<apex:pageBlockTable id="family" 
+		          value="{!FamilyCharges}" var="f" columns="7" cellspacing="0" 
+        		  style="width:80%;font-size:12px;background-color:#90EE90"
+          		 columnsWidth="1%,2%,10%,50%px,5%,5%,5%">
+               <apex:column headerValue="#">
+                  <apex:outputText value="{!f.itemnumber}"/> 
+               </apex:column>
+	           <apex:column >
+     	          <apex:commandbutton value="delete" rendered="{!f.chgcode<>''}"
+                      onclick="deleteCharge('{!f.chargeid}','{!f.chgcode}','Family Court Arraignment Charges')"
+                      status="savingFamilychg" rerender="savingFamily,sectionFamily"/> 
+           	   </apex:column>
+               <apex:column headerValue="Charges" > 
+                  <apex:outputText value="{!f.chgcode}" style="font-weight:bold;"/>
+               </apex:column>
+               <apex:column headerValue="Description">
+                  <apex:outputText value="{!f.chgDescription}" /> 
+               </apex:column>
+               <apex:column headerValue="Level">
+                  <apex:outputText value="{!f.chgLevel}" /> 
+               </apex:column>
+               <apex:column headerValue="Degree">
+                  <apex:outputText value="{!f.chgdegree}" /> 
+               </apex:column> 
+               <apex:column headerValue="Class">
+                  <apex:outputText value="{!f.chgClass}" /> 
+               </apex:column> 
+            </apex:pageBlockTable>
+           </apex:pageBlockSection>
+           <table id="savingFamilyGifData" style="display:none;" >       
+            <tr> 
+              <td>
+                Processing ...Please wait
+                  <apex:image value="/img/loading32.gif" />
+               </td>
+                </tr>
+          </table>     
+          <apex:commandbutton value="Refresh" action="{!resetInfo}" rendered="{!lFamilyArrainchg}"
+          status="savingFamilychg"   rerender="savingFamilychg,sectionFamily"/>
+		 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   		 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   		 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   		 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+	     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   		 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         <apex:commandButton value="new Family Court Arragnment Charge(s)"  rendered="{!lFamilyArrainchg}"
+         action="{!showPopup}" rerender="popup,sectionFamily,pb,op,cmdArrest,cmdFam,cmdArraig,cmdInd,cmdPlea,cmdArrest,cmdFam,cmdArraig,cmdInd,cmdPlea" disabled="{!displayPopUp}"  id="cmdFam" >
+            <apex:param name="chgtype" value="Family Court Arraignment Charges" assignTo="{!chgType}"/>
+         </apex:commandButton>    
+         <br/>
+
+         <apex:pageBlockSection columns="1" collapsible="true" id="sectionPlea" >  
+             <apex:facet name="header">
+               <span style="color:black;font-size:16px;">
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                Plea/ Finding Charges</span>
+            </apex:facet>
+            <apex:pageBlockTable id="plea" 
+                  value="{!PleaCharges}" var="p" columns="7" cellspacing="0" 
+                  style="width:80%;font-size:12px;background-color:#87CEEB"
+                  columnsWidth="1x,1x,40px,200px,20px,20px,20px">
+               <apex:column headerValue="#">
+                  <apex:outputText value="{!p.itemnumber}"/> 
+               </apex:column>
+               <apex:column >
+                  <apex:commandbutton value="delete" rendered="{!p.chgcode<>''}"
+                      onclick="deleteCharge('{!p.chargeid}','{!p.chgcode}','Plea/ Finding')"
+                      status="savingPleachg" rerender="savingPleachg,sectionPlea"/> 
+               </apex:column>
+               <apex:column headerValue="Charges" > 
+                  <apex:outputText value="{!p.chgcode}" style="font-weight:bold;"/>
+               </apex:column>
+               <apex:column headerValue="Description">
+                  <apex:outputText value="{!p.chgDescription}" /> 
+               </apex:column>
+               <apex:column headerValue="Level">
+                  <apex:outputText value="{!p.chgLevel}" /> 
+               </apex:column>
+               <apex:column headerValue="Degree">
+                  <apex:outputText value="{!p.chgdegree}" /> 
+               </apex:column> 
+               <apex:column headerValue="Class">
+                  <apex:outputText value="{!p.chgClass}" /> 
+               </apex:column> 
+            </apex:pageBlockTable>
+           </apex:pageBlockSection>
+           <table id="savingPleaGifData" style="display:none;" >       
+            <tr> 
+              <td>
+                Processing ...Please wait
+                  <apex:image value="/img/loading32.gif" />
+               </td>
+                </tr>
+          </table>     
+          <apex:commandbutton value="Refresh" action="{!resetInfo}"  
+          status="savingPleachg"   rerender="savingPleachg,sectionPlea"/>
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+            <apex:commandButton value="new Plea/ Finding Charge(s)" 
+                 action="{!showPopup}" rerender="popup,sectionPlea,pb,op,cmdArrest,cmdFam,cmdArraig,cmdInd,cmdPlea" disabled="{!displayPopUp}"  id="cmdPlea">
+               <apex:param name="chgtype" value="Plea/ Finding Charges" assignTo="{!chgType}"/>
+            </apex:commandButton>
+            
+         
+      </apex:outputPanel>    
+     </apex:pageBlock> 
+     </apex:outputPanel>
+     <br/><br/>
+   </apex:form>
+<!-- </div> -->
+</apex:page>

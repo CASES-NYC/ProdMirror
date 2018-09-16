@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Biospsychosocial and substance abuse assessment form designed by Andrea Yaffee. Peter 12/2017
+LZ moved in new design</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Abuse__c</fullName>
+        <externalId>false</externalId>
+        <label>Abuse</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Aggressive_Behavior__c</fullName>
+        <externalId>false</externalId>
+        <label>Aggressive behavior/Harm to Others:</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>AssessmentContainerId__c</fullName>
+        <externalId>false</externalId>
+        <label>AssessmentContainerId</label>
+        <referenceTo>AssessmentContainer__c</referenceTo>
+        <relationshipLabel>aHWs</relationshipLabel>
+        <relationshipName>aHWs</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Cultural_Considerations__c</fullName>
+        <description>Describes the participants self-identified race and ethnicity, primary language, cultural or religious features that are important to them.</description>
+        <externalId>false</externalId>
+        <label>Cultural Considerations</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Describe_Anger__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Describe if they have gotten in trouble for anger or temper, include triggers</inlineHelpText>
+        <label>Describe Anger</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Drugs1_Alone_or_Peers__c</fullName>
+        <externalId>false</externalId>
+        <label>Alone or Peers</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs1_Contact_Info__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Info</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs1_Date_Started__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Started</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs1_Dates__c</fullName>
+        <description>Beginning End dates of treatment</description>
+        <externalId>false</externalId>
+        <label>Dates</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs1_Drug_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Drug Name</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Drugs1_First_Time_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>First Time Used</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs1_Get_Out_Of__c</fullName>
+        <description>What do you get out of using?</description>
+        <externalId>false</externalId>
+        <label>Get Out Of</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs1_Last_Time_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Time Used</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs1_Name_of_Program__c</fullName>
+        <externalId>false</externalId>
+        <label>Name of Program</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs1_Tried_to_Stop__c</fullName>
+        <description>Have you ever tried to stop?</description>
+        <externalId>false</externalId>
+        <label>Tried to Stop</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs1_Type_of_Treatment__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of Treatment</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs2_Alone_or_Peers__c</fullName>
+        <externalId>false</externalId>
+        <label>Alone or Peers</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs2_Contact_Info__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Info</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs2_Date_Started__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Started</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs2_Dates__c</fullName>
+        <description>Beginning End dates of treatment</description>
+        <externalId>false</externalId>
+        <label>Dates</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs2_Drug_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Drug Name</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Drugs2_First_Time_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>First Time Used</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs2_Get_Out_Of__c</fullName>
+        <description>What do you get out of using?</description>
+        <externalId>false</externalId>
+        <label>Get Out Of</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs2_Last_Time_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Time Used</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs2_Name_of_Program__c</fullName>
+        <externalId>false</externalId>
+        <label>Name of Program</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs2_Tried_to_Stop__c</fullName>
+        <description>Have you ever tried to stop?</description>
+        <externalId>false</externalId>
+        <label>Tried to Stop</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs2_Type_of_Treatment__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of Treatment</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs3_Alone_or_Peers__c</fullName>
+        <externalId>false</externalId>
+        <label>Alone or Peers</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs3_Drug_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Drug Name</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Drugs3_First_Time_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>First Time Used</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs3_Get_Out_Of__c</fullName>
+        <description>What do you get out of using?</description>
+        <externalId>false</externalId>
+        <label>Get Out Of</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs3_Last_Time_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Time Used</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs3_Tried_to_Stop__c</fullName>
+        <description>Have you ever tried to stop?</description>
+        <externalId>false</externalId>
+        <label>Tried to Stop</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs4_Alone_or_Peers__c</fullName>
+        <externalId>false</externalId>
+        <label>Alone or Peers</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs4_Drug_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Drug Name</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Drugs4_First_Time_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>First Time Used</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs4_Get_Out_Of__c</fullName>
+        <description>What do you get out of using?</description>
+        <externalId>false</externalId>
+        <label>Get Out Of</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs4_Last_Time_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Time Used</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs4_Tried_to_Stop__c</fullName>
+        <description>Have you ever tried to stop?</description>
+        <externalId>false</externalId>
+        <label>Tried to Stop</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drugs_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>Drugs Used</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Alcohol</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Amphetamines</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Benzodiazepines</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cocaine</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Crack Cocaine</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ecstasy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hallucinogens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inhalants</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>K2/Synthetic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marijuana</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Methadone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opiates</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PCP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prescription drugs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sedatives</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tobacco</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Education__c</fullName>
+        <description>Include name of school, high grade completed, special education, last time they attended, degrees</description>
+        <externalId>false</externalId>
+        <label>Education</label>
+        <length>30000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Employment__c</fullName>
+        <description>Include name of employer, position held, how long have you been there and what is their work schedule</description>
+        <externalId>false</externalId>
+        <label>Employment</label>
+        <length>30000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Ending_Life__c</fullName>
+        <externalId>false</externalId>
+        <label>Suicide/self harm - Ending Life</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Environment__c</fullName>
+        <description>Describe who they live with, relation to those people, where, stability in housing, any changes, safety concerns</description>
+        <externalId>false</externalId>
+        <label>Environment</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Family_Members__c</fullName>
+        <description>Include name(s), age(s), living arrangements  of children and who is the primary caregiver</description>
+        <externalId>false</externalId>
+        <label>Family Members</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Family_Structure__c</fullName>
+        <description>Include family members and relationships, any significant changes in family structure, relationship with family
+Include name(s), age(s), living arrangements of children and who is the primary caregiver</description>
+        <externalId>false</externalId>
+        <label>Family Structure</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Goals_Education__c</fullName>
+        <externalId>false</externalId>
+        <label>Education</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Goals_Family__c</fullName>
+        <externalId>false</externalId>
+        <label>Family</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Goals_Mental_Health__c</fullName>
+        <externalId>false</externalId>
+        <label>Mental Health</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Goals_Peers__c</fullName>
+        <externalId>false</externalId>
+        <label>Peers</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Goals_Satisfaction__c</fullName>
+        <externalId>false</externalId>
+        <label>Satisfaction</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Goals_Substance_Use__c</fullName>
+        <externalId>false</externalId>
+        <label>Substance Use</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Harming_Others__c</fullName>
+        <externalId>false</externalId>
+        <label>Harming Others:</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>IsComplete__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Complete</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Legal_History__c</fullName>
+        <externalId>false</externalId>
+        <label>Legal History</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>MH1_Contact__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>MH1_Length_of_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Length of Time</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>MH1_Name_of_Program__c</fullName>
+        <externalId>false</externalId>
+        <label>Name of Program</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>MH1_Type_of_Program__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of Program</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>MH_Hospitalized__c</fullName>
+        <description>Follow-up to Past Ideations question.</description>
+        <externalId>false</externalId>
+        <label>If so, were they hospitalized?</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Mental_Health__c</fullName>
+        <description>Gather information on if they are in treatment, where, are they attending regularly, medication, compliance.
+Include any past treatment, hospitalizations, family history</description>
+        <externalId>false</externalId>
+        <label>Mental Health</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Mental_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Mental Status</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Past_Ideations__c</fullName>
+        <externalId>false</externalId>
+        <label>Past Ideations:</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Peers_Support__c</fullName>
+        <description>Describe who they spend time with, support systems, significant others, gang involvement</description>
+        <externalId>false</externalId>
+        <label>Peers/Support</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Personal_Strengths__c</fullName>
+        <description>Positive/Personal Strengths</description>
+        <externalId>false</externalId>
+        <label>Personal Strengths</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Physical_Health__c</fullName>
+        <description>Describe any health conditions, medication, hospitalization, head trauma</description>
+        <externalId>false</externalId>
+        <label>Physical Health</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Presenting_Challenges__c</fullName>
+        <description>Summarize any presenting challenges, any significant events or changes in life, home, school, family or social, recent or past, results of assessments</description>
+        <externalId>false</externalId>
+        <label>Presenting Challenges</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Self_Harm__c</fullName>
+        <externalId>false</externalId>
+        <label>Self Harm - explain</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Summary_Presenting__c</fullName>
+        <description>Briefly describe the participants  presenting problems, clinicians observations and any psychosocial stressors that may be a factor in the participant&apos;s program participation or overall functioning.</description>
+        <externalId>false</externalId>
+        <label>Summary - Presenting</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Summary_Strengths__c</fullName>
+        <description>Briefly describe the participant’s strengths, supports and resilience that may contribute to the participants program participation or overall functioning.</description>
+        <externalId>false</externalId>
+        <label>Summary - Strengths</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <label>aHW</label>
+    <nameField>
+        <label>aHW Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>aHWs</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

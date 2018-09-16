@@ -1,0 +1,127 @@
+<apex:page standardController="Referral__c" extensions="referralExtension" tabStyle="Referral__c">
+  <script>
+  function confirmCancel() {
+      var isCancel = confirm("Are you sure you wish to cancel?");
+      if (isCancel) return true;
+  
+     return false;
+  }  
+  </script>
+  <apex:sectionHeader title="New Customer Opportunity" subtitle="Step 2 of 3"/>
+  <apex:form >
+    <apex:pageBlock title="Opportunity Information" mode="edit">
+      <apex:pageBlockButtons >
+        <apex:commandButton action="{!step1}" value="Previous"/>
+        <apex:commandButton action="{!step3}" value="Next"/>
+        <apex:commandButton action="{!cancel}" value="Cancel" 
+                            onclick="return confirmCancel()" immediate="true"/>
+      </apex:pageBlockButtons>
+          <apex:pageBlockSection title="Charges" showHeader="true"/>
+              <table style="width:100%" id="docketTable" columns="1" border="2">
+                        <tr>
+                            <th>Docket 1</th>                            
+                        </tr>
+                        <tr>
+                            <td width="50%">
+                                <apex:panelGrid columns="2">
+                                    <apex:outputText value="Docket #: "/>
+                                    <apex:outputText value="Indictment #: "/>      
+                                    <apex:inputField value="{!referral.Docket__c}" style="width:110px" required="false"/>
+                                    <apex:inputField value="{!referral.Indictment__c}" style="width:110px" required="false"/>
+                                    <apex:outputText value="Arrest Date:"/>
+                                    <apex:inputField value="{!referral.Arrest_Date__c}"  required="false"/>
+                                    <apex:outputText value="Arrest #:" />
+                                    <apex:inputField value="{!referral.Arrest_Number__c}"  required="false"/>
+                                    <apex:outputText value="Complaint:" />
+                                    <apex:inputField value="{!referral.Complaint_1__c}" style="width:210px"/>
+                                    <apex:outputText value="Charge 1:" />
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!referral.Charge_A1__c}" />             
+                                    </apex:outputPanel>
+                                    
+                                    <apex:outputText value="Charge 2:" />
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!referral.Charge_A2__c}" />             
+                                    </apex:outputPanel>
+
+                                    <apex:outputText value="Charge 3:" />
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!referral.Charge_A3__c}" />             
+                                    </apex:outputPanel>
+
+                                    <apex:outputText value="Charge 4:" />
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!referral.Charge_A4__c}" />             
+                                    </apex:outputPanel>
+
+                                    <apex:outputText value="Charge 5:" />
+                                    <apex:outputPanel styleClass="chargePanel">
+                                        <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                        <apex:inputHidden required="false" value="{!referral.Charge_A5__c}" />             
+                                    </apex:outputPanel>
+
+                                    <apex:outputText value="Notes:" />
+                                    <apex:inputField value="{!referral.Notes_1__c}" style="width:210px"/>
+                                </apex:panelGrid>
+                            </td>
+                        </tr>
+                    </table>
+    </apex:pageBlock>
+  </apex:form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<script>
+function setFocusOnLoad() {}
+
+function calculateTopArraignment() {
+    var max = -1; var exclusion = false;
+    var id; var name;
+    $('.selectpicker option:selected').each(function() {
+        var $this = $(this),
+        $id = $this.attr('value'),
+        $name = $this.text(),
+        score = parseFloat($this.attr('data-score')),
+        $exclusion = $this.attr('data-exclusion') == "true";
+        if ($exclusion) exclusion = true;
+        
+        if ($id != undefined && (!exclusion || $exclusion) && max < score) {
+            max = score; id = $id; name = $name;
+            $('th:contains("Charge Information") + td').html($this.attr('data-subtext'));
+            $('th:contains("Charge Excludes SRP") + td').html(($exclusion) ? 'Yes' : '');
+            $('th:contains("Ineligible?")').css('width', 90);
+            $('th:contains("Ineligible?") + td').html(($exclusion) ? 'Yes' : '');
+
+        }
+
+    });
+    if (id != null) {
+        $('.topArraignment input[type=hidden]').val(id);
+        $('.topArraignment p').html(name).attr('title', max);
+    }
+    
+}
+$(document).ready(function() {
+    $(".selectpicker").on('change', function() {
+        var val = $(this).val();
+        $(this).closest('.chargePanel').find('input[type=hidden]').val(val);
+        calculateTopArraignment();
+    });
+
+
+});
+</script>
+<style type="text/css"> 
+    #docketTable th, #docketTable td {padding:8px;}
+   .colstyle {width:15%}   
+    input[type=radio] { margin-left: 20px;}
+    .radioClass { margin-left: -20px; font-weight:normal;}
+</style>
+</apex:page>

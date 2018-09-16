@@ -1,0 +1,2640 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ChangeStatus</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CloneAsChild</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CloseCase</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>MassClose</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>NewCase</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <businessProcesses>
+        <fullName>Standard Process</fullName>
+        <isActive>true</isActive>
+        <values>
+            <fullName>Awaiting Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awaiting Response</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Escalated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internal Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>On Hold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </businessProcesses>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>true</enableFeeds>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AccountId</fullName>
+        <lookupFilter>
+            <active>false</active>
+            <filterItems>
+                <field>Account.Id</field>
+                <operation>equals</operation>
+                <value>0016000000Ip4zF</value>
+            </filterItems>
+            <infoMessage>Only CASES account can submit tickets</infoMessage>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AssetId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Brief_Description_Label__c</fullName>
+        <defaultValue>&quot;Give a brief, one-description of your problem/request.&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>Brief Description Label</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Budget_Code__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter a Budget Code must be entered for a new Salesforce login to be created</inlineHelpText>
+        <label>Budget Code</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BusinessHoursId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CaseContactCreator__c</fullName>
+        <externalId>false</externalId>
+        <formula>Contact.User__c =  $User.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CaseContactCreator</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ClosedDate</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Closing_Comments__c</fullName>
+        <description>Closing Comments on Salesforce tickets</description>
+        <externalId>false</externalId>
+        <label>Closing Comments</label>
+        <length>10000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comments</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactEmail</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactFax</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ContactMobile</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactPhone</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Contact_Department__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( CreatedBy.Department__c, &quot;BJC&quot;), &quot;BJC&quot; + &quot;;&quot; , NULL) +
+IF(INCLUDES( CreatedBy.Department__c, &quot;CCM&quot;), &quot;CCM&quot; + &quot;;&quot; , NULL) +
+IF(INCLUDES( CreatedBy.Department__c, &quot;CEP&quot;), &quot;CEP&quot; + &quot;;&quot; , NULL) +
+IF(INCLUDES( CreatedBy.Department__c, &quot;Choices&quot;), &quot;Choices&quot; + &quot;;&quot; , NULL) +
+IF(INCLUDES( CreatedBy.Department__c, &quot;CIRT&quot;), &quot;CIRT&quot; + &quot;;&quot; , NULL) +
+IF(INCLUDES( CreatedBy.Department__c, &quot;Civic Justice Corps&quot;), &quot;CJC&quot; + &quot;;&quot; , NULL) +
+IF(INCLUDES( CreatedBy.Department__c, &quot;DTC&quot;), &quot;DTC&quot; + &quot;;&quot; , NULL) +
+IF(INCLUDES( CreatedBy.Department__c, &quot;Justice Scholars&quot;), &quot;Justice Scholars&quot; + &quot;;&quot; , NULL) +
+IF(INCLUDES( CreatedBy.Department__c, &quot;PRP&quot;), &quot;PRP&quot; + &quot;;&quot; , NULL) +
+IF(INCLUDES( CreatedBy.Department__c, &quot;Queens Justice Corps&quot;), &quot;QJC&quot; + &quot;;&quot; , NULL) +
+IF(INCLUDES( CreatedBy.Department__c, &quot;TRP&quot;), &quot;TRP&quot;, NULL)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact Department</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Profile__c</fullName>
+        <externalId>false</externalId>
+        <formula>CreatedBy.Profile.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact Profile</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Role__c</fullName>
+        <externalId>false</externalId>
+        <formula>CreatedBy.UserRole.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact Role</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Detailed_Description__c</fullName>
+        <description>For Salesforce Tickets</description>
+        <externalId>false</externalId>
+        <label>Detailed Description</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>IsClosedOnCreate</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>IsCreator__c</fullName>
+        <description>Current user is the person who created ticket</description>
+        <externalId>false</externalId>
+        <formula>$User.Id =  CreatedById</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>IsCreator</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IsEscalated</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>IsSelfServiceClosed</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>IsVisibleInSelfService</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Manager__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Manager</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Cases1</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Modification_Type__c</fullName>
+        <description>Multi-picklist to categorize what types of modifications to the system are being done</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please select the appropriate types of changes needed. Put details in Description. Be sure to email both the Npower and the CASES Database team when implementation date is known and again when implementation is in production.</inlineHelpText>
+        <label>Modification Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>APEX</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Page Layout</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Picklist Values</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Record Type</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Structural Change</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trigger</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VisualForce</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Workflow</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Module_Affected__c</fullName>
+        <description>Program module affected by problem</description>
+        <externalId>false</externalId>
+        <label>Module Affected</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Account Page</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contact Page</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Course Catalog</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Court Date Tracking</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Court Portal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dashboards</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Events\Activities</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ICD Records</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Program Relationships</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Progress Notes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Search Portal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>To Do Portal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>New_User_Department__c</fullName>
+        <externalId>false</externalId>
+        <label>New User Department</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_User_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>New User Name</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_User_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>New User Start Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>New_User_title__c</fullName>
+        <externalId>false</externalId>
+        <label>New User title</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OldId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Old ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Origin</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Email</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ParentId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Parent_Case_Descirption__c</fullName>
+        <externalId>false</externalId>
+        <formula>Parent.Subject</formula>
+        <label>Parent Case Descirption</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Priority</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Problem_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Problem Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Blockage - It doesn&apos;t work and I don&apos;t have a workaround</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bottleneck - It doesn&apos;t work but have workaround</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Annoyance - it works, but could be easier and quicker</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Program__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If Multiple Programs selected, please define scope (which programs) in description.</inlineHelpText>
+        <label>Program</label>
+        <picklist>
+            <picklistValues>
+                <fullName>ACT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All Programs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All START Programs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All Youth Programs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BJC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CCI START</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CCM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CEO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CEP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Choices - All boroughs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Choices - Bronx</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Choices - Manhattan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CIRT - All Boroughs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CIRT - Brooklyn (CCI)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CIRT - Manhattan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CITE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CJC/JS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DTC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Multiple Programs</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PEAK</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QJC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>START</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Supervised Release</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TRP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>User didn&apos;t attend training</fullName>
+                <default>false</default>
+                <cssExposed>false</cssExposed>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Complex functionality</fullName>
+                <default>false</default>
+                <cssExposed>false</cssExposed>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Existing problem</fullName>
+                <default>false</default>
+                <cssExposed>false</cssExposed>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Instructions not clear</fullName>
+                <default>false</default>
+                <cssExposed>false</cssExposed>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New problem</fullName>
+                <default>false</default>
+                <cssExposed>false</cssExposed>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Requested_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Requested By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Cases</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SourceId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Status</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>New</fullName>
+                <default>true</default>
+                <closed>false</closed>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+                <closed>false</closed>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Awaiting Response</fullName>
+                <default>false</default>
+                <closed>false</closed>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On Hold</fullName>
+                <default>false</default>
+                <closed>false</closed>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed</fullName>
+                <default>false</default>
+                <closed>true</closed>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Escalated</fullName>
+                <default>false</default>
+                <closed>false</closed>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+                <closed>false</closed>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Awaiting Decision</fullName>
+                <default>false</default>
+                <closed>false</closed>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internal Request</fullName>
+                <default>false</default>
+                <closed>false</closed>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Subject</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedCompany</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedEmail</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedName</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedPhone</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Type</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Permissions/Access</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Problem</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Data Integrity</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New Salesforce User</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>rrpu__Alert_Message__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This field is installed by Riptide Pop-up Alerts and is used in conjunction with the Pop-up Alert S-Control.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If you enter text into this field the text will be displayed in a pop-up message whenever someone views this record.</inlineHelpText>
+        <label>Alert Message</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <listViews>
+        <fullName>AllAwaitingResponse</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>NAME</columns>
+        <columns>CASES.RECORDTYPE</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+        <columns>OWNER_NAME</columns>
+        <columns>PARENT.CASE_NUMBER</columns>
+        <columns>CASES.ESCALATION_STATE</columns>
+        <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CASES.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>CASES.STATUS</field>
+            <operation>equals</operation>
+            <value>Awaiting Response</value>
+        </filters>
+        <filters>
+            <field>CASES.SUBJECT</field>
+            <operation>notContain</operation>
+            <value>(PARENT)</value>
+        </filters>
+        <filters>
+            <field>NAME</field>
+            <operation>notContain</operation>
+            <value>Robinson,Millan</value>
+        </filters>
+        <label>All Awaiting Response</label>
+        <sharedTo>
+            <role>Executive</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_Open_Tickets</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+        <columns>NAME</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>OWNER_NAME</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CASES.RECORDTYPE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CASES.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>CASES.SUBJECT</field>
+            <operation>notContain</operation>
+            <value>PARENT</value>
+        </filters>
+        <filters>
+            <field>CASES.STATUS</field>
+            <operation>notEqual</operation>
+            <value>Rejected,Internal Request</value>
+        </filters>
+        <label>All Open Tickets</label>
+        <sharedTo>
+            <role>Executive</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_Open_Unassigned_Tickets</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+        <columns>NAME</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>OWNER_NAME</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CASES.RECORDTYPE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CASES.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>CASES.SUBJECT</field>
+            <operation>notContain</operation>
+            <value>PARENT</value>
+        </filters>
+        <filters>
+            <field>CASES.STATUS</field>
+            <operation>notEqual</operation>
+            <value>Closed,Rejected,Internal Request</value>
+        </filters>
+        <filters>
+            <field>OWNER_NAME</field>
+            <operation>equals</operation>
+            <value>Database Team</value>
+        </filters>
+        <label>All Open, Unassigned Tickets</label>
+    </listViews>
+    <listViews>
+        <fullName>Database_Team_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>Database Team</label>
+        <queue>Database_Team</queue>
+        <sharedTo>
+            <role>Executive</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>HighPriorityEscalated</fullName>
+        <booleanFilter>1 AND 2 AND 3 AND  5 and (4 or 6)</booleanFilter>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>NAME</columns>
+        <columns>CASES.RECORDTYPE</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+        <columns>CASES.ESCALATION_STATE</columns>
+        <columns>OWNER_NAME</columns>
+        <columns>PARENT.CASE_NUMBER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CASES.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>CASES.RECORDTYPE</field>
+            <operation>notEqual</operation>
+            <value>Case.Project_Feature_Request</value>
+        </filters>
+        <filters>
+            <field>CASES.STATUS</field>
+            <operation>notEqual</operation>
+            <value>Rejected</value>
+        </filters>
+        <filters>
+            <field>CASES.PRIORITY</field>
+            <operation>equals</operation>
+            <value>High</value>
+        </filters>
+        <filters>
+            <field>CASES.ESCALATION_STATE</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>CASES.CREATED_DATE_DATE_ONLY</field>
+            <operation>lessThan</operation>
+            <value>LAST_WEEK</value>
+        </filters>
+        <label>High Priority Escalated</label>
+        <sharedTo>
+            <role>Executive</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>LZ_Open_cases</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>NAME</columns>
+        <columns>CASES.RECORDTYPE</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CASES.ESCALATION_STATE</columns>
+        <columns>OWNER_NAME</columns>
+        <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+        <columns>PARENT.CASE_NUMBER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CASES.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>CASES.STATUS</field>
+            <operation>notEqual</operation>
+            <value>Rejected</value>
+        </filters>
+        <filters>
+            <field>CORE.USERS.FIRST_NAME</field>
+            <operation>equals</operation>
+            <value>Lyudmila</value>
+        </filters>
+        <label>LZ Open cases</label>
+        <sharedTo>
+            <role>Executive</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Last_7_days_Tickets</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>CASES.RECORDTYPE</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+        <columns>CASES.CLOSED_DATE</columns>
+        <columns>OWNER_NAME</columns>
+        <columns>UPDATEDBY_USER.ALIAS</columns>
+        <columns>PARENT.CASE_NUMBER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CASES.CREATED_DATE_DATE_ONLY</field>
+            <operation>greaterOrEqual</operation>
+            <value>LAST_N_DAYS:10</value>
+        </filters>
+        <label>Last 7 days Tickets</label>
+        <sharedTo>
+            <role>Executive</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>MyCases</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>PARENT.CASE_NUMBER</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>Program__c</columns>
+        <columns>NAME</columns>
+        <filterScope>Mine</filterScope>
+        <label>My Cases</label>
+        <sharedTo>
+            <role>Executive</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>MyOpenCases</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>Program__c</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>CASES.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <label>My Open Cases</label>
+        <sharedTo>
+            <role>Executive</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>My_Open_Projects</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>NAME</columns>
+        <columns>OWNER_NAME</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+        <columns>Program__c</columns>
+        <columns>PARENT.CASE_NUMBER</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>CASES.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>CASES.RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Case.Project_Feature_Request</value>
+        </filters>
+        <filters>
+            <field>CASES.SUBJECT</field>
+            <operation>notContain</operation>
+            <value>PARENT</value>
+        </filters>
+        <label>My Open Projects</label>
+        <sharedTo>
+            <role>Executive</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>NewUserTickets</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>CASES.RECORDTYPE</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+        <columns>CASES.CLOSED_DATE</columns>
+        <columns>OWNER_NAME</columns>
+        <columns>UPDATEDBY_USER.ALIAS</columns>
+        <columns>PARENT.CASE_NUMBER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CASES.RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Case.User_Admin_Ticket,Case.User_Creation_Ticket</value>
+        </filters>
+        <label>New User Tickets</label>
+        <sharedTo>
+            <role>Executive</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Our_Open_Tickets</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+        <columns>NAME</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>OWNER_NAME</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CASES.RECORDTYPE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CASES.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>CORE.USERS.FIRST_NAME</field>
+            <operation>notEqual</operation>
+            <value>Michael,Lyudmila,Suleman</value>
+        </filters>
+        <filters>
+            <field>CASES.STATUS</field>
+            <operation>notEqual</operation>
+            <value>Rejected,Internal Request</value>
+        </filters>
+        <label>My Open Tickets</label>
+        <sharedTo>
+            <role>Executive</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Project_Feature_Requests</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CASES.CREATED_DATE</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CASES.RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Case.Project_Feature_Request</value>
+        </filters>
+        <filters>
+            <field>CASES.STATUS</field>
+            <operation>notEqual</operation>
+            <value>Closed,Rejected</value>
+        </filters>
+        <label>Project Feature Requests</label>
+    </listViews>
+    <listViews>
+        <fullName>Tickets_I_Submitted</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CASES.CREATED_DATE</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>IsCreator__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>Tickets I Submitted</label>
+    </listViews>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Data_Integrity</fullName>
+        <active>true</active>
+        <businessProcess>Standard Process</businessProcess>
+        <description>Duplicate records / incorrect data / missing data</description>
+        <label>Data Integrity</label>
+        <picklistValues>
+            <picklist>Modification_Type__c</picklist>
+            <values>
+                <fullName>APEX</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Page Layout</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Picklist Values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Record Type</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Structural Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trigger</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VisualForce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workflow</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Module_Affected__c</picklist>
+            <values>
+                <fullName>Account Page</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contact Page</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Course Catalog</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Court Date Tracking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Court Portal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dashboards</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Events%5CActivities</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ICD Records</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Program Relationships</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Progress Notes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Search Portal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>To Do Portal</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Problem_Type__c</picklist>
+            <values>
+                <fullName>Annoyance - it works%2C but could be easier and quicker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Blockage - It doesn%27t work and I don%27t have a workaround</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bottleneck - It doesn%27t work but have workaround</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Program__c</picklist>
+            <values>
+                <fullName>ACT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BJC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CCM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CEP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CIRT - Brooklyn %28CCI%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CIRT - Manhattan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CITE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CJC%2FJS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Choices - Bronx</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Choices - Manhattan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DTC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Multiple Programs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>QJC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>START</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Supervised Release</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>TRP</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Complex functionality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instructions not clear</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>User didn%27t attend training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Data Integrity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Salesforce User</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permissions%2FAccess</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problem</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Project_Feature_Request</fullName>
+        <active>true</active>
+        <businessProcess>Standard Process</businessProcess>
+        <description>new functionality</description>
+        <label>Project / Feature Request</label>
+        <picklistValues>
+            <picklist>Modification_Type__c</picklist>
+            <values>
+                <fullName>APEX</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Page Layout</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Picklist Values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Record Type</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Structural Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trigger</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VisualForce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workflow</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Module_Affected__c</picklist>
+            <values>
+                <fullName>Account Page</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contact Page</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Course Catalog</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Court Date Tracking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Court Portal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dashboards</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Events%5CActivities</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ICD Records</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Program Relationships</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Progress Notes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Search Portal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>To Do Portal</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Problem_Type__c</picklist>
+            <values>
+                <fullName>Annoyance - it works%2C but could be easier and quicker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Blockage - It doesn%27t work and I don%27t have a workaround</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Bottleneck - It doesn%27t work but have workaround</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Program__c</picklist>
+            <values>
+                <fullName>ACT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>All Programs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>All START Programs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>All Youth Programs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BJC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CCI START</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CCM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CEO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CEP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CIRT - All Boroughs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CIRT - Brooklyn %28CCI%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CIRT - Manhattan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CITE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CJC%2FJS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Choices - All boroughs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Choices - Bronx</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Choices - Manhattan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DTC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Multiple Programs</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>PEAK</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>QJC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>START</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Supervised Release</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>TRP</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Complex functionality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instructions not clear</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>User didn%27t attend training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Data Integrity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Salesforce User</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permissions%2FAccess</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problem</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Salesforce_Ticket</fullName>
+        <active>true</active>
+        <businessProcess>Standard Process</businessProcess>
+        <description>Ticket for Salesforce help</description>
+        <label>Salesforce Ticket</label>
+        <picklistValues>
+            <picklist>Modification_Type__c</picklist>
+            <values>
+                <fullName>APEX</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Page Layout</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Picklist Values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Record Type</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Structural Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trigger</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VisualForce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workflow</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Module_Affected__c</picklist>
+            <values>
+                <fullName>Account Page</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contact Page</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Course Catalog</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Court Date Tracking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Court Portal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dashboards</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Events%5CActivities</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ICD Records</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Program Relationships</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Progress Notes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Search Portal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>To Do Portal</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Problem_Type__c</picklist>
+            <values>
+                <fullName>Annoyance - it works%2C but could be easier and quicker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Blockage - It doesn%27t work and I don%27t have a workaround</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bottleneck - It doesn%27t work but have workaround</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Program__c</picklist>
+            <values>
+                <fullName>ACT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BJC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CCM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CEP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CIRT - Brooklyn %28CCI%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CIRT - Manhattan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CITE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CJC%2FJS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Choices - Bronx</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Choices - Manhattan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DTC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Multiple Programs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>QJC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>START</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Supervised Release</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>TRP</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Complex functionality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instructions not clear</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>User didn%27t attend training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Data Integrity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Salesforce User</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permissions%2FAccess</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problem</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>User_Admin_Ticket</fullName>
+        <active>true</active>
+        <businessProcess>Standard Process</businessProcess>
+        <description>Permissions and Access issues</description>
+        <label>User Admin Ticket</label>
+        <picklistValues>
+            <picklist>Modification_Type__c</picklist>
+            <values>
+                <fullName>APEX</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Page Layout</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Picklist Values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Record Type</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Structural Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trigger</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VisualForce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workflow</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Module_Affected__c</picklist>
+            <values>
+                <fullName>Account Page</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contact Page</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Course Catalog</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Court Date Tracking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Court Portal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dashboards</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Events%5CActivities</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ICD Records</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Program Relationships</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Progress Notes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Search Portal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>To Do Portal</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Problem_Type__c</picklist>
+            <values>
+                <fullName>Annoyance - it works%2C but could be easier and quicker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Blockage - It doesn%27t work and I don%27t have a workaround</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bottleneck - It doesn%27t work but have workaround</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Program__c</picklist>
+            <values>
+                <fullName>ACT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BJC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CCM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CEP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CIRT - Brooklyn %28CCI%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CIRT - Manhattan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CITE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CJC%2FJS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Choices - Bronx</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Choices - Manhattan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DTC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Multiple Programs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>QJC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>START</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Supervised Release</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>TRP</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Complex functionality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instructions not clear</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>User didn%27t attend training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Data Integrity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Salesforce User</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permissions%2FAccess</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problem</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>User_Creation_Ticket</fullName>
+        <active>true</active>
+        <businessProcess>Standard Process</businessProcess>
+        <description>Create new Salesforce user</description>
+        <label>User Creation Ticket</label>
+        <picklistValues>
+            <picklist>Modification_Type__c</picklist>
+            <values>
+                <fullName>APEX</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Page Layout</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Picklist Values</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Record Type</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Structural Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trigger</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VisualForce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workflow</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Module_Affected__c</picklist>
+            <values>
+                <fullName>Account Page</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contact Page</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Course Catalog</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Court Date Tracking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Court Portal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dashboards</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Events%5CActivities</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ICD Records</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Program Relationships</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Progress Notes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Search Portal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>To Do Portal</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Problem_Type__c</picklist>
+            <values>
+                <fullName>Annoyance - it works%2C but could be easier and quicker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Blockage - It doesn%27t work and I don%27t have a workaround</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bottleneck - It doesn%27t work but have workaround</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Program__c</picklist>
+            <values>
+                <fullName>ACT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BJC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CCM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CEP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CIRT - Brooklyn %28CCI%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CIRT - Manhattan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CITE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CJC%2FJS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Choices - Bronx</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Choices - Manhattan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DTC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Multiple Programs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>QJC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>START</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Supervised Release</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>TRP</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Complex functionality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instructions not clear</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>User didn%27t attend training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Data Integrity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Salesforce User</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permissions%2FAccess</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problem</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>CASES.CASE_NUMBER</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CASES.RECORDTYPE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CASES.SUBJECT</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CASES.STATUS</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CASES.PRIORITY</customTabListAdditionalFields>
+        <customTabListAdditionalFields>NAME</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>CASES.CASE_NUMBER</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Program__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CASES.SUBJECT</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CASES.RECORDTYPE</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CASES.CASE_NUMBER</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CASES.SUBJECT</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CASES.STATUS</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>CASES.CASE_NUMBER</searchFilterFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>CASES.SUBJECT</searchFilterFields>
+        <searchFilterFields>Program__c</searchFilterFields>
+        <searchFilterFields>CASES.STATUS</searchFilterFields>
+        <searchFilterFields>CASES.PRIORITY</searchFilterFields>
+        <searchFilterFields>CASES.RECORDTYPE</searchFilterFields>
+        <searchResultsAdditionalFields>CASES.CASE_NUMBER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CASES.SUBJECT</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Program__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CASES.STATUS</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CASES.RECORDTYPE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>NAME</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <webLinks>
+        <fullName>Email_Contact</fullName>
+        <availability>online</availability>
+        <description>Email person who submitted ticket</description>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>SEND EMAIL TO CONTACT</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/_ui/core/email/author/EmailAuthor?p3_lkid={!Case.Id}&amp;p2_lkid={!Contact.Id}&amp;template_id=00X60000003J1DG&amp;p5=</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Edit</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Edit</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassEditCase</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Update</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Update</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassUpdateCase</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+</CustomObject>

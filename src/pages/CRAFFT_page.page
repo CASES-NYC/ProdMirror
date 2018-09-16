@@ -1,0 +1,155 @@
+<apex:page controller="AssessmentController" id="pgMain">
+<apex:form id="CRAFFTpage" >
+ <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+  <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+
+
+ <apex:outPutPanel id="op" styleclass="span.resultContainer">
+<!--
+ <apex:pageblock id="pbResult" >
+   <apex:pageblocksection columns="2">
+   <apex:facet name="header" >
+     <span style="color:black;font-size:14px;">CRAFFT Results</span></apex:facet>
+   
+     <apex:outPutfield value="{!CRAFFT.CRAFFT_Yes_in_Part_A__c}" id="partA"/> 
+   <apex:outPutfield value="{!CRAFFT.Total_Score__c}" />
+   <apex:outputlabel value="" />
+   <apex:outPutfield value="{!CRAFFT.Assessment_Recommended__c}" />   
+    </apex:pageblocksection>
+</apex:pageblock>
+-->
+<apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+ <apex:pageblocksection columns="2">
+  <apex:facet name="header" >
+    <span style="color:black;font-size:14px;">CRAFFT Yes in Part A?</span></apex:facet>
+  <apex:inputfield value="{!CRAFFT.CRAFFT_A1_Drink_any_alcohol__c}" />
+  <apex:inputfield value="{!CRAFFT.CRAFFT_A2_Smoke_any_marijuana_or_hashish__c}" />
+   <apex:inputfield value="{!CRAFFT.CRAFFT_A3_Use_anything_else_to_get_high__c}" />            
+</apex:pageblocksection> 
+<apex:pageblocksection columns="2">
+  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                CRAFFT Part B (fill out if any questions in Part A are "Yes")</span> 
+            </apex:facet>
+      <apex:inputfield value="{!CRAFFT.CRAFFT_B1_In_CAR_driven_by_someone_high__c}" />
+      <apex:inputfield value="{!CRAFFT.CRAFFT_B4_Ever_FORGET_what_you_did__c}" />
+      <apex:inputfield value="{!CRAFFT.CRAFFT_B2_Use_drugs_or_alcohol_to_RELAX__c}" />
+      <apex:inputfield value="{!CRAFFT.CRAFFT_B5_FAMILY_FRIENDS_say_to_cut_down__c}" />
+      <apex:inputfield value="{!CRAFFT.CRAFFT_B3_Use_drugs_or_alcohol_ALONE__c}" />
+      <apex:inputfield value="{!CRAFFT.CRAFFT_B6_In_TROUBLE_while_using_drugs__c}" />
+      
+           
+</apex:pageblocksection>      
+</apex:pageblock>
+
+<apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+ 
+ <apex:pageblocksection columns="2" id="psResult">
+     <span style="color:black;font-size:14px;">CRAFFT Results</span> 
+     <apex:outPutfield value="{!CRAFFT.CRAFFT_Yes_in_Part_A__c}"/> 
+   <apex:outPutfield value="{!CRAFFT.Total_Score__c}" />
+   <apex:outputlabel value="" />
+   <apex:outPutfield value="{!CRAFFT.Assessment_Recommended__c}" />   
+    </apex:pageblocksection>
+
+<apex:pageblocksection columns="2" id="psA">
+    <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                CRAFFT Yes in Part A?</span></apex:facet>
+  <apex:outputfield value="{!CRAFFT.CRAFFT_A1_Drink_any_alcohol__c}" id="id1"/>
+  <apex:outputfield value="{!CRAFFT.CRAFFT_A2_Smoke_any_marijuana_or_hashish__c}" />
+   <apex:outputfield value="{!CRAFFT.CRAFFT_A3_Use_anything_else_to_get_high__c}" />            
+</apex:pageblocksection>
+<hr/>
+<apex:pageblocksection columns="2">
+  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                CRAFFT Part B (fill out if any questions in Part A are "Yes")</span> 
+            </apex:facet>
+      <apex:outputfield value="{!CRAFFT.CRAFFT_B1_In_CAR_driven_by_someone_high__c}" />
+      <apex:outputfield value="{!CRAFFT.CRAFFT_B4_Ever_FORGET_what_you_did__c}" />
+      <apex:outputfield value="{!CRAFFT.CRAFFT_B2_Use_drugs_or_alcohol_to_RELAX__c}" />
+      <apex:outputfield value="{!CRAFFT.CRAFFT_B5_FAMILY_FRIENDS_say_to_cut_down__c}" />
+      <apex:outputfield value="{!CRAFFT.CRAFFT_B3_Use_drugs_or_alcohol_ALONE__c}" />
+      <apex:outputfield value="{!CRAFFT.CRAFFT_B6_In_TROUBLE_while_using_drugs__c}" />
+      
+           
+</apex:pageblocksection>            
+
+</apex:pageblock>
+
+</apex:outPutPanel>
+	<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>  
+<!-- 
+                <apex:pageblocksection title="Information" showheader="true" columns="2">
+                    <apex:outputfield value="{!CRAFFT__c.Name}"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CRAFFT__c.CRAFFT_A1_Drink_any_alcohol__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CRAFFT__c.CRAFFT_A2_Smoke_any_marijuana_or_hashish__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CRAFFT__c.CRAFFT_A3_Use_anything_else_to_get_high__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CRAFFT__c.CRAFFT_B1_In_CAR_driven_by_someone_high__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CRAFFT__c.CRAFFT_B2_Use_drugs_or_alcohol_to_RELAX__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CRAFFT__c.CRAFFT_B3_Use_drugs_or_alcohol_ALONE__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CRAFFT__c.CRAFFT_B4_Ever_FORGET_what_you_did__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CRAFFT__c.CRAFFT_B5_FAMILY_FRIENDS_say_to_cut_down__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CRAFFT__c.CRAFFT_B6_In_TROUBLE_while_using_drugs__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CRAFFT__c.Assessment_Date__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CRAFFT__c.Assessment_Completed_on__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CRAFFT__c.AssessmentContainerId__c}" required="true"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!CRAFFT__c.Legacy_Database_Id__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                </apex:pageblocksection>
+            </apex:outputpanel>
+        </apex:pageblock>
+-->
+    </apex:form>
+</apex:page>

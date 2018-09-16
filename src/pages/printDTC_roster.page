@@ -1,0 +1,182 @@
+<apex:page renderAs="pdf"  applyBodyTag="false" applyHtmlTag="false" showHeader="false" 
+    controller="printDTC_rosterController">
+
+<!-- <html>-->
+<head>
+<style>
+@page{
+size: legal landscape;
+margin-left:0.25in;
+margin-right:0.25in;
+margin-bottom:0.15in;
+margin-top:0.25in;
+         @top-right {
+                    content: "Page " counter(page) " of " counter(pages);
+                }
+               .pagenumber:before {
+                content: counter(page);
+            }
+            
+            .pagecount:before {
+                content: counter(pages - 1);
+            }
+           @top-center {
+                content: element(header);
+            }
+            div.header {
+                padding: 10px;
+               position: running(header);
+       }
+}    
+</style>
+<style>
+.ct{
+text-align:center;
+}
+</style>
+</head>
+<!-- <body>-->
+<!-- <h1>Daytime Custody Roster &nbsp;&nbsp;&nbsp;&nbsp; <apex:outputLabel value="{!dateprinted}" style="font-size:20px;"/></h1>-->
+<!-- </body>
+</html>
+-->
+   <apex:pageblock id="pb">
+ <div class="header">
+  <h1>Daytime Custody Roster &nbsp;&nbsp;&nbsp;&nbsp; <apex:outputLabel value="{!dateprinted}" style="font-size:20px;"/></h1>
+           </div>
+ <apex:PageBlockTable value="{!lstRosterShow1}" var="e" columns="8" columnsWidth="2%,7%,24%,24%,7%px,24%,7%,5%"
+               cellspacing="0"  frame="1"  width="100%" 
+               border="0.5" cellpadding="4" >
+       <apex:column headerValue="#" headerClass="ct" >
+            <apex:outputText value="{!e.rownumb}" style="font-size:14px;"/>
+        </apex:column> 
+
+       <apex:column headerValue="ID #" headerClass="ct" >
+            <apex:outputText value="{!e.cid}" style="font-size:14px;"/>
+        </apex:column> 
+       <apex:column headerValue="Name" headerClass="ct">
+            <apex:outputText value="{!e.cname}"  style="font-size:18px;"/>
+        </apex:column> 
+       <apex:column headerValue="Sign In"  headerClass="ct" >
+        </apex:column> 
+       <apex:column headerValue="Time In"  headerClass="ct" >
+        </apex:column> 
+       <apex:column headerValue="Sign Out"  headerClass="ct" >
+        </apex:column> 
+       <apex:column headerValue="Time Out" headerClass="ct" >
+        </apex:column> 
+       <apex:column headerValue="Day #" headerClass="ct" >
+        </apex:column> 
+    </apex:PageBlockTable>   
+   </apex:pageblock>
+<br/><br/>
+<apex:outputPanel rendered="{!numberOfPages==1}">
+   <table>
+      <tr>
+        <td width="500px" align="center">
+        <apex:outputText value="DCP Staff:"  style="font-size:18px;"/>
+        </td>
+        <td width="300px" align="center">
+        <apex:outputText value="DOC(CO):"  style="font-size:18px;"/>
+        </td>
+      </tr>
+   </table>
+</apex:outputPanel>
+   <apex:outPutPanel rendered="{!numberOfPages>1}"> 
+       <div style="page-break-before:always"/>
+
+   <apex:pageblock id="pb2" >
+   <div class="header">
+  <h1>Daytime Custody Roster &nbsp;&nbsp;&nbsp;&nbsp; <apex:outputLabel value="{!dateprinted}" style="font-size:20px;"/></h1>
+           </div>
+  <apex:PageBlockTable value="{!lstRosterShow2}" var="h" columns="8" columnsWidth="2%,7%,24%,24%,7%px,24%,7%,5%"
+               cellspacing="0"  frame="1"  
+               border="0.5" cellpadding="4" >
+       <apex:column headerValue="#" headerClass="ct" >
+            <apex:outputText value="{!h.rownumb}" style="font-size:14px;"/>
+        </apex:column> 
+
+       <apex:column headerValue="ID #" headerClass="ct" >
+            <apex:outputText value="{!h.cid}" style="font-size:14px;"/>
+        </apex:column> 
+       <apex:column headerValue="Name" headerClass="ct">
+            <apex:outputText value="{!h.cname}"  style="font-size:18px;"/>
+        </apex:column> 
+       <apex:column headerValue="Sign In"  headerClass="ct" >
+        </apex:column> 
+       <apex:column headerValue="Time In"  headerClass="ct" >
+        </apex:column> 
+       <apex:column headerValue="Sign Out"  headerClass="ct" >
+        </apex:column> 
+       <apex:column headerValue="Time Out" headerClass="ct" >
+        </apex:column> 
+       <apex:column headerValue="Day #" headerClass="ct" >
+        </apex:column> 
+    </apex:PageBlockTable>   
+   </apex:pageblock>
+  </apex:outPutPanel>
+  <br/><br/>
+<apex:outputPanel rendered="{!numberOfPages==2}">
+   <table>
+      <tr>
+        <td width="500px" align="center">
+        <apex:outputText value="DCP Staff:"  style="font-size:18px;"/>
+        </td>
+        <td width="300px" align="center">
+        <apex:outputText value="DOC(CO):"  style="font-size:18px;"/>
+        </td>
+      </tr>
+   </table>
+</apex:outputPanel>
+
+   <apex:outPutPanel rendered="{!numberOfPages>2}"> 
+       <div style="page-break-before:always"/>
+
+   <apex:pageblock id="pb3" >
+   <div class="header">
+  <h1>Daytime Custody Roster &nbsp;&nbsp;&nbsp;&nbsp; <apex:outputLabel value="{!dateprinted}" style="font-size:20px;"/></h1>
+           </div>
+  <apex:PageBlockTable value="{!lstRosterShow3}" var="d" columns="8" columnsWidth="2%,7%,24%,24%,7%px,24%,7%,5%"
+               cellspacing="0"  frame="1"  
+               border="0.5" cellpadding="4" >
+       <apex:column headerValue="#" headerClass="ct" >
+            <apex:outputText value="{!d.rownumb}" style="font-size:14px;"/>
+        </apex:column> 
+
+       <apex:column headerValue="ID #" headerClass="ct" >
+            <apex:outputText value="{!d.cid}" style="font-size:14px;"/>
+        </apex:column> 
+       <apex:column headerValue="Name" headerClass="ct">
+            <apex:outputText value="{!d.cname}"  style="font-size:18px;"/>
+        </apex:column> 
+       <apex:column headerValue="Sign In"  headerClass="ct" >
+        </apex:column> 
+       <apex:column headerValue="Time In"  headerClass="ct" >
+        </apex:column> 
+       <apex:column headerValue="Sign Out"  headerClass="ct" >
+        </apex:column> 
+       <apex:column headerValue="Time Out" headerClass="ct" >
+        </apex:column> 
+       <apex:column headerValue="Day #" headerClass="ct" >
+        </apex:column> 
+    </apex:PageBlockTable>   
+   </apex:pageblock>
+  </apex:outPutPanel>
+<br/><br/>
+<apex:outputPanel rendered="{!numberOfPages==3}">
+   <table>
+      <tr>
+        <td width="500px" align="center">
+        <apex:outputText value="DCP Staff:"  style="font-size:18px;"/>
+        </td>
+        <td width="300px" align="center">
+        <apex:outputText value="DOC(CO):"  style="font-size:18px;"/>
+        </td>
+      </tr>
+   </table>
+</apex:outputPanel>
+<!-- 
+  </body>
+</html>
+-->
+</apex:page>

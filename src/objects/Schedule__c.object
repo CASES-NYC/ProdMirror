@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>scheduleEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This custom object is a singular instance (one to many) of the Class object.  Schedules are logical instances of a Class.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>AutoExtendFlag__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>AutoExtendFlag</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Change_Schedule_As_Of__c</fullName>
+        <description>Set this field if you are making changes to an active schedule.  All session dates equal to or greater to the value in this field will be modified</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set this field if you are making changes to an active schedule.  All session dates equal to or greater to the value in this field will be modified</inlineHelpText>
+        <label>Change Schedule As Of</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Class__c</fullName>
+        <description>The Class that this Schedule is related to.</description>
+        <externalId>false</externalId>
+        <label>Class</label>
+        <referenceTo>Class__c</referenceTo>
+        <relationshipLabel>Schedules</relationshipLabel>
+        <relationshipName>Schedules</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Dummy_Schedule__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If checked, create session logic is not run on the schedule. This is used for schedules where the sessions will be added via a nightly process, such as for the DTC Groups.</description>
+        <externalId>false</externalId>
+        <label>Dummy Schedule?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <description>The End Date of this schedule</description>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Extension_Days_to_Generate__c</fullName>
+        <defaultValue>8</defaultValue>
+        <externalId>false</externalId>
+        <label>Extension Days to Generate</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Friday_End_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Friday End Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Friday_Start_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Friday Start Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Friday__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check this box if this schedule includes a session on Friday</description>
+        <externalId>false</externalId>
+        <label>Friday</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Monday_End_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Monday End Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Monday_Start_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Monday Start Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Monday__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check this box if this schedule includes a session on Monday</description>
+        <externalId>false</externalId>
+        <label>Monday</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Months_of_Sessions_to_Generate__c</fullName>
+        <externalId>false</externalId>
+        <label>Months of Sessions to Generate</label>
+        <picklist>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>OldId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Old ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Original_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Original End Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Original_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Original Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Record_Type_RPT__c</fullName>
+        <externalId>false</externalId>
+        <formula>$RecordType.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Record Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Saturday_End_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Saturday End Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Saturday_Start_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Saturday Start Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Saturday__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check this box if this schedule includes a session on Saturday</description>
+        <externalId>false</externalId>
+        <label>Saturday</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Single_Session_Ongoing__c</fullName>
+        <description>If ongoing single session class then skip jobAutoextendSchedule</description>
+        <externalId>false</externalId>
+        <formula>TEXT(Class__r.Default_Ending_Session__c)</formula>
+        <label>Single Session Ongoing</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <description>The start date of this schedule</description>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Sunday_End_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Sunday End Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Sunday_Start_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Sunday Start Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Sunday__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check this box if this schedule includes a session on Sunday</description>
+        <externalId>false</externalId>
+        <label>Sunday</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Thursday_End_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Thursday End Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Thursday_Start_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Thursday Start Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Thursday__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check this box if this schedule includes a session on Thursday</description>
+        <externalId>false</externalId>
+        <label>Thursday</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Tuesday_End_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Tuesday End Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Tuesday_Start_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Tuesday Start Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Tuesday__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check this box if this schedule includes a session on Tuesday</description>
+        <externalId>false</externalId>
+        <label>Tuesday</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>UI_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>UI_Start_Date__c</fullName>
+        <description>This is used by the New Schedule VF page</description>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Wednesday_End_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Wednesday End Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Wednesday_Start_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Wednesday Start Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Wednesday__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check this box if this schedule includes a session on Wednesday</description>
+        <externalId>false</externalId>
+        <label>Wednesday</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Schedule</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Class__c</columns>
+        <columns>Original_Start_Date__c</columns>
+        <columns>Original_End_Date__c</columns>
+        <columns>Record_Type_RPT__c</columns>
+        <columns>Extension_Days_to_Generate__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>UI_End_Date__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>UI_Start_Date__c</columns>
+        <columns>Friday__c</columns>
+        <columns>Friday_End_Time__c</columns>
+        <columns>Friday_Start_Time__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>CS-{000000}</displayFormat>
+        <label>Schedule ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Schedules</pluralLabel>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Fixed_Schedule</fullName>
+        <active>true</active>
+        <label>Fixed Schedule</label>
+        <picklistValues>
+            <picklist>Months_of_Sessions_to_Generate__c</picklist>
+            <values>
+                <fullName>1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Ongoing_Schedule</fullName>
+        <active>true</active>
+        <label>Ongoing Schedule</label>
+        <picklistValues>
+            <picklist>Months_of_Sessions_to_Generate__c</picklist>
+            <values>
+                <fullName>1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Single_Schedule</fullName>
+        <active>true</active>
+        <label>Single Schedule</label>
+        <picklistValues>
+            <picklist>Months_of_Sessions_to_Generate__c</picklist>
+            <values>
+                <fullName>1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

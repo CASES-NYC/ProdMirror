@@ -1,0 +1,6 @@
+<apex:page >
+    <flow:interview name="ticket_creation" finishLocation="{!URLFOR("/home.jsp")}">
+        <apex:param name="var_userid" value="{$User.Id}"/>
+        <apex:param name="var_type" value="New Salesforce User"/>
+    </flow:interview>
+</apex:page>

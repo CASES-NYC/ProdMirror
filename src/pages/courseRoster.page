@@ -1,0 +1,81 @@
+<apex:page controller="courseRoster" showHeader="false" sidebar="false" renderas="pdf">
+
+    <hr />
+    
+    <div width="100%">
+        <h2>Class Grading Roster {!clCurrent.Class_Title__c}</h2>
+    </div>
+    
+    <div width="900px">
+        <table cellPadding="5" cellSpacing="0" width="100%" style="border-style: solid; border-width: 1px">
+            <tr>
+                <td width="50%">
+                    <strong>Class Dates:</strong>&nbsp;&nbsp;
+                    <apex:outputText value="{!strClassDateRange}"/>
+                </td>
+                <td width="50%" vAlign="top">
+                    <strong>Printed On:</strong>&nbsp;&nbsp;
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                        <apex:param value="{!TODAY()}" /> 
+                    </apex:outputText><br />
+                </td>           
+            </tr>
+            <tr>
+                <td width="50%">
+                    <strong>Session Date/Time:</strong>&nbsp;&nbsp;
+                    <apex:outputText value="{!strSessionStart}"/> 
+                </td>
+            </tr>               
+        </table><br />
+        <br />
+        <table cellPadding="5" cellSpacing="0" width="100%" style="border-style: solid; border-width: 1px">
+            <tr>
+                <td width="20%" vAlign="top">
+                    <strong>Instructors:</strong>
+                </td>
+                <td width="80%">
+                    <apex:outputText value="{!strInstructors}" escape="false" />
+                </td>
+            </tr>
+        </table><br />
+        <br />
+        <table cellPadding="5" cellSpacing="0" width="100%">
+            <thead> 
+                <tr> 
+                    <th style="border-top: solid; border-bottom: solid; border-left: solid; border-width: 1px; background-color: #d3d3d3;">Name</th>   
+                    <th style="border-top: solid; border-bottom: solid; border-left: solid; border-width: 1px; background-color: #d3d3d3;">P/C&nbsp;ID</th>   
+                    <th style="border-top: solid; border-bottom: solid; border-left: solid; border-width: 1px; background-color: #d3d3d3;">Contract</th>
+                    <th style="border-top: solid; border-bottom: solid; border-left: solid; border-width: 1px; background-color: #d3d3d3;">Exit Date</th>     
+                    <th style="border-top: solid; border-bottom: solid; border-left: solid; border-width: 1px; background-color: #d3d3d3;">Proj Exit Date</th>  
+                    <th style="border-top: solid; border-bottom: solid; border-left: solid; border-width: 1px; background-color: #d3d3d3;">Case Coordinator</th>       
+                    <th style="border-top: solid; border-bottom: solid; border-left: solid; border-width: 1px; background-color: #d3d3d3;">Verification</th>
+                    <th style="border-top: solid; border-bottom: solid; border-right: solid; border-left: solid; border-width: 1px; background-color: #d3d3d3;">Participation</th>
+                 </tr>  
+            </thead> 
+            <tbody> 
+                <apex:repeat value="{!Roster}" var="thisEnrollee" >
+                    <tr>   
+                        <td style="border-bottom: solid; border-left: solid; border-width: 1px">{!thisEnrollee.con.Name}</td>
+                        <td style="border-bottom: solid; border-left: solid; border-width: 1px">{!thisEnrollee.con.P_C_ID__c}</td>
+                        <td style="border-bottom: solid; border-left: solid; border-width: 1px">{!thisEnrollee.con.Contract_Formula__c}</td>
+                        <td style="border-bottom: solid; border-left: solid; border-width: 1px">
+                            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                <apex:param value="{!thisEnrollee.con.Current_Exit_Date__c}" /> 
+                            </apex:outputText>
+                        </td>
+                        <td style="border-bottom: solid; border-left: solid; border-width: 1px">
+                            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                <apex:param value="{!thisEnrollee.con.Current_Projected_Exit_Date__c}" /> 
+                            </apex:outputText>
+                        </td>
+                        <td style="border-bottom: solid; border-left: solid; border-width: 1px">{!thisEnrollee.con.Case_Coordinator__r.Name}</td>
+                        <td style="border-bottom: solid; border-left: solid; border-width: 1px">{!thisEnrollee.strVerification}</td>
+                        <td style="border-bottom: solid; border-right: solid; border-left: solid; border-width: 1px">{!thisEnrollee.strParticipation}</td>
+                    </tr>       
+                </apex:repeat>
+            </tbody> 
+        </table>
+    </div><br />
+    <br />  
+    <hr />
+</apex:page>

@@ -1,0 +1,1560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Criterion_A_Met__c</fullName>
+        <externalId>false</externalId>
+        <formula>or(not(isblank( UCLA_Single_Traumatic_Event__c )), not(ispickval( UCLA_Most_Impacted_By__c, &quot;&quot;)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Criterion A Met</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Criterion_B_Met__c</fullName>
+        <externalId>false</externalId>
+        <formula>(if(value(text(UCLA_S3Q2_I_get_upset_when_reminded__c)) &gt;= 3, 1, 0) + if(value(text(UCLA_S3Q3_Memories_come_to_mind__c)) &gt;= 3, 1, 0) + if(value(text(UCLA_S3Q5_I_have_bad_dreams__c)) &gt;= 3, 1, 0) + if(value(text(UCLA_S3Q6_I_feel_I_relive_experience__c)) &gt;= 3, 1, 0) + if(value(text(UCLA_S3Q18_I_have_physical_reactions__c)) &gt;= 3, 1, 0)) &gt;= 1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Criterion B Met</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Criterion_C_Met__c</fullName>
+        <externalId>false</externalId>
+        <formula>(if(value(text( UCLA_S3Q9_I_try_not_to_talk_or_think__c )) &gt;= 3, 1, 0) +  
+if(value(text( UCLA_S3Q17_I_avoid_things_that_remind_me__c )) &gt;= 3, 1, 0) + 
+if(value(text( UCLA_S3Q15_Cant_remember_important_parts__c )) &gt;= 3, 1, 0) + 
+if(value(text( UCLA_S3Q7_I_feel_like_staying_by_myself__c )) &gt;= 3, 1, 0) + 
+if(value(text( UCLA_S3Q8_I_feel_alone__c)) &gt;= 3, 1, 0) + 
+if(or(value(text( UCLA_S3Q10_I_have_trouble_feeling_happy__c )) &gt;= 3, value(text( UCLA_S3Q11_Trouble_feeling_sadness_anger__c)) &gt;= 3), 1, 0) + 
+if(or(value(text( UCLA_S3Q19_I_think_I_won_t_live_long__c )) &gt;= 3, value(text( UCLA_S3Q21_I_feel_worried_about_future__c )) &gt;= 3), 1, 0)) &gt;= 3</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Criterion C Met</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Criterion_D_Met__c</fullName>
+        <externalId>false</externalId>
+        <formula>(if(value(text( UCLA_S3Q13_I_have_trouble_sleeping__c )) &gt;= 3, 1, 0) + 
+if(value(text( UCLA_S3Q16_I_have_trouble_concentrating__c )) &gt;= 3, 1, 0) + 
+if(value(text( UCLA_S3Q1_I_watch_out_for_danger__c )) &gt;= 3, 1, 0) + 
+if(value(text( UCLA_S3Q12_I_feel_jumpy__c )) &gt;= 3, 1, 0) + 
+if(or(value(text( UCLA_S3Q4_I_feel_angry__c )) &gt;= 3, value(text( UCLA_S3Q20_I_have_arguments_or_fights__c )) &gt;= 3), 1, 0)) &gt;= 2</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Criterion D Met</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Description_of_traumatic_event__c</fullName>
+        <externalId>false</externalId>
+        <label>Description of traumatic event</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Ever_recvd_counseling_other_MH_services__c</fullName>
+        <externalId>false</externalId>
+        <label>Ever recvd counseling other MH services?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Currently</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In the last 5 years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 5 years ago</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Full_PTSD_Diagnosis_Likely__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>populated via workflow due to compile size</description>
+        <externalId>false</externalId>
+        <label>Full PTSD Diagnosis Likely</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hospitalized_resd_prgm_for_MH_reasons__c</fullName>
+        <externalId>false</externalId>
+        <label>Hospitalized/resd prgm for MH reasons?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>How_Long_Ago__c</fullName>
+        <externalId>false</externalId>
+        <label>How Long Ago?</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PTSD_Severity_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>value(text(UCLA_S3Q1_I_watch_out_for_danger__c)) 
++ value(text( UCLA_S3Q2_I_get_upset_when_reminded__c )) 
++ value(text( UCLA_S3Q3_Memories_come_to_mind__c )) 
+
++ max(value(text( UCLA_S3Q4_I_feel_angry__c )), value(text( UCLA_S3Q20_I_have_arguments_or_fights__c ))) 
+
++ value(text( UCLA_S3Q5_I_have_bad_dreams__c )) 
++ value(text( UCLA_S3Q6_I_feel_I_relive_experience__c )) 
++ value(text( UCLA_S3Q7_I_feel_like_staying_by_myself__c )) 
++ value(text( UCLA_S3Q8_I_feel_alone__c )) 
++ value(text( UCLA_S3Q9_I_try_not_to_talk_or_think__c )) 
+
++ max(value(text( UCLA_S3Q10_I_have_trouble_feeling_happy__c )), value(text( UCLA_S3Q11_Trouble_feeling_sadness_anger__c ))) 
+
++ value(text( UCLA_S3Q12_I_feel_jumpy__c )) 
++ value(text( UCLA_S3Q13_I_have_trouble_sleeping__c )) 
++ value(text( UCLA_S3Q15_Cant_remember_important_parts__c )) 
++ value(text( UCLA_S3Q16_I_have_trouble_concentrating__c )) 
++ value(text( UCLA_S3Q17_I_avoid_things_that_remind_me__c )) 
++ value(text( UCLA_S3Q18_I_have_physical_reactions__c )) 
+
++ max(value(text( UCLA_S3Q19_I_think_I_won_t_live_long__c )), value(text( UCLA_S3Q21_I_feel_worried_about_future__c )))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PTSD Severity Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partial_PTSD_Diagnosis_Likely__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>populated via workflow due to compile size</description>
+        <externalId>false</externalId>
+        <label>Partial PTSD Diagnosis Likely</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Prescribe_take_med_to_treat_MH_problem__c</fullName>
+        <externalId>false</externalId>
+        <label>Prescribe/take med to treat MH problem?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Currently</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In the last 5 years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>More than 5 years ago</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_How_Long_Ago__c</fullName>
+        <externalId>false</externalId>
+        <label>How Long Ago?</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>UCLA_Most_Impacted_By__c</fullName>
+        <externalId>false</externalId>
+        <label>Most Impacted By</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_PTSD_RI_Flag__c</fullName>
+        <externalId>false</externalId>
+        <formula>PTSD_Severity_Score__c &gt;= 38</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>UCLA PTSD RI Flag</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S1Q10_Violent_injury_of_loved_one__c</fullName>
+        <externalId>false</externalId>
+        <label>UCLA S1Q10 Violent injury of loved one?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S1Q11_Painful_medical_treatment__c</fullName>
+        <externalId>false</externalId>
+        <label>UCLA S1Q11 Painful medical treatment?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S1Q12_Forced_to_have_sex__c</fullName>
+        <externalId>false</externalId>
+        <label>UCLA S1Q12 Forced to have sex?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S1Q13_Anything_else__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Other than the things described above, has anything else ever happened to you that was really scary, dangerous or violent.</inlineHelpText>
+        <label>UCLA S1Q13 Anything else?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S1Q1_In_a_disaster__c</fullName>
+        <externalId>false</externalId>
+        <label>UCLA S1Q1 In a disaster?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S1Q2_In_a_bad_accident__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Being in a bad accident, like a serious car accident or fall.</inlineHelpText>
+        <label>UCLA S1Q2 In a bad accident?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S1Q3_In_a_place_at_war__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Being in a place where a war was going on around you.</inlineHelpText>
+        <label>UCLA S1Q3 In a place at war?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S1Q4_Hit_hard_at_home__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Being hit, punched, or kicked very hard at home (DO NOT INCLUDE ordinary fights between brothers and sisters).</inlineHelpText>
+        <label>UCLA S1Q4 Hit hard at home?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S1Q5_Seeing_family_member_hit__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Seeing a family member being hit, punched, or kicked very hard at home (DO NOT INCLUDE ordinary fights between brothers and sisters).</inlineHelpText>
+        <label>UCLA S1Q5 Seeing family member hit?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S1Q6_Beaten_shot_at_threatened__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Being beaten up, shot at or threatened to be hurt badly in your school, neighborhood or town.</inlineHelpText>
+        <label>UCLA S1Q6 Beaten, shot at, threatened?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S1Q7_Seeing_someone_beaten_etc__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Seeing someone in your neighborhood or town beaten up, shot at or killed.</inlineHelpText>
+        <label>UCLA S1Q7 Seeing someone beaten, etc?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S1Q8_Seeing_dead_body__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Seeing a dead body in your neighborhood or town (do not include funerals).</inlineHelpText>
+        <label>UCLA S1Q8 Seeing dead body?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S1Q9_Having_adult_touch_you__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Having an adult or someone much older touch your private sexual body parts when you did not want them to.</inlineHelpText>
+        <label>UCLA S1Q9 Having adult touch you?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S2Q14_Scared_you_would_die__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Were you scared that you would die?</inlineHelpText>
+        <label>UCLA S2Q14 Scared you would die?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S2Q15_Scared_of_being_hurt__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Were you scared that you would be hurt badly?</inlineHelpText>
+        <label>UCLA S2Q15 Scared of being hurt?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S2Q16_Hurt_badly__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Were you hurt badly?</inlineHelpText>
+        <label>UCLA S2Q16 Hurt badly?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S2Q17_Scared_someone_else_hurt_UCLA__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Was someone else hurt badly?</inlineHelpText>
+        <label>UCLA S2Q17 Scared someone else hurt?UCLA</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S2Q17_Scared_someone_else_hurt__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Were you scared that someone else would be hurt badly?</inlineHelpText>
+        <label>UCLA S2Q17 Scared someone else hurt?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S2Q18_Someone_else_hurt_badly__c</fullName>
+        <externalId>false</externalId>
+        <label>UCLA S2Q18 Someone else hurt badly?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S2Q19_Scared_someone_would_die__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Were you scared that someone else would die?</inlineHelpText>
+        <label>UCLA S2Q19 Scared someone would die?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S2Q20_Did_someone_die__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did someone else die?</inlineHelpText>
+        <label>UCLA S2Q20 Did someone die?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S2Q21_Were_you_very_scared__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Were you very scared, like this was one of your most scary experiences?</inlineHelpText>
+        <label>UCLA S2Q21 Were you very scared?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S2Q22_Felt_you_couldn_t_stop_it__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did you feel that you could not stop what was happening or that you needed someone to help?</inlineHelpText>
+        <label>UCLA S2Q22 Felt you couldn&apos;t stop it?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S2Q23_Disgusting_or_gross__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did you feel that what you saw was disgusting or gross?</inlineHelpText>
+        <label>UCLA S2Q23 Disgusting or gross?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q10_I_have_trouble_feeling_happy__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I have trouble feeling happiness or love.</inlineHelpText>
+        <label>UCLA S3Q10 I have trouble feeling happy</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q11_Trouble_feeling_sadness_anger__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I have trouble feeling sadness or anger</inlineHelpText>
+        <label>UCLA S3Q11 Trouble feeling sadness/anger</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q12_I_feel_jumpy__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I feel jumpy or startle easily, like when I hear a loud noise or when something surprises me.</inlineHelpText>
+        <label>UCLA S3Q12 I feel jumpy</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q13_I_have_trouble_sleeping__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I have trouble going to sleep or I wake up often during the night.</inlineHelpText>
+        <label>UCLA S3Q13 I have trouble sleeping</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q14_I_think_it_s_partly_my_fault__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I think that some part of what happened is my fault.</inlineHelpText>
+        <label>UCLA S3Q14 I think it&apos;s partly my fault</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q15_Cant_remember_important_parts__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I have trouble remembering important parts of what happened.</inlineHelpText>
+        <label>UCLA S3Q15 Cant remember important parts</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q16_I_have_trouble_concentrating__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I have trouble concentrating or paying attention.</inlineHelpText>
+        <label>UCLA S3Q16 I have trouble concentrating</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q17_I_avoid_things_that_remind_me__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I try to stay away from people, places, or things that make me remember what happened.</inlineHelpText>
+        <label>UCLA S3Q17 I avoid things that remind me</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q18_I_have_physical_reactions__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>When something reminds me of what happened, I have strong feelings in my body, like my heart beats fast, my head aches, or my stomach aches.</inlineHelpText>
+        <label>UCLA S3Q18 I have physical reactions</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q19_I_think_I_won_t_live_long__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I think that I will not live a long life.</inlineHelpText>
+        <label>UCLA S3Q19 I think I won&apos;t live long</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q1_I_watch_out_for_danger__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I watch out for danger or things I am afraid of.</inlineHelpText>
+        <label>UCLA S3Q1 I watch out for danger</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q20_I_have_arguments_or_fights__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I have arguments or physical fights.</inlineHelpText>
+        <label>UCLA S3Q20 I have arguments or fights</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q21_I_feel_worried_about_future__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I feel worried or negative about my future.</inlineHelpText>
+        <label>UCLA S3Q21 I feel worried about future</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q22_Afraid_it_will_happen_again__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I am afraid that the bad thing will happen again.</inlineHelpText>
+        <label>UCLA S3Q22 Afraid it will happen again</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q2_I_get_upset_when_reminded__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>When something reminds me of what happened I get very upset, afraid or sad.</inlineHelpText>
+        <label>UCLA S3Q2 I get upset when reminded</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q3_Memories_come_to_mind__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I have upsetting thoughts, pictures, or sounds of what happened come into my mind when I do not want them to.</inlineHelpText>
+        <label>UCLA S3Q3 Memories come to mind</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q4_I_feel_angry__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I feel grouchy, angry or mad.</inlineHelpText>
+        <label>UCLA S3Q4 I feel angry</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q5_I_have_bad_dreams__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I have dreams about what happened or other bad dreams.</inlineHelpText>
+        <label>UCLA S3Q5 I have bad dreams</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q6_I_feel_I_relive_experience__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I feel like I am back at the time when the bad thing happened, living through it again.</inlineHelpText>
+        <label>UCLA S3Q6 I feel I relive experience</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q7_I_feel_like_staying_by_myself__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I feel like staying by myself and not being with my friends.</inlineHelpText>
+        <label>UCLA S3Q7 I feel like staying by myself</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q8_I_feel_alone__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I feel alone inside and not close to other people.</inlineHelpText>
+        <label>UCLA S3Q8 I feel alone</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_S3Q9_I_try_not_to_talk_or_think__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>I try not to talk about, think about, or have feelings about what happened.</inlineHelpText>
+        <label>UCLA S3Q9 I try not to talk or think</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UCLA_Single_Traumatic_Event__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( 
+(if(ispickval( UCLA_S1Q1_In_a_disaster__c ,&quot;Yes&quot;), 1, 0) 
++ if(ispickval( UCLA_S1Q2_In_a_bad_accident__c ,&quot;Yes&quot;), 1, 0) 
++ if(ispickval( UCLA_S1Q3_In_a_place_at_war__c ,&quot;Yes&quot;), 1, 0) 
++ if(ispickval( UCLA_S1Q4_Hit_hard_at_home__c ,&quot;Yes&quot;), 1, 0) 
++ if(ispickval( UCLA_S1Q5_Seeing_family_member_hit__c ,&quot;Yes&quot;), 1, 0) 
++ if(ispickval( UCLA_S1Q6_Beaten_shot_at_threatened__c ,&quot;Yes&quot;), 1, 0) 
++ if(ispickval( UCLA_S1Q7_Seeing_someone_beaten_etc__c ,&quot;Yes&quot;), 1, 0) 
++ if(ispickval( UCLA_S1Q8_Seeing_dead_body__c ,&quot;Yes&quot;), 1, 0) 
++ if(ispickval( UCLA_S1Q9_Having_adult_touch_you__c ,&quot;Yes&quot;), 1, 0) 
++ if(ispickval( UCLA_S1Q10_Violent_injury_of_loved_one__c ,&quot;Yes&quot;), 1, 0) 
++ if(ispickval( UCLA_S1Q11_Painful_medical_treatment__c ,&quot;Yes&quot;), 1, 0) 
++ if(ispickval( UCLA_S1Q12_Forced_to_have_sex__c ,&quot;Yes&quot;), 1, 0) 
++ if(ispickval( UCLA_S1Q13_Anything_else__c ,&quot;Yes&quot;), 1, 0)) = 1, 
+
+text(if(ispickval( UCLA_S1Q1_In_a_disaster__c ,&quot;Yes&quot;), 1, if(ispickval( UCLA_S1Q2_In_a_bad_accident__c ,&quot;Yes&quot;), 2, if(ispickval( UCLA_S1Q3_In_a_place_at_war__c ,&quot;Yes&quot;), 3, if(ispickval( UCLA_S1Q4_Hit_hard_at_home__c ,&quot;Yes&quot;), 4, if(ispickval( UCLA_S1Q5_Seeing_family_member_hit__c ,&quot;Yes&quot;), 5, if(ispickval( UCLA_S1Q6_Beaten_shot_at_threatened__c ,&quot;Yes&quot;), 6, if(ispickval( UCLA_S1Q7_Seeing_someone_beaten_etc__c ,&quot;Yes&quot;), 7, if(ispickval( UCLA_S1Q8_Seeing_dead_body__c ,&quot;Yes&quot;), 8, if(ispickval( UCLA_S1Q9_Having_adult_touch_you__c ,&quot;Yes&quot;), 9, if(ispickval( UCLA_S1Q10_Violent_injury_of_loved_one__c ,&quot;Yes&quot;), 10, if(ispickval( UCLA_S1Q11_Painful_medical_treatment__c ,&quot;Yes&quot;), 11, if(ispickval( UCLA_S1Q12_Forced_to_have_sex__c ,&quot;Yes&quot;), 12, if(ispickval( UCLA_S1Q13_Anything_else__c ,&quot;Yes&quot;), 13, 0)))))))))))))), &quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Single Traumatic Event</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>assessmentContainerId__c</fullName>
+        <externalId>false</externalId>
+        <label>AssessmentContainerId</label>
+        <referenceTo>AssessmentContainer__c</referenceTo>
+        <relationshipName>UCLA_PTSD_RI</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <label>aUCLAptsd RI</label>
+    <nameField>
+        <label>aUCLAptsd RI Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>aUCLAptsd RI</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

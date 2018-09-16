@@ -1,0 +1,414 @@
+<apex:page controller="srp_NotificationController"   cache="false" sidebar="false" action="{!defaultSelection}">
+ <!-- action="{!checkDeliqTrack}"-->
+  <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/style.css')}" rel="stylesheet"/> 
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/css/theme.default.css')}" rel="stylesheet"/> 
+<script> 
+  function setFocusOnLoad() 
+   {
+   }
+</script>
+
+<style type="text/css">
+       .warningPopup{  
+           background-color: #FFF8DC;
+           border-style: solid;
+            border-color: #FF0000;
+            border-width: 2px;
+            padding:10px;
+            position:absolute;
+            height: 100px; 
+            z-index:9999;
+            left:250px;
+            width:250px;
+            top:160px;
+  }   
+</style> 
+<style type="text/css"> 
+       .customPopup{
+            background-color:   white;
+            border-style: solid;
+            border-width: 3px;
+            border-color:blue;
+            left: 30%;
+            padding:10px;
+            position:absolute;
+            height: 180px;
+            z-index:9999;
+            width:500px;
+            margin-left:100px;
+            top:350px;
+            modal:true;
+         }
+</style>  
+    
+<style type="text/css">  
+   .fsBorders {
+        border-color:#1797C0;
+        border-style: solid;
+        border-width: 2px;
+        height: 30px;        
+    }
+</style>
+<script>
+        var j$ = jQuery.noConflict();
+function sortIt()     {         
+              
+                j$("#infoTable").tablesorter(
+                
+                    {
+                        widgets: ['zebra'],
+                        
+                        headers: { 
+                            5: { sorter: false },
+                        }
+                    }
+                );      
+            }
+</script>
+
+
+<script>  
+        function loadingApps(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('loadingGifData').style.display = '';
+            } else {
+                document.getElementById('loadingGifData').style.display = 'none';
+            }
+        } 
+</script> 
+
+       
+<apex:form >
+<apex:actionFunction name="afdonothing" action="{!donothing}" rerender=""/>
+     
+<apex:actionFunction name="afcheckDeliqTrack" action="{!checkDeliqTrack}" rerender=""/>
+
+<!-- <apex:actionFunction name="afsetDocument" action="{!RequeryInfo}" rerender="infoTable" status="selectData" >-->
+<apex:actionFunction name="afsetDocument" action="{!checkDeliqTrack}" rerender="pbInfo,infoTable,infoTableRepead" status="selectData" >
+     <apex:param name="selectedDocument" assignTo="{!selectedDocument}" value="" />
+ </apex:actionFunction>
+ 
+<apex:actionFunction name="afCheckCourt" action="{!checkCourt}" rerender="mess">
+         <apex:param name="namePassed" assignTo="{!namePassed}" value="" />
+ </apex:actionFunction>
+
+<apex:actionFunction name="afCheckIntake" action="{!checkIntake}" rerender="mess">
+         <apex:param name="namePassed" assignTo="{!namePassed}" value="" />
+ </apex:actionFunction>
+<!-- 
+
+<apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+    <apex:param value="{!currentDate}" /> 
+</apex:outputText>&nbsp;
+-->
+   <div align="center" width="100px">
+    <apex:outPutText value="CASES Manhattan Supervised Release" style="font-weight:bold;font-size:20px"/>
+   </div>
+   <br/> 
+          <apex:pageMessages id="mess"/>
+               
+ 
+  
+  <apex:OutPutPanel id="opmain" >  
+ <apex:outputPanel id="popup" rendered="{!displayPopup}" >
+         <apex:outputPanel styleClass="customPopup" layout="block" id="op" rendered="{!displayPopup}">
+      <table id="tbl" cellpadding="3" cellspacing="5" width="100%">
+<tr>
+ 
+</tr>
+     <tr> 
+  
+       <td>
+        <apex:outputLabel value="{!clientName}" style="font-weight:bold;font-size:16px"/>
+      </td>
+      <td>
+        <apex:outputLabel value="Court date" />
+        &nbsp;
+        <apex:outputLabel value="{!appDate}"/>
+        </td>
+       <td align="left">
+                    <apex:commandButton value="Save" style="color:blue" status="selectData" title="Save & Close"
+                    
+                              rerender="opmain,popup,op " action="{!saveFTA}"/>  
+       </td>
+       <td align="right">
+       
+      <apex:commandLink value="Cancel" style="color:blue" status="selectData" 
+                             rerender="opmain,popup,op " action="{!closePopUp}"/>  
+        </td>
+                
+     </tr>
+      <tr>
+        <td>
+        
+          <apex:outPutLabel value="Warrant issued:" rendered="{!docName<>'Report'}"/>
+          <apex:outPutLabel value="FTA reason:" rendered="{!docName=='Report'}"/>
+       </td>
+       <td>
+        <apex:selectList size="1" required="false" value="{!FTAValue}" style="width:220px" id="plF"> 
+          <apex:selectOptions value="{!if(docName=='Report',ReasonItems,WarrantItems)}" />   
+        </apex:selectList>      
+        </td> 
+      </tr>
+      <tr>
+       <td>  
+        <apex:outPutLabel value="Outcome:"  />
+       </td>
+        <td>
+    <apex:selectList size="1" required="false" value="{!outcomeValue}" style="width:220px">  
+             <apex:selectOptions value="{!if(docName=='Report',FTAOutcomeItems,LetterOutcomeItems)}" />   
+      </apex:selectList>       
+      </td>
+      </tr>
+      <tr>
+      <td>
+       <apex:outPutLabel value="Returned to Program:"/> 
+      </td>
+      <td>
+     <apex:selectList size="1" required="false" value="{!ReturnedValue}" style="width:50px" id="plR" > 
+             <apex:selectOptions value="{!ReturnItems}" />   
+      </apex:selectList>
+      </td> 
+    <!-- 
+         <td align="left">
+      <apex:commandButton value="Save" style="color:blue" status="selectData" 
+            rerender="popup,op " action="{!saveFTA}">
+</apex:commandButton>                                
+       </td>
+      -->
+      </tr>
+      </table>
+         </apex:outputPanel>
+</apex:outputPanel> 
+
+    <table >
+           <tr>
+              <td>
+                <fieldset class="fsBorders">
+                   <legend style="color:blue" >Dates&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Select Document&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Select Case Coordinator
+                    <br/> 
+                      <table> 
+                         <tr>
+                     <td width="400px" align="left">
+                        from:&nbsp;&nbsp; 
+                       <apex:inputField value="{!proxyobject.Closing_Date__c}" />
+                          &nbsp;&nbsp;to:
+                       <apex:inputField value="{!proxyObject.Catalog_End_Date__c}" />  
+             
+                     </td>
+                    <td>
+                  <!-- onchange="SelectDocument(this.value)" -->
+                    <apex:selectList size="1" required="false" value="{!docValue}"
+                   style="width:140px" id="pldoc">
+                      <apex:selectOptions value="{!DocumentItems}" id="plct" rendered="true" />  
+                    </apex:selectList> 
+                     </td>
+                   <td>
+                    &nbsp;&nbsp;&nbsp;
+        <apex:selectList size="1" required="false" value="{!CCvalue}" id="CC" 
+           style="width:130px" onchange="donothing()">
+                      <apex:selectOptions value="{!ccItems}" id="plcc" rendered="true" />  
+          </apex:selectList>                   
+                   </td>  
+                     
+                   <td>
+                    <script>
+    function SelectDocument(doc) {
+            //        var selectedDocument = doc;
+               //     alert('court: ' + selectedDocument);
+                    afsetDocument(doc); 
+                     window.setTimeout(afdonothing,100);
+                  }
+</script>
+  
+   &nbsp;&nbsp;&nbsp;
+  
+              <apex:commandButton id="cmdSelect" value="Go" styleClass="btn" rerender="pbInfo"
+                    action="{!RequeryInfo}" style="color:blue" accesskey="" status="selectData">
+           </apex:commandButton> 
+                   </td> 
+   
+ </tr>
+ </table>
+ </legend>
+ </fieldset>
+ </td>          <td>
+                   <span id="loadingGifData" style="display:none;" >
+           Processing.Please wait...
+                            <apex:image value="/img/loading32.gif" />
+   </span>  
+   
+                   </td> 
+               </tr>
+               </table>  
+   
+    <apex:actionStatus startText=""  stopText="" id="selectData" onstart="loadingApps('1');" onstop="loadingApps('0');"/>
+  <apex:actionStatus startText=""  stopText="" id="selectData1" onstart="loadingAppsFTA('1');" onstop="loadingAppsFTA('0');"/>
+  
+<!-- 
+    <span id="loadingGifData" style="display:none;" >
+           Processing.Please wait...
+                            <apex:image value="/img/loading32.gif" />
+   </span>  
+-->
+            
+  
+  
+  </apex:OutPutPanel>
+ <html>
+ 
+ <body> 
+   <apex:outPutPanel style="width:100%;overflow-y: scroll; height: 650px;"  layout="block">  
+ 
+      <script>
+//     function createTrackRecord(actionPassed,clientPassed,noCourt,noDate,namePassed,apptype){ 
+     function createTrackRecord(actionPassed,clientPassed,noCourt,noDate,apptype){ 
+     //     alert('actionPassed: ' + actionPassed + 
+      //    ' client: ' + clientPassed );
+        
+           if (apptype != 'Rearrest'){
+             if (noDate == 'Y'){
+               alert('Missing Intake Date. Please enter.');
+            afCheckIntake(namePassed);
+             return;           
+             }
+          if (noCourt == 'Y'){
+               alert('This Client does not have a Court Date. Please create.');
+             afCheckCourt(namePassed);
+             return;}
+           }
+   window.open('/apex/srp_ComplianceTrackingPage?actionPassed='+actionPassed+'&clientPassed='+clientPassed, target='_blank');
+         }
+                  </script>
+   <apex:outPutLabel value="*" style="font-size:20px;color:red;font-weight:bold"/>
+   <apex:outPutLabel value="not active client" style="font-size:18px"/>
+  <apex:pageBlock id="pbInfo">
+      <table id="infoTable" class="tablesorter" border="0" cellpadding="2" cellspacing="3"  >
+               <thead> 
+                  <tr> 
+                 <th><FONT SIZE="2">Client Name</FONT></th>    
+    <th><FONT SIZE="1.5">Case Coordinator</FONT></th>   
+                     <th><FONT SIZE="2">App. Type</FONT></th>    
+                     <th><FONT SIZE="1.5">FollowUp</FONT></th>    
+                     <th><FONT SIZE="2">Date</FONT></th>    
+                     <th><FONT SIZE="2">Due Date</FONT></th>     
+                     <th><FONT SIZE="1">Court Part</FONT></th>     
+                     <th><FONT SIZE="2">Docum</FONT></th>    
+                   <th><FONT SIZE="2">Clock</FONT></th>     
+                     <th><FONT SIZE="2"></FONT></th>   
+                  </tr>  
+               </thead> 
+                <apex:repeat value="{!lstDeliqToShow}" var="m" id="infoTableRepead"> 
+                <tr>
+                  <td width="20%">
+                      <apex:outputLink value="/{!m.clientId}" id="dd" target="_blank" >
+                 <apex:outputText value="{!m.clientName}" style="font-size:14px;"/> 
+              </apex:outputLink> 
+                 <apex:outputText value="*" style="font-size:20px;color:red;font-weight:bold" rendered="{!m.exited}"/> 
+                  </td>
+               <td width="20%">
+               <apex:outputText value="{!m.CC}" style="font-size:10px;"/>
+              </td>
+              <td width="25%px">
+                 <apex:outputLink value="/{!m.actionId}" id="ai" target="_blank" >
+                   <apex:outputText value="{!m.apptype}" style="font-size:14px" />
+        <apex:outputlabel value=": {!m.caseType}" 
+        rendered="{!m.apptype=='Court Date'&&m.casetype=='In-Program'}"/>
+              </apex:outputLink>  
+              &nbsp;&nbsp; 
+              <apex:outputText value="FTA"  rendered="{!m.fta==true}"
+                   style="font-size:14px;color:red"/>
+             </td>
+             <td>
+              <apex:commandLink value="FollowUp"  status="selectData"
+                     rendered="{!m.fta==true||m.printWhat<>'Report'&&m.s_create<>''}" action="{!showPopup}"
+              rerender="opmain,popup,op" >
+              <apex:param name="clientName" value="{!m.clientName}" assignTo="{!clientName}"/>
+               <apex:param name="courtId" value="{!m.actionId}" assignTo="{!courtId}"/>
+              <apex:param name="appDate" value="{!m.appDate}" assignTo="{!appDate}"/>
+            <apex:param name="docName" value="{!m.printWhat}" assignTo="{!docName}"/>
+
+              </apex:commandLink>                    
+                  </td>                  
+              <td width="10%">
+                   <apex:outputText value="{!m.appDate}" style="font-size:14px;color:{!m.appcolor}" 
+                      title="{!m.verstatus}"/>
+                  </td>                  
+              <td width="10%">
+                   <apex:outputText value="{!m.dueDate}"  style="font-size:14px" />
+                  </td>                  
+            <td width="5%">
+                   <apex:outputText value="{!m.courtPart}"  style="font-size:14px" />
+                  </td>                  
+                   <td width="10%">
+                   <apex:outPutLabel value="{!m.PrintWhat}" style="width:100x;font-size:14px;"/>
+                  </td>                  
+                 
+                   <td width="3%" >
+                       <apex:outPutPanel rendered="{!m.PrintWhat=='Letter'&&m.ClockRun==true}"> 
+                       <img id="theImage" src="{!$Resource.clock_bmp}" 
+                            style="width:20px;height:20px" />
+                       </apex:outPutPanel>    
+                   </td>  
+            <!-- 
+                   <td>
+                   <apex:outPutLabel value="{!m.clientid+m.actionid+m.noCourt+m.noIntakeDate+m.clientName+m.apptype}"/>
+                   </td>                
+             -->
+                  <td width="3%" id="act">
+     <apex:commandButton value="{!m.s_create}" style="width:40px" 
+     rendered="{!m.s_create!=''&&m.PrintWhat!='Report'}"
+     onClick="createTrackRecord('{!m.actionid}','{!m.clientId}','{!m.noCourt}','{!m.noIntakeDate}','{!m.apptype}')"                          
+     title="{!if(m.noCourt=='Y','Please create a court date for this client','')}" rerender="mess"/>
+
+     <apex:commandButton value="{!m.s_create}" style="width:40px" 
+                rendered="{!m.s_create!=''&&m.SRPsuper==true&&m.PrintWhat=='Report'}"
+  onClick="createTrackRecord
+  ('{!m.actionid}','{!m.clientId}','{!m.noCourt}','{!m.noIntakeDate}','{!m.apptype}')"                        
+                   title="{!if(m.noCourt=='Y','Please create a court date for this client','')}" rerender="mess"/>
+          <apex:outPutLabel value="*" rendered="{!m.noCourt=='Y'}" style="color:red"/>  
+                    </td>                  
+                </tr>
+              </apex:repeat>
+       </table>   
+            <script type="Text/javascript">
+                j$("#infoTable").tablesorter(
+                    {
+                        widgets: ['zebra'],
+                        headers: { 
+                                // assign the first column (we start counting zero) 
+                                0: { sorter: true},
+                                1: { sorter: true},
+                                3: { sorter: true},
+                                4: { sorter: true},
+                                5: { sorter: true},
+                                6: { sorter: true},
+                               }                               
+                        }
+                );    
+         </script>  
+     </apex:pageBlock>
+</apex:outPutPanel>
+
+</body>
+</html>
+    
+   
+     
+    
+         
+</apex:form>
+</apex:page>

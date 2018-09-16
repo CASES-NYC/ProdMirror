@@ -1,0 +1,572 @@
+<!-- <apex:page controller="complianceLetterSTARTController" contentType="application/msWord#{!URLENCODE(strFileName)}.doc" cache="true">-->
+<apex:page controller="StartComplianceController" applyBodyTag="false" renderAs="pdf">
+<head>
+    <style type="text/css" media="print">
+        table,th,td {
+            border: 1px solid black; 
+            border-collapse: collapse;
+            style: fixed-layout;
+        }
+        @page Main {
+            mso-header:h1;
+            mso-footer:f1;
+        }
+        div.Main{
+            page:Main;
+        }
+        p.MyFoot, li.MyFoot, div.MyFoot{
+            mso-pagination:widow-orphan;
+            tab-stops:center 216.0pt right 432.0pt;
+            margin:0.5in;
+            margin-top:.01pt;
+        }
+        p.MyHead {
+            margin:0.5in;
+            margin-top:.01pt;
+        }
+        table#hrdftrtbl{
+            margin:0in 0in 0in 9in;
+        }  
+    </style>    
+   <style type="text/css" media="print">
+            @page {@top-right {
+                   content: "Page " counter(page) " of " counter(pages);
+                }
+               
+                @top-center {
+                    content: element(header);
+                }
+    
+                @bottom-left {
+                    content: element(footer);
+                }
+                margin-right:2.5cm;
+margin-left:2.5cm;
+margin-bottom:2.0cm;
+margin-top:2.5cm;
+size:letter;
+            
+            }
+                   
+          div.header {
+        
+                display: block;
+                padding: 5px;
+                position: running(header);
+            }            
+            div.footer {
+                display: block;
+                padding: 10px;
+                position: running(footer);
+            }
+            .pagenumber:before {
+                content: counter(page);
+            }
+             
+            .pagecount:before {
+                content: counter(pages);
+            } 
+                 
+            .centered {
+                text-align: center;
+            }
+            
+            .right { 
+                text-align: right;
+            }
+            
+            </style>
+  </head>        
+   <div class="header" >
+       <apex:image id="theImage" value="{!$Resource.CasesLogo}"/>
+</div>
+    <apex:form rendered="{!boolONE==false}">
+        <apex:outputPanel style="font-family: Arial; font-size: 12pt;width:550px;">
+        
+            <apex:outputText rendered="{!strContactType=='DTC' && strLetterType='Exit'}" value="{!today}<BR/>" escape="false"
+            style="width:550px;"/>
+        
+            <apex:outputPanel rendered="{!!bolTRP}" style="width:550px;">
+                <apex:outputPanel rendered="{!strLetterType='Exit'}" style="width:550px;">
+       <apex:outputPanel rendered="{!strContactType='CCM'||strContactType='CCI'||strContactType='CEO'}" style="width:550px;">                     
+                    
+                        New York Criminal Court<br/>
+                        Part {!evtMostRecentCourtDate.Part__c}
+                        100 Centre Street<br/>
+                        New York, NY, 10013<br/>
+                        <br/>                    
+                    
+                        <table width="70%" style="font-family: Arial; font-size: 12pt;">
+                            <tr>
+                                <td>
+                                    Date:
+                                </td>
+                                <td>
+                                    {!today}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    RE:
+                                </td>
+                                <td>
+                                    {!c.Name}
+                                </td>        
+                            </tr>
+                            <tr>
+                                <td>
+                                    Docket:
+                                </td>
+                                <td>
+                                    {!c.Intake_Case__r.Name}
+                                    <apex:repeat value="{!lstAttachedCases}" var="ci">
+                                        {!ci.Name}<br/>
+                                    </apex:repeat>
+                                </td>        
+                            </tr>
+                            <tr>
+                                <td>
+                                    Outcome:
+                                </td>
+                                <td>
+                                    <b>{!strOutcome}</b>
+                                </td>        
+                            </tr>        
+                        </table>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!strContactType='DTC'}" style="width:550px;">
+                    
+                        <table width="70%" style="font-family: Arial; font-size: 12pt;">
+                            <tr>
+                                <td>
+                                    RE:
+                                </td>
+                                <td>
+                                    {!c.Name}
+                                </td>        
+                            </tr>
+                            <tr>
+                                <td>
+                                    Docket:
+                                </td>
+                                <td>
+                                    {!c.Intake_Case__r.Name}
+                                    <apex:repeat value="{!lstAttachedCases}" var="ci">
+                                        {!ci.Name}<br/>
+                                    </apex:repeat>
+                                </td>        
+                            </tr>
+                            <tr>
+                                <td>
+                                    NYSID:
+                                </td>
+                                <td>
+                                    {!c.NYSID__c}
+                                </td>        
+                            </tr> 
+                            <tr>
+                                <td>
+                                    Project id:
+                                </td>
+                                <td>
+                                    {!c.P_C_ID__c}
+                                </td>        
+                            </tr> 
+                            <tr>
+                                <td>
+                                    <apex:outputText value="Book & Case:" />
+                                </td>
+                                <td>
+                                    {!c.Book_Case__c}
+                                </td>        
+                            </tr>                        
+                        </table>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                
+                <apex:outputPanel rendered="{!strLetterType='Extension'}" >
+                    <apex:outputPanel rendered="{!strContactType='CCM'||strContactType='CCI'||strContactType='CEO'}"
+                      style="width:550px;">
+                    
+                        <table width="70%" style="font-family: Arial; font-size: 12pt;">
+                            <tr>
+                                <td>
+                                    Date:
+                                </td>
+                                <td>
+                                    {!today}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    RE:
+                                </td>
+                                <td>
+                                    {!c.Name}
+                                </td>        
+                            </tr>
+                            <tr>
+                                <td>
+                                    Docket:
+                                </td>
+                                <td>
+                                    {!c.Intake_Case__r.Name}
+                                    <apex:repeat value="{!lstAttachedCases}" var="ci">
+                                        {!ci.Name}<br/>
+                                    </apex:repeat>
+                                </td>        
+                            </tr>
+                            <tr>
+                                <td>
+                                    Outcome:
+                                </td>
+                                <td>
+                                    <b>{!strOutcome}</b>
+                                </td>        
+                            </tr>        
+                        </table>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!strContactType='DTC'}" style="width:550px;">
+                    
+                        <table width="70%" style="font-family: Arial; font-size: 12pt;">
+                            <tr>
+                                <td>
+                                    Date:
+                                </td>
+                                <td>
+                                    {!today}
+                                </td>
+                            </tr>        
+                            <tr>
+                                <td>
+                                    RE:
+                                </td>
+                                <td>
+                                    {!c.Name}
+                                </td>        
+                            </tr>
+                            <tr>
+                                <td>
+                                    Docket:
+                                </td>
+                                <td>
+                                    {!c.Intake_Case__r.Name}
+                                    <apex:repeat value="{!lstAttachedCases}" var="ci">
+                                        {!ci.Name}<br/>
+                                    </apex:repeat>
+                                </td>        
+                            </tr>
+                            <tr>
+                                <td>
+                                    Project id:
+                                </td>
+                                <td>
+                                    {!c.P_C_ID__c}
+                                </td>        
+                            </tr> 
+                            <tr>
+                                <td>
+                                    Outcome:
+                                </td>
+                                <td>
+                                    <b>{!strOutcome}</b>
+                                </td>        
+                            </tr>                        
+                        </table>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                
+                <br/>
+                <apex:outputPanel rendered="{!strLetterType=='Exit'}" style="width:550px;">
+                    <apex:outputPanel rendered="{!strContactType=='DTC'}" style="width:550px;">
+                        Please accept this letter as notification that the above-referenced defendant 
+                        
+                        <apex:outputText value=" did not complete " rendered="{!!bolSuccessful}" />
+                        <apex:outputText value=" completed " rendered="{!bolSuccessful}" />
+                    
+                        {!strPossessiveGenderPronoun} sentence in the CASES Manhattan START 
+                        {!strTrackName} track on {!strCurrentExitDate}.
+                        <BR/>
+                        <BR/>
+                        
+                        {!strSalutation} {!c.LastName} was sentenced to a ten day term of Intermittent Imprisonment, with a
+                        requirement to serve {!c.Mandated_Days_Sessions__c} weekdays in the START {!strTrackName} track.<BR/>
+                        <BR/>
+                        
+                        <apex:outputPanel rendered="{!bolSuccessful}" style="width:550px;">
+                        
+                            Upon completion of the program, {!strSalutation} {!c.LastName} was given referrals to the following providers:
+                            <BR/>
+                            <apex:repeat value="{!lstProgramRelationships }" var="pr">
+                                -{!pr.Program__r.Name}<BR/>
+                            </apex:repeat>
+                            <BR/>
+                            His compliance date is scheduled for {!strComplianceDate}.<BR/>
+                            <BR/>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!!bolSuccessful}" style="width:550px;">
+                        
+                            {!strSalutation} {!c.LastName}
+                            <apex:outputText value=" never reported to serve his sentence." rendered="{!c.Days_Sessions_Completed__c == 0}" />
+                            <apex:outputText value=" reported for {!c.Days_Sessions_Completed__c} day(s):" 
+                                rendered="{!c.Days_Sessions_Completed__c > 0}"/>
+                            <BR/>
+                            <BR/>
+                            
+                            {!strSalutation} {!c.LastName} was terminated from the Day Custody Program and has a compliance date
+                            scheduled for {!strComplianceDate}. Program staff will be available on this date.<BR/>
+                            <BR/>
+                        </apex:outputPanel>    
+                        
+                        Should you have any questions, please don't hesitate to call me at (347) 675-8431.       
+                    </apex:outputPanel>
+                    
+              <apex:outputPanel rendered="{!strContactType=='CCM'||strContactType='CCI'||strContactType='CEO'}"
+               style="width:550px;">
+                        Please be advised that the above referenced individual's participation in the CASES Manhattan START 
+                        {!strTrackName} track 
+                        <apex:outputText value=" fully satisfies" rendered="{!bolSuccessful}" />
+                        <apex:outputText value=" does not fully satisfy" rendered="{!!bolSuccessful}" />
+                        the conditional discharge sentence received on {!strIntakeDate}.<br/>
+                        <br/>
+                        {!strSalutation} {!c.LastName} 
+                    
+                        <apex:outputText value=" received a comprehensive clinical assessment 
+                        of {!strPossessiveGenderPronoun} treatment needs and developed a treatment plan 
+                        with our program."
+                        />
+                    
+                        <apex:outputText rendered="{!bolSuccessful}"
+                        value="{!strGenderPronoun} has completed the {!c.Mandated_Days_Sessions__c} mandated case management sessions 
+                        required by the terms of {!strPossessiveGenderPronoun} release into the community and is in full compliance."/>
+                    
+                        <apex:outputText rendered="{!!bolSuccessful}"
+                        value=" Despite outreach efforts, {!strSalutation} {!c.LastName} has completed only {!c.Days_Sessions_Completed__c}
+                        of the {!c.Mandated_Days_Sessions__c} mandated case management sessions which were
+                        required under the conditions of {!strPossessiveGenderPronoun} plea agreement."
+                        />
+                    </apex:outputPanel>
+       
+                </apex:outputPanel>
+                
+                <apex:outputPanel rendered="{!strLetterType=='Extension'}" style="width:550px;">
+                    <apex:outputPanel rendered="{!strContactType=='DTC'}" style="width:550px;">
+                        Please be advised that the above referenced individual has participated in the CASES Manhattan START  
+                        
+                        {!strTrackName} track, in compliance with the {!c.Mandated_Days_Sessions__c} day intermittent sentence received
+                        on {!strIntakeDate}. {!strSalutation} {!c.LastName} has attended {!c.Days_Sessions_Completed__c} day(s) to date.
+                        <BR/>
+                        <BR/>
+                        [Describe client's situation and specifics of modification/extension request.]
+                        <BR/>
+                        <BR/> 
+                        <BR/>       
+                        Please feel free to contact me at the number provided below with any questions 
+                        or if any further clarification is needed in this matter. 
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!strContactType=='CCM'}">
+                        Please be advised that the above referenced individual has enrolled in the CASES Manhattan START 
+                        {!strTrackName} track. 
+                        
+                        However, {!strSalutation} {!c.LastName}'s participation in CCM only partially satisfies
+                        the conditional discharge sentence received on {!strIntakeDate}.
+                        <br/>
+                        <br/>
+                        {!strSalutation} {!c.LastName} received a comprehensive clinical assessment 
+                        of {!strPossessiveGenderPronoun} treatment needs and developed a treatment plan 
+                        with our program.
+                    
+                        {!strGenderPronoun} has completed {!c.Days_Sessions_Completed__c}
+                        of the {!c.Mandated_Days_Sessions__c} mandated case management sessions with CCM which were
+                        required by the terms of {!strPossessiveGenderPronoun} release into the community.
+                        <br/>
+                        <br/>
+                        [Describe client's situation and specifics of modification/extension request.]
+                    </apex:outputPanel>
+<apex:outputPanel rendered="{!strContactType=='CCI'}">
+                        Please be advised that the above referenced individual has enrolled in the CASES Manhattan START 
+                        {!strTrackName} track. 
+                        
+                        However, {!strSalutation} {!c.LastName}'s participation in CCI only partially satisfies
+                        the conditional discharge sentence received on {!strIntakeDate}.
+                        <br/>
+                        <br/>
+                        {!strSalutation} {!c.LastName} received a comprehensive clinical assessment 
+                        of {!strPossessiveGenderPronoun} treatment needs and developed a treatment plan 
+                        with our program.
+                    
+                        {!strGenderPronoun} has completed {!c.Days_Sessions_Completed__c}
+                        of the {!c.Mandated_Days_Sessions__c} mandated case management sessions with CCI which were
+                        required by the terms of {!strPossessiveGenderPronoun} release into the community.
+                        <br/>
+                        <br/>
+                        [Describe client's situation and specifics of modification/extension request.]
+                    </apex:outputPanel>                    
+  <apex:outputPanel rendered="{!strContactType=='CEO'}">
+                        Please be advised that the above referenced individual has enrolled in the CASES Manhattan START 
+                        {!strTrackName} track. 
+                        
+                        However, {!strSalutation} {!c.LastName}'s participation in CEO only partially satisfies
+                        the conditional discharge sentence received on {!strIntakeDate}.
+                        <br/>
+                        <br/>
+                        {!strSalutation} {!c.LastName} received a comprehensive clinical assessment 
+                        of {!strPossessiveGenderPronoun} treatment needs and developed a treatment plan 
+                        with our program.
+                    
+                        {!strGenderPronoun} has completed {!c.Days_Sessions_Completed__c}
+                        of the {!c.Mandated_Days_Sessions__c} mandated case management sessions with CEO which were
+                        required by the terms of {!strPossessiveGenderPronoun} release into the community.
+                        <br/>
+                        <br/>
+                        [Describe client's situation and specifics of modification/extension request.]
+                    </apex:outputPanel>  
+                </apex:outputPanel>
+                <br/>
+                <br/>
+                <br/>
+                Sincerely,<br/>
+                <br/>
+                Lauren Giwa, LCSW<br/>
+                Director of newSTART<br/>
+                (212) 553-6360/6784
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!bolTRP}">
+                <apex:repeat value="{!lstTRPContacts}" var="c">            
+            
+                    New York Criminal Court<br/>
+                    100 Centre Street<br/>
+                    New York, NY, 10013<br/>
+                    <br/>
+                    <br/>
+                    
+                    <table width="70%" style="font-family: Arial; font-size: 12pt;">
+                        <tr>
+                            <td>
+                                Date:
+                            </td>
+                            <td>
+                                {!strTRPClassDate}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                RE:
+                            </td>
+                            <td>
+                                {!c.Name}
+                            </td>        
+                        </tr>
+                        <tr>
+                            <td>
+                                Docket:
+                            </td>
+                            <td>
+                                {!c.Intake_Case__r.Name}
+                            </td>        
+                        </tr>       
+                    </table>
+                    <BR/>
+                    <BR/>
+                    To Whom it May Concern,
+                    <BR/>
+                    <BR/>
+                    Please note that {!c.FirstName} {!c.LastName} 
+                    has completed their community service sentence with the Treatment Readiness Program.
+                    If you have any questions, please feel free to contact me.<BR/>
+                    <BR/>
+                    <BR/>
+                    Sincerely,<BR/>
+                    <BR/>
+                    Lauren Giwa, LCSW<br/>
+                    Director of newSTART<br/>
+                    (212) 553-6360/6784
+                <br clear="all" style="page-break-before:always" />
+                </apex:repeat>
+            </apex:outputPanel>            
+        </apex:outputPanel>
+    </apex:form>
+  
+
+
+   <apex:form rendered="{!boolONE}">
+<br/>
+<br/>
+
+    <apex:outPutPanel rendered="{!boolONE}" style="font-family: Arial; font-size: 12pt;">
+   
+   <br/><br/>
+
+            <apex:outPutLabel value="New York Criminal Court"/>
+<br/>
+<apex:outPutLabel value="Part ASC Centre Street"/>
+<br/>
+<apex:outPutLabel value="New York, NY 10013"/>
+<br/>
+<br/>
+<br/>
+
+<table cellspacing="0" cellpadding="3" border="1">
+       <tr>
+           <td style="width:100px" align="left">
+             <apex:outPutLabel value="Date:"/>
+           </td>
+           <td style="width:500px" align="left">
+           <apex:outPutLabel value="{!letterDate}"/> 
+           </td>
+        </tr>
+       <tr>
+           <td style="width:100px" align="left">
+           <apex:outPutLabel value="RE:"/>
+           </td>
+           <td style="width:500px" align="left">
+           <apex:outPutLabel value="{!cname}"/>
+           </td>
+        </tr>
+       <tr>
+           <td style="width:100px" align="left">
+           <apex:outPutLabel value="Docket:"/>
+           </td>
+           <td style="width:500px" align="left">
+             <apex:outPutLabel value="{!docket}"/>
+           </td>
+        </tr>
+       <tr>
+           <td style="width:100px" align="left">
+               <apex:outPutLabel value="Outcome:"/>
+           </td>
+           <td style="width:500px" align="left">
+            <apex:outPutLabel value="{!outcome}"/>
+ 
+           </td>
+        </tr>
+ </table>   
+  </apex:outPutPanel>
+ <br/>
+ <br/>
+ <apex:outputPanel layout="block" style="width:550px;font-family: Arial; font-size: 12pt;">
+ <apex:outPutText VALUE="{!Expession1}" />  
+<br/><br/>
+<apex:outPutText VALUE="{!Expession2}" />  
+       </apex:outputPanel>  
+       
+<br/>
+<br/>
+<apex:outputLabel value="Sincerely," style="font-family: Arial; font-size: 12pt;"/>
+<br/>
+                <br/>
+<apex:outputLabel value="Lauren Giwa, LCSW" style="font-family: Arial; font-size: 12pt;"/><br/>
+<apex:outputLabel value="Director of newSTART" style="font-family: Arial; font-size: 12pt;"/><br/>
+<apex:outputLabel value="(212) 553-6336" style="font-family: Arial; font-size: 12pt;"/><br/>
+   </apex:form> 
+<div class="footer" >
+        <div class="centered"><apex:outPutLabel value="2090 Adam Clayton Powell Blvd., 8th Floor"/></div>
+        <div class="centered"><apex:outPutLabel value="New York, NY 10027" /></div> 
+        <div class="centered"><apex:outPutLabel value="(212) 553-6360/6784"/></div> 
+ </div>  
+                 
+</apex:page>

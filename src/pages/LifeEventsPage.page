@@ -1,0 +1,222 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="lecpage" >
+ <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+  <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+<apex:outPutPanel id="op" styleclass="span.resultContainer">
+ 
+<!--                     EDIT BLOCK  -->
+
+               
+<apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+<apex:pageMessages id="mess"/>
+<apex:pageblocksection columns="1" >
+  <!-- 
+  
+      <apex:selectRadio value="{!LEC.test__c}"  layout="lineDirection" style="width:700px;"  
+      label="Natural disaster (for example, flood, hurricane, tornado, earthquake)" >
+       <apex:selectOptions value="{!LECItems1}" />
+         </apex:selectRadio>
+
+<div class="requiredInput">
+ <div class="requiredBlock"></div>
+-->
+      <apex:selectRadio value="{!LEC.LEC_Q01__c}"  layout="lineDirection" 
+      style="width:700px;color:{!if(LEC.LEC_Q01__c==null,'red','black')}"  
+      label="Natural disaster (for example, flood, hurricane, tornado, earthquake)" 
+      >
+       <apex:selectOptions value="{!LECItems1}" />
+         </apex:selectRadio>
+<!-- </div>-->
+         <apex:selectRadio value="{!LEC.LEC_Q02__c}" layout="lineDirection" style="width:700px;background-color:#dbf0fd;" 
+         label="Fire or explosion"   >
+           <apex:selectOptions value="{!LECItems1}" />
+         </apex:selectRadio>
+ 
+       <apex:selectRadio value="{!LEC.LEC_Q03__c}" layout="lineDirection" style="width:700px"  
+       label="Transportation accident (for example, car accident, boat accident, train wreck, plane crash)">
+          <apex:selectOptions value="{!LECItems1}"/>
+         </apex:selectRadio>
+
+      <apex:selectRadio value="{!LEC.LEC_Q04__c}" layout="lineDirection" style="width:700px;background-color:#dbf0fd;"
+       label="Serious accident at work, home, or during recreational activity"   >
+       <apex:selectOptions value="{!LECItems1}" />
+         </apex:selectRadio>
+
+       <apex:selectRadio value="{!LEC.LEC_Q05__c}" layout="lineDirection" style="width:700px"  
+         label="Exposure to toxic substance (for example, dangerous chemicals, radiation)"  >
+          <apex:selectOptions value="{!LECItems1}"/>
+        </apex:selectRadio>
+
+        <apex:selectRadio value="{!LEC.LEC_Q06__c}" layout="lineDirection" style="width:700px;background-color:#dbf0fd;"
+       label="Physical assault (for example, being attacked, hit, slapped, kicked, beaten up)"   >
+       <apex:selectOptions value="{!LECItems1}"/>
+         </apex:selectRadio>
+  <apex:selectRadio value="{!LEC.LEC_Q07__c}" layout="lineDirection"  style="width:700px"   
+    label="Assault with a weapon (for example, being shot, stabbed, threatened with a knife, gun, bomb)" >
+    <apex:selectOptions value="{!LECItems1}"/>
+  </apex:selectRadio>
+  <apex:selectRadio value="{!LEC.LEC_Q08__c}" layout="lineDirection"  style="width:700px;background-color:#dbf0fd;"
+    label="Sexual assault (rape, attempted rape, made to perform any type of sexual act through force or threat of harm)"
+     >
+  <apex:selectOptions value="{!LECItems1}"/>
+  </apex:selectRadio>
+  <apex:selectRadio value="{!LEC.LEC_Q09__c}" layout="lineDirection"  style="width:700px"   
+         label="Other unwanted or uncomfortable sexual experience"  >
+  <apex:selectOptions value="{!LECItems1}"/>
+  </apex:selectRadio>
+  <apex:selectRadio value="{!LEC.LEC_Q10__c}" layout="lineDirection"  style="width:700px;background-color:#dbf0fd;"
+    label="Combat or exposure to a war-zone (in the military or as a civilian)"   >
+          <apex:selectOptions value="{!LECItems1}"/>
+  </apex:selectRadio>
+  <apex:selectRadio value="{!LEC.LEC_Q11__c}" layout="lineDirection"  style="width:700px"   
+    label="Captivity (for example, being kidnapped, abducted, held hostage, prisoner of war)" >
+    <apex:selectOptions value="{!LECItems1}"/>
+  </apex:selectRadio> 
+  <apex:selectRadio value="{!LEC.LEC_Q12__c}" layout="lineDirection"  style="width:700px;background-color:#dbf0fd;"
+    label="Life-threatening illness or injury"  >
+    <apex:selectOptions value="{!LECItems1}"/>
+  </apex:selectRadio>
+  <apex:selectRadio value="{!LEC.LEC_Q13__c}" layout="lineDirection"  style="width:700px"  
+         label="Severe human suffering"   >
+          <apex:selectOptions value="{!LECItems1}"/>
+  </apex:selectRadio>
+  <apex:selectRadio value="{!LEC.LEC_Q14__c}" layout="lineDirection" style="width:700px;background-color:#dbf0fd;"
+         label="Sudden, violent death (for example, homicide, suicide)"   >
+          <apex:selectOptions value="{!LECItems1}"/>
+  </apex:selectRadio>
+  <apex:selectRadio value="{!LEC.LEC_Q15__c}" layout="lineDirection"  style="width:700px"
+         label="Sudden, unexpected death of someone close to you"   >
+          <apex:selectOptions value="{!LECItems1}" />
+  </apex:selectRadio>
+  <apex:selectRadio value="{!LEC.LEC_Q16__c}" layout="lineDirection" style="width:700px;background-color:#dbf0fd;"
+         label="Serious injury, harm, or death you caused to someone else"  >
+    <apex:selectOptions value="{!LECItems1}"/>
+  </apex:selectRadio>
+  <apex:selectRadio value="{!LEC.LEC_Q17__c}" layout="lineDirection"  style="width:700px"  
+         label="Any other very stressful event or experience"  >
+    <apex:selectOptions value="{!LECItems1}" />
+  </apex:selectRadio>
+ </apex:pageblocksection>
+</apex:pageblock>
+
+
+
+<!--                     VIEW BLOCK  -->
+  <apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+    <apex:pageblocksection columns="1">
+   
+      <apex:PanelGrid columns="3" columnclasses="colstyle1,colstyle2,colstyle3" width="100%" rowclasses="oddrow,evenrow">
+        <apex:outputLabel value="1. Natural disaster (for example, flood, hurricane, tornado, earthquake)" style="width:700px;font-size:14px"/>              
+        <apex:outputLabel value="{!if(LEC.LEC_Q01__c=='Happened to me','*',' ')}" style="font-weight:bold;;font-size:20px;color:red" />              
+        <apex:outputtext value="{!LEC.LEC_Q01__c}"  style="color:blue;background-color:white;font-size:14px" />
+
+       <apex:outputLabel value="2. Fire or explosion" style="font-size:14px"/>                                    
+          <apex:outputLabel value="{!if(LEC.LEC_Q02__c=='Happened to me','*',' ')}" style="font-weight:bold;;font-size:20px;color:red"/> 
+        <apex:outputtext value="{!LEC.LEC_Q02__c}" style="color:blue;background-color:white;font-size:14px" />
+
+        <apex:outputLabel value="3. Transportation accident (for example, car accident, boat accident, train wreck, plane crash)" style="width:700px;font-size:14px"/>
+          <apex:outputLabel value="{!if(LEC.LEC_Q03__c=='Happened to me','*',' ')}"  style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q03__c}"  style="color:blue;background-color:white;font-size:14px" />
+  
+        <apex:outputLabel value="4. Serious accident at work, home, or during recreational activity" style="font-size:14px"/>
+          <apex:outputLabel value="{!if(LEC.LEC_Q04__c=='Happened to me','*',' ')}"  style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q04__c}"  style="color:blue;background-color:white;font-size:14px" />
+            
+        <apex:outputLabel value="5. Exposure to toxic substance (for example, dangerous chemicals, radiation)" style="font-size:14px"/>  
+          <apex:outputLabel value="{!if(LEC.LEC_Q05__c=='Happened to me','*',' ')}"  style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q05__c}"  style="color:blue;background-color:white;font-size:14px" />
+
+        <apex:outputLabel value="6. Physical assault (for example, being attacked, hit, slapped, kicked, beaten up)" style="font-size:14px"/>
+          <apex:outputLabel value="{!if(LEC.LEC_Q06__c=='Happened to me','*',' ')}"  style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q06__c}" style="color:blue;background-color:white;font-size:14px" />                   
+            
+        <apex:outputLabel value="7. Assault with a weapon (for example, being shot, stabbed, threatened with a knife, gun, bomb)" style="font-size:14px"/>
+          <apex:outputLabel value="{!if(LEC.LEC_Q07__c=='Happened to me','*',' ')}"  style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q07__c}" style="color:blue;background-color:white;font-size:14px" />
+                
+        <apex:outputLabel value="8. Sexual assault (rape, attempted rape, made to perform any type of sexual act through force or threat of harm)" style="font-size:14px"/>                                    
+          <apex:outputLabel value="{!if(LEC.LEC_Q08__c=='Happened to me','*',' ')}"  style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q08__c}"  style="color:blue;background-color:white;font-size:14px" />
+
+        <apex:outputLabel value="9. Other unwanted or uncomfortable sexual experience" style="font-size:14px"/>                                    
+          <apex:outputLabel value="{!if(LEC.LEC_Q09__c=='Happened to me','*',' ')}"  style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q09__c}"  style="color:blue;background-color:white;font-size:14px" />
+
+        <apex:outputLabel value="10.Combat or exposure to a war-zone (in the military or as a civilian)" style="font-size:14px"/>
+          <apex:outputLabel value="{!if(LEC.LEC_Q10__c=='Happened to me','*',' ')}" style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q10__c}"  style="color:blue;background-color:white;font-size:14px" />
+
+        <apex:outputLabel value="11.Captivity (for example, being kidnapped, abducted, held hostage, prisoner of war)" style="font-size:14px"/>
+          <apex:outputLabel value="{!if(LEC.LEC_Q11__c=='Happened to me','*',' ')}" style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q11__c}"  style="color:blue;background-color:white;font-size:14px" />
+
+        <apex:outputLabel value="12.Life-threatening illness or injury" style="font-size:14px"/>                                    
+          <apex:outputLabel value="{!if(LEC.LEC_Q12__c=='Happened to me','*',' ')}" style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q12__c}"  style="color:blue;background-color:white;font-size:14px" />
+
+        <apex:outputLabel value="13.Severe human suffering" style="font-size:14px"/>
+          <apex:outputLabel value="{!if(LEC.LEC_Q13__c=='Happened to me','*',' ')}" style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q13__c}"  style="color:blue;background-color:white;font-size:14px" />
+    
+        <apex:outputLabel value="14.Sudden, violent death (for example, homicide, suicide)" style="font-size:14px"/>                                    
+          <apex:outputLabel value="{!if(LEC.LEC_Q14__c=='Happened to me','*',' ')}" style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q14__c}"  style="color:blue;background-color:white;font-size:14px" />
+
+        <apex:outputLabel value="15.Sudden, unexpected death of someone close to you" style="font-size:14px"/>                                    
+          <apex:outputLabel value="{!if(LEC.LEC_Q15__c=='Happened to me','*',' ')}" style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q15__c}"  style="color:blue;background-color:white;font-size:14px" />
+
+        <apex:outputLabel value="16.Serious injury, harm, or death you caused to someone else" style="font-size:14px"/>                                    
+          <apex:outputLabel value="{!if(LEC.LEC_Q16__c=='Happened to me','*',' ')}" style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q16__c}"  style="color:blue;background-color:white;font-size:14px" />
+
+        <apex:outputLabel value="17.Any other very stressful event or experience" style="font-size:14px"/>                                    
+          <apex:outputLabel value="{!if(LEC.LEC_Q17__c=='Happened to me','*',' ')}" style="font-weight:bold;;font-size:20px;color:red"/>              
+        <apex:outputtext value="{!LEC.LEC_Q17__c}" style="color:blue;background-color:white;font-size:14px" />
+
+        </apex:PanelGrid>
+      </apex:pageblocksection>
+        
+  </apex:pageblock>
+
+</apex:outPutPanel>
+<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+                <table>
+                   <tr>
+                     <td width="400px" align="left">
+                       <apex:outputLabel value="Created by:"/>&nbsp;
+                       <apex:outputLabel value="{!createdInfo}"/>                   
+                     </td>
+                     <td width="400px"  align="right">
+                      <apex:outputLabel value="Last modified by:" />&nbsp;
+                      <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>  
+</apex:form>
+</apex:page>

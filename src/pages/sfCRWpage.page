@@ -1,0 +1,616 @@
+<apex:page controller="sfCRWcontroller" id="pgMain" action="{!insertCRW}" cache="false" sidebar="false" >   
+<!--action="{!insertCRW}"-->
+    <!-- showHeader="false" -->
+   <link rel="stylesheet" href="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.treeview.css')}"/>
+   <script src="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.cookie.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.treeview.js')}" type="text/javascript"></script>
+ <!-- 
+    <apex:outputPanel id="allPanel">
+      <apex:outputPanel rendered="{!NOT(initialised)}">
+        <p align="center" style='{font-family:"Arial", Helvetica, sans-serif; font-size:20px;}'><apex:image value="/img/loading.gif"/>&nbsp;Please wait</p>
+        <script>
+           window.onload=function()
+           {
+       //    alert('loading');
+             insertCRW();
+           };
+        </script>
+      </apex:outputPanel>
+ </apex:outputPanel>
+-->
+ <script>
+  
+ function setFocusOnLoad()
+   {
+   }
+
+</script>
+
+        <script>
+                function openreport(r){
+         //       alert('repid: ' + r);
+              window.open('/apex/sfCRWdocument?selectedReport='+r, target='_blank');
+              window.opener.location.reload(true);
+                } 
+              </script>
+<style type="text/css">
+       .customPopup{  
+           background-color: RGB(216,191,216);
+           border-style: solid;
+            border-width: 2px;
+            left: 450px;
+            padding:10px;
+            position:absolute;
+            height: 350px;
+            z-index:9999;
+            width:420px;
+       //     margin-left:-270px;
+            top:100px;
+  }   
+</style>  
+<!-- End of Javascript files -->
+<script type="text/javascript">
+        $(function() {
+            $("#tree").treeview({
+                collapsed: false,
+                animated: "medium",
+                control:"#sidetreecontrol",
+                persist: "location"
+            });
+        })
+</script>
+
+<script type="text/javascript">
+        $(function() {
+            $("#treeNotes").treeview({
+                collapsed: true,
+                animated: "medium",
+                control:"#sidetreecontrolNotes",
+                persist: "location"
+            });
+        })
+</script>
+<style type="text/css">  
+        .imgclass:hover{  
+            background-image: url(/img/help/helpOrbs.gif); 
+            background-repeat: no-repeat;  
+            width: 16px;  
+            height: 15px;     
+            background-position: right;  
+         
+        }  
+        .imgclass{  
+            background-image: url(/img/help/helpOrbs.gif);  
+            background-repeat: no-repeat;  
+            width: 16px;  
+            height: 15px;  
+        }  
+        .verticalLine {
+       border-left: thick solid #ff0000;
+}
+ .fsBorders {
+        border-color:#1797C0;
+        border-style: solid;
+        border-width: 2px;
+        height: 50px;        
+    }
+</style>
+    
+ 
+   
+
+<script>  
+        function loadingApps(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('loadingGifData').style.display = '';
+            } else {
+                document.getElementById('loadingGifData').style.display = 'none';
+            }
+        } 
+      function savingData(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('savingGifData').style.display = '';
+            } else {
+                document.getElementById('savingGifData').style.display = 'none';
+            }
+        } 
+        function showSaving() {
+               document.getElementById('savingGifData').style.display = '';
+               afShowSaving();
+        } 
+        
+        function hideSaving() {
+               document.getElementById('savingGifData').style.display = 'none';
+        } 
+   
+
+</script>  
+ 
+<html>
+<head> 
+<style type='text/css'>
+   html, body {height: 800px; margin: 0}
+   #content {width: 100%; height: 100%}
+   #content1 {width: 100%; height: 100%}
+   #left {width: 320px; height: 800px; float: left; background-color:white;}0
+   #left1 {width: 600px; height: 100%; float: left; background-color:white;}
+   #contentNotes {width: 100%; height: 100%}
+   #leftNotes {width: 250px; height: 800px; float: left; background-color:white;}
+
+</style>  
+</head> 
+<apex:form id="frmMain" > 
+ <apex:actionFunction name="insertCRW" action="{!insertCRW}" rerender="allPanel"/>
+
+<apex:outputLabel value="SF Admin:" style="display:none"/>&nbsp;&nbsp;
+<apex:outputLabel value="{!sfAdmin}" style="display:none"/>
+<apex:actionFunction name="afShowMainInfo" action="{!ShowClientMainInfo}" 
+   rerender="rightPanel,r1">  
+   <apex:param name="clientpassed" assignTo="{!clientpassed}" value="" />
+ </apex:actionFunction> 
+<apex:actionFunction name="afsetBoro" action="{!donothing}" 
+   rerender="left"> 
+     <apex:param name="selectedBoro" assignTo="{!selectedBoro}" value="" />
+ </apex:actionFunction>
+
+<apex:actionFunction name="afsetCC" action="{!donothing}" 
+   rerender="left"> 
+     <apex:param name="selectedCC" assignTo="{!selectedCC}" value="" />
+ </apex:actionFunction>
+
+<apex:actionFunction name="afsetCR" action="{!donothing}" 
+   rerender="left"> 
+     <apex:param name="selectedCR" assignTo="{!selectedCR}" value="" />
+ </apex:actionFunction>
+
+
+<apex:actionFunction name="afcreateReportNarrative" action="{!createReportNarrative}" 
+    rerender="stage,u,reps,r1"> 
+    <apex:param name="reportpassed" assignTo="{!reportpassed}" value="" />  
+ </apex:actionFunction>
+<apex:actionFunction name="afsaveAssign" action="{!saveAssign}" 
+rerender="stage"> 
+    <apex:param name="userpassed" assignTo="{!userpassed}" value="" />
+   <apex:param name="reportid" assignTo="{!reportid}" value="" />
+ </apex:actionFunction>
+
+    <apex:OutPutPanel >
+      <apex:outputLabel value="{!Message}" id="errorMessage" rendered="true"
+         style="color:red; font-size:16px;font-bold:true;" /> 
+         <table>
+           <tr>
+              <td>
+                <fieldset class="fsBorders">
+                   <legend style="color:blue" >Filter by&nbsp;&nbsp; 
+                 <table>   
+                   <tr>Boro&nbsp;
+                    <apex:selectList size="1" required="false" value="{!BoroList}" id="PLboro"  
+                         onchange="SelectBoro(this.value)" style="width:90px">
+                      <apex:selectOptions value="{!Boro}" id="plb" rendered="true" />  
+                    </apex:selectList>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  Case Coord.&nbsp;
+                 <apex:selectList size="1" required="false" value="{!CCList}" id="PLCC"
+                      onchange="SelectCC(this.value)" style="width:100px">
+                      <apex:selectOptions value="{!CCfilter}" id="plc" rendered="true" />  
+                    </apex:selectList>                 
+                 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+   Court Rep.&nbsp;
+                 <apex:selectList size="1" required="false" value="{!CRList}" id="PLCR"
+                 onchange="SelectCR(this.value)" style="width:100px">
+                      <apex:selectOptions value="{!CRfilter}" id="plr" rendered="true" />  
+                    </apex:selectList>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                    
+                 
+&nbsp;&nbsp;&nbsp;
+                   </tr>
+                   <tr>  
+               <br/><br/>
+               Dates from:&nbsp;&nbsp; 
+               <apex:inputField value="{!proxyobject.Closing_Date__c}" />
+                       &nbsp;&nbsp;to:
+               <apex:inputField value="{!proxyObject.Catalog_End_Date__c}" />                       
+     &nbsp;&nbsp;&nbsp;
+               <apex:commandButton id="cmdSelect" value="Go" styleClass="btn" 
+                     action="{!RequeryInfo}" 
+                    style="color:blue"/>
+        
+             </tr>
+               </table>
+                   </legend>
+               </fieldset>
+             </td>
+                 <script>
+                  function SelectBoro(selectedboro) { 
+                     // alert('boro: ' +selectedboro);
+                     afsetBoro(selectedboro); 
+                    //  window.setTimeout(afdonothing,100);
+                  }
+                  
+                  function SelectCC(selectedCC) { 
+                     // alert('boro: ' +selectedCC);
+                     afsetCC(selectedCC); 
+                    //  window.setTimeout(afdonothing,100);
+                  }
+                 function SelectCR(selectedCR) { 
+                //      alert('boro: ' +selectedCR);
+                     afsetCR(selectedCR); 
+                    //  window.setTimeout(afdonothing,100);
+                  }
+                 </script>
+                 <td>
+           
+                <fieldset class="fsBorders">
+                <br/>
+                   <legend style="color:blue" >Select Client by CEP ID&nbsp;&nbsp; 
+                      <apex:inputText style="width:50px" id="txtClient" value="{!clientSearch}"/>
+                       &nbsp;&nbsp;
+                      <apex:commandButton Value="Search" action="{!searchclient}" />
+                      <br/><br/>
+                      <apex:commandButton Value="Unsolved Reports" action="{!showPopup}" style="color:red" />
+                   </legend> 
+               </fieldset>
+             </td>
+             <td>
+          <apex:commandButton Value="Refresh" action="{!RequeryInfo}" />
+              &nbsp;&nbsp;
+                <apex:commandLink value="return to Home page" id="ret" action="{!pageClose}" style="font-size:10px;color:blue;">
+             </apex:commandLink>
+             </td>
+         
+          </tr>
+       </table>   
+      
+      
+          <apex:outputLabel value="{!advancedClients}" style="color:red"/>
+ 
+    </apex:OutPutPanel>
+ 
+   <apex:outputPanel id="datesList" rendered="{!doneSearch&&Message==''}" > 
+      <body id="info">
+         <apex:pageBlock id="content" >
+            <div id="left" style="height:800px;width:500px;overflow-y: scroll;" rendered="{!!displayPopUp}" > 
+               <div class="treeheader" style="height:0px;" >&nbsp;</div> 
+                  <ul id="tree"> 
+                     <div id="sidetreecontrol" ><a href="?#"><font style="color:black;">Collapse All</font></a> | <a href="?#"><font style="color:black;">Expand All</font></a></div> 
+                        <apex:repeat value="{!mainnodes}" var="parent1" id="nodes" >
+                           <li>
+                              <strong>
+                                 <apex:outputText value="{0, date, short}" style="font-size:16px;" id="repdate" > 
+                                    <apex:param value="{!parent1.d.courtdate}" /> 
+                                 </apex:outputText>
+                              </strong>
+                                 <ul >
+                                    <apex:repeat value="{!parent1.r}" var="child" >
+     <li>  
+   <span class="formattextcon" >    
+   
+      <table cellspacing="0" cellpadding="2" >
+        <tr width="500px">
+       
+       <td width="2px">  
+          <apex:image id="green" value="{!$Resource.LightG}" rendered="{!child.repcolor=='green'}"
+                             title="open Report" style="width:7px;heght:7px"
+           onClick="openFromTree('{!child.reportid}')"  />
+           <apex:image id="yellow" value="{!$Resource.POINT}" rendered="{!child.repcolor=='yellow'}" 
+                             title="open Report" style="width:12px;heght:7px" 
+           onClick="openFromTree('{!child.reportid}')" />
+           <apex:image id="red" value="{!$Resource.MISC15}" rendered="{!child.repcolor=='red'}" 
+                             title="open Report"  style="width:7px;he ght:7px"
+           onClick="openFromTree('{!child.reportid}')"/>
+         </td>
+       <td width="2px" align="right">  
+       <apex:outputLabel value="{!child.intakeboro}" id="intboro" 
+         style="font-size:14px;font-weight:bold" title="{!child.intakeBoroName}"
+           onClick="openFromTree('{!child.reportid}')"/>
+      </td>
+
+       <td width="4px" align="right">  
+       <apex:outputLabel value="{!child.reptype}" id="reptype" style="font-style:{!child.fontstyle}"
+           onClick="openFromTree('{!child.reportid}')" title="{!child.documentName}" />
+      </td>
+       <td width="50px" align="left">
+      <apex:outputLabel value="{!child.repstage}" id="repstage"  
+        onClick="openFromTree('{!child.reportid}')" />
+      </td>
+
+       <td width="150px" align="left">  
+     <apex:outputLabel value="{!child.clientname}" id="nameintree1" 
+       style="font-size:14px;font-weight:bold" title="open Report"
+           onClick="openFromTree('{!child.reportid}')" /> 
+      </td>
+             <td width="60px" align="left">  
+     <apex:outputLabel value="{!child.approvalStatus}" id="apprstage" 
+        onClick="openFromTree('{!child.reportid}')" />
+      </td>
+      
+       <td width="8px" align="left">  
+     <apex:outputLabel value="{!child.cepid}" id="idintree1" title="open Report"
+           onClick="openFromTree('{!child.reportid}')" />
+      </td> 
+      <td align="right" width="12px">
+          <apex:outputLabel value="{!child.assigned}" id="assign" title="Created/Edited by" style="font-size:12px"
+           onClick="openFromTree('{!child.reportid}')" />
+      
+      </td>
+          <script>
+           function openFromTree(rid){
+    //        alert('from tree ID ' + '{!displaypopUp}');
+             
+             window.open('/apex/sfCRWdocument?selectedReport='+rid, target='_blank');
+           }
+     
+         </script>
+       </tr>
+      </table>
+            </span>                 
+    </li> 
+<script>
+    function showMainInfo(clientpassed,dstart,dend){ 
+//   alert(' client: ' + clientpassed  + ' dstart: ' + dstart + ' dend ' + dend);
+  //  if (t == false){
+ ////////////////////////// afShowMainInfo(clientpassed);
+ //   var c = document.getElementById('cmdCreate');
+  //  alert(' eventpassed: ' + eventpassed);
+//  alert('dstart: ' + dstart);
+//  window.open('/apex/sfCRWPage?selectedClient='+clientpassed+'&selectedFrom='+dstart+'&selectedto='+dend, target='_blank');
+ window.open('/apex/sfCRWPage?selectedClient='+clientpassed, target='_blank');
+   } 
+ </script>  
+                                    </apex:repeat>
+                                 </ul>
+   
+                           </li>
+                        </apex:repeat>
+                  </ul>
+                </div>
+                <apex:outputPanel styleClass="customPopup" layout="block"  id="wpopup" rendered="{!displayPopUp}">
+               <apex:outputLabel value="Not Completed Documents for Court Dates in last 2 weeks" style="color:red"/>
+                
+                <apex:commandButton value="Close" action="{!closePopUp}" />
+         <div id="udiv" style="overflow:scroll;height:250px;" layout="block"> 
+         
+           <apex:dataTable border="1" cellpadding="4" cellspacing="1" value="{!unsolvedReports}" 
+               var="u" id="unsolv" columns="5" rowClasses="odd,even" style="background-color:white;">
+             <apex:column width="70px" headerValue="CEP Id">
+                 <apex:outputLabel value="{!u.cepid}"  />
+             </apex:column>
+             <apex:column width="150px" headerValue="Name">
+                 <apex:outputLabel value="{!u.cname}" />
+             </apex:column>
+             <apex:column width="70px" headerValue="Court Date">
+                 <apex:outputLabel value="{!u.ct_date}" />
+             </apex:column>
+              <apex:column width="70px" headerValue="Document">
+             <apex:commandLink value="{!u.document}" id="dd" onclick="openreport('{!u.repid}')" /> 
+             </apex:column>
+             <apex:column width="70px" headerValue="Type">
+                 <apex:outputLabel value="{!u.reptype}"  />
+             </apex:column>
+  
+          </apex:dataTable>
+      
+          </div>
+          </apex:outputPanel>      
+       <apex:panelGrid columns="1" rendered="{!showreports==false}" id="notes" >
+              <apex:outputPanel layout="block" style="overflow:scroll;width:550px;height:700px" >
+            <body id="noteinfo">
+                  <apex:pageBlock id="contentNotes" >
+                <div id="left2" style="height:800px; overflow-y: scroll;"> 
+               <div class="treeheader" style="height:0px;">&nbsp;</div> 
+                  <ul id="treeNotes"> 
+                     <div id="sidetreecontrolNotes" ><apex:outPutLabel value="Opened Notes" style="font-size:14px;"/> &nbsp;&nbsp;<a href="?#"><font style="color:black;font-size:14px">Collapse All</font></a> | <a href="?#"><font style="color:black;font-size:14px">Expand All</font></a></div> 
+                         <apex:repeat value="{!mainnodesnotes}" var="parent2" id="nodesnotes" >
+                           <li>
+                     
+        <div align="right" style="width:410px">
+        <table>
+          <tr>
+        <td width="20%" align="left">
+             <apex:outputText value="{!parent2.d.notedate}"  style="font-size:14px;color:black;font-weight:bold" id="noted" /> 
+                           <!--    </strong>-->
+           </td>          
+          <td width="40%" align="left">
+             <apex:outputText value="{!parent2.d.cname}"  style="font-size:14px;color:black;font-weight:bold" id="noten" /> 
+                           <!--    </strong>-->
+           </td>
+           <td width="15%" align="left">
+               <apex:commandButton value="Open report" onclick="openreport('{!parent2.d.repid}')" /> 
+          </td>
+          <td  width="15%" align="left">
+               <apex:outPutLabel value="{!parent2.d.commstatus}" style="color:{!parent2.d.commcolor}" />
+          </td>
+          <td  width="12%" align="left"> 
+              by&nbsp;
+               <apex:outPutLabel value="{!parent2.d.commentsby}"  />
+          </td>
+           </tr>
+         </table>
+           </div>
+        <ul >
+                                    <apex:repeat value="{!parent2.r}" var="child1" >
+                                      <li>  
+                     <span class="formattextcon">
+               <apex:outputPanel layout="block" style="overflow:scroll;width:450px;" >
+        <apex:repeat value="{!child1}" var="n">
+            <apex:pageBlock >
+              <apex:PageBlockTable value="{!n}" var="q" style="width:450px;border-left:3px solid green">
+                 <apex:column >
+                       <apex:outputLabel value="Comments Status:" />
+                       <apex:outputLabel value="{!n.status}" />
+               <br/><br/>
+                    <apex:outPutText escape="false" 
+                      value="{!substitute(substitute(JSENCODE(q.question),'\\n','<br/>'),'\\r','')}"
+                       style="font-size:12px;border:blue;overflow:scroll;color:black;"  />
+                 </apex:column>
+              </apex:PageBlockTable> 
+              <apex:PageBlockTable value="{!n}" var="r" style="width:450px;"  >
+                 <apex:column > 
+                    <apex:outPutText value="{!substitute(substitute(JSENCODE(r.respond),'\\n','<br/>'),'\\r','')}"  escape="false"
+                    style="font-size:12px;border:blue;overflow:scroll;color:blue;"  />
+                 </apex:column>
+                 </apex:PageBlockTable>
+            </apex:pageBlock>    
+        </apex:repeat>
+       </apex:outputPanel>
+ 
+                                </span>    
+                  </li> 
+                                    </apex:repeat>
+
+                                 </ul>
+                         </li> 
+                        </apex:repeat>
+                  </ul>
+                </div> 
+                  </apex:pageBlock>
+         
+           </body>
+            </apex:outputPanel>
+    </apex:panelGrid>
+    <apex:panelGrid columns="1" rendered="{!showreports}" >
+           <apex:pageblock id="block1">
+              <apex:outputPanel layout="block" style="overflow:scroll;width:550px;height:500px" >
+             <apex:outputLink rendered="{!showreports}"  value="/{!clientpassed}" id="dd" target="_blank" >
+                 <apex:outputText value="{!clientName}" style="font-size:16px;font-weight:bold;color:blue "/> 
+              </apex:outputLink> 
+         &nbsp;
+               <apex:outputText value="{!pc_id}" style="font-size:16px;font-weight:bold"/>   &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;
+               <apex:outputLabel value="{!courtName}" style="font-size:14px;font-weight:bold" rendered="{!showreports}"/>
+               &nbsp;
+               <apex:outputLabel value="Docket/ Indictment:" style="font-size:12px;font-weight:bold" rendered="{!showreports}"/>              
+               <apex:outputLink rendered="{!showreports}" value="/{!docketId}" id="did" target="_blank" >
+                  <apex:outputText value="{!docket_ind}" style="font-size:14px;color:blue"/> 
+               </apex:outputLink>
+             
+               
+               <br/>
+               <table>
+                 <tr>
+                   <td align="right">
+                  <apex:outputLabel value="Case Coordinator:" style="font-size:12px;2" rendered="{!showreports}"/>&nbsp;
+                   </td>
+                 <td >
+                 <apex:outputLabel value="{!CaseCoordinator}" rendered="{!showreports}" style="font-size:12px;"/>&nbsp;&nbsp;&nbsp;
+              </td>
+              <td align="right">
+                 <apex:outputLabel value="Intake Date:" rendered="{!showreports}" style="font-size:12px;font-weight:bold"/>
+             </td>
+              <td >
+                 <apex:outputLabel value="{!dintake}" rendered="{!showreports}" style="font-size:12px;"/>&nbsp;
+             </td> 
+             <td align="right">
+               <apex:outputLabel value="Intake boro:" style="font-size:12px;font-weight:bold" rendered="{!showreports}"/> 
+             </td>
+             <td>
+               <apex:outputText value="{!intakeboro}" style="font-size:14px;color:blue" rendered="{!showreports}"/>
+             </td>            
+                 </tr>
+                 <tr>  
+              <td align="right">
+                 <apex:outputLabel value="Team Leader:" style="font-size:12x;" rendered="{!showreports}"/>
+              </td>
+                <td >
+                 <apex:outputLabel value="{!teamleader}" rendered="{!showreports}" style="font-size:12px;"/>
+              </td>
+                    <td align="right">
+            <apex:outputLabel value="Proj. Exit Date:" rendered="{!showreports}" style="font-size:12px;font-weight:bold"/>
+              </td>
+           <td align="left">
+             <apex:outputLabel value="{!exitprojected}" rendered="{!showreports}" style="font-size:12px;"/>     
+              </td>
+                 </tr>
+
+     <tr>
+                <td align="right">
+                  <apex:outputLabel value="Court Representative:" rendered="{!showreports}" style="font-size:12px;"/>
+                </td>
+                <td align="left">
+                  <apex:outputLabel value="{!courtrep}" rendered="{!showreports}" style="font-size:12px;"/>
+              </td>
+              
+                       <td >
+         <apex:outputLabel value="Actual Exit Date:" rendered="{!showreports}" style="font-size:12px;font-weight:bold"/>
+           </td>
+           <td>
+         <apex:outputLabel value="{!dexit}" rendered="{!showreports}" style="font-size:12px;"/>
+              </td>
+              
+                 </tr>
+
+                 
+               </table>
+            <br/>   
+            <apex:outputLabel value="Exit type:" rendered="{!showreports}" style="font-size:12px;font-weight:bold"/>
+            <apex:outPutLabel value="{!exittype}" rendered="{!showreports}" style="font-size:12px;"/> 
+            <br/> 
+            <apex:outputLabel value="Exit reason:" rendered="{!showreports}" style="font-size:12px;font-weight:bold"/>
+            <apex:outPutLabel value="{!exitreason}" rendered="{!showreports}" style="font-size:12px;"/>            
+    
+             <apex:dataTable border="1" cellpadding="3" cellspacing="0" value="{!ClientRepsToShow}" 
+          var="t" id="reps" columns="7" rendered="{!showReports}" >
+             <apex:column width="70px" headerValue="Date">
+              <apex:outputLink value="/{!t.actionid}" id="dd" target="_blank" >
+                 <apex:outputText value="{!t.repdate}"/><br/>
+                 <apex:outPutLabel value="{!t.advancedfrom}" style="color:red"/>                 
+              </apex:outputLink>
+           </apex:column>
+           <apex:column headerValue="Document">
+              <apex:outputText value="{!t.document}"/>
+           </apex:column>
+           <apex:column headerValue="Document Type">
+              <apex:outputText value="{!t.reptype}"/>
+           </apex:column>
+           <apex:column width="70px" headerValue="Assigned To" id="colassign">
+               <apex:outPutLabel value="{!t.assigned}" style="width:120px" rendered="{!crwuser==false}" id="lblAssign"/>
+        <script>
+        function saveAssignScript(a,r){
+         //   var codeObj1 = document.getElementById('!$Component.lstUsers');
+          //    var selectedUser = codeObj1.options[codeObj1.selectedIndex].text;          
+        //    alert(' name: ' + a + ' repid: ' + r);
+            afsaveAssign(a,r);
+          }     
+          </script>  
+             
+         <apex:selectList size="1" value="{!t.assigned}" id="lstUsers" rendered="{!crwuser==true}" 
+                 style="width:120px"  title="{!t.assigned}" onchange="saveAssignScript(this.value,'{!t.reportid}')">
+                 <apex:selectOptions value="{!CRWUsers}" id="u" />
+          </apex:selectList>
+              </apex:column>  
+  
+    <apex:column width="60px" id="stages" headerValue="Report Stage" >
+       <apex:outputLabel value="{!t.repstage}" rendered="{!t.repstage!='to Do'}" id="lblStage"/>
+       <apex:commandButton value="Create" id="cmdCreate" action="{!createReportNarrative}"
+            style="width:75px" title="Create Report" rendered="{!(sfAdmin==true||crwuser==true)&&t.repstage=='to Do'}"
+            rerender="r1,lblStage,stages,colopen,lblAssign">
+             <apex:param name="rid" value="{!t.reportid}" assignto="{!reportpassed}"/>
+        </apex:commandButton> 
+            </apex:column>
+          
+           <apex:column width="60px" id="colopen" headerValue="Open" >
+              <apex:commandButton value="Open" disabled="{!t.repstage=='to Do'}" rendered="{!t.repstage!='to Do'}"
+              onclick="opendocument('{!t.reportid}')" /> 
+              <script>
+                function opendocument(r){
+               window.open('/apex/sfCRWdocument?selectedReport='+r, target='_blank');
+              window.opener.location.reload(true);
+             
+                } 
+              </script>
+              </apex:column>  
+            </apex:dataTable>          
+           </apex:outputPanel>
+           </apex:pageblock>
+          </apex:panelGrid>
+ </apex:pageBlock> 
+  
+</body>
+</apex:outputPanel>
+</apex:form>
+</html>
+</apex:page>

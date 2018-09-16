@@ -1,0 +1,202 @@
+<apex:page controller="EmploymentVerificationController"> 
+
+<!-- 
+	<apex:stylesheet value="{!URLFOR($Resource.jQuery,'/jQuery/style.css')}" />
+	<apex:stylesheet value="{!URLFOR($Resource.jQueryUI,'/css/redmond/jquery-ui-1.8.15.custom.css')}" />
+-->
+
+	<apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/style.css')}" />
+	<apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQueryUI-1.10.3/css/redmond/jquery-ui-1.8.15.custom.css')}" />
+
+ <apex:pagemessages rendered="true"/>
+<script>
+ function setFocusOnLoad()
+{
+}
+</script> 
+
+<script>  
+        function loadingApps(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('loadingGifData').style.display = '';
+            } else {
+                document.getElementById('loadingGifData').style.display = 'none';
+            }
+        } 
+</script>   
+  
+<script>  
+        function SavingChanges(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('savingData').style.display = '';
+            } else {
+                document.getElementById('savingData').style.display = 'none';
+            }
+        } 
+</script>    
+  
+  
+<script>
+  // javascript function which calls the action function 
+   function saveRecord(eventId, fieldName, fieldValue, fieldDateTime, fieldDuration) {
+     afSaveRecord(eventId, fieldName, fieldValue,fieldDateTime, fieldDuration);
+   }
+</script>
+<script> 
+   function setSelectedContactId(fieldValue) {
+   // alert('contactid: ' + fieldValue );
+    afsetSelectedId(fieldValue);
+    }
+</script>   
+<apex:form id="form1" style="overflow:auto; height:700px;">
+
+<apex:actionFunction name="afSaveRecord" action="{!saveRecord}" 
+   rerender="details,accInfo">
+  <apex:param name="eventId" assignTo="{!eventId}" value="" />
+  <apex:param name="fieldName" assignTo="{!fieldName}" value="" />
+  <apex:param name="fieldValue" assignTo="{!fieldValue}" value="" />
+  <apex:param name="fieldDateTime" assignTo="{!fieldDateTime}" value="" />
+    <apex:param name="fieldDuration" assignTo="{!fieldDuration}" value="" />
+</apex:actionFunction>
+
+<apex:actionFunction name="afsetSelectedId" action="{!setSelectedId}" 
+     rerender="blockDetails,accInfo">
+     <apex:param name="fieldValue" assignTo="{!fieldValue}" value="" />
+ </apex:actionFunction>
+
+ <span id="theText" style="font-style:italic; font-size:16px;font-bold:true;">Timesheet Form</span> 
+   
+ <table>
+     <tr>
+        <td width="200px">
+           <div align="left" style="color:blue" id="dates">
+               Dates between<br />
+                 <apex:inputField value="{!proxyobject.Open_Date__c}"  /><br />
+                  and<br />
+                 <apex:inputField value="{!proxyObject.Closing_Date__c}" /><br />
+            </div>                                  
+        </td>
+      
+        <td width="170px" >
+           <div style="color:blue;align:left" >
+                 Select Employment<br /> 
+                  <apex:selectCheckboxes id="selprg" border="1" style="font-size:11px" 
+                  layout="pageDirection" value="{!Programs}" rendered="true">
+                     <apex:selectOptions value="{!programitems}" id="item"  /> 
+                  </apex:selectCheckboxes>
+            </div>
+        </td>
+       
+       <td>
+              <apex:commandLink id="cmdSelect" value="Refresh Client List" styleClass="btn" 
+               accesskey="" status="selectData"
+               action="{!resetEvents}" 
+               rerender="blockDetails, errorMessage, PLcontacts, selprg,dataValidation,apps,
+               accInfo">
+          </apex:commandLink> 
+          <br/>
+          <br/>
+          <div align="left" style="color:blue">
+                Select Client<br/>  
+                <apex:selectList size="1" required="false" value="{!ContactList}" id="PLcontacts"  
+                      style="width:150px" onchange="setSelectedContactId(this.value)">
+                      <apex:selectOptions value="{!ContactNames}" id="pl" rendered="true" />                         
+                </apex:selectList>
+           </div>
+        </td>     
+        <td>     
+        <span id="loadingGifData" style="display:none;" > 
+        <table>       
+           <tr>
+             <td>
+                Selecting Appointments ...Please wait
+                           <apex:image value="{!$Resource.loading}" />
+             </td>
+           </tr>
+         </table>
+        </span>
+        </td>
+   </tr>
+   <apex:actionStatus startText=""  stopText="" id="selectData" onstart="loadingApps('1');" onstop="loadingApps('0');"/>
+ </table>     
+    <apex:outputLabel value="{!Message}" id="errorMessage" rendered="true"
+         style="color:red; font-size:16px;font-bold:true;" />   
+   <apex:outputLabel value="{!IF(Results==null ||Results==0 , "...No records selected for this date range.","")}" id="dataValidation" rendered="true"
+        style="color:red; font-size:16px;font-bold:true;" />
+    <apex:pageBlock id="blockDetails" rendered="true" 
+   mode="inlineEdit" >
+   
+   <apex:outputPanel id="accInfo" style="font-size:20px;color:blue;font-bold:true" rendered="{!clientName.name<>''}">
+    <apex:outputText value="{!clientName.name}" />
+      &nbsp; &nbsp; &nbsp; &nbsp; 
+    <apex:outputText value="{!clientName.P_C_ID__c}"/>
+       &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;
+      	&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;
+      	<apex:outputText id="winfo" value="{!workinfo}" style="font-size:20px;color:black;font-style:italic;font-bold:true"/>
+       	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
+       	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+       	<apex:outputLink value="/00O600000038DG9?pv0={!clientId}" target="_blank">
+		    Fiscal Backup
+		</apex:outputLink>
+    </apex:outputPanel>  
+      
+      <apex:outputPanel id="details" rendered="{!clientName.name<>''}">
+      <apex:pageBlockTable id="Apps" value="{!events}" var="e" columns="9" cellspacing="0" 
+       style="font-size:12px;">
+               <apex:column headerValue="Scheduled Time" style="color:red; width:130px;">
+                  <apex:outputField value="{!e.eventForDisplay.ActivityDateTime}" /> 
+            </apex:column>
+           <apex:column headerValue="Hours" style="width:20px;align:center">
+               <apex:outputText value="{!e.eventForDisplay.durationinminutes/60}" /> 
+            </apex:column>            
+            <apex:column headerValue="Account Name" style="width:170px;">
+            <apex:outputText value="{!e.eventForDisplay.what.name}" /> 
+            </apex:column>
+  
+     <apex:column headerValue="Subject" style="width:150px;">
+            <a href="/{!e.eventForDisplay.Id}" target="_blank">
+            	{!e.eventForDisplay.Subject}</a>
+            </apex:column>
+
+            <apex:column headerValue="DOW" style="align:center;width:80px;">
+               <apex:outputText value="{!e.dayofweek}"  id="dow" style="width:50px;"/>
+            </apex:column>
+            <apex:column headerValue="Attendance" style="width:100px;" >
+                <apex:selectList value="{!e.eventForDisplay.Verification_Status__c}" 
+                  size="1" id="att"
+                onchange="saveRecord('{!e.eventForDisplay.id}', 'Attendance', this.value,
+                '{!e.eventForDisplay.ActivityDateTime}', '{!e.eventForDisplay.durationinminutes}')"
+                rendered="{!e.eventForDisplay.ActivityDate <= today()}" > 
+                <apex:selectOptions value="{!attendanceitems}" id="attitem" />
+                 </apex:selectList>
+             </apex:column>
+          <apex:column style="width:60px;text-align:left"  headerValue="Time In">
+               <apex:selectList value="{!e.eventForDisplay.Time_In__c}" id="t1" size="1" 
+               onchange="saveRecord('{!e.eventForDisplay.id}', 'Time In',this.value,
+               '{!e.eventForDisplay.ActivityDateTime}', '{!e.eventForDisplay.durationinminutes}')"
+                disabled="{!e.eventForDisplay.Verification_Status__c!='Attended'
+              &&e.eventForDisplay.Verification_Status__c!='Late'}"
+              rendered="{!e.eventForDisplay.ActivityDate <= today()}" >
+               <apex:selectOptions value="{!e.timesin}" rendered="true" id="so"/>
+               </apex:selectList>
+            </apex:column>   
+            <apex:column style="width:60px;text-align:left" headerValue="Time Out" rendered="true">
+                 <apex:selectList value="{!e.eventForDisplay.Time_Out__c}" id="t2" size="1" 
+                 onchange="saveRecord('{!e.eventForDisplay.id}', 'Time Out', this.value,
+                 '{!e.eventForDisplay.ActivityDateTime}', '{!e.eventForDisplay.durationinminutes}')" 
+                 disabled="{!e.eventForDisplay.Verification_Status__c!='Attended'
+              &&e.eventForDisplay.Verification_Status__c!='Late'}"
+              rendered="{!e.eventForDisplay.ActivityDate <= today()}">
+                 <apex:selectOptions value="{!e.timesout}" rendered="true"/>
+                </apex:selectList>
+             </apex:column> 
+            <apex:column headerValue="Worked" style="width:20px;align:center;color: {!e.color}">
+               <apex:outputText value="{!e.actualhours/60}" /> 
+            </apex:column>
+             </apex:PageBlockTable>  
+         </apex:outputPanel> 
+   </apex:pageBlock>
+     </apex:form>
+</apex:page>

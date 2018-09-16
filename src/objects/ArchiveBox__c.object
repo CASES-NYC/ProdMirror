@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>To store and track information regarding the archival of client folders.  Each box contains the folders from clients exited in a given month.  Boxes are shipped for storage several times a year. Each box must be complete (have all the folders for that month of exits) and all prior boxes must be complete for a box to be considered complete.  Complete is defined as all folders accounted for.  This is to cover lost folders which must be recorded as lost to be accounted for.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Box_Alias__c</fullName>
+        <description>create a useful name for the box based on the year and month of folders that are going into that box</description>
+        <externalId>false</externalId>
+        <formula>text(Box_Start_Date__c)&amp;&quot; TO &quot;&amp;text(Box_End_Date__c) &amp; if(isblank(text(Folder_Borough__c)),&quot;&quot;, &quot; - &quot;&amp;text( Folder_Borough__c ))</formula>
+        <label>Box Alias</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Box_Bar_Code__c</fullName>
+        <description>The actual box number is 11 digits with leading zeros</description>
+        <externalId>false</externalId>
+        <formula>lpad(text(Box_Number__c),11,&quot;0&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>From label attached to the box. Labels come from Facilities</inlineHelpText>
+        <label>Box Bar Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Box_Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Box Comments</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Box_Complete__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are all the folders that go in this box accounted for?</inlineHelpText>
+        <label>Box Complete</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Box_Destroy_Date__c</fullName>
+        <description>Boxes are destroyed 7 years after they are shipped to storage.</description>
+        <externalId>false</externalId>
+        <formula>Box_End_Date__c+(365*7)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Box Destroy Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Box_End_Date__c</fullName>
+        <description>see description in Box Start Date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last exit date of folders in box, or last day of month if entire month</inlineHelpText>
+        <label>Box End Date</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Box_Number__c</fullName>
+        <description>Data entry only</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the number on the label, ignoring the leading zeros. 000000123 would be entered as 123</inlineHelpText>
+        <label>Box Number</label>
+        <precision>11</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Box_Start_Date__c</fullName>
+        <description>Boxes contain a set of folders. Usually the folders all belong to clients who exited in a single month, but sometimes there may be more than one month in a box.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Earliest exit date of folders in the box. If entire month is in box, use first day of month.</inlineHelpText>
+        <label>Box Start Date</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date_Box_Shipped__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Box Shipped</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Folder_Borough__c</fullName>
+        <description>Borough that client folders come from</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Borough that client folders come from. Blank is from 346 Broadway.</inlineHelpText>
+        <label>Folder Borough</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Brooklyn</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Harlem</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Folder_Month__c</fullName>
+        <externalId>false</externalId>
+        <label>Folder Month</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Folder_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Folder Year</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Month_Text__c</fullName>
+        <description>Name of month for text that goes into report for Facilities to include in box.</description>
+        <externalId>false</externalId>
+        <formula>CASE( 
+Folder_Month__c, 
+1, &quot;January&quot;,
+2, &quot;February&quot;, 
+3, &quot;March&quot;, 
+4, &quot;April&quot;, 
+5, &quot;May&quot;, 
+6, &quot;June&quot;, 
+7, &quot;July&quot;, 
+8, &quot;August&quot;, 
+9, &quot;September&quot;, 
+10, &quot;October&quot;, 
+11, &quot;November&quot;,
+12, &quot;December&quot;, 
+&quot;NO MONTH ENTERED&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Month Text</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Folders_in_Box__c</fullName>
+        <description>Count the number of BC records that belong to a box</description>
+        <externalId>false</externalId>
+        <label>Number of Folders in Box</label>
+        <summaryForeignKey>Box_Contact__c.Archive_Box_Name__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>OldId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Old ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Shipping_Text__c</fullName>
+        <description>Text to be included in report for Facilities that goes with box being shipped. We don&apos;t have to make a field for this, we could put a formula field in the report. But what the hell, there aren&apos;t many fields on this object.</description>
+        <externalId>false</externalId>
+        <formula>&quot;CEP Exit Folders From &quot;&amp;Box_Alias__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Shipping Text</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Archive Box</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Box_Alias__c</columns>
+        <columns>Box_Number__c</columns>
+        <columns>Box_Complete__c</columns>
+        <columns>Date_Box_Shipped__c</columns>
+        <columns>Number_of_Folders_in_Box__c</columns>
+        <columns>Box_Comments__c</columns>
+        <columns>Folder_Borough__c</columns>
+        <columns>Box_End_Date__c</columns>
+        <columns>Box_Start_Date__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Ready_to_Ship</fullName>
+        <columns>NAME</columns>
+        <columns>Box_Alias__c</columns>
+        <columns>Box_Number__c</columns>
+        <columns>Box_Complete__c</columns>
+        <columns>Number_of_Folders_in_Box__c</columns>
+        <columns>Shipping_Text__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Box_Complete__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Date_Box_Shipped__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>Ready to Ship</label>
+    </listViews>
+    <listViews>
+        <fullName>SearchBoxName</fullName>
+        <columns>NAME</columns>
+        <columns>Box_Alias__c</columns>
+        <columns>Box_Number__c</columns>
+        <columns>Box_Complete__c</columns>
+        <columns>Number_of_Folders_in_Box__c</columns>
+        <columns>Shipping_Text__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>NAME</field>
+            <operation>contains</operation>
+            <value>29</value>
+        </filters>
+        <label>Search box name</label>
+    </listViews>
+    <nameField>
+        <displayFormat>Box-{0}</displayFormat>
+        <label>Box Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Archive Boxes</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Box_Alias__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Box_Bar_Code__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Box_Complete__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Date_Box_Shipped__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Number_of_Folders_in_Box__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Box_Destroy_Date__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Box_Alias__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Box_Number__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Date_Box_Shipped__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Box_Destroy_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Box_Comments__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchResultsAdditionalFields>Box_Alias__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Box_Number__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Box_Comments__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>MinBoxNumber</fullName>
+        <active>true</active>
+        <description>The box number must be at least 10,000</description>
+        <errorConditionFormula>Box_Number__c&lt;10000</errorConditionFormula>
+        <errorDisplayField>Box_Number__c</errorDisplayField>
+        <errorMessage>Box number must be greater than 10,000</errorMessage>
+    </validationRules>
+</CustomObject>

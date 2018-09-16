@@ -1,0 +1,3961 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Action_Date_Old__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(RecordTypeId , &quot;012600000004ydt&quot;,  Exit_Date__c , &quot;012600000004yeD&quot;,  Extension_Date__c ,&quot;012600000004yeI&quot;, Re_Instatement_Date__c ,&quot;012600000004yeN&quot;, Re_Intake_Date__c , null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Action Date Old</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Action_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Action Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Activities_Engaged_in_at_Exit__c</fullName>
+        <externalId>false</externalId>
+        <label>Activities Engaged in at Exit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In HSE Program</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Internship</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Outpatient Drug Treatment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Outpatient MH Treatment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Residential Drug Treatment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Residential MH Treatment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In School</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Vocational Training Program</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Approved_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Approved By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Administrative_Actions1</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Approved_Old__c</fullName>
+        <externalId>false</externalId>
+        <formula>If(OR( Exit_Notification_Approved__c ,  Reinstatement_Approved__c,   Re_Intake_Approved__c ,  Extension_Decision_Approved__c),&apos;Yes&apos;,&apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Approved Old</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approved__c</fullName>
+        <externalId>false</externalId>
+        <label>Approved?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CBO_Activity__c</fullName>
+        <externalId>false</externalId>
+        <label>CBO Activity</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In College</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In HSE/pre-HSE Program</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Internship</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Outpatient Drug Treatment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Outpatient MH Treatment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In School</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Vocational Training Program</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Youth Development Programming</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CBO_Closing_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>CBO Closing Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>CEP__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>CEP# is generated when the outcome in the intake case is set to INTAKE. In other words, when a client becomes an actual intake.</inlineHelpText>
+        <label>CEP #</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>Text(Client__r.Client_Status__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Client Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client_Team_Director__c</fullName>
+        <externalId>false</externalId>
+        <formula>Client__r.Team_Leader__r.FirstName &amp; &apos; &apos; &amp;  Client__r.Team_Leader__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Client Team Director</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client_Team_Director_id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Client__r.Team_Leader__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Client Team Director Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client__c</fullName>
+        <externalId>false</externalId>
+        <label>Client</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Administrative Action</relationshipLabel>
+        <relationshipName>Administrative_Actions</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Community_Placement__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Community Placement</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>Administrative_Actions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Conditions__c</fullName>
+        <externalId>false</externalId>
+        <label>Conditions</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Participant was in the program between 30 and 119 days and out of the program for less than 60 days</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Participants was in the program at least 120 days and out of the program for less than 120 days</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Participant was in the program for less than 30 days</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Participant was in the program between 30 &amp; 119 days &amp; out of the program 60 days or longer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Participant was in the program at least 120 days &amp; out of the program 120 days or longer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Conditions_for_Reinstatement__c</fullName>
+        <externalId>false</externalId>
+        <label>Conditions for Reinstatement</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Participant was in the program between 30 and 119 days and out of the program for less than 60 days</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Participants was in the program at least 120 days and out of the program for less than 120 days</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Entered</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Conditions_for_Reintake__c</fullName>
+        <externalId>false</externalId>
+        <label>Conditions for Re-Intake</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Participant was in the program for less than 30 days</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Participant was in the program between 30 &amp; 119 days &amp; out of the program 60 days or longer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Participant was in the program at least 120 days &amp; out of the program 120 days or longer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Entered</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Contributing_Factors__c</fullName>
+        <externalId>false</externalId>
+        <label>Contributing Factors</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Develop. Disability/Cognitive impairment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Drug use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Family Issues</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial Issues</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Gang Activity</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Homelessness</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lack of or Insufficient Health Insurance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mental Illness</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rearrest</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Court_Rep_Comments_Reinstatement__c</fullName>
+        <externalId>false</externalId>
+        <label>Court Rep Comments (Reinstatement)</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Court_Rep_Comments_Reintake__c</fullName>
+        <externalId>false</externalId>
+        <label>Court Rep Comments (Re-Intake)</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Court_Rep_Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Court Rep Comments</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Court_Rep_Interview_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Court Rep Interview Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Court_Rep_ReIntake_Interview_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Court Rep Re-Intake Interview Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Court_Rep_Reinstatement_Interview_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Court Rep Reinstatement Interview Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Current_Orientation_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Current Orientation Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Current_Projected_Exit_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Client__r.Current_Projected_Exit_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Current Projected Exit Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Did_the_Intake_Judge_Order_the_Extension__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Did the Intake Judge Order the Extension</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Doesnt_Fit_Criteria_Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Doesn&apos;t Fit Criteria Comments</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Doesnt_fit_ReIntake_criteria_comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Doesn&apos;t Fit Re-Intake Criteria, Comments</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Doesnt_fit_Reinstate_Criteria_Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Doesn&apos;t Fit Reinstate Criteria, Comments</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Exit_Date_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Original Exit Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Exit_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Exit Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Exit_Notification_Approved_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Exit Notification Approved By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>R00N60000001PTP5EAO</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Exit_Notification_Approved__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Exit Notification Approved</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Exit_Notification_Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Exit Note</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Exit_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Exit Reason</label>
+        <picklist>
+            <controllingField>Exit_Type__c</controllingField>
+            <picklistValues>
+                <fullName>Successfully completed program, without modification</fullName>
+                <default>false</default>
+                <controllingFieldValues>(S) Successful Exit/ Graduation</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transferred to residential drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+                <controllingFieldValues>(S) Successful Exit/ Graduation</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transferred to residential, non drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+                <controllingFieldValues>(S) Successful Exit/ Graduation</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Intake case dismissed or defendant acquitted after trial</fullName>
+                <default>false</default>
+                <controllingFieldValues>(S) Successful Exit/ Graduation</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Intake judge relieved participant of supervision (includes early graduation due to imposition of a reduced sentence)</fullName>
+                <default>false</default>
+                <controllingFieldValues>(S) Successful Exit/ Graduation</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Never reported for orientation</fullName>
+                <default>false</default>
+                <controllingFieldValues>(U) Unsuccessful Exit/ Discharge</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stopped reporting to CEP altogether</fullName>
+                <default>false</default>
+                <controllingFieldValues>(U) Unsuccessful Exit/ Discharge</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unacceptably sporadic attendance (for counseling and/or program plan activities)</fullName>
+                <default>false</default>
+                <controllingFieldValues>(U) Unsuccessful Exit/ Discharge</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Failed to follow up on case manager referrals</fullName>
+                <default>false</default>
+                <controllingFieldValues>(U) Unsuccessful Exit/ Discharge</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Committed serious violation of CEP rules and regulations</fullName>
+                <default>false</default>
+                <controllingFieldValues>(U) Unsuccessful Exit/ Discharge</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Engaged in on-going criminal activity</fullName>
+                <default>false</default>
+                <controllingFieldValues>(U) Unsuccessful Exit/ Discharge</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Remanded by intake judge</fullName>
+                <default>false</default>
+                <controllingFieldValues>(U) Unsuccessful Exit/ Discharge</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Violated by Probation</fullName>
+                <default>false</default>
+                <controllingFieldValues>(U) Unsuccessful Exit/ Discharge</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indicted on rearrest</fullName>
+                <default>false</default>
+                <controllingFieldValues>(U) Unsuccessful Exit/ Discharge</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Exited for pending unindicted felony rearrest</fullName>
+                <default>false</default>
+                <controllingFieldValues>(U) Unsuccessful Exit/ Discharge</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Exited for multiple rearrests</fullName>
+                <default>false</default>
+                <controllingFieldValues>(U) Unsuccessful Exit/ Discharge</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Failed to appear for a court date; bench warrant ordered</fullName>
+                <default>false</default>
+                <controllingFieldValues>(U) Unsuccessful Exit/ Discharge</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Participant seriously incapacitated</fullName>
+                <default>false</default>
+                <controllingFieldValues>(Z) Other</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Participant died</fullName>
+                <default>false</default>
+                <controllingFieldValues>(Z) Other</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Void intake</fullName>
+                <default>false</default>
+                <controllingFieldValues>(V) Void</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transfer to drug treatment program before projected exit date</fullName>
+                <default>false</default>
+                <controllingFieldValues>(T) Transfer</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transfer to non-drug treatment program before projected exit date</fullName>
+                <default>false</default>
+                <controllingFieldValues>(T) Transfer</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Administrative Exit</fullName>
+                <default>false</default>
+                <controllingFieldValues>(Z) Other</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Exit_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Exit Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>(S) Successful Exit/ Graduation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>(U) Unsuccessful Exit/ Discharge</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>(T) Transfer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>(Z) Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>(V) Void</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Extension_Date__c</fullName>
+        <description>This is a field that has been introduced so that Eve can migrate all the extension data.
+
+We can then setup a workflow rule for it (and activate after the migration) that automatically populates this field with the value TODAY() when the user saves the record.</description>
+        <externalId>false</externalId>
+        <label>Extension Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Extension_Decision_Approved_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Extension Decision Approved By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>R00N60000001PU71EAG</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Extension_Decision_Approved__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Extension Decision Approved</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>First_Date_Back_in_the_Program__c</fullName>
+        <externalId>false</externalId>
+        <label>First Date Back in the Program</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Living_Situation_at_Exit__c</fullName>
+        <externalId>false</externalId>
+        <label>Living Situation at Exit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Affordable housing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Permanent Supportive Housing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Private/Market Housing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Shelter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Street Homeless</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transitional Residence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>New_Exit_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>New Exit Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>New_Projected_Exit_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>New Projected Exit Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Num_of_Admin_Action__c</fullName>
+        <externalId>false</externalId>
+        <formula>1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Num of Admin Action</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Of_Days_in_the_Program__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( contains(RecordType.DeveloperName, &quot;Exit_Notification&quot;),
+
+Client__r.Number_of_Days_in_Program__c 
++ if( ispickval(Client__r.Client_Status__c, &quot;Active&quot;), today() - Action_Date__c , 0 ),
+
+null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>For Active and On Program Hold clients, the projected number of days the client will have been in CEP by the time they are exited. For Exited clients, the actual number of days there were in CEP.</inlineHelpText>
+        <label>Number Of Days in the Program</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OldId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Old ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Orientation_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Orientation Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Original_Exit_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Old Original Exit Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Original_Projected_Exit_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Original Projected Exit Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>P_C_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Client__r.P_C_ID__c</formula>
+        <label>P/C ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Placement_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Placement Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Attended</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Attended</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Previous_Projected_Exit_Date__c</fullName>
+        <description>Populated from the contact page field &quot;Current Projected Exit Date&quot; before that field is updated with the new projected exit date entered on an extension. The field is used to make sure that clients are not back-enrolled in classes when they receive an extension.</description>
+        <externalId>false</externalId>
+        <label>Previous Projected Exit Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Re_Instatement_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Re-Instatement Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Re_Intake_Approved__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Re-Intake Approved</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Re_Intake_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Re-Intake Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Re_intake_Approved_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Re-intake Approved By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Administrative_Actions4</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_Extension__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason for Extension</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Reinstatement_Approved_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Reinstatement Approved By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Administrative_Actions3</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reinstatement_Approved__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Reinstatement Approved</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Reinstatement_Must_be_Approved_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Reinstatement Must be Approved By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>R00N60000001PU7BEAW</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reintake_Must_be_Approved_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Reintake Must be Approved By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Administrative_Actions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Sentence_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Sentence Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Sort_Date__c</fullName>
+        <description>Used in contactMethods to determine the date order of administrative actions. Could also be used in related lists to sort.</description>
+        <externalId>false</externalId>
+        <formula>BLANKVALUE( New_Projected_Exit_Date__c ,  Action_Date__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Sort Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Task_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Task Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Done On Time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Incomplete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type_of_Extension__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of Extension</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Voluntary Extension</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mandatory Extension</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Administrative Actions</label>
+    <listViews>
+        <fullName>Admin_Actions1</fullName>
+        <columns>NAME</columns>
+        <columns>Approved_By__c</columns>
+        <columns>CEP__c</columns>
+        <columns>Client__c</columns>
+        <columns>Exit_Date__c</columns>
+        <columns>Exit_Type__c</columns>
+        <columns>Extension_Date__c</columns>
+        <columns>Re_Instatement_Date__c</columns>
+        <columns>Re_Intake_Date__c</columns>
+        <columns>New_Projected_Exit_Date__c</columns>
+        <columns>RECORDTYPE</columns>
+        <filterScope>Everything</filterScope>
+        <label>Admin Actions</label>
+    </listViews>
+    <listViews>
+        <fullName>Extensions</fullName>
+        <columns>NAME</columns>
+        <columns>Client__c</columns>
+        <columns>Original_Projected_Exit_Date__c</columns>
+        <columns>New_Projected_Exit_Date__c</columns>
+        <columns>Approved_By__c</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>P_C_ID__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Administrative_Actions__c.Extension,Administrative_Actions__c.Extension_Locked</value>
+        </filters>
+        <label>Extensions</label>
+    </listViews>
+    <nameField>
+        <displayFormat>AA-{00000}</displayFormat>
+        <label>Admin Actions ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Administrative Actions</pluralLabel>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>ExitNotification</fullName>
+        <active>true</active>
+        <description>An Exit Notification Form for Graduation, Discharge or Transfer</description>
+        <label>Exit Notification</label>
+        <picklistValues>
+            <picklist>Activities_Engaged_in_at_Exit__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Internship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Residential Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Residential MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In School</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Vocational Training Program</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Approved__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CBO_Activity__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In College</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE%2Fpre-HSE Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Internship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In School</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Vocational Training Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Youth Development Programming</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reinstatement__c</picklist>
+            <values>
+                <fullName>Participant was in the program between 30 and 119 days and out of the program for less than 60 days</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participants was in the program at least 120 days and out of the program for less than 120 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reintake__c</picklist>
+            <values>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program at least 120 days %26 out of the program 120 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program between 30 %26 119 days %26 out of the program 60 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program for less than 30 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Contributing_Factors__c</picklist>
+            <values>
+                <fullName>Develop%2E Disability%2FCognitive impairment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Drug use</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Gang Activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Homelessness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lack of or Insufficient Health Insurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Illness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rearrest</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Administrative Exit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Committed serious violation of CEP rules and regulations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engaged in on-going criminal activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for multiple rearrests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for pending unindicted felony rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to appear for a court date%3B bench warrant ordered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to follow up on case manager referrals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Indicted on rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake case dismissed or defendant acquitted after trial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake judge relieved participant of supervision %28includes early graduation due to imposition of a reduced sentence%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Never reported for orientation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant died</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant seriously incapacitated</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remanded by intake judge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stopped reporting to CEP altogether</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successfully completed program%2C without modification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transfer to drug treatment program before projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transfer to non-drug treatment program before projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential%2C non drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unacceptably sporadic attendance %28for counseling and%2For program plan activities%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Violated by Probation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Void intake</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>%28S%29 Successful Exit%2F Graduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28T%29 Transfer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28U%29 Unsuccessful Exit%2F Discharge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28V%29 Void</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28Z%29 Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Living_Situation_at_Exit__c</picklist>
+            <values>
+                <fullName>Affordable housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permanent Supportive Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Private%2FMarket Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shelter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Street Homeless</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transitional Residence</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Placement_Status__c</picklist>
+            <values>
+                <fullName>Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Task_Status__c</picklist>
+            <values>
+                <fullName>Done On Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incomplete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type_of_Extension__c</picklist>
+            <values>
+                <fullName>Mandatory Extension</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voluntary Extension</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Exit_Notification_Locked</fullName>
+        <active>true</active>
+        <description>___ SYSTEM USE ONLY - Do not select!</description>
+        <label>Exit Notification - Locked</label>
+        <picklistValues>
+            <picklist>Activities_Engaged_in_at_Exit__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Internship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Residential Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Residential MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In School</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Vocational Training Program</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Approved__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CBO_Activity__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In College</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE%2Fpre-HSE Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Internship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In School</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Vocational Training Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Youth Development Programming</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reinstatement__c</picklist>
+            <values>
+                <fullName>Participant was in the program between 30 and 119 days and out of the program for less than 60 days</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participants was in the program at least 120 days and out of the program for less than 120 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reintake__c</picklist>
+            <values>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program at least 120 days %26 out of the program 120 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program between 30 %26 119 days %26 out of the program 60 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program for less than 30 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Contributing_Factors__c</picklist>
+            <values>
+                <fullName>Develop%2E Disability%2FCognitive impairment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Drug use</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Gang Activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Homelessness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lack of or Insufficient Health Insurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Illness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rearrest</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Administrative Exit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Committed serious violation of CEP rules and regulations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engaged in on-going criminal activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for multiple rearrests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for pending unindicted felony rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to appear for a court date%3B bench warrant ordered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to follow up on case manager referrals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Indicted on rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake case dismissed or defendant acquitted after trial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake judge relieved participant of supervision %28includes early graduation due to imposition of a reduced sentence%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Never reported for orientation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant died</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant seriously incapacitated</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remanded by intake judge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stopped reporting to CEP altogether</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successfully completed program%2C without modification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transfer to drug treatment program before projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transfer to non-drug treatment program before projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential%2C non drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unacceptably sporadic attendance %28for counseling and%2For program plan activities%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Violated by Probation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Void intake</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>%28S%29 Successful Exit%2F Graduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28T%29 Transfer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28U%29 Unsuccessful Exit%2F Discharge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28V%29 Void</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28Z%29 Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Living_Situation_at_Exit__c</picklist>
+            <values>
+                <fullName>Affordable housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permanent Supportive Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Private%2FMarket Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shelter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Street Homeless</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transitional Residence</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Placement_Status__c</picklist>
+            <values>
+                <fullName>Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Task_Status__c</picklist>
+            <values>
+                <fullName>Done On Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incomplete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type_of_Extension__c</picklist>
+            <values>
+                <fullName>Mandatory Extension</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voluntary Extension</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Extension</fullName>
+        <active>true</active>
+        <description>Extension Form for a Client</description>
+        <label>Extension</label>
+        <picklistValues>
+            <picklist>Activities_Engaged_in_at_Exit__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE Program</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Approved__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CBO_Activity__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE%2Fpre-HSE Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Internship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In School</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reinstatement__c</picklist>
+            <values>
+                <fullName>Participant was in the program between 30 and 119 days and out of the program for less than 60 days</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participants was in the program at least 120 days and out of the program for less than 120 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reintake__c</picklist>
+            <values>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program at least 120 days %26 out of the program 120 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program between 30 %26 119 days %26 out of the program 60 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program for less than 30 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Contributing_Factors__c</picklist>
+            <values>
+                <fullName>Develop%2E Disability%2FCognitive impairment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Drug use</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Gang Activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Homelessness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lack of or Insufficient Health Insurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Illness</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Committed serious violation of CEP rules and regulations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engaged in on-going criminal activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for multiple rearrests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for pending unindicted felony rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to appear for a court date%3B bench warrant ordered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to follow up on case manager referrals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Indicted on rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake case dismissed or defendant acquitted after trial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake judge relieved participant of supervision %28includes early graduation due to imposition of a reduced sentence%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Never reported for orientation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant died</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remanded by intake judge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stopped reporting to CEP altogether</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successfully completed program%2C without modification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential%2C non drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unacceptably sporadic attendance %28for counseling and%2For program plan activities%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Violated by Probation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Void intake</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>%28S%29 Successful Exit%2F Graduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28T%29 Transfer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28U%29 Unsuccessful Exit%2F Discharge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28V%29 Void</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28Z%29 Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Living_Situation_at_Exit__c</picklist>
+            <values>
+                <fullName>Affordable housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permanent Supportive Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Private%2FMarket Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shelter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Street Homeless</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transitional Residence</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Placement_Status__c</picklist>
+            <values>
+                <fullName>Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Task_Status__c</picklist>
+            <values>
+                <fullName>Done On Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incomplete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type_of_Extension__c</picklist>
+            <values>
+                <fullName>Mandatory Extension</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voluntary Extension</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Extension_Locked</fullName>
+        <active>true</active>
+        <description>___ SYSTEM USE ONLY - Do not select!</description>
+        <label>Extension - Locked</label>
+        <picklistValues>
+            <picklist>Activities_Engaged_in_at_Exit__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Internship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Residential Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Residential MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In School</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Vocational Training Program</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Approved__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CBO_Activity__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE%2Fpre-HSE Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Internship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In School</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reinstatement__c</picklist>
+            <values>
+                <fullName>Participant was in the program between 30 and 119 days and out of the program for less than 60 days</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participants was in the program at least 120 days and out of the program for less than 120 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reintake__c</picklist>
+            <values>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program at least 120 days %26 out of the program 120 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program between 30 %26 119 days %26 out of the program 60 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program for less than 30 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Contributing_Factors__c</picklist>
+            <values>
+                <fullName>Develop%2E Disability%2FCognitive impairment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Drug use</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Gang Activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Homelessness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lack of or Insufficient Health Insurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Illness</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Committed serious violation of CEP rules and regulations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engaged in on-going criminal activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for multiple rearrests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for pending unindicted felony rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to appear for a court date%3B bench warrant ordered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to follow up on case manager referrals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Indicted on rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake case dismissed or defendant acquitted after trial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake judge relieved participant of supervision %28includes early graduation due to imposition of a reduced sentence%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Never reported for orientation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant died</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remanded by intake judge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stopped reporting to CEP altogether</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successfully completed program%2C without modification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transfer to drug treatment program before projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transfer to non-drug treatment program before projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential%2C non drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unacceptably sporadic attendance %28for counseling and%2For program plan activities%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Violated by Probation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Void intake</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>%28S%29 Successful Exit%2F Graduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28T%29 Transfer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28U%29 Unsuccessful Exit%2F Discharge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28V%29 Void</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28Z%29 Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Living_Situation_at_Exit__c</picklist>
+            <values>
+                <fullName>Affordable housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permanent Supportive Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Private%2FMarket Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shelter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Street Homeless</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transitional Residence</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Placement_Status__c</picklist>
+            <values>
+                <fullName>Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Task_Status__c</picklist>
+            <values>
+                <fullName>Done On Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incomplete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type_of_Extension__c</picklist>
+            <values>
+                <fullName>Mandatory Extension</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voluntary Extension</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>ReInstatement</fullName>
+        <active>true</active>
+        <description>Re-instatement Form for a Client</description>
+        <label>Re-Instatement</label>
+        <picklistValues>
+            <picklist>Activities_Engaged_in_at_Exit__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE Program</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Approved__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CBO_Activity__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE%2Fpre-HSE Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Internship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In School</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions__c</picklist>
+            <values>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program between 30 and 119 days and out of the program for less than 60 days</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participants was in the program at least 120 days and out of the program for less than 120 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reinstatement__c</picklist>
+            <values>
+                <fullName>Not Entered</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program between 30 and 119 days and out of the program for less than 60 days</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participants was in the program at least 120 days and out of the program for less than 120 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reintake__c</picklist>
+            <values>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program at least 120 days %26 out of the program 120 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program between 30 %26 119 days %26 out of the program 60 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program for less than 30 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Contributing_Factors__c</picklist>
+            <values>
+                <fullName>Develop%2E Disability%2FCognitive impairment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Drug use</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Gang Activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Homelessness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lack of or Insufficient Health Insurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Illness</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Committed serious violation of CEP rules and regulations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engaged in on-going criminal activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for multiple rearrests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for pending unindicted felony rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to appear for a court date%3B bench warrant ordered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to follow up on case manager referrals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Indicted on rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake case dismissed or defendant acquitted after trial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake judge relieved participant of supervision %28includes early graduation due to imposition of a reduced sentence%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Never reported for orientation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant died</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remanded by intake judge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stopped reporting to CEP altogether</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successfully completed program%2C without modification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential%2C non drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unacceptably sporadic attendance %28for counseling and%2For program plan activities%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Violated by Probation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Void intake</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>%28S%29 Successful Exit%2F Graduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28T%29 Transfer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28U%29 Unsuccessful Exit%2F Discharge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28V%29 Void</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28Z%29 Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Living_Situation_at_Exit__c</picklist>
+            <values>
+                <fullName>Affordable housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permanent Supportive Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Private%2FMarket Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shelter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Street Homeless</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transitional Residence</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Placement_Status__c</picklist>
+            <values>
+                <fullName>Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Task_Status__c</picklist>
+            <values>
+                <fullName>Done On Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incomplete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type_of_Extension__c</picklist>
+            <values>
+                <fullName>Mandatory Extension</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voluntary Extension</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>ReIntake</fullName>
+        <active>true</active>
+        <description>Re-intake Form for a Client</description>
+        <label>Re-Intake</label>
+        <picklistValues>
+            <picklist>Activities_Engaged_in_at_Exit__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE Program</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Approved__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CBO_Activity__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE%2Fpre-HSE Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Internship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In School</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions__c</picklist>
+            <values>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program at least 120 days %26 out of the program 120 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program between 30 %26 119 days %26 out of the program 60 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program for less than 30 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reinstatement__c</picklist>
+            <values>
+                <fullName>Participant was in the program between 30 and 119 days and out of the program for less than 60 days</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participants was in the program at least 120 days and out of the program for less than 120 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reintake__c</picklist>
+            <values>
+                <fullName>Not Entered</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program at least 120 days %26 out of the program 120 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program between 30 %26 119 days %26 out of the program 60 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program for less than 30 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Contributing_Factors__c</picklist>
+            <values>
+                <fullName>Develop%2E Disability%2FCognitive impairment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Drug use</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Gang Activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Homelessness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lack of or Insufficient Health Insurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Illness</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Committed serious violation of CEP rules and regulations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engaged in on-going criminal activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for multiple rearrests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for pending unindicted felony rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to appear for a court date%3B bench warrant ordered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to follow up on case manager referrals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Indicted on rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake case dismissed or defendant acquitted after trial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake judge relieved participant of supervision %28includes early graduation due to imposition of a reduced sentence%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Never reported for orientation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant died</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remanded by intake judge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stopped reporting to CEP altogether</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successfully completed program%2C without modification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential%2C non drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unacceptably sporadic attendance %28for counseling and%2For program plan activities%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Violated by Probation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Void intake</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>%28S%29 Successful Exit%2F Graduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28T%29 Transfer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28U%29 Unsuccessful Exit%2F Discharge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28V%29 Void</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28Z%29 Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Living_Situation_at_Exit__c</picklist>
+            <values>
+                <fullName>Affordable housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permanent Supportive Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Private%2FMarket Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shelter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Street Homeless</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transitional Residence</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Placement_Status__c</picklist>
+            <values>
+                <fullName>Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Task_Status__c</picklist>
+            <values>
+                <fullName>Done On Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incomplete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type_of_Extension__c</picklist>
+            <values>
+                <fullName>Mandatory Extension</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voluntary Extension</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Re_Instatement_locked</fullName>
+        <active>true</active>
+        <description>___ SYSTEM USE ONLY - Do not select!</description>
+        <label>Re-Instatement - locked</label>
+        <picklistValues>
+            <picklist>Activities_Engaged_in_at_Exit__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Internship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Residential Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Residential MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In School</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Vocational Training Program</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Approved__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CBO_Activity__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE%2Fpre-HSE Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Internship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In School</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions__c</picklist>
+            <values>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program between 30 and 119 days and out of the program for less than 60 days</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participants was in the program at least 120 days and out of the program for less than 120 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reinstatement__c</picklist>
+            <values>
+                <fullName>Not Entered</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program between 30 and 119 days and out of the program for less than 60 days</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participants was in the program at least 120 days and out of the program for less than 120 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reintake__c</picklist>
+            <values>
+                <fullName>Not Entered</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program at least 120 days %26 out of the program 120 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program between 30 %26 119 days %26 out of the program 60 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program for less than 30 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Contributing_Factors__c</picklist>
+            <values>
+                <fullName>Develop%2E Disability%2FCognitive impairment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Drug use</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Gang Activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Homelessness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lack of or Insufficient Health Insurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Illness</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Committed serious violation of CEP rules and regulations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engaged in on-going criminal activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for multiple rearrests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for pending unindicted felony rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to appear for a court date%3B bench warrant ordered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to follow up on case manager referrals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Indicted on rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake case dismissed or defendant acquitted after trial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake judge relieved participant of supervision %28includes early graduation due to imposition of a reduced sentence%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Never reported for orientation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant died</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remanded by intake judge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stopped reporting to CEP altogether</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successfully completed program%2C without modification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transfer to drug treatment program before projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transfer to non-drug treatment program before projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential%2C non drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unacceptably sporadic attendance %28for counseling and%2For program plan activities%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Violated by Probation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Void intake</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>%28S%29 Successful Exit%2F Graduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28T%29 Transfer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28U%29 Unsuccessful Exit%2F Discharge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28V%29 Void</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28Z%29 Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Living_Situation_at_Exit__c</picklist>
+            <values>
+                <fullName>Affordable housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permanent Supportive Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Private%2FMarket Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shelter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Street Homeless</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transitional Residence</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Placement_Status__c</picklist>
+            <values>
+                <fullName>Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Task_Status__c</picklist>
+            <values>
+                <fullName>Done On Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incomplete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type_of_Extension__c</picklist>
+            <values>
+                <fullName>Mandatory Extension</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voluntary Extension</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Re_Intake_Locked</fullName>
+        <active>true</active>
+        <description>___ SYSTEM USE ONLY - Do not select!</description>
+        <label>Re-Intake - Locked</label>
+        <picklistValues>
+            <picklist>Activities_Engaged_in_at_Exit__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE Program</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Approved__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CBO_Activity__c</picklist>
+            <values>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In HSE%2Fpre-HSE Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Internship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient Drug Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Outpatient MH Treatment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In School</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions__c</picklist>
+            <values>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program at least 120 days %26 out of the program 120 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program between 30 %26 119 days %26 out of the program 60 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program for less than 30 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reinstatement__c</picklist>
+            <values>
+                <fullName>Participant was in the program between 30 and 119 days and out of the program for less than 60 days</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participants was in the program at least 120 days and out of the program for less than 120 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditions_for_Reintake__c</picklist>
+            <values>
+                <fullName>Not Entered</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Participant does not fit above criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program at least 120 days %26 out of the program 120 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program between 30 %26 119 days %26 out of the program 60 days or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant was in the program for less than 30 days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Contributing_Factors__c</picklist>
+            <values>
+                <fullName>Develop%2E Disability%2FCognitive impairment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Drug use</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Gang Activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Homelessness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lack of or Insufficient Health Insurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Illness</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Reason__c</picklist>
+            <values>
+                <fullName>Committed serious violation of CEP rules and regulations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engaged in on-going criminal activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for multiple rearrests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exited for pending unindicted felony rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to appear for a court date%3B bench warrant ordered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed to follow up on case manager referrals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Indicted on rearrest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake case dismissed or defendant acquitted after trial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intake judge relieved participant of supervision %28includes early graduation due to imposition of a reduced sentence%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Never reported for orientation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Participant died</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remanded by intake judge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stopped reporting to CEP altogether</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successfully completed program%2C without modification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred to residential%2C non drug treatment on or after projected exit date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unacceptably sporadic attendance %28for counseling and%2For program plan activities%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Violated by Probation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Void intake</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Exit_Type__c</picklist>
+            <values>
+                <fullName>%28S%29 Successful Exit%2F Graduation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28T%29 Transfer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28U%29 Unsuccessful Exit%2F Discharge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28V%29 Void</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%28Z%29 Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Living_Situation_at_Exit__c</picklist>
+            <values>
+                <fullName>Affordable housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permanent Supportive Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Private%2FMarket Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shelter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Street Homeless</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transitional Residence</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Placement_Status__c</picklist>
+            <values>
+                <fullName>Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Task_Status__c</picklist>
+            <values>
+                <fullName>Done On Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incomplete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type_of_Extension__c</picklist>
+            <values>
+                <fullName>Mandatory Extension</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voluntary Extension</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>RECORDTYPE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Exit_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Exit_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>New_Projected_Exit_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Re_Instatement_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Re_Intake_Date__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>RECORDTYPE</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Exit_Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Exit_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>New_Exit_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>New_Projected_Exit_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Re_Instatement_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Re_Intake_Date__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Client__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Activities_Engaged_in_at_Exit__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Does_not_fit_criteria</fullName>
+        <active>true</active>
+        <description>Required if Participant does not Fit above criteria selected for Conditions for Reinstatement.&quot;</description>
+        <errorConditionFormula>AND( ISPICKVAL( Conditions__c  , &quot;Participant does not fit above criteria&quot;),   isblank(Doesnt_Fit_Criteria_Comments__c ))</errorConditionFormula>
+        <errorDisplayField>Doesnt_Fit_Criteria_Comments__c</errorDisplayField>
+        <errorMessage>If the participant does not fit the criteria, you must add comments in the &quot;Doesn&apos;t Fit Criteria Comments&quot; box.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Must_Save_AA_before_approving</fullName>
+        <active>true</active>
+        <description>Must save before approving</description>
+        <errorConditionFormula>and(ISNEW()=true, ispickval(Approved__c, &quot;Yes&quot;))</errorConditionFormula>
+        <errorMessage>You must save the form before you can approve it. Please clear the check mark from the approval box and save again. Then edit, check approved, and save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Task_Status_on_Exit_Type</fullName>
+        <active>true</active>
+        <description>Task Status cannot be saved with a value of &quot;Done on Time&quot; or &quot;Incomplete&quot; if the Exit Type is not &quot;(S) Successful Exit/ Graduation&quot;.</description>
+        <errorConditionFormula>IF(ISPICKVAL(Task_Status__c , &quot;Done On Time&quot;) ,  IF( ISPICKVAL( Exit_Type__c , &quot;(S) Successful Exit/ Graduation&quot;) , false, true) ,  IF( ISPICKVAL(Task_Status__c ,  &quot;Incomplete&quot;) , IF( ISPICKVAL( Exit_Type__c , &quot;(S) Successful Exit/ Graduation&quot;) , false, true), false) )</errorConditionFormula>
+        <errorMessage>Task Status cannot be saved with a value of &quot;Done on Time&quot; or &quot;Incomplete&quot; if the Exit Type is not &quot;(S) Successful Exit/ Graduation&quot;.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Days_In_Out</fullName>
+        <availability>online</availability>
+        <description>run report with client ID</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Days In/Out</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/00OP0000000UxA4?pv0={!Administrative_Actions__c.ClientId__c}</url>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,45 @@
+<apex:page standardcontroller="Contact" extensions="SRP_ReinstatementConExt" sidebar="false" showHeader="false">
+    <div id="ch" style="display: none;">{!checkParam}</div>
+    <apex:sectionheader title="PROGRAM REINSTATEMENT" subtitle="{!IF(ISNULL(Contact.Name), 'New Contact',Contact.Name)}"/>
+    <apex:form style="width:900px" id="myForm" >
+        <apex:outputpanel layout="block" style="width:900px" >
+        <apex:pageblock mode="edit" title="PROGRAM REINSTATEMENT" id="thePageBlock">
+        <apex:PageMessages />
+
+            <apex:pageblockbuttons >
+                <apex:commandbutton value="Save" action="{!SaveThis}"/>
+                <!-- apex:commandButton value="Close" action="{!CloseAndRefresh}"/ -->
+                <apex:commandbutton value="Cancel" action="{!CancelThis}"/>            
+            </apex:pageblockbuttons>
+            <apex:pageblocksection showheader="true" columns="1">
+                    <apex:outputfield value="{!Contact.Name}" />
+                    <apex:outputfield value="{!Contact.Intake_Case__c}" />
+                    <apex:outputfield value="{!Contact.P_C_ID__c}" />
+                    <apex:inputfield value="{!ProgCycle.Start_Date__c}" />
+                    <hr/>
+                    <apex:outputText value="Include Compliance Date, if applicable."/>
+                    <hr/>
+                    <apex:inputField value="{!ProgCycle.Compliance_Date__c}"/>
+            </apex:pageblocksection>
+         </apex:pageblock>
+        </apex:outputpanel>
+    </apex:form>
+<script>
+    window.onload = function()
+    {  
+        window.onblur = function(){
+            window.close();
+        }
+        if(document.getElementById('ch').innerHTML == "Ok!")
+        {
+            window.opener.location.href="/{!$CurrentPage.parameters.id}";
+            window.top.close();
+        }
+    }
+    
+function CloseAndRefresh(){
+window.opener.location.href="/{!$CurrentPage.parameters.id}";
+      window.top.close();
+}
+</script>
+</apex:page>

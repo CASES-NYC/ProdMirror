@@ -1,0 +1,193 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="crpage" >
+ <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+  <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+
+ <apex:outPutPanel id="op" styleclass="span.resultContainer">
+   <!--
+   <apex:outputtext value="Court Rep:" style="font-size:14px;"/>&nbsp; 
+   <apex:outputtext value="{!CourtRep}" style="font-size:16px;font-weight:bold;"/> 
+ -->
+ <apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+  <apex:pageblocksection title="Status at Interview" showheader="true" columns="2">
+  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Data Capture-Physical Health</span> 
+            </apex:facet>
+    <apex:inputfield value="{!CR.Update_Employed_at_Intake__c}" />
+    <apex:inputfield value="{!CR.Update_Mental_Health_Issues_at_Interview__c}" />
+    <apex:inputfield value="{!CR.Update_School_GED_Enrollment_at_Intake__c}" /> 
+    <apex:inputfield value="{!CR.Current_Substance_Abuse_Problems__c}" /> 
+    <apex:inputfield value="{!CR.Update_Diploma_Status_at_Intake__c}" /> 
+    <apex:pageblocksectionitem />
+  </apex:pageblocksection>
+  <apex:pageblocksection showheader="true" columns="1">
+  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Interview Notes</span> 
+            </apex:facet>
+    <apex:inputfield value="{!CR.Residence__c}"  styleclass="textareaedit"/>
+    <apex:inputfield value="{!CR.Family_Peers_Section_1__c}"  styleclass="textareaedit"/>
+    <apex:inputfield value="{!CR.Education_Section_1__c}"  styleclass="textareaedit"/>
+    <apex:inputfield value="{!CR.Employment_Section_1__c}" styleclass="textareaedit"/>
+    <apex:inputfield value="{!CR.Social__c}"  styleclass="textareaedit"/>
+    <apex:inputfield value="{!CR.Substance_Abuse_Section_1__c}" styleclass="textareaedit"/>
+    <apex:inputfield value="{!CR.Health__c}" styleclass="textareaedit"/>
+    <apex:inputfield value="{!CR.Legal__c}"  styleclass="textareaedit"/>
+    <apex:inputfield value="{!CR.Miscellaneous1__c}" style="width:700px;height:300px"/>
+  
+<!--     
+  <html xmlns:w="urn:schemas-microsoft-com:office:word" 
+    <apex:inputtext value="{!CR.Miscellaneous1__c}" 	style="width:700px;height:300px"/>
+   </html>
+-->
+</apex:pageblocksection>
+</apex:pageblock>
+  
+<apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+ <apex:pageblocksection columns="1">
+<!--    <apex:outputfield value="{!CR.Court_Rep__c}" style="font-size:16px;font-weight:bold;color:blue"/>-->
+  </apex:pageblocksection>
+    <apex:pageblocksection showheader="true" columns="2">
+  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Status at Interview</span> 
+            </apex:facet>
+  
+    <apex:inputtext value="{!CR.Update_Employed_at_Intake__c}" styleclass="txt250" disabled="true" />
+    <apex:inputtext value="{!CR.Update_Mental_Health_Issues_at_Interview__c}" disabled="true" styleclass="txt250"/>
+    <apex:inputtext value="{!CR.Update_School_GED_Enrollment_at_Intake__c}" disabled="true" styleclass="txt250"/>
+    <apex:inputtext value="{!CR.Current_Substance_Abuse_Problems__c}" disabled="true" styleclass="txt250"/>
+    <apex:inputtext value="{!CR.Update_Diploma_Status_at_Intake__c}" disabled="true" styleclass="txt250"/> 
+    <apex:pageblocksectionitem />
+  </apex:pageblocksection>
+   
+  <apex:pageblocksection showheader="true" columns="1">
+  <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Interview Notes</span> 
+            </apex:facet>
+    <apex:pageblocksectionItem > 
+           
+      <apex:outputlabel value="Residence" for="i1"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CR.Residence__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="i1" />
+    </apex:pageblocksectionItem>
+    <apex:pageblocksectionItem >
+      <apex:outputlabel value="Family & Peers Section 1" for="i2"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CR.Family_Peers_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="i2"/>
+    </apex:pageblocksectionItem>
+    <apex:pageblocksectionItem >
+      <apex:outputlabel value="Education Section 1" for="i3"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CR.Education_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="i3"/>
+    </apex:pageblocksectionItem>
+    <apex:pageblocksectionItem >
+      <apex:outputlabel value="Employment Section 1" for="i4"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CR.Employment_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="i4"/>
+    </apex:pageblocksectionItem>
+    <apex:pageblocksectionItem >
+      <apex:outputlabel value="Social" for="i5"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CR.Social__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="i5"/>
+    </apex:pageblocksectionItem>
+    <apex:pageblocksectionItem >
+      <apex:outputlabel value="Substance Abuse Section 1" for="i6"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CR.Substance_Abuse_Section_1__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;"  id="i6"/>
+    </apex:pageblocksectionItem>
+    <apex:pageblocksectionItem >
+      <apex:outputlabel value="Health" for="i7"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CR.Health__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;"  id="i7"/>
+    </apex:pageblocksectionItem>
+    <apex:pageblocksectionItem >
+      <apex:outputlabel value="Legal" for="i8"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CR.Legal__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;"  id="i8"/>
+    </apex:pageblocksectionItem>
+      <apex:pageblocksectionItem >
+      <apex:outputlabel value="Miscellaneous" for="m2"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CR.Miscellaneous1__c),'\\n','<br/>'),'\\r','')}" escape="false"
+       style="color:blue;width:700px;background-color:white;"  id="m2"/>
+    </apex:pageblocksectionItem>
+
+ <!--    <html xmlns:w="urn:schemas-microsoft-com:office:word">  
+      <apex:pageblocksectionItem >
+      <apex:outputlabel value="Miscellaneous" for="m2"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CR.Miscellaneous1__c),'\\n','<br/>'),'\\r','')}" escape="false"
+       style="color:blue;width:700px;background-color:white;"  id="m2"/>
+    </apex:pageblocksectionItem>
+  </html>    
+ -->
+ 
+  </apex:pageblocksection>
+
+</apex:pageblock>
+<!-- 
+  <apex:outPutPanel id="opaction1" styleclass="topContainer"> 
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an1" 
+   style="font-size:16px;font-weight:bold;color:blue"/> 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit1" rerender="opTop,opaction,opaction,op,btnCancel1" status="selectData"/>
+
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel1" rerender="aPage,m,opTop,opaction,opaction1,op" status="selectData"/>
+
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+ <apex:commandButton value="Save" id="btnSave1" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,opaction1,op">
+ </apex:commandButton>
+ 
+</apex:outPutPanel>
+ -->
+ </apex:outPutPanel>
+	<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>  
+    </apex:form>
+</apex:page>

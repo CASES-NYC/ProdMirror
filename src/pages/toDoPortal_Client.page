@@ -1,0 +1,255 @@
+<apex:page controller="toDoPortal_Client" cache="true" expires="0">
+    <style>
+    .EventTaskTables_TBody tr:nth-child(even) td{
+        background-color: #FFFFFF;
+        border-color:#EFEFEF;
+        border-style:solid;
+        border-width:1px;           
+    }
+    .EventTaskTables_TBody tr:nth-child(odd) td{
+        background-color: #DFDFDF;
+        border-color:#EFEFEF;
+        border-style:solid;
+        border-width:1px;
+    }
+    .EventTaskTables_TBody tr:hover > td {
+        background: #CFEEF8;
+        color: #000;
+    }
+    </style>
+   <script>
+        function loadingApps(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('loadingGifData').style.display = '';
+            } else {
+                document.getElementById('loadingGifData').style.display = 'none';
+            }
+        }
+    </script>
+  <apex:actionStatus startText=""  stopText="" id="selectData" onstart="loadingApps('1');" onstop="loadingApps('0');"/>
+    <div id="eventTaskControlPanel">
+        <apex:form >
+            <div class="controlPanel">
+                <table border="0" width="100%">
+                    <tr>
+                        <td>
+                            <apex:selectList value="{!toDoSelection}" multiselect="true" size="5">
+                                <apex:selectOptions value="{!toDoItems}"/>
+                            </apex:selectList>
+                        </td> 
+                        <td>
+                            <table border="0" width="100%">
+                                <tr>
+                                    <td>
+                                
+                                        <strong>Client: </strong>
+                                    </td>
+                                    <td>                        
+                                        <apex:inputField value="{!Filter.Client__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Appointments:</strong>
+                                    </td>
+                                    <td>
+                                        <apex:inputField value="{!Filter.Client_Appointments__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Activity Status:</strong>
+                                    </td>
+                                    <td>
+                                        <apex:inputField value="{!Filter.Activity_Status__c}" />
+                                    </td>
+                                </tr>       
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <apex:commandButton value="Go" action="{!logSearch}"
+                                        status="selectData" rerender="taskEventDisplay" />
+                                        </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                
+                </table>
+                
+            </div>
+        </apex:form>
+    </div>
+      <span id="loadingGifData" style="display:none;" >
+ <table>
+ <tr>
+   <td>
+       Selecting Appointments/Tasks ...
+       <apex:image value="{!$Resource.loading}" />
+   </td>
+ </tr>   
+</table>
+</span>
+
+    <hr />
+<!--  TASK DISPLAY SECTION  -->
+    <apex:outputPanel id="taskEventDisplay">
+    <div><strong><span>{!taskCount} tasks returned&nbsp;&nbsp;&nbsp; 
+       <apex:outputLabel value="No tasks found" rendered="{!notasks}"/></span> </strong></div>
+    <apex:outputPanel rendered="{!Filter.Client_Appointments__c}">
+        <div><strong><span>{!eventCount}</span> events returned</strong>
+     <apex:pageMessages /> 
+        
+        </div>
+    </apex:outputPanel>
+        <table id="clientTaskTable" class="tablesorter"> 
+            <thead> 
+                <tr> 
+                    <th></th>    
+                    <th>Name</th>   
+                    <th>Open Date</th>     
+                    <th>Due Date</th>     
+                    <th>Subject</th>     
+                    <th>Assigned To</th>
+                    <th>Status</th>
+                    <th>Closing Date</th>
+                    <th></th>
+                 </tr>  
+            </thead> 
+            <tbody class="ClientTaskTable_TBody"> 
+                <apex:repeat value="{!ToDoTasksTab}" var="thisTask" >
+                          <tr>     
+                        <td style="background-color: {!thisTask.color}; color: {!thisTask.color}">.</td>
+                        
+                        <td>
+                            <a href="/{!thisTask.tsk.Who.Id}" target="_blank">{!thisTask.tsk.Who.Name}</a> 
+                        </td>
+                         
+                        <td>
+                            <apex:outputPanel rendered="{!thisTask.showLink}">
+                                <a href="/{!thisTask.tsk.Id}" target="_blank">
+                                    <apex:outputField value="{!thisTask.tsk.Open_Date__c}" />
+                                </a>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(NOT(thisTask.showLink),true,false)}">
+                                <apex:outputField value="{!thisTask.tsk.Open_Date__c}" />
+                            </apex:outputPanel>
+                        </td>     
+                        <td>
+                            <apex:outputField value="{!thisTask.tsk.ActivityDate}" />
+                        </td>     
+                        <td>{!thisTask.tsk.Subject}</td>     
+                        <td>{!thisTask.tsk.Owner.Name}</td> 
+                        <td>
+                            <apex:outputField value="{!thisTask.tsk.Status}" />
+                        </td> 
+                        <td>
+                            <apex:outputField value="{!thisTask.tsk.Closing_Date__c}" />
+                        </td> 
+                        <td style="background-color: {!thisTask.color}; color: {!thisTask.color}">.</td>
+                    </tr>       
+                </apex:repeat>
+            </tbody> 
+        </table>
+        <apex:form >
+
+ <apex:actionFunction name="afSaveRecord" action="{!saveRecord}" 
+   rerender="lst1,lst2,taskEventDisplay">
+  <apex:param name="eventid" assignTo="{!eventid}" value="" />
+  <apex:param name="fieldValue" assignTo="{!fieldValue}" value="" />
+</apex:actionFunction>
+            <apex:outputPanel rendered="{!Filter.Client_Appointments__c}">
+                <table id="eventTaskTable" class="tablesorter"> 
+                    <thead> 
+                        <tr> 
+                            <th></th>    
+                            <th>Name</th>  
+                            <th>Start Date</th>     
+                            <th>Verification Due Date</th>     
+                            <th>Subject</th>     
+                            <th>Assigned To</th>
+                            <th>Verification Status</th>
+                            <th></th>
+                         </tr>  
+                    </thead>  
+                    <tbody class="EventTaskTable_TBody">
+                        <apex:repeat value="{!UnverifiedEvents}" var="thisEvt" >
+                            <tr>     
+                                <td style="background-color: {!thisEvt.color}; color: {!thisEvt.color}">.</td>
+                                <td>{!thisEvt.eventForDisplay.Who.Name}</td>
+                                <td>
+                                    <a href="/{!thisEvt.eventForDisplay.Id}" target="_blank">
+                                        <apex:outputField value="{!thisEvt.eventForDisplay.ActivityDate}" />
+                                    </a>
+                                </td>
+                                <td><apex:outputField value="{!thisEvt.eventForDisplay.Verification_Due_Date__c}" /></td>
+
+
+                                <td>
+                                    <a href="/{!thisEvt.eventForDisplay.Id}" target="_blank">
+                                         {!thisEvt.eventForDisplay.Subject}
+                                    </a>
+                                </td>
+                                
+                                <td>
+                                    <a href="/{!thisEvt.eventForDisplay.Owner.Id}" target="_blank">
+                                        {!thisEvt.eventForDisplay.Owner.Name}
+                                    </a>
+                                </td>
+                                <td>
+                             
+              <input type="hidden" id="hobj" value="{!thisEvt.eventForDisplay.Verification_Status__c}"/>                  
+    
+            <apex:outputField value="{!thisEvt.eventForDisplay.Verification_Status__c}" 
+               rendered="{!thisEvt.dontDisplayPickList}"  />
+              <apex:selectList id="lst1" style="width:80px" value="{!thisEvt.eventForDisplay.Verification_Status__c}" size="1"
+                              rendered="{!thisEvt.futureApps&&thisEvt.DisplayPickList }" 
+                 onChange="saveRecord('{!thisEvt.eventForDisplay.Id}',this,{!thisEvt.eventForDisplay.Verification_Status__c})">
+
+                  <apex:selectOptions value="{!PLValuesFuture}" id="ver1"/>
+              </apex:selectList>
+              
+              <apex:selectList id="lst2" style="width:80px" value="{!thisEvt.eventForDisplay.Verification_Status__c}" size="1"
+                rendered="{!thisEvt.futureApps==false&&thisEvt.DisplayPickList }" 
+                 onChange="saveRecord('{!thisEvt.eventForDisplay.Id}',this,'{!thisEvt.eventForDisplay.Verification_Status__c}')">
+                 <apex:selectOptions value="{!PLValues}" id="ver2"/>
+              </apex:selectList>
+          <span id="{!thisEvt.eventForDisplay.Id}_changedTE" style="color:red;font-weight:bold"></span>
+ <script>
+    function saveRecord(eventid,obj,oldval,chg){
+         var fieldvalue = obj.value;
+     afSaveRecord(eventid,fieldvalue);
+        document.getElementById(eventid + '_changedTE').innerHTML = 'Saved';
+    }
+ </script>
+           </td>
+            <td style="background-color: {!thisEvt.color}; color: {!thisEvt.color}">.</td>
+         </tr>
+                            </apex:repeat> 
+                        </tbody>  
+                    </table>
+                </apex:outputPanel>
+          </apex:form>
+            <script type="Text/javascript">
+                j$('#clientTaskTable').tablesorter({
+                            headers:{
+                                0:{sorter:false},
+                                8:{sorter:false}
+                            },                  
+                            theme:'default'
+                        });
+                j$('#eventTaskTable').tablesorter({
+                        headers:{
+                            0:{sorter:false},
+                            6:{sorter:false},
+                            7:{sorter:false}
+                        },                  
+                        theme:'default'
+                    });
+                document.getElementById('eventCounterTE').innerHTML = eventCountTE;
+                document.getElementById('maxCountTE').innerHTML = maxCountTE;
+            </script>
+    </apex:outputPanel>
+</apex:page>

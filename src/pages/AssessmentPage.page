@@ -1,0 +1,604 @@
+<apex:page controller="AssessmentController" id="pgMain" cache="false"  action="{!saveLogin}"> 
+<script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/style.css')}" rel="stylesheet"/> 
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/css/theme.default.css')}" rel="stylesheet"/>
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/css/theme.default.css')}" rel="stylesheet"/> 
+
+
+<script> 
+        var j$ = jQuery.noConflict();
+function sortIt()     {         
+              
+                j$("#infoTable").tablesorter( 
+                 
+                    {
+                        widgets: ['zebra'],
+                        
+                        headers: { 
+                            5: { sorter: false },
+                        }
+                    }
+                );      
+            } 
+</script>
+
+<script>
+     function bindSelectOption(){
+       var elHistory = document.getElementById('{!$Component.pgMain:frmMain:opTop:opHistory}');
+     }  
+     
+</script>
+
+<apex:form id="frmMain"> 
+<!-- 
+<apex:outputlabel value="showBasicInfo:" />
+<apex:outputlabel value="{!showBasicInfo}" id="s"/>
+<br/>
+-->
+<apex:outputlabel value="Page:{!pagename}" id="pname" rendered="{!sfAdmin}"/>
+
+     <apex:actionStatus startText=""  stopText="" id="selectData" onstart="loadingApps('1');" onstop="loadingApps('0');"/>
+   
+<apex:outPutPanel id="opTop">
+ <apex:outPutLabel value="Please select assessment" id="sel" rendered="{!asmselected==false&&boolnew==true}"
+   style="color:red"/>
+   <apex:actionFunction name="afdeleteAssessment" action="{!deleteAssessment}" status="selectData"
+        rerender="opTop,aPage,m,infotable,blockBasic">
+          <apex:param name="openId" value="" assignto="{!openId}"/>
+   </apex:actionFunction>
+  <apex:actionFunction name="afOpenAssessment" action="{!showPageFromHistory}" status="selectData"
+        rerender="opTop,aPage,m,infotable,pn,blockBasic,s,pname">
+        <apex:param name="openId" value="" assignto="{!openId}"/>
+<!--        <apex:param name="contactPassed" value="" assignto="{!contactPassed}"/>-->
+        <apex:param name="courtRepName" value="" assignto="{!courtRepName}"/>
+   </apex:actionFunction>
+   
+<table >
+  <tr>
+    <td>
+      <fieldset class="fsBorders">
+        <legend style="color:blue"> Select Assessment&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
+                    <br/> 
+           <table>
+           <tr>
+    
+             <td> 
+                      <apex:selectList size="1" required="false" value="{!aValue}" id="lstAss" style="width:200px;" >
+                 <apex:selectOptions value="{!Items}" id="i" />
+               </apex:selectList> 
+    &nbsp;
+               <apex:commandButton value="New" id="btnNew" action="{!showPageNew}"  
+                      rerender="opTop,aPage,m,sel,pn,pname" status="selectData">
+              
+               </apex:commandButton>       
+ &nbsp;&nbsp;
+           <!--   <apex:outPutLabel value="code:{!pagecode}" id="pc" style="display:none"/>-->
+             </td>
+           <td>
+           
+    &nbsp;<apex:commandLink value="{!contactName}" id="cli" title="return to Contact"  action="{!pageClose}"
+     style="font-size:14px;color:blue;font-weight:bold;"/>
+           
+<!--&nbsp; <apex:outPutText value="{!contactName}" style="font-size:16px;font-weight:bold;color:blue"/>-->
+&nbsp;<apex:outPutText value="{!pcid}" style="font-size:14px;font-weight:bold;" id="pcid"/>
+</td>
+ </tr>
+ <tr>
+
+ </tr>
+ </table>
+ </legend>
+ </fieldset>
+
+ </td>
+ <td>
+                   <span id="loadingGifData" style="display:none;" >
+           Processing.Please wait... 
+                            <apex:image value="/img/loading32.gif" />
+   </span>  
+    
+                   </td> 
+<!-- 
+ <td>
+    <apex:commandLink value="return to Contact" id="ret" action="{!pageClose}" style="font-size:10px;color:blue;"/>
+ 
+ </td>
+ -->
+ </tr>
+ </table>
+  <!-- <apex:outputlabel value="View History" />-->  
+  <table>
+  <tr>
+  <td width="450px">               
+  <apex:selectRadio value="{!hidehistory}" >
+    <apex:selectOptions value="{!HistoryOption}" />
+      <apex:actionSupport event="onchange" action="{!doNothing}" rerender="opHistory,opTop"  />
+  </apex:selectRadio>                        
+  </td>
+  <td width="250px">
+  <apex:outPutText value="Case Coordinator:{!CaseCoordinator}" style="font-size:12px;" id="cc"/>
+  </td>
+    <td>
+  <apex:outPutText value="Court Rep.:{!CourtRep}" style="font-size:12px;" id="cr"/>
+  </td>
+  </tr>
+                    </table>
+  <apex:outPutPanel id="opHistory" rendered="{!hideHistory=='Show'}">
+  <table id="infoTable" class="tablesorter" >
+               <thead> 
+                  <tr> 
+                 <th><FONT SIZE="2px">Assessment</FONT></th>    
+                 <th><FONT SIZE="2">Result</FONT></th>    
+                 <th><FONT SIZE="2">Program/Status</FONT></th>    
+                 <th><FONT SIZE="2">Completed On</FONT></th>    
+                 <th><FONT SIZE="2">Completed By</FONT></th>    
+                 <th><FONT SIZE="2"></FONT></th>    
+                  </tr>  
+               </thead> 
+               <apex:repeat value="{!allShow}" var="m" id="infoTableRepead"> 
+                <tr height="9px">
+                   <td>
+                    <apex:commandLink value="{!m.assName}" action="{!showPageFromHistory}" 
+                    status="selectData" rerender="aPage,m,pn" style="font-weight:bold;font-size:12px;">
+            <apex:param name="openId" value="{!m.assId}" assignto="{!openId}"/>
+            <apex:param name="courtRepName" value="{!m.courtRepName}" assignto="{!courtRepName}"/>
+                   </apex:commandlink>
+        &nbsp;&nbsp;         <apex:outPutLabel value="{!m.source}"  style="font-style:italic;font-size:11px;" />   
+                  </td>
+                  
+            <td>
+                <apex:outPutLabel value="{!m.result}" style="font-weight:bold;font-size:12px;"/>
+            </td>
+                  <td width="100px">
+             <apex:outputLink value="/{!m.clientSFId}" id="dd" target="_blank" title="open contact">
+                 <apex:outputText value="{!m.Program}" style="font-size:12px;"/> 
+              </apex:outputLink>   
+                           <apex:outputText value="*" style="font-size:16px;font-weight:bold;color:red"
+                           rendered="{!m.otherProgram}"/>
+&nbsp;
+                <apex:outputText value="{!m.Status}" style="font-size:10px;"/> 
+                  </td>
+                <td width="100px">
+                   <apex:outPutLabel value="{!m.assDate}" /> 
+                </td>   
+                <td width="150px">
+                   <apex:outPutLabel value="{!m.assBy}" />
+                </td>   
+    <td>
+    <apex:outputLink value="/{!m.recIdFromOld}" id="old" target="_blank" title="open old"
+    rendered="{!m.recIdFromOld<>null}">
+        <apex:outputText value="Open Old" style="font-size:10px;color:red"/>
+    </apex:outputLink>
+      <apex:commandButton value="Delete" onClick="deleteRcord('{!m.assName}','{!m.assDate}','{!m.assId}')" title="delete"
+          rendered="{!isedit==false}" id="btnDelete" rerender="opTop,aPage,m,infotable" style="font-size:6px;"> 
+       </apex:commandButton>
+ <script>
+  function deleteRcord(assessmentName,dt, openId){
+   // alert('name: ' + assessmentName + ' id: ' + openId);
+    if (confirm('Are you sure you want to delete ' + assessmentName + ' assessment on ' + dt + ' ?'))
+   {  
+      afdeleteAssessment(openId);
+   }
+  } 
+ </script>
+     <script>
+     function bindHeader(){
+          var e = document.getElementById('{!$Component.pgMain:frmMain:mess}');
+          alert('element: '   + e); 
+          afdonothing();
+     }  
+</script>
+              </td>
+                 </tr>
+              </apex:repeat>
+              
+              </table>
+                   <script type="Text/javascript">
+                j$("#infoTable").tablesorter(
+                    {
+                        widgets: ['zebra'],
+                        headers: { 
+                                // assign the first column (we start counting zero) 
+                                 0: { sorter: true},
+                                1: { sorter: false}, 
+                                2: { sorter: true},
+                                3: { sorter: true},
+                                4: { sorter: false},
+                                5: { sorter: false},
+                               }                               
+                        }  
+                ); 
+                </script>              
+          </apex:outPutPanel>
+ </apex:outPutPanel>
+ <apex:outputlabel value="{!pagename}" id="pn" rendered="{!pageName!='emptyPage'}"/>
+  </apex:form> 
+    <style>
+
+    span.topContainer {
+        background: #BEE3F8; 
+        border:0; 
+        float: left;
+        width: 100%;
+    }
+     span.bottomContainer {
+        background: white; 
+        border:0; 
+ //       float: left;
+        width: 870px;
+    }
+    span.resultContainer {
+        background: #BEE3F8; 
+   //    background: green; 
+        float: left;
+        width: 100%;
+        clear: both;
+        white-space: nowrap;
+        display: table;
+   //     background-color:blue;
+    }
+      
+    .txt600{
+    width:600px;
+    color:blue;
+    background-color:white;
+    border:none;
+    }
+      .txt300{
+    width:300px;
+    color:blue;
+    background-color:white;
+    border:none;
+    height:20px;
+    }
+    .txt300edit{
+    width:300px;
+    height:20px;
+    }    
+    .txt250{
+    width:250px;
+    color:blue;
+    background-color:white;
+    border:none;
+    }
+    .txt250edit{
+    width:250px;
+    background-color:white;
+    }
+    .txt500{
+    width:500px;
+    color:blue;
+    background-color:white;
+    border:none;
+    }
+
+      .txt40{
+    width:40px;
+    color:blue;
+    background-color:white;
+    border:none;
+    }
+    
+         .txt40edit{
+    width:40px;
+    }
+    
+     .txt200{
+    width:200px;
+    color:blue;
+    background-color:white;
+    border:none;
+    }
+    .txt200edit{
+    width:200px;
+     }
+    
+    .txt100{
+    width:100px;
+    color:blue;
+    background-color:white;
+    border:none;
+    }
+    .notes300{
+    width:650px;
+    height:auto;
+    color:blue;
+ //   vertical-align:top;
+    background-color:white;
+    border:none;
+    }
+    
+       .notes650{
+    width:650px;
+    height:auto;
+    color:blue;
+    background-color:white;
+    border:none;
+    }
+       .notes650edit{
+    width:650px;
+    height:auto;
+    }
+    
+    
+    .textarea{
+     width:700px;
+     height:120px;
+     color:blue; 
+   background-color:white; 
+    border:none;     
+    }
+       
+   .textareaedit{
+     width:700px;
+     height:120px;
+    }
+           .textareashort{
+     width:600px;
+     height:40px;
+     color:blue; 
+   background-color:white;   
+    border:none;  
+    }
+         .textareashortedit{
+     width:600px;
+     height:40px;
+     background-color:white; 
+    }
+     .textareaedit{
+     width:600px;
+     height:60px;
+    }
+     .textareanarrow{
+     width:300px;
+     height:60px;
+     color:blue; 
+     background-color:white; 
+     border:none;  
+    }
+    .textareanarrowedit{
+     width:300px;
+     height:60px;
+    }
+   .textareafor3{
+     width:150px;
+     height:40px;
+     color:blue; 
+     background-color:white; 
+    }
+     .textareafor3edit{
+     width:150px;
+     height:40px;
+     
+    }
+    
+    .textareanarrowedit{
+     width:300px;
+     height:60px;
+    }
+
+     .textshort{
+     width:700px;
+     height:80px;
+     color:blue; 
+  background-color:white;
+  border:none; 
+    }
+    .textshortedit{
+     width:700px;
+     height:80px;
+  
+    }
+    
+       .text700{
+     width:700px;
+     height:50px;
+     color:blue; 
+  background-color:white;
+  border:none; 
+    }
+
+    .text700edit{
+     width:700px;
+     height:50px;
+  
+    }
+    
+      .text100{
+     width:100px;
+     color:blue; 
+  background-color:white;
+  border:none; 
+    }
+    .text100edit{
+     width:100px;
+  
+    }    
+
+      .text250regular{
+     width:250px;
+     color:blue; 
+  background-color:white;
+  border:none; 
+    }
+    .text250regularedit{
+     width:250px;
+  
+    }    
+
+    
+    .text200{
+     width:200px;
+     height:60px;
+     color:blue; 
+  background-color:white;
+    border:none;      
+    }    
+      .text200regular{
+     width:200px;
+     color:blue; 
+  background-color:white;
+  border:none; 
+    }
+    .text200regularedit{
+     width:200px;
+  
+    }    
+
+    
+    .text200{
+     width:200px;
+     height:60px;
+     color:blue; 
+  background-color:white;
+    border:none;      
+    }
+       .text200edit{
+     width:200px;
+     height:60px;
+    }
+    
+      .text160{
+     width:160px;
+     color:blue; 
+  background-color:white;
+    border:none;      
+    }
+       .text160edit{
+     width:160px;
+    }
+    
+    .txt60{
+     width:60px;
+     color:blue; 
+     background-color:white;
+   border:none;      
+    }
+    .txt60edit{
+     width:60px;
+         
+    }
+    
+         .text250short{
+     width:250px;
+     height:40px;
+     color:blue; 
+    background-color:white;
+    border:none;     
+    }
+    
+       .text250{
+     width:250px;
+     height:60px;
+     color:blue; 
+    background-color:white;
+    border:none;     
+    }
+    .text250edit{
+     width:250px;
+     height:60px;
+    }
+        .text500{
+     width:500px;
+     height:40px;
+    color:blue; 
+    background-color:white;
+    border:none;      
+    }
+    .text500edit{
+     width:500px;
+     height:40px;
+   .plist1{
+     width:200px;
+     color:blue; 
+    background-color:white;
+       border:none;
+    }
+
+  .multipl{
+    width:100px;
+     color:blue; 
+    background-color:white;
+       border:none;
+  }
+       span.notes {
+        float: left;
+        width: 650px;
+        clear: both;
+        display: table;
+    }
+    chk{
+        background-color:white;
+        width:10x;
+        height:10px;
+         
+    }
+</style>
+ <style>
+    .colstyle1 {width:80%;line-height: 25px;font-size:12px};
+    .colstyle2 {width:1%;font-size:8px;font-weight:bold;};
+    .colstyle3 {width:19%;};
+ //   .colstyle4 {width:50%;};
+    .oddrow {background-color:white; } 
+    .evenrow {background-color:#dbf0fd;}
+</style>
+
+ <style>
+    .colstyle_1 {width:50%;};
+    .colstyle_2 {width:50%;};
+  //  .colstyle3 {width:1%;};
+ //   .colstyle4 {width:50%;};
+    .oddrow {background-color:white; } 
+    .evenrow {background-color:#dbf0fd;}
+</style>
+
+
+
+<style>
+    .colstyle14 {width:20%;font-size:14px;text-align:center};
+    .colstyle24 {width:20%;font-size:14px;text-align:center};
+    .colstyle34 {width:30%;font-size:14px;text-align:center};
+    .colstyle44 {width:30%;font-size:14px;text-align:center};
+    
+      .colstyle15 {width:25%;font-size:14px;text-align:center;padding-top:3px;};
+</style>
+<style>
+.panelNoBorder{border: hidden;border-color: white;};
+</style>
+
+<style>
+    .colstyle16 {width:40%;font-size:14px;text-align:center};
+    .colstyle26 {width:20%;font-size:14px;text-align:center};
+    .colstyle36 {width:20%;font-size:14px;text-align:center};
+    .colstyle46 {width:20%;font-size:14px;text-align:center};
+    
+      .colstyle15 {width:25%;font-size:14px;text-align:center;padding-top:3px;};
+</style>
+
+
+  <div id="aPage" > 
+ 
+  <apex:include pageName="{!pageName}" Id="m">
+ 
+  </apex:include>
+  </div>
+
+<script>  
+ function loadingApps(dir) {
+   if(dir == '1') {
+     rend = true;
+     document.getElementById('loadingGifData').style.display = '';
+   }else {
+     document.getElementById('loadingGifData').style.display = 'none';
+   }
+ } 
+</script> 
+<!-- <apex:outPutlabel value="{!pageName}" id="pn" rendered="{!sfAdmin}" />-->
+</apex:page>

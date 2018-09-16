@@ -1,0 +1,208 @@
+<apex:page controller="SearchOnMobileController"> 
+<style>
+    span.topContainer {
+        margin: 1px; 
+        margin-bottom: 10px;
+        background: #BBFFFF; 
+        padding: 5px;
+        border:0; 
+        float: left;
+        width: auto; 
+        clear: both;
+        margin-top:5px;
+        white-space: nowrap;
+    }
+ </style>
+
+
+<style>
+        .fsBorders {
+        border-color:blue;
+        border-style: solid;
+        border-width: 1px;
+    }
+  </style>
+<script>  
+        function showProcessing(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('loadingGifData').style.display = '';
+            } else {
+                document.getElementById('loadingGifData').style.display = 'none';
+            }
+        } 
+</script> 
+   <apex:outputPanel id="opScripts">
+<script>
+    function bindCriteriaValidations() { 
+        var elDocket = document.getElementById('{!$Component.pgMain:frmMain:txtDocket}');
+        var elNYSID = document.getElementById('{!$Component.pgMain:frmMain:txtNYSID}');
+        var elFirstName = document.getElementById('{!$Component.pgMain:frmMain:txtFirstName}');
+        var elLastName = document.getElementById('{!$Component.pgMain:frmMain:txtLastName}');
+   }
+    function noenter(ev)  {
+        if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+            afSubmitSearch();
+                return false;
+            } 
+        }
+     }
+</script>
+
+</apex:outputPanel>
+<h1 color="green">
+<apex:form >
+ 
+<table>
+<tr>
+  <td width="350px" align="right">
+        <apex:commandLink value="close" id="ret" action="{!returnToHomePage}" />
+  </td>
+</tr>
+</table>
+<apex:outPutPanel id="pnSearch" styleClass="topContainer">
+ <apex:pageMessages id="mess"/>
+  <table>
+     <tr>
+       <td>
+        <span id="s1">
+         <fieldset class="fsBorders">
+            <legend>Search Client</legend>
+     <br/>
+ <apex:selectRadio value="{!searchValue}"  id="selectObj" style="font-size:12px">
+                 <apex:selectOptions value="{!SearchItems}" />
+                    <apex:actionSupport event="onchange" reRender="pnSearch" />
+ </apex:selectRadio>
+ <br/>
+  <table>
+    <tr >
+    <td allign="left" >
+    <apex:outPutLabel value="Docket:" rendered="{!searchValue=='Docket'}" id="lblDocket"/>
+    <apex:inputText id="txtdocket" value="{!docketValue}"  
+    style="width:120px;font-size:16px;" rendered="{!searchValue=='Docket'}" onkeypress="return noenter(event);" />  
+ 
+    <apex:outPutLabel value="NYSID:" rendered="{!searchValue=='NYSID'}" id="lblNYSID"/>
+    <apex:inputText id="txtnysid" value="{!nysidValue}" 
+    style="width:120px;font-size:16px;" rendered="{!searchValue=='NYSID'}" onkeypress="return noenter(event);" />  
+ 
+  
+   <apex:outPutText value="First Name:" rendered="{!searchValue=='Name'}" 
+      id="lblfname"/>
+   <apex:inputText id="txtFirstName" value="{!fnameValue}" 
+   style="width:160px;font-size:16px;" rendered="{!searchValue=='Name'}" onkeypress="return noenter(event);" />    
+   </td>
+   <td align="right" width="130px">
+   <apex:actionFunction name="afsearchData" action="{!selectClient}" status="dataProcessing" />
+   <apex:commandButton value="Go" action="{!Selectclient}" style="height:25px;width:26px"
+   rendered="{!searchValue!=null}" onclick="selClient()" 
+            oncomplete="bindCriteriaValidations()" />
+           <script>
+     function selClient(){
+  //   alert('in search');
+     showProcessing(1); 
+     afsearchData();
+  //   window.setTimeout(afsearchData(),500000);
+  //   alert('in search');
+
+  //  showProcessing(1);
+
+     }
+ </script>
+  
+   
+   </td>
+   </tr>
+<tr>
+</tr>
+   <tr>
+ 
+   <td allign="left" >
+    <apex:outPutText value="   Last Name:" rendered="{!searchValue=='Name'}" 
+    id="lbllname"/>
+    <apex:inputText id="txtLastName" value="{!lnameValue}"
+    style="width:160px;font-size:16px;" rendered="{!searchValue=='Name'}"  onkeypress="return noenter(event);" />
+   </td>
+   </tr>
+   <tr>
+    <td>
+    <apex:outPutLabel value="1234"  rendered="{!searchValue=='Docket'}" />
+   <apex:outPutLabel value="NY" style="color:red"   rendered="{!searchValue=='Docket'}" />
+   <apex:outPutLabel value="123456 (4 digits, 2 letters, 6 digits)" rendered="{!searchValue=='Docket'}" />
+
+  <apex:outPutLabel value="12345678" 
+     rendered="{!searchValue=='NYSID'}" />
+    <apex:outPutLabel value="A" style="color:red" rendered="{!searchValue=='NYSID'}" />
+    <apex:outPutLabel value="(8 digits, 1 letter)" rendered="{!searchValue=='NYSID'}" />
+   </td>
+   </tr>
+    <tr>
+    <td>
+   <span id="loadingGifData" style="display:none;" >
+        <table> 
+          <tr>
+             <td>
+               Processing.Please wait...
+                            <apex:image value="/img/loading32.gif" />
+             </td>
+       </tr>
+       </table>
+    </span>
+  </td>
+  
+   </tr>
+</table>
+</fieldset>
+</span>
+</td>
+</tr>
+</table>
+
+</apex:outPutPanel>
+
+ <br/>
+<apex:outPutPanel id="pb">
+    <table>
+    <apex:repeat value="{!lstclientsShow}" var="c">
+  <tr>
+     <td >
+       <hr/>
+     </td>
+   </tr>    
+     <tr>
+        <td width="140px" align="left">
+           <apex:outputText value="{!c.cname}" style="font-size:16px;color:blue"/>
+        </td>
+        <td>
+           <apex:outputText value="PCID:" />&nbsp;
+           <apex:outputText value="{!c.pcid}" style="font-size:16px;color:blue"/>
+       </td>
+     </tr>
+
+     <tr>
+        <td>
+           <apex:outputText value="{!c.docname}" />&nbsp;
+           <apex:outputText value="{!c.docket}" style="font-size:16px;color:blue"/>
+       </td>
+        <td>
+           <apex:outputText value="NYSID:" />&nbsp;
+           <apex:outputText value="{!c.nysid}" style="font-size:16px;color:blue"/>
+       </td>
+     </tr>
+     <tr>     
+       <td >
+         <apex:outputText value="Intake date:"/>
+         <apex:outputText value="{!c.strIntakeDate}" style="font-size:14px;color:blue"/>
+       </td>
+        <td>
+        <apex:outputText value="Exit Date:" />
+        <apex:outputText value="{!c.strExitDate}" style="font-size:14px;color:blue"/>
+     </td>
+   </tr>
+ 
+  </apex:repeat>
+   </table>     
+</apex:outPutPanel>
+
+</apex:form>
+</h1>
+</apex:page>

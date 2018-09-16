@@ -1,0 +1,159 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="healthPage" >
+ <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+  <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+ 
+
+ <apex:outPutPanel id="op" styleclass="span.resultContainer">
+<apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+		<apex:pageblocksection columns="2">
+		<apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Physical Information</span> 
+    </apex:facet>
+					<apex:inputfield value="{!HS.What_did_you_receive_in_jail__c}" />
+					<apex:inputfield value="{!HS.Temperature__c}" />
+					<apex:inputfield value="{!HS.Blood_Pressure__c}" />
+					<apex:inputfield value="{!HS.Height__c}" />
+					<apex:inputfield value="{!HS.Pulse__c}" />
+					<apex:inputfield value="{!HS.Weight__c}" />
+					<apex:inputfield value="{!HS.Respiratory_rate__c}" />
+					<apex:pageblocksectionitem />
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="1">
+		<apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Notes</span> 
+    </apex:facet>
+					<apex:inputfield value="{!HS.Notes_LPN__c}" style="width:700px"/>
+					<apex:inputfield value="{!HS.Notes_Psych__c}" style="width:700px"/>
+					<apex:inputfield value="{!HS.Current_Medical_Problems__c}" />
+				</apex:pageblocksection>
+			<apex:pageblocksection columns="2">
+	<apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Pain Management</span> 
+    </apex:facet>					<apex:inputfield value="{!HS.Client_in_pain__c}" />
+					<apex:inputfield value="{!HS.Client_prescribed_pain_medications__c}" />
+					<apex:inputfield value="{!HS.If_client_is_in_pain_rate_intensity__c}" />
+					<apex:inputfield value="{!HS.List_any_prescribed_painkillers__c}" />
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="2">
+		<apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Health History</span> 
+    </apex:facet>						<apex:inputfield value="{!HS.Number_of_doctor_visits_in_the_last_year__c}" />
+					<apex:inputfield value="{!HS.Want_help_getting__c}" />
+					<apex:inputfield value="{!HS.Number_of_general_health_ER_visits__c}" />
+					<apex:pageblocksectionitem />
+					<apex:inputfield value="{!HS.of_general_health_hospital_admissions__c}" />
+					<apex:pageblocksectionitem />
+				</apex:pageblocksection>
+			<apex:pageblocksection columns="2">
+	<apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Smoking habits</span> 
+    </apex:facet>
+    					<apex:inputfield value="{!HS.Smoking_status__c}" />
+					<apex:inputfield value="{!HS.of_cigarettes_per_day__c}" />
+					<apex:inputfield value="{!HS.Smoking_information__c}" />
+					<apex:inputfield value="{!HS.Time_to_first_cigarette__c}" />
+				</apex:pageblocksection>
+</apex:pageblock>
+
+<!--                    VIEW block   -->
+<apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+		<apex:pageblocksection columns="2">
+		<apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Physical Information</span> 
+    </apex:facet>		
+		
+					<apex:outputtext value="{!HS.What_did_you_receive_in_jail__c}" />
+					<apex:outputtext value="{!HS.Temperature__c}" />
+					<apex:outputtext value="{!HS.Blood_Pressure__c}" />
+					<apex:outputtext value="{!HS.Height__c}" />
+					<apex:outputtext value="{!HS.Pulse__c}" />
+					<apex:outputtext value="{!HS.Weight__c}" />
+					<apex:outputtext value="{!HS.Respiratory_rate__c}" />
+					<apex:pageblocksectionitem />
+				</apex:pageblocksection>
+	
+				<apex:pageblocksection columns="1">
+		<apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Notes</span> 
+    </apex:facet>
+					<apex:inputTextarea value="{!HS.Notes_LPN__c}" styleclass="textarea" readonly="true"/>
+					<apex:inputTextarea value="{!HS.Notes_Psych__c}" styleclass="textarea" readonly="true"/>
+					<apex:inputTextarea value="{!HS.Current_Medical_Problems__c}" 
+					styleclass="textarea" readonly="true"/>
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="2">
+	<apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Pain Management</span> 
+    </apex:facet>				
+					<apex:outputtext value="{!HS.Client_in_pain__c}" />
+					<apex:outputtext value="{!HS.Client_prescribed_pain_medications__c}" />
+					<apex:outputtext value="{!HS.If_client_is_in_pain_rate_intensity__c}" />
+					<apex:outputtext value="{!HS.List_any_prescribed_painkillers__c}" />
+				</apex:pageblocksection>
+	
+				<apex:pageblocksection columns="2">
+		<apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Health History</span> 
+    </apex:facet>	
+					<apex:outputtext value="{!HS.Number_of_doctor_visits_in_the_last_year__c}" />
+					<apex:outputtext value="{!HS.Want_help_getting__c}" />
+					<apex:outputtext value="{!HS.Number_of_general_health_ER_visits__c}" />
+					<apex:pageblocksectionitem />
+					<apex:outputtext value="{!HS.of_general_health_hospital_admissions__c}" />
+					<apex:pageblocksectionitem />
+				</apex:pageblocksection>
+	
+				<apex:pageblocksection columns="2">
+	<apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Smoking habits</span> 
+    </apex:facet>				
+					<apex:outputtext value="{!HS.Smoking_status__c}" />
+					<apex:outputtext value="{!HS.of_cigarettes_per_day__c}" />
+					<apex:outputtext value="{!HS.Smoking_information__c}" />
+					<apex:outputtext value="{!HS.Time_to_first_cigarette__c}" />
+				</apex:pageblocksection>
+</apex:pageblock>
+</apex:outPutPanel>
+
+		<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>
+     <br/>
+</apex:form>
+</apex:page>

@@ -1,0 +1,1359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Details individual as well as monthly PRP program follow ups</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Active_Month_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Last day of the month the activity occurred in.</inlineHelpText>
+        <label>Active Month End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Client_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Program_Relationships__r.Warrant__r.FirstName + &quot; &quot; +  Program_Relationships__r.Warrant__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Client Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Date_Of_Follow_Up__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Of Follow Up</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Date_Report_Signed__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Report Signed</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Discharge_Date_By_Phone_Visit__c</fullName>
+        <externalId>false</externalId>
+        <label>Discharge Date By Phone/Visit</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Discharge_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Discharge Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Discharge_Transfer_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Discharge/Transfer Reason</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Due_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date report expected back from the Treatment Agency</inlineHelpText>
+        <label>Due Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Escort_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Program_Relationships__r.Warrant__r.Escort_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Escort Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Escort_Result__c</fullName>
+        <description>PRP - QC: Added for validation and user info.  SPA has mandated rule that unsuccessful escort can only have a TA Program Status of &quot;Never Enrolled&quot;</description>
+        <externalId>false</externalId>
+        <formula>text(Program_Relationships__r.Warrant__r.Escort_Result__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Escort Result</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Follow_Up_Outcome__c</fullName>
+        <externalId>false</externalId>
+        <label>Follow Up Outcome</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Status Confirmed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Status Not Confirmed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Left Message</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No Response</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Follow_Up_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Follow Up Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Phone Call</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Visit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MSR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Status_Report_ID__c</fullName>
+        <description>ID&apos;s monthly status report follow ups by the month / year generated</description>
+        <externalId>false</externalId>
+        <inlineHelpText>format is YYYYMM (201008 is for reports covering activity in August, 2010)</inlineHelpText>
+        <label>Monthly Status Report ID</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_Program_Start_Date_If_Any__c</fullName>
+        <externalId>false</externalId>
+        <label>New Program Start Date (If Any)</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>This field is for writing notes about this communication.</inlineHelpText>
+        <label>Notes</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>OldId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Old ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Parole_Officer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Parole Officer</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Parole Officer, Parole – Senior Parole Officer</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Warrant Follow Up</relationshipLabel>
+        <relationshipName>Follow_Up2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Program_Relationships__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Program Relationship</label>
+        <referenceTo>Program_Relationships__c</referenceTo>
+        <relationshipLabel>Follow Up</relationshipLabel>
+        <relationshipName>FollowUps</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Program_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Program_Relationships__r.Program_Start_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Program Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Program_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Program Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Never Enrolled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending Intake</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transferred</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Successful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unsuccessful</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Program__c</fullName>
+        <description>QC: Hidden field, used for filtered lookup of Verified With</description>
+        <externalId>false</externalId>
+        <formula>Program_Relationships__r.Program__r.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Program</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Task_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Task Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Treatment_Program__c</fullName>
+        <externalId>false</externalId>
+        <formula>Program_Relationships__r.Program__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Treatment Program</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Verified_With__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Shows all Treatment Agency Contacts and Parole Officers.  Should show only TA Contacts whose account ID = the Account ID of the TA or POs in the bureau.  So far, we can&apos;t get this to filter to that level.  Probably need to add code to move the TA SFID to the follow up.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>ALL Treatment Agency contacts and Parole Officers are shown in pop up window. Be sure to select staff person who actually works at the Treatment Agency.</inlineHelpText>
+        <label>Verified With</label>
+        <lookupFilter>
+            <active>true</active>
+            <errorMessage>No such staff person works for a Treatment Agency. Please try another spelling or add the person to the Treatment Agency</errorMessage>
+            <filterItems>
+                <field>Contact.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Treatment Agency Contact, Parole Officer</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Follow Up Verifications</relationshipLabel>
+        <relationshipName>Follow_Up</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Warrant_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Program_Relationships__r.Warrant__r.Warrant_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Warrant ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Warrant_SFDC_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Program_Relationships__r.Warrant__r.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Warrant SFDC Id</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Warrant__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Links parole officer follow up to warrant (contact)</description>
+        <externalId>false</externalId>
+        <label>Warrant</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Parole Office Follow Up</relationshipLabel>
+        <relationshipName>Follow_Up1</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>Follow Up</label>
+    <listViews>
+        <fullName>All_Monthly_Follow_Ups</fullName>
+        <columns>Treatment_Program__c</columns>
+        <columns>Client_Name__c</columns>
+        <columns>NAME</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Active_Month_End_Date__c</columns>
+        <columns>Task_Status__c</columns>
+        <columns>Monthly_Status_Report_ID__c</columns>
+        <columns>Program_Relationships__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>FollowUp__c.Monthly_Status_Report_Follow_Up</value>
+        </filters>
+        <label>Monthly Follow Ups: All</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Parole_Officer_Follow_Ups</fullName>
+        <columns>NAME</columns>
+        <columns>Warrant_ID__c</columns>
+        <columns>Follow_Up_Outcome__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>FollowUp__c.Parole_Officer_Follow_Up</value>
+        </filters>
+        <label>Parole Officer Follow Ups: All</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Treatment_Program_Follow_Ups</fullName>
+        <columns>NAME</columns>
+        <columns>Warrant_ID__c</columns>
+        <columns>Treatment_Program__c</columns>
+        <columns>Follow_Up_Outcome__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>FollowUp__c.Treatment_Agency_Follow_Up</value>
+        </filters>
+        <label>Treatment Program Follow Ups: All</label>
+    </listViews>
+    <listViews>
+        <fullName>Follow_Ups_All</fullName>
+        <columns>NAME</columns>
+        <columns>Treatment_Program__c</columns>
+        <columns>Client_Name__c</columns>
+        <columns>Active_Month_End_Date__c</columns>
+        <columns>Date_Of_Follow_Up__c</columns>
+        <columns>Follow_Up_Type__c</columns>
+        <columns>Monthly_Status_Report_ID__c</columns>
+        <columns>New_Program_Start_Date_If_Any__c</columns>
+        <columns>Program__c</columns>
+        <columns>Program_Relationships__c</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>Follow Ups - All</label>
+        <sharedTo>
+            <group>PRP_Staff</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Follow_Ups_PO</fullName>
+        <columns>NAME</columns>
+        <columns>Treatment_Program__c</columns>
+        <columns>Client_Name__c</columns>
+        <columns>Active_Month_End_Date__c</columns>
+        <columns>Date_Of_Follow_Up__c</columns>
+        <columns>Follow_Up_Type__c</columns>
+        <columns>Monthly_Status_Report_ID__c</columns>
+        <columns>New_Program_Start_Date_If_Any__c</columns>
+        <columns>Program__c</columns>
+        <columns>Program_Relationships__c</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>FollowUp__c.Parole_Officer_Follow_Up</value>
+        </filters>
+        <label>Follow Ups - PO</label>
+        <sharedTo>
+            <group>PRP_Staff</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Monthly_Follow_Ups_201007</fullName>
+        <columns>Treatment_Program__c</columns>
+        <columns>Client_Name__c</columns>
+        <columns>NAME</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Program_Relationships__c</columns>
+        <columns>Program_Status__c</columns>
+        <columns>Date_Report_Signed__c</columns>
+        <columns>Verified_With__c</columns>
+        <columns>Active_Month_End_Date__c</columns>
+        <columns>Discharge_Date__c</columns>
+        <columns>Warrant_ID__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>FollowUp__c.Monthly_Status_Report_Follow_Up</value>
+        </filters>
+        <filters>
+            <field>Monthly_Status_Report_ID__c</field>
+            <operation>equals</operation>
+            <value>201007</value>
+        </filters>
+        <filters>
+            <field>Client_Name__c</field>
+            <operation>notContain</operation>
+            <value>Test</value>
+        </filters>
+        <label>Monthly Follow Ups: 201007 QC delete</label>
+        <sharedTo>
+            <group>PRP_Staff</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Monthly_Follow_Ups_Due_This_Month</fullName>
+        <columns>Treatment_Program__c</columns>
+        <columns>Client_Name__c</columns>
+        <columns>NAME</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Program_Relationships__c</columns>
+        <columns>Program_Status__c</columns>
+        <columns>Date_Report_Signed__c</columns>
+        <columns>Verified_With__c</columns>
+        <columns>Active_Month_End_Date__c</columns>
+        <columns>Discharge_Date__c</columns>
+        <columns>Warrant_ID__c</columns>
+        <columns>UPDATEDBY_USER.ALIAS</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>FollowUp__c.Monthly_Status_Report_Follow_Up</value>
+        </filters>
+        <filters>
+            <field>Active_Month_End_Date__c</field>
+            <operation>equals</operation>
+            <value>LAST_MONTH</value>
+        </filters>
+        <label>Monthly Follow Ups: Due This Month</label>
+        <sharedTo>
+            <group>PRP_Staff</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Next_Month_Monthly_Follow_Ups</fullName>
+        <columns>NAME</columns>
+        <columns>Program_Relationships__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Active_Month_End_Date__c</columns>
+        <columns>Task_Status__c</columns>
+        <columns>Monthly_Status_Report_ID__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>FollowUp__c.Monthly_Status_Report_Follow_Up</value>
+        </filters>
+        <filters>
+            <field>Due_Date__c</field>
+            <operation>equals</operation>
+            <value>NEXT_MONTH</value>
+        </filters>
+        <label>Monthly Follow Ups: Next Month</label>
+    </listViews>
+    <listViews>
+        <fullName>Outstanding_Monthly_Follow_Ups</fullName>
+        <columns>Treatment_Program__c</columns>
+        <columns>Client_Name__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Active_Month_End_Date__c</columns>
+        <columns>Program_Start_Date__c</columns>
+        <columns>NAME</columns>
+        <columns>Program_Relationships__c</columns>
+        <columns>Task_Status__c</columns>
+        <columns>Monthly_Status_Report_ID__c</columns>
+        <columns>Discharge_Date_By_Phone_Visit__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>FollowUp__c.Monthly_Status_Report_Follow_Up</value>
+        </filters>
+        <filters>
+            <field>Due_Date__c</field>
+            <operation>lessThan</operation>
+            <value>TODAY</value>
+        </filters>
+        <filters>
+            <field>Task_Status__c</field>
+            <operation>equals</operation>
+            <value>Not Started</value>
+        </filters>
+        <label>Monthly Follow Ups: Outstanding</label>
+    </listViews>
+    <nameField>
+        <displayFormat>FLWU-{00000}</displayFormat>
+        <label>Follow Up</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Follow Up</pluralLabel>
+    <recordTypes>
+        <fullName>Monthly_Status_Report_Follow_Up</fullName>
+        <active>false</active>
+        <description>Written monthly follow-up with TA for client (Rename Monthly Report Status Follow up)</description>
+        <label>Monthly Status Report Follow Up</label>
+        <picklistValues>
+            <picklist>Follow_Up_Outcome__c</picklist>
+            <values>
+                <fullName>Left Message</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Response</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Status Confirmed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Status Not Confirmed</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Follow_Up_Type__c</picklist>
+            <values>
+                <fullName>MSR</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Program_Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Never Enrolled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Intake</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successful</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Task_Status__c</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Parole_Officer_Follow_Up</fullName>
+        <active>false</active>
+        <label>Parole Officer Follow Up</label>
+        <picklistValues>
+            <picklist>Follow_Up_Outcome__c</picklist>
+            <values>
+                <fullName>Left Message</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Response</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Status Confirmed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Status Not Confirmed</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Follow_Up_Type__c</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone Call</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Visit</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Program_Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Never Enrolled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Intake</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successful</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Task_Status__c</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Referral_Follow_Up</fullName>
+        <active>true</active>
+        <description>Generic Non-PRP Follow Up</description>
+        <label>Referral Follow Up</label>
+        <picklistValues>
+            <picklist>Follow_Up_Outcome__c</picklist>
+            <values>
+                <fullName>Left Message</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Response</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Status Confirmed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Status Not Confirmed</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Follow_Up_Type__c</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone Call</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Visit</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Program_Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Never Enrolled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Intake</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successful</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Task_Status__c</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Treatment_Agency_Follow_Up</fullName>
+        <active>true</active>
+        <description>Phone Call or Visit follow up with Treatment Agency regarding specific client/warrant</description>
+        <label>Treatment Agency Follow Up</label>
+        <picklistValues>
+            <picklist>Follow_Up_Outcome__c</picklist>
+            <values>
+                <fullName>Left Message</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Response</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Status Confirmed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Status Not Confirmed</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Follow_Up_Type__c</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone Call</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Visit</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Program_Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Never Enrolled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Intake</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successful</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsuccessful</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Task_Status__c</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Treatment_Program__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Client_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>RECORDTYPE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Date_Of_Follow_Up__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Follow_Up_Outcome__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Follow_Up_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Program_Relationships__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Program_Start_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Program_Status__c</customTabListAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>DateOfFlwupGreaterThanEscortDate</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep6&quot;,  
+datevalue(Date_Of_Follow_Up__c) &lt; Escort_Date__c)</errorConditionFormula>
+        <errorDisplayField>Date_Of_Follow_Up__c</errorDisplayField>
+        <errorMessage>The Date Of Follow Up cannot be earlier than the Escort Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DateReportSignedCompleted</fullName>
+        <active>true</active>
+        <description>Monthly Follow Up = 012600000005Ep2</description>
+        <errorConditionFormula>and( 
+$RecordType.Id = &quot;012600000005Ep2&quot;,  
+text(Task_Status__c) = &quot;Completed&quot;,
+isnull(Date_Report_Signed__c))</errorConditionFormula>
+        <errorDisplayField>Date_Report_Signed__c</errorDisplayField>
+        <errorMessage>If Task Status is &quot;Completed&quot; Date Report Signed cannot be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DateReportSignedNewCheck</fullName>
+        <active>true</active>
+        <description>Monthly Follow Up = 012600000005Ep2</description>
+        <errorConditionFormula>and( 
+$RecordType.Id = &quot;012600000005Ep2&quot;,   
+isblank(Date_Report_Signed__c ),
+not(ISNEW()))</errorConditionFormula>
+        <errorDisplayField>Date_Report_Signed__c</errorDisplayField>
+        <errorMessage>Date Report Signed must be entered before saving</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DateReportSignedNotStarted</fullName>
+        <active>true</active>
+        <description>Monthly Follow Up = 012600000005Ep2</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep2&quot;, 
+text(Task_Status__c) = &quot;Not Started&quot;, 
+not(isnull(Date_Report_Signed__c)))</errorConditionFormula>
+        <errorDisplayField>Date_Report_Signed__c</errorDisplayField>
+        <errorMessage>If Task Status is &quot;Not Started&quot; Date Report Signed cannot have a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DischargeDateByPhoneVisitHasValue</fullName>
+        <active>true</active>
+        <description>Treatment Plan Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>/* For Treatment Plan */
+AND( $RecordType.Id =&quot;012600000005Ep6&quot;, 
+ OR(TEXT(Program_Status__c) = &quot;Active&quot;,  
+         TEXT(Program_Status__c) = &quot;Pending Intake&quot;),
+NOT(ISNULL(Discharge_Date_By_Phone_Visit__c)))</errorConditionFormula>
+        <errorDisplayField>Program_Status__c</errorDisplayField>
+        <errorMessage>If Discharge Date By Phone/Visit has a value, Program Status needs to equal &quot;Unsuccessful&quot;, &quot;Successful&quot;, &quot;Transferred&quot;, &quot;Never Enrolled&quot;</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DischargeDateGreaterThanDateRptSigned</fullName>
+        <active>true</active>
+        <description>Monthly Follow Up = 012600000005Ep2</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep2&quot;,  
+datevalue(Date_Report_Signed__c)  &lt;  Discharge_Date__c)</errorConditionFormula>
+        <errorDisplayField>Discharge_Date__c</errorDisplayField>
+        <errorMessage>Discharge Date cannot be greater than Date Report Signed</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DischargeDateHasValue</fullName>
+        <active>true</active>
+        <description>Monthly Follow Up = 012600000005Ep2</description>
+        <errorConditionFormula>/* For MSR */
+AND( $RecordType.Id= &quot;012600000005Ep2&quot;, 
+ OR(TEXT(Program_Status__c) = &quot;Active&quot;,  
+         TEXT(Program_Status__c) = &quot;Pending Intake&quot;),
+NOT(ISNULL(Discharge_Date__c)))</errorConditionFormula>
+        <errorDisplayField>Program_Status__c</errorDisplayField>
+        <errorMessage>If Discharge Date has a value Program Status needs to equal &quot;Unsuccessful&quot;, &quot;Successful&quot;, &quot;Transferred&quot;, &quot;Never Enrolled&quot;</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DischargeDateIfSuccessful</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>AND ($RecordType.Id =&quot;012600000005Ep6&quot;, 
+         TEXT(Program_Status__c) = &quot;Successful&quot;,  
+          ISNULL(Discharge_Date_By_Phone_Visit__c) 
+)</errorConditionFormula>
+        <errorDisplayField>Discharge_Date_By_Phone_Visit__c</errorDisplayField>
+        <errorMessage>If Program Status is Successful, Discharge Date is required</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DischargeDateNotEqualStatusConfirmed</fullName>
+        <active>false</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep6&quot;, 
+text(Follow_Up_Outcome__c) &lt;&gt; &quot;Status Confirmed&quot;, 
+not(isnull(Discharge_Date__c))
+)</errorConditionFormula>
+        <errorDisplayField>Discharge_Date__c</errorDisplayField>
+        <errorMessage>If Follow Up Outome does not equal &quot;Status Confirmed&quot; Discharge Date cannot have a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DischargeDateNotStarted</fullName>
+        <active>true</active>
+        <description>Monthly Follow Up = 012600000005Ep2</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep2&quot;, 
+text(Task_Status__c) = &quot;Not Started&quot;, 
+not(isnull(Discharge_Date__c)))</errorConditionFormula>
+        <errorDisplayField>Discharge_Date__c</errorDisplayField>
+        <errorMessage>If Task Status is &quot;Not Started&quot; Discharge Date cannot have a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DischargeDateProgramStatus</fullName>
+        <active>true</active>
+        <description>Monthly Follow Up = 012600000005Ep2</description>
+        <errorConditionFormula>and( 
+$RecordType.Id = &quot;012600000005Ep2&quot;, 
+   or(text(Program_Status__c) = &quot;Unsuccessful&quot;,
+       text(Program_Status__c) = &quot;Successful&quot;,
+       text(Program_Status__c) = &quot;Transferred&quot;,
+       text(Program_Status__c) = &quot;Never Enrolled&quot;), 
+isnull(Discharge_Date__c))</errorConditionFormula>
+        <errorDisplayField>Discharge_Date__c</errorDisplayField>
+        <errorMessage>If Program Status is &quot;Unsuccessful&quot;, &quot;Successful&quot;, &quot;Transferred&quot;, &quot;Never Enrolled&quot;  Discharge Date can&apos;t be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DischargeDateStatusNotConfirmed</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep6&quot;, 
+text(Follow_Up_Outcome__c) = &quot;Stafus Not Confirmed&quot;, 
+not(isnull(  Discharge_Date_By_Phone_Visit__c  )) 
+)</errorConditionFormula>
+        <errorDisplayField>Discharge_Date_By_Phone_Visit__c</errorDisplayField>
+        <errorMessage>If Follow-up Outcome is &quot;Status Not Confirmed&quot; Discharge Date must be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DischargeDateUnsuccessfulTransferred</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and($RecordType.Id= &quot;012600000005Ep6&quot;, 
+    or(text(Program_Status__c) = &quot;Unsuccessful&quot;,
+        text(Program_Status__c) = &quot;Transferred&quot;,
+        text(Program_Status__c) = &quot;Never Enrolled&quot;), 
+isnull(  Discharge_Date_By_Phone_Visit__c  ))</errorConditionFormula>
+        <errorDisplayField>Discharge_Date_By_Phone_Visit__c</errorDisplayField>
+        <errorMessage>If Program Status is &quot;Unsuccessful&quot; or &quot;Transferred&quot; or &quot;Never Enrolled&quot; Discharge Date by Phone/Visit must have a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DischargeTxReasonNotConfirmed</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep6&quot;, 
+text(Follow_Up_Outcome__c) &lt;&gt; &quot;Status Confirmed&quot;, 
+len(Discharge_Transfer_Reason__c) &gt; 0
+)</errorConditionFormula>
+        <errorDisplayField>Discharge_Transfer_Reason__c</errorDisplayField>
+        <errorMessage>If Follow Up Outcome does not equal &quot;Status Confirmed&quot; Discharge/Transfer Reason cannot have a value.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>NewProgramStartDateNeverEnrolled</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep6&quot;,  
+text(Program_Status__c) = &quot;Never Enrolled&quot;, 
+not(isnull(New_Program_Start_Date_If_Any__c)))</errorConditionFormula>
+        <errorDisplayField>New_Program_Start_Date_If_Any__c</errorDisplayField>
+        <errorMessage>If Program Status is &quot;Never Enrolled&quot; New Program Start Date (If Any) cannot have a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>NewProgramStartDateStatusNotConfirmed</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep6&quot;, 
+text(Follow_Up_Outcome__c) = &quot;Status Not Confirmed&quot;, 
+not(isnull( New_Program_Start_Date_If_Any__c )) 
+)</errorConditionFormula>
+        <errorDisplayField>New_Program_Start_Date_If_Any__c</errorDisplayField>
+        <errorMessage>If Follow-up Outcome is &quot;Status Not Confirmed&quot; New Program Start Date (If Any) must be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>NewProgramStartDateStatusNotEqualConfmd</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and(
+$RecordType.Id= &quot;012600000005Ep6&quot;, 
+text(Follow_Up_Outcome__c) &lt;&gt; &quot;Status Confirmed&quot;,
+not(isnull(New_Program_Start_Date_If_Any__c)) 
+)</errorConditionFormula>
+        <errorDisplayField>New_Program_Start_Date_If_Any__c</errorDisplayField>
+        <errorMessage>If Follow Up Outome does not equal &quot;Status Confirmed&quot; New Program Start Date (If Any) cannot have a value.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>NewProgramStartDateUnsuccessful</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep6&quot;,  
+Escort_Result__c =&quot;Unsuccessful&quot;,
+not(isnull(New_Program_Start_Date_If_Any__c)))</errorConditionFormula>
+        <errorDisplayField>New_Program_Start_Date_If_Any__c</errorDisplayField>
+        <errorMessage>If Escort Result is &quot;Unsuccessful&quot; New Program Start Date (If Any) cannot have a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ProgramStatusCompleted</fullName>
+        <active>true</active>
+        <description>Monthly Follow Up = 012600000005Ep2</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep2&quot;,  
+text(Task_Status__c) = &quot;Completed&quot;,
+isnull(text(Program_Status__c)))</errorConditionFormula>
+        <errorDisplayField>Program_Status__c</errorDisplayField>
+        <errorMessage>If Task Status is &quot;Completed&quot; Program Status cannot be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ProgramStatusEscortResultUnsuccessful</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6 - As per SPA, if escort result is Unsuccessful, then program status must be Never Enrolled.</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep6&quot;, 
+  Escort_Result__c=&quot;Unsuccessful&quot;,
+  text(Program_Status__c)&lt;&gt;&quot;Never Enrolled&quot;
+)</errorConditionFormula>
+        <errorDisplayField>Program_Status__c</errorDisplayField>
+        <errorMessage>Program status must be Never Enrolled if the escort result is Unsuccessful</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ProgramStatusLessThanPrgmStartDates</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and($RecordType.Id= &quot;012600000005Ep6&quot;,
+Program_Start_Date__c &lt;= today(),
+    or(New_Program_Start_Date_If_Any__c &lt;= today(), 
+    isnull(New_Program_Start_Date_If_Any__c)),
+text(Program_Status__c) = &quot;Pending Intake&quot;)</errorConditionFormula>
+        <errorDisplayField>Program_Status__c</errorDisplayField>
+        <errorMessage>Program Status cannot be &quot;Pending Intake&quot; if Program Start Date is less than or equal to today and New Program Start Date (If Any) is blank or less than or equal to today</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ProgramStatusNewCheck</fullName>
+        <active>true</active>
+        <description>Monthly Follow Up = 012600000005Ep2</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep2&quot;,   
+isblank(  text(Program_Status__c) ),
+not(ISNEW()))</errorConditionFormula>
+        <errorDisplayField>Program_Status__c</errorDisplayField>
+        <errorMessage>Program Status must have a value before saving</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ProgramStatusNoProgramStartDates</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and($RecordType.Id= &quot;012600000005Ep6&quot;, 
+isnull(Program_Start_Date__c), 
+isnull(New_Program_Start_Date_If_Any__c),
+text(Program_Status__c) = &quot;Active&quot;)</errorConditionFormula>
+        <errorDisplayField>Program_Status__c</errorDisplayField>
+        <errorMessage>Program Status cannot be &quot;Active&quot; if both Program Start Date and New Program Start Date (If Any) are blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ProgramStatusNonBlankDischargeDate</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and($RecordType.Id= &quot;012600000005Ep6&quot;, 
+not(isnull( Discharge_Date_By_Phone_Visit__c )),
+ and(text(Program_Status__c) &lt;&gt; &quot;Unsuccessful&quot;,
+      text(Program_Status__c) &lt;&gt; &quot;Transferred&quot;,
+      text(Program_Status__c) &lt;&gt; &quot;Never Enrolled&quot;,
+      text(Program_Status__c) &lt;&gt; &quot;Successful&quot;))</errorConditionFormula>
+        <errorDisplayField>Program_Status__c</errorDisplayField>
+        <errorMessage>If Discharge Date has a value then Program Status must be Unsuccessful, Transferred, Never Enrolled, or Successful</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ProgramStatusNotEqualConfirmed</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep6&quot;, 
+text(Follow_Up_Outcome__c) &lt;&gt; &quot;Status Confirmed&quot;, 
+len(text(Program_Status__c)) &gt; 0
+)</errorConditionFormula>
+        <errorDisplayField>Program_Status__c</errorDisplayField>
+        <errorMessage>If Follow Up Outome does not equal &quot;Status Confirmed&quot; Program Status cannot have a value.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ProgramStatusNotStarted</fullName>
+        <active>true</active>
+        <description>Monthly Follow Up = 012600000005Ep2</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep2&quot;, 
+text(Task_Status__c) = &quot;Not Started&quot;, 
+len(text(Program_Status__c )) &gt; 0)</errorConditionFormula>
+        <errorDisplayField>Program_Status__c</errorDisplayField>
+        <errorMessage>If Task Status is &quot;Not Started&quot; Program Status cannot have a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ProgramStatusPrgmStartDatesGreaterToday</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and($RecordType.Id= &quot;012600000005Ep6&quot;, 
+    or(Program_Start_Date__c &gt; today(), 
+     New_Program_Start_Date_If_Any__c &gt; today()),
+text(Program_Status__c) &lt;&gt; &quot;Pending Intake&quot;)</errorConditionFormula>
+        <errorDisplayField>Program_Status__c</errorDisplayField>
+        <errorMessage>If Program Start Date or New Program Start Date (If Any) is greater than today Program Status must be &quot;Pending Intake&quot;</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ProgramStatusStatusConfirmed</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep6&quot;, 
+text(Follow_Up_Outcome__c) = &quot;Status Confirmed&quot;, 
+len(text(Program_Status__c)) = 0 
+)</errorConditionFormula>
+        <errorDisplayField>Program_Status__c</errorDisplayField>
+        <errorMessage>If Follow Up Outome is &quot;Status Confirmed&quot; Program Status cannot be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ProgramStatusStatusNotConfirmed</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep6&quot;, 
+text(Follow_Up_Outcome__c) = &quot;Status Not Confirmed&quot;, 
+len(text( Program_Status__c)) &gt; 0 
+)</errorConditionFormula>
+        <errorDisplayField>Program_Status__c</errorDisplayField>
+        <errorMessage>If Follow-up Outcome is &quot;Status Not Confirmed&quot; Program Status must be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Program_Relationship_Modified</fullName>
+        <active>true</active>
+        <description>Prevents PRP staff from modifying the program relationship ID</description>
+        <errorConditionFormula>AND(ISCHANGED( Program_Relationships__c ), $Profile.Name &lt;&gt; &quot;Strategic Planning&quot;, $Profile.Name &lt;&gt; &quot;System Administrator&quot;, OR($RecordType.Id = &quot;012600000005Ep2&quot;, $RecordType.Id = &quot;012600000005Ep6&quot;))</errorConditionFormula>
+        <errorDisplayField>Program_Relationships__c</errorDisplayField>
+        <errorMessage>You are not allowed to modify the program relationship after it has been created.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>TaskStatusCantBeNone</fullName>
+        <active>true</active>
+        <description>Monthly Follow Up = 012600000005Ep2</description>
+        <errorConditionFormula>AND( 
+$RecordType.Id= &quot;012600000005Ep2&quot;, 
+ISPICKVAL( Task_Status__c,&quot;&quot;))</errorConditionFormula>
+        <errorDisplayField>Task_Status__c</errorDisplayField>
+        <errorMessage>Task status cannot be switched to &quot;None&quot;</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>VerifiedWIthNewCheck</fullName>
+        <active>true</active>
+        <description>Monthly Follow Up = 012600000005Ep2</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep2&quot;,   
+isblank( Verified_With__c  ),
+not(ISNEW()))</errorConditionFormula>
+        <errorDisplayField>Verified_With__c</errorDisplayField>
+        <errorMessage>Verified With must have a value before saving</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>VerifiedWithCompleted</fullName>
+        <active>true</active>
+        <description>Monthly Follow Up = 012600000005Ep2</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep2&quot;,  
+text(Task_Status__c) = &quot;Completed&quot;,
+isnull(Verified_With__c))</errorConditionFormula>
+        <errorDisplayField>Verified_With__c</errorDisplayField>
+        <errorMessage>If Task Status is &quot;Completed&quot; Verified With cannot be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>VerifiedWithNotStarted</fullName>
+        <active>true</active>
+        <description>Monthly Follow Up = 012600000005Ep2</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep2&quot;, 
+text(Task_Status__c) = &quot;Not Started&quot;, 
+len(Verified_With__c) &gt; 0)</errorConditionFormula>
+        <errorDisplayField>Verified_With__c</errorDisplayField>
+        <errorMessage>If Task Status is &quot;Not Started&quot; Verified With cannot have a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>VerifiedWithStatusConfirmed</fullName>
+        <active>true</active>
+        <description>Treatment Program Follow Up = 012600000005Ep6</description>
+        <errorConditionFormula>and( 
+$RecordType.Id= &quot;012600000005Ep6&quot;, 
+text(Follow_Up_Outcome__c) = &quot;Status Confirmed&quot;, 
+len(Verified_With__c) = 0
+)</errorConditionFormula>
+        <errorDisplayField>Verified_With__c</errorDisplayField>
+        <errorMessage>If Follow Up Outome is &quot;Status Confirmed&quot; Verified With cannot be blank</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>New_PO_Follow_Up</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New PO Follow Up</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>https://na4.salesforce.com/a0P/e?CF00N60000001p9BM={!Contact.Name}&amp;CF00N60000001p9BM_lkid={!Contact.Id}&amp;retURL=/{!Contact.Id}&amp;RecordType=012600000005Ep4</url>
+    </webLinks>
+</CustomObject>

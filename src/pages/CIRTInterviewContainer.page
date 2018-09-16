@@ -1,0 +1,24 @@
+<apex:page title="CIRT Interview Container" controller="CIRTInterviewContainerController" id="pgInterview" sidebar="True">
+    
+   
+    <apex:outputPanel id="opTitleHeader">
+        <apex:sectionHeader subtitle="{!c.FirstName} {!c.LastName} / {!c.P_C_ID__c}" title="CIRT Interview" />
+        <br />
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="flowWrapper">
+    
+        <apex:outputPanel id="flowPanel">
+            <flow:interview name="CIRT_Interview" buttonLocation="bottom" finishLocation="{!strURL}">
+                <apex:param name="ContactId" value="{!c.id}"/>          
+            </flow:interview>
+        </apex:outputPanel>   
+
+    </apex:outputPanel>  
+    
+    <script>
+        // Prevent Calendar Popup in Flows and Pages
+        function setFocusOnLoad() { }
+    </script>
+    
+</apex:page>

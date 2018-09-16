@@ -1,0 +1,240 @@
+<apex:page title="Attorney Info" controller="attorneyInfoController" id="pgMain" sidebar="true">
+   
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191, '/jQueryUI-1.10.3/ui/jquery-ui.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/corners/jquery.corner.js')}" /> 
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/css/ui-lightness/jquery-ui-1.8.13.custom.css')}" />
+
+<apex:outputPanel id="opScripts">
+
+<style>
+
+    span.topContainer {
+        margin: 1px; 
+        margin-bottom: 10px;
+        background: #BEE3F8; 
+        padding: 5px;
+        border:0; 
+        float: left;
+        width: auto;
+        clear: both;
+        white-space: nowrap;
+    }
+    
+    td.searchLabel {
+        vertical-align: middle;
+        width: 25%; 
+    }
+    
+    input.searchCriteria {
+        width: 150px;
+    
+    }
+    
+    .fsBorders {
+        border-color:#1797C0;
+        border-style: solid;
+        border-width: 1px;
+    }
+    
+    .criteriaInput { }
+        
+
+</style>
+
+<script>
+    
+    ////////////////////////////
+    // Always declare another instance of jQuery as not to conflict with SF''s instance
+    ////////////////////////////
+    var j$ = jQuery.noConflict();
+    
+    ////////////////////////////
+    // Standard JS Functions
+    ////////////////////////////
+    function statusShow() {
+        //j$( "#dialog-modal" ).dialog( "open" );
+        document.getElementById('loadingGif').style.display = '';
+    }
+
+    function statusHide() {
+        //j$( "#dialog-modal" ).dialog( "close" );
+        document.getElementById('loadingGif').style.display = 'none';
+    }
+    
+    function parseDate(datestr) {
+        var date = datestr.match(/(\d{1,2})[/](\d{1,2})[/](\d{4})/);
+        return new Date(date[3], date[1]-1, date[2]);
+    }    
+    
+    function criteriaFieldGrouping() {
+    
+        var today = new Date();
+        var elConsent = document.getElementById('{!$Component.pgMain:frmMain:txtConsent}');
+        var elDate = document.getElementById('{!$Component.pgMain:frmMain:dteDecision}'); 
+        var elAttorney = document.getElementById('{!$Component.pgMain:frmMain:lkpAttorney}');
+        
+        // Require fields
+        if(j$(elConsent).val() == '' || j$(elAttorney).val() == '' || j$(elDate).val() == '' ) {
+            alert('Please enter the consent, decision date, and the attorney name.');
+            return false;
+        } else if(parseDate(j$(elDate).val()) > today.getTime()) {
+            alert('You cannot enter a consent date in the future.');
+            return false;            
+        } else {
+            return true;
+        }
+    
+    }    
+     
+     
+    function checkFields()  {
+        if(criteriaFieldGrouping() == true) {
+            afSubmitSave();
+            return true;
+        } else {
+            return false;
+        }
+    } 
+    
+</script>
+
+<script>
+    function setFocusOnLoad(){
+    }
+</script>
+</apex:outputPanel>
+
+    <apex:outputPanel id="opTitleHeader">
+        <apex:sectionHeader subtitle="{!thisContact.FirstName} {!thisContact.LastName} / {!thisContact.P_C_ID__c}" />
+        <br />
+    </apex:outputPanel>
+
+<apex:form id="frmMain">
+
+    <apex:actionStatus id="asShowInterstitial" onstart="statusShow();" onstop="statusHide();" />
+    <apex:actionFunction name="afSubmitSave" action="{!updateAttorneyInfo}" rerender="opFields, opScripts" status="asShowInterstitial"/>
+
+    <apex:outputPanel id="opFields">
+
+        <apex:pageMessages />
+
+        <apex:outputPanel styleClass="topContainer" id="opInput">
+        
+            <fieldset id="fsCriteria" class="fsBorders">
+            <legend>Add Attorney Info</legend>
+            
+                <table width="350px" border="0" cellPadding="2" cellSpacing="2">
+                    <tr>
+                        <td width="100%">
+                            
+                            <table width="100%" border="0" cellPadding="2" cellSpacing="2">
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Attorney Consent?" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.Attorney_Consent__c}" id="txtConsent" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Decision Date" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.Attorney_Decision_Date__c}" id="dteDecision" />
+                                    </td>
+                                </tr>                                
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Reject/Hold Reason" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.Attorney_Consent_Description__c}" id="txtConsentReason" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Attorney Lookup" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisCase.Defense_Attorney_Law_Guardian__c}" id="lkpAttorney" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Attorney Affiliation" />
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisCase.Affiliation__c}" id="pckAffiliation" />
+                                    </td>
+                                </tr>                                
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Supervising Attorney <br>(if client's attorney not available)" escape="false"/>
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.Supervising_Attorney__c}" id="lkpSupAttorney" />
+                                    </td>
+                                </tr>                                 
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:outputText value="Comments" escape="false"/>
+                                    </td>
+                                    <td width="75%" align="left">
+                                        <apex:inputField styleClass="criteriaInput" value="{!thisContact.Resource_Coordinator_s_Comments__c}" id="txtComments" />
+                                    </td>
+                                </tr>                                  
+                                <tr>
+                                &nbsp;
+                                </tr>                               
+                                <tr>
+                                    <td class="searchLabel">
+                                        <apex:commandButton id="btnNewAtt" value="Add New Attorney" rerender="emptyRerender" onclick="window.open('/003/e?RecordType=012600000004zCA&ent=Contact','height=700,width=1100',1);"/>
+                                    </td>
+                                </tr>                                
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            
+            </fieldset>
+        
+        </apex:outputPanel>
+
+        <apex:outputPanel styleClass="topContainer" id="opButtons">
+            
+                <table width="350px" border="0" cellPadding="2" cellSpacing="2">        
+                     <tr>
+                         <td align="right" style="vertical-align: bottom;">
+                             <apex:commandButton id="cmdSave" value="Save" action="{!doNothing}" onclick="return checkFields();" rerender="emptyRerender"/>
+                             <apex:commandButton id="cmdCancel" value="Cancel" action="{!goPortal}" />
+                             <apex:commandButton id="cmdPortal" value="Return to Court Portal" action="{!goPortal}" disabled="{!bolSaveSuccessful != True}"/>
+                             <apex:commandButton id="cmdInterview" value="Proceed to Client Interview" action="{!goInterview}" disabled="{!bolConsentYes != True}"/>
+                         </td>
+                    </tr>   
+                    
+                </table>
+        
+        </apex:outputPanel>                      
+        
+        <div id="loadingGif" title="Processing Search" style="display:none;">
+            <p align="center">
+                Please wait while the search is processed...<br />
+                <br />
+                <img src="{!URLFOR($Resource.CasesLogo)}" /><br />
+                <br />
+                <img src="{!URLFOR($Resource.loading)}" />
+            </p>
+        </div>          
+        
+    </apex:outputPanel>
+
+</apex:form>
+
+<apex:outputPanel id="opEmpty">
+    
+</apex:outputPanel>
+        
+
+</apex:page>

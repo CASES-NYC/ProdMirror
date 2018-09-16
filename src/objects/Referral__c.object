@@ -1,0 +1,2618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>srp_referralV2_edit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>srp_referralV2_edit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>srp_ReferralV2_View</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Referral to SRP program, before Candidate status before conversion to Contact record. Equivalent to Lead</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>AccountID__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>AccountID</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Referrals</relationshipLabel>
+        <relationshipName>Referrals</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AddressId__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>AddressId</label>
+        <referenceTo>Address_Information__c</referenceTo>
+        <relationshipLabel>Referrals</relationshipLabel>
+        <relationshipName>Referrals</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Age_at_Arrest_Calc__c</fullName>
+        <description>Determine age at time of arrest</description>
+        <externalId>false</externalId>
+        <formula>IF(!IsNull(Arrest_Date__c), IF(!IsNull(DOB__c), FLOOR((Arrest_Date__c -  DOB__c)/ 365.2425), NULL),
+FLOOR((TODAY() - DOB__c) / 365.2425))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Age at Arrest (Calc)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Age_at_Arrest_Numeric__c</fullName>
+        <externalId>false</externalId>
+        <label>Age at Arrest (Numeric)</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Age_at_Arrest__c</fullName>
+        <description>Use the calculated value from DOB or the actual value entered in Age at Arrest (Numeric)</description>
+        <externalId>false</externalId>
+        <formula>IF(Age_at_Arrest_Numeric__c &gt;1, Age_at_Arrest_Numeric__c,Age_at_Arrest_Calc__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Age at Arrest</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Arraignment_Date2__c</fullName>
+        <externalId>false</externalId>
+        <label>Arraignment Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Arraignment_Date3__c</fullName>
+        <externalId>false</externalId>
+        <label>Arraignment Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Arraignment_Date4__c</fullName>
+        <externalId>false</externalId>
+        <label>Arraignment Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Arraignment_Date5__c</fullName>
+        <externalId>false</externalId>
+        <label>Arraignment Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Arraignment_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Arraignment Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Arraignment_Outcome_RPT__c</fullName>
+        <description>Arraignment outcome from contact if link exists, otherwise from referral. For reporting to MOCJ. Uses Arraignment_Outcome__c on referral and ContactId__r.Arraignment_Outcome__c</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(ContactId__c),TEXT( Arraignment_Outcome__c ), TEXT(ContactId__r.Arraignment_Outcome__c))</formula>
+        <label>Arraignment Outcome RPT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Arraignment_Outcome__c</fullName>
+        <description>SRP</description>
+        <externalId>false</externalId>
+        <label>Arraignment Outcome</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Case resolved/disposed at arraignment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ACD</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ROR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Released into Supervised Release</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bail set</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Remanded</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Arrest_Date2__c</fullName>
+        <externalId>false</externalId>
+        <label>Arrest Date (2)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Arrest_Date3__c</fullName>
+        <externalId>false</externalId>
+        <label>Arrest Date (3)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Arrest_Date4__c</fullName>
+        <externalId>false</externalId>
+        <label>Arrest Date (4)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Arrest_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Arrest Date (1)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Arrest_Number2__c</fullName>
+        <externalId>false</externalId>
+        <label>Arrest #2</label>
+        <length>9</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Arrest_Number3__c</fullName>
+        <externalId>false</externalId>
+        <label>Arrest #3</label>
+        <length>9</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Arrest_Number4__c</fullName>
+        <externalId>false</externalId>
+        <label>Arrest #4</label>
+        <length>9</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Arrest_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Arrest #1</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attorney_Affiliation__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (ISPICKVAL(ContactId__r.Intake_Case__r.Affiliation__c, &quot;Legal Aid&quot;), &quot;LAS&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;Bronx Defenders&quot;), &quot;BXD&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;Brooklyn Defenders&quot;), &quot;BDS&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;New York County Defenders&quot;), &quot;NYD&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;Neighborhood Defenders of Harlem&quot;), &quot;NDS&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;Queens Law Associates&quot;), &quot;QLA&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;18-b&quot;), &quot;18B&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;Private&quot;), &quot;PVT&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;Not Entered&quot;), &quot;&quot;,
+TEXT(ContactId__r.Intake_Case__r.Affiliation__c))))))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Attorney Affiliation</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attorney_Consent_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(TEXT(Attorney_Consent__c) = &apos;Yes&apos;, (IF(TEXT(ReferredBy__c) = &apos;DC&apos;, Referral_Date__c, Screening_Date__c)), NULL)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Attorney Consent Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Attorney_Consent__c</fullName>
+        <externalId>false</externalId>
+        <label>Attorney Consent</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hold</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Attorney_lu__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Assigned Attorney</description>
+        <externalId>false</externalId>
+        <label>Attorney</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.RecordType.Name</field>
+                <operation>contains</operation>
+                <value>Attorney</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Referrals (Attorney)</relationshipLabel>
+        <relationshipName>Referrals1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Bail_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Bail Amount</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BookCaseNumber__c</fullName>
+        <externalId>false</externalId>
+        <label>Book &amp; Case #</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CJA_Recommendation__c</fullName>
+        <description>Recommendation based on CJA Score (-12 to +12)</description>
+        <externalId>false</externalId>
+        <formula>IF(isblank(CJA_Score__c),&quot;No Recommendation&quot;, IF(CJA_Score__c&gt;=7,&quot;ROR&quot;, IF(CJA_Score__c&gt;=3,&quot;Moderate Risk for ROR&quot;, IF(and(CJA_Score__c&gt;=-12,CJA_Score__c&lt;=2),&quot;Not Recommended for ROR&quot;,
+&quot;&quot;))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CJA Recommendation</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CJA_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>CJA Score</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_A1__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge A1</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_A2__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge A2</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_A3__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge A3</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_A4__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge A4</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_A5__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge A5</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_B1__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge B1</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_B2__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge B2</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_B3__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge B3</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_B4__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge B4</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_B5__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge B5</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_C1__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge C1</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_C2__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge C2</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_C3__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge C3</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_C4__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge C4</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_C5__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge C5</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_D1__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge D1</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_D2__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge D2</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_D3__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge D3</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_D4__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge D4</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_D5__c</fullName>
+        <externalId>false</externalId>
+        <label>Charge D5</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_Excludes_SRP__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(Top_Arraignment_Charge_CC_lu__r.SRP_Exclusion__c=TRUE,&quot;Yes&quot;,&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Charge Excludes SRP</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_Information_Court_Docs__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case(TEXT(Top_arraignment_charge_Court_Docs__r.Level__c),
+&quot;M&quot;,&quot;Misdemeanor&quot;,
+&quot;F&quot;,&quot;Felony&quot;,
+&quot;V&quot;,&quot;Violation&quot;,
+&quot;Unknown&quot;)
+&amp; &quot; Class &quot;&amp; Text(Top_arraignment_charge_Court_Docs__r.Class__c) &amp; If(Top_arraignment_charge_Court_Docs__r.Violent__c=TRUE, &quot; VIOLENT&quot;, &quot; Non-Violent&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Charge Information (Court Docs)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_Information__c</fullName>
+        <description>show Level, class and if violent</description>
+        <externalId>false</externalId>
+        <formula>Case(TEXT(Top_Arraignment_Charge_CC_lu__r.Level__c),
+&quot;M&quot;,&quot;Misdemeanor&quot;,
+&quot;F&quot;,&quot;Felony&quot;,
+&quot;V&quot;,&quot;Violation&quot;,
+&quot;Unknown&quot;)
+&amp; &quot; Class &quot;&amp; Text(Top_Arraignment_Charge_CC_lu__r.Class__c) &amp;  If(Top_Arraignment_Charge_CC_lu__r.Violent__c=TRUE, &quot; VIOLENT&quot;, &quot; Non-Violent&quot;)</formula>
+        <label>Charge Information</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client_Consent_to_Screening__c</fullName>
+        <externalId>false</externalId>
+        <label>Client Consent to Screening</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Complaint_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Complaint (1)</label>
+        <length>5000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Complaint_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Complaint (2)</label>
+        <length>5000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Complaint_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Complaint (3)</label>
+        <length>5000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Complaint_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Complaint (4)</label>
+        <length>5000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ContactId__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>ContactId</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Referrals</relationshipLabel>
+        <relationshipName>Referrals</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Contacted_Officer__c</fullName>
+        <externalId>false</externalId>
+        <label>Contacted Officer</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Convictions_Violence__c</fullName>
+        <description>prior convictions for violence date &amp; pl code</description>
+        <externalId>false</externalId>
+        <label>Convictions - Violence</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Convictions_in_past_12_months__c</fullName>
+        <externalId>false</externalId>
+        <label># Convictions in past 12 months</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Court_Borough__c</fullName>
+        <externalId>false</externalId>
+        <label>Court Borough</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Manhattan</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brooklyn</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bronx</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Queens</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Staten Island</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Court_Date_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Court Date Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Court_Part__c</fullName>
+        <description>Local picklist</description>
+        <externalId>false</externalId>
+        <label>Part</label>
+        <picklist>
+            <picklistValues>
+                <fullName>016</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>054</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 21 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 22 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 23 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 31 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 32 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 37</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 41 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 42 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>43</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 43 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 44 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 48 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>51</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 51 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 52 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 55 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 56 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 59 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 61 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 62 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>65 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 66 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 71 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 72 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 73 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 77 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 81 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 82 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 85 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 92 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 93 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 94 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> 95 </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AR1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AR2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AR2A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AR3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AR3A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AR4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ASC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BTP1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> IDV </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>JP5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jury 9</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jury 13</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Entered</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName> N-SCT </fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PT A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PT B</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PT C</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PT D</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PT E</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PT F</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PT N</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Court_Part_global__c</fullName>
+        <externalId>false</externalId>
+        <globalPicklist>Court_Parts</globalPicklist>
+        <label>Court Part</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Court_Representative__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Screened in court by this person</description>
+        <externalId>false</externalId>
+        <label>Court Representative</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Referrals</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Court__c</fullName>
+        <externalId>false</externalId>
+        <label>Court</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Criminal Court</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Supreme Court</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Current_Parole_Probation__c</fullName>
+        <externalId>false</externalId>
+        <label>Current Parole/Probation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None Currently</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Probation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Parole</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DOB__c</fullName>
+        <externalId>false</externalId>
+        <label>DOB</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date_Prior_Conviction_Violence__c</fullName>
+        <externalId>false</externalId>
+        <label>Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Docket2__c</fullName>
+        <externalId>false</externalId>
+        <label>Docket #2</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Docket3__c</fullName>
+        <externalId>false</externalId>
+        <label>Docket #3</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Docket4__c</fullName>
+        <externalId>false</externalId>
+        <label>Docket #4</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Docket__c</fullName>
+        <externalId>false</externalId>
+        <label>Docket #1</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Domestic_Violence_Charges__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determine SRP eligibility</description>
+        <externalId>false</externalId>
+        <label>Domestic Violence Charges</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>FTA_Warrants_Num__c</fullName>
+        <externalId>false</externalId>
+        <label># FTA/Warrants</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Firstname__c</fullName>
+        <externalId>false</externalId>
+        <label>Firstname</label>
+        <length>30</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Indictment__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Two format:s are permitted  
+  12345-2006   and  
+  SCI12345-YYYY   where YYYY is the year</inlineHelpText>
+        <label>Indictment #</label>
+        <length>13</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Ineligible_Reason__c</fullName>
+        <description>Prescreening  ineligible reason</description>
+        <externalId>false</externalId>
+        <label>Ineligible Reason</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Ineligible__c</fullName>
+        <description>Eligible/Ineligible formula for SRP. Works as a formula as long as just one program.</description>
+        <externalId>false</externalId>
+        <formula>IF( and(Age_at_Arrest_Calc__c&gt;0,Age_at_Arrest_Calc__c&lt;16),&quot;Age Ineligible&quot;,
+ IF(or(  Text(Top_Arraignment_Charge_CC_lu__r.Level__c) =&quot;V&quot; , Top_Arraignment_Charge_CC_lu__r.SRP_Exclusion__c =TRUE),&quot;Charge Ineligible&quot;,
+  IF( Domestic_Violence_Charges__c =TRUE,&quot;Ineligible - Domestic Violence&quot;,
+    IF( left(MOCJ_Risk_Category__c,4) = &quot;High&quot;,&quot;Ineligible - MOCJ High&quot;, 
+      IF(len( Ineligible_Reason__c )&gt;0,&quot;Ineligible - Other&quot;,
+        IF(Len(Text(Referral_is_Ineligible__c))&gt;0,Text(Referral_is_Ineligible__c),
+          IF( NOT(ISPICKVAL( ContactId__r.Screening_Outcome_srp__c , &quot;Eligible&quot;)),Text( ContactId__r.Screening_Outcome_srp__c  ),
+&quot;&quot;)))))))</formula>
+        <label>Ineligible?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Judge__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Judge</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.RecordType.Name</field>
+                <operation>equals</operation>
+                <value>Judge</value>
+            </filterItems>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Referrals (Judge)</relationshipLabel>
+        <relationshipName>Referrals2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Lastname__c</fullName>
+        <externalId>false</externalId>
+        <label>Lastname</label>
+        <length>30</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MOCJ_Risk_Category__c</fullName>
+        <description>Based on workflow from RA Total Score Calc. Compiled formula was too big. Returns &quot;INCOMPLETE&quot; if the RA Total Score is greater than 80. Each formula field (RA_...__c) that is used to score the results is set to 99 if info missing or incomplete.</description>
+        <externalId>false</externalId>
+        <label>MOCJ Risk Category</label>
+        <length>25</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MOCJ_Supervision_Part1__c</fullName>
+        <description>First Letter is level (Felony, MIsd., Violation) and second letter is Aggravating Factors (True, False)</description>
+        <externalId>false</externalId>
+        <formula>Left(Charge_Information__c,1)&amp;&quot;F&quot;</formula>
+        <label>MOCJ Supervision Part1</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MOCJ_Supervision_Schedule__c</fullName>
+        <description>Map MOCJ supervision level recommendation to program supervision contact requirements</description>
+        <externalId>false</externalId>
+        <formula>CASE( Supervision_Level_Recommendation__c,
+&quot;Level 1&quot;,&quot;One F2F contact per month - planning call before court date&quot;,
+&quot;Level 2&quot;,&quot;One F2F contact and two phone calls per month&quot;,
+&quot;Level 3&quot;,&quot;Two F2F contacts and two phone calls per month&quot;,
+&quot;Level 4&quot;,&quot;One F2F contact and one phone call per WEEK&quot;,
+&quot;&quot;)</formula>
+        <label>MOCJ Supervision Schedule</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Matrix_Supervision_Recommendation__c</fullName>
+        <externalId>false</externalId>
+        <label>Matrix Supervision Recommendation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Level 1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Level 2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Level 3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Level 4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MaxExpDate_Parole_Probation__c</fullName>
+        <externalId>false</externalId>
+        <label>Max. Exp. Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>NYSID__c</fullName>
+        <externalId>false</externalId>
+        <label>NYSID</label>
+        <length>9</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Next_Court_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Next Court Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Notes_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Notes (1)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Notes_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Notes (2)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Notes_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Notes (3)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Notes_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Notes (4)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Officer_Name_Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Officer Name &amp; Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Other_Arraignment_Charges__c</fullName>
+        <description>Additional charges to cc top arraignment charge</description>
+        <externalId>false</externalId>
+        <label>Other Arraignment Charges</label>
+        <length>60</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parole_Probation_Officer__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Parole/Probation Officer</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.RecordType.Name</field>
+                <operation>equals</operation>
+                <value>Probation Officer,Parole Officer</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Referrals (Parole/Probation Officer)</relationshipLabel>
+        <relationshipName>Referrals3</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Post_Arraignment_Referral__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(AND(LEFT(TEXT(Court_Part_global__c),2) != &apos;AR&apos;,TEXT(Court_Part_global__c) != &apos;&apos;),&apos;Yes&apos;,&apos;No&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Post-Arraignment  Referral</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Prior_Arrests_Felony__c</fullName>
+        <externalId>false</externalId>
+        <label>Prior Arrests - Felony</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Prior_Arrests_Misdemeanor__c</fullName>
+        <externalId>false</externalId>
+        <label>Prior Arrests - Misdemeanor</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Prior_Arrests_Total__c</fullName>
+        <externalId>false</externalId>
+        <formula>Prior_Arrests_Misdemeanor__c +  Prior_Arrests_Felony__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Prior Arrests - Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Prior_Conv_Violence_Pl_Code__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Penal Code</label>
+        <referenceTo>Penal_Code__c</referenceTo>
+        <relationshipLabel>Referrals (Penal Code)</relationshipLabel>
+        <relationshipName>Referrals1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Prior_Conviction_Violence__c</fullName>
+        <externalId>false</externalId>
+        <label>Prior Conviction - Violence</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Prior_Convictions_Felony__c</fullName>
+        <externalId>false</externalId>
+        <label>Prior Convictions - Felony</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Prior_Convictions_Misdemeanor__c</fullName>
+        <externalId>false</externalId>
+        <label>Prior Convictions - Misdemeanor</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Prior_Convictions_Total__c</fullName>
+        <externalId>false</externalId>
+        <formula>Prior_Convictions_Misdemeanor__c +  Prior_Convictions_Felony__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Prior Convictions - Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Program__c</fullName>
+        <externalId>false</externalId>
+        <label>Program</label>
+        <picklist>
+            <picklistValues>
+                <fullName>SRP</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RA_Age_Calc__c</fullName>
+        <description>MOCJ Risk Assessment Calculation</description>
+        <externalId>false</externalId>
+        <formula>If( Age_at_Arrest__c &gt;=40,-4,if(Age_at_Arrest__c &gt;=30,-3,If(Age_at_Arrest__c &gt;=20,1,IF(Age_at_Arrest__c &gt;=16,6,99))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RA Age Calc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RA_Aggravating_Explain__c</fullName>
+        <externalId>false</externalId>
+        <label>Please Explain</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RA_Aggravating_Factors__c</fullName>
+        <description>MOCJ Risk Assessment</description>
+        <externalId>false</externalId>
+        <label>Aggravating Factors</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RA_CJA_Fulltime_Activity__c</fullName>
+        <description>MOCJ Risk Assessment</description>
+        <externalId>false</externalId>
+        <label>CJA Fulltime Activity</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RA_Drug_Conviction_Calc__c</fullName>
+        <description>MOCJ Risk Assessment Calculation</description>
+        <externalId>false</externalId>
+        <formula>case(TEXT( RA_Drug_last_9yrs__c),
+&apos;Yes&apos;, 2,
+&apos;No&apos;, -2,
+99)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RA Drug Conviction Calc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RA_Drug_last_9yrs__c</fullName>
+        <description>MOCJ Risk Assessment</description>
+        <externalId>false</externalId>
+        <label>Drug Conviction in Last 9 Years</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RA_Felony_Calc__c</fullName>
+        <description>MOCJ Risk Assessment Calculation</description>
+        <externalId>false</externalId>
+        <formula>case(TEXT(RA_Felony_last_9yrs__c ),
+&apos;Yes&apos;,1,
+&apos;No&apos;, -1,
+99)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RA Felony Calc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RA_Felony_last_9yrs__c</fullName>
+        <description>MOCJ Risk Assessment</description>
+        <externalId>false</externalId>
+        <label>Felony Conviction in Last 9 Years</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RA_First_Arrest_Calc__c</fullName>
+        <description>MOCJ Risk Assessment Calculation</description>
+        <externalId>false</externalId>
+        <formula>case(TEXT(RA_First_Arrest__c),
+&apos;Yes&apos;,-3,
+&apos;No&apos;, 3,
+99)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RA First Arrest Calc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RA_First_Arrest__c</fullName>
+        <description>MOCJ Risk Assessment</description>
+        <externalId>false</externalId>
+        <label>First Arrest</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RA_Fulltime_Calc__c</fullName>
+        <description>MOCJ Risk Assessment Calculation</description>
+        <externalId>false</externalId>
+        <formula>case(TEXT(RA_CJA_Fulltime_Activity__c),
+&apos;Yes&apos;,-2,
+&apos;No&apos;, 2,
+99)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RA Fulltime Calc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RA_Misd_Conviction_Calc__c</fullName>
+        <description>MOCJ Risk Assessment Calculation</description>
+        <externalId>false</externalId>
+        <formula>case(TEXT(RA_Misdemeanor_last_1yr__c),
+&apos;Yes&apos;,2,
+&apos;No&apos;, -2,
+99)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RA Misd Conviction Calc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RA_Misdemeanor_last_1yr__c</fullName>
+        <description>MOCJ Risk Assessment</description>
+        <externalId>false</externalId>
+        <label>Misdemeanor Conviction in Last 1 Year</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RA_Open_Cases_Calc__c</fullName>
+        <description>MOCJ Risk Assessment Calculation</description>
+        <externalId>false</externalId>
+        <formula>case(TEXT(RA_Open_Cases__c),
+&apos;Yes&apos;,1,
+&apos;No&apos;, -1,
+99)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RA Open Cases Calc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RA_Open_Cases__c</fullName>
+        <description>MOCJ Risk Assessment</description>
+        <externalId>false</externalId>
+        <label>Open Cases</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RA_Prior_Warrant_Calc__c</fullName>
+        <description>MOCJ Risk Assessment Calculation</description>
+        <externalId>false</externalId>
+        <formula>case(TEXT(Warrant_last_4yrs__c),
+&apos;Yes&apos;,1,
+&apos;No&apos;, -1,
+99)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RA Prior Warrant Calc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RA_Total_Score_Calc__c</fullName>
+        <description>Risk Assessment total score</description>
+        <externalId>false</externalId>
+        <formula>RA_Age_Calc__c +  RA_Open_Cases_Calc__c +  RA_First_Arrest_Calc__c +  RA_Prior_Warrant_Calc__c +  RA_Misd_Conviction_Calc__c + RA_Felony_Calc__c + RA_Drug_Conviction_Calc__c + RA_Fulltime_Calc__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RA Total Score Calc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Referral_Date__c</fullName>
+        <defaultValue>TODAY()</defaultValue>
+        <description>Date referral was received/started</description>
+        <externalId>false</externalId>
+        <label>Referral Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Referral_YYMM__c</fullName>
+        <description>return referral date as YYYY-MM</description>
+        <externalId>false</externalId>
+        <formula>text(year(Referral_Date__c))&amp;&quot;-&quot;&amp;lpad(text(Month(Referral_Date__c)),2,&quot;0&quot;)</formula>
+        <label>Referral YYMM</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Referral_is_Ineligible__c</fullName>
+        <externalId>false</externalId>
+        <label>Referral is Ineligible</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Ineligible - High Risk Score</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ineligible - Domestic Violence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ineligible - Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ineligible - Hold</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ineligible - Resides out of State/Too far from Reporting Site</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ineligible - Currently in other SRP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ineligible - Client unable to comply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ineligible - Charge Ineligible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ineligible - Unverified community ties</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ineligible - Pending Violent Felony Case</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Eligible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ReferredBy__c</fullName>
+        <externalId>false</externalId>
+        <label>Referred By</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CASES</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DAT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Judge</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CJA Transfer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Screening_Date__c</fullName>
+        <description>Date candidate was first screened in court</description>
+        <externalId>false</externalId>
+        <label>Screening Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Screening_Stage_Calc__c</fullName>
+        <description>Calculate next move by users. If Ineligibility is blank, no reason to stop screening. If there is a value in ineligibility then stop screening. Check for main points: dates to calculate age (mocj ra), top arrest charge (charge eligibility and MOCJ ra), any missing data needed to calculate MOCJ RA, attorney consent, client consent.</description>
+        <externalId>false</externalId>
+        <formula>IF(isblank( Ineligible__c ),IF(isnull(Age_at_Arrest__c),&quot;Pending Age&quot;,
+ IF(isnull( Top_Arraignment_Charge_CC_lu__c ),&quot;Pending Top Arraignment Charge&quot;,
+  IF(isnull( MOCJ_Risk_Category__c ),&quot;Pending MOCJ&quot;,
+   IF(MOCJ_Risk_Category__c=&quot;INCOMPLETE&quot;,&quot;MOCJ Recommendation Incomplete&quot;,
+    IF(isblank( text(Attorney_Consent__c )),&quot;Pending Attorney Consent&quot;,
+     IF(isblank(text( Client_Consent_to_Screening__c )),&quot;Pending Client Consent&quot;,&quot;Screening Interview&quot;)))))),&quot;Stop Screening&quot;)</formula>
+        <label>Screening Stage Calc</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Shift__c</fullName>
+        <externalId>false</externalId>
+        <label>Shift</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Week Day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Week Night</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weekend Day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weekend Night</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Supervision_Level_Recommendation__c</fullName>
+        <description>based on MOCJ Super Recc Part 1 and workflow</description>
+        <externalId>false</externalId>
+        <label>Supervision Level Recommendation</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Top_Arraignment_Charge_CC_lu__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <description>Lookup to penal codes calculated by Salesforce</description>
+        <externalId>false</externalId>
+        <label>Top Arraignment Charge (Calc)</label>
+        <referenceTo>Penal_Code__c</referenceTo>
+        <relationshipLabel>Referrals</relationshipLabel>
+        <relationshipName>Referrals</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Top_Charge__c</fullName>
+        <externalId>false</externalId>
+        <formula>Top_Arraignment_Charge_CC_lu__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Top Charge</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Top_arraignment_charge_Court_Docs__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Top charge as reported in referral docs</description>
+        <externalId>false</externalId>
+        <label>Top arraignment charge (Court Docs)</label>
+        <referenceTo>Penal_Code__c</referenceTo>
+        <relationshipLabel>Referrals (Top arraignment charge (Court Docs))</relationshipLabel>
+        <relationshipName>Referrals2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Upload_Date__c</fullName>
+        <defaultValue>TODAY()</defaultValue>
+        <description>Normally this would be the created date, but need this because of Brooklyn CIRT migration to capture actual created date, not migrated date</description>
+        <externalId>false</externalId>
+        <label>Upload Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Warrant_last_4yrs__c</fullName>
+        <description>MOCJ Risk Assessment</description>
+        <externalId>false</externalId>
+        <label>Warrant in Last 4 Years</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>X730_Evaluation_pl__c</fullName>
+        <externalId>false</externalId>
+        <label>730 Evaluation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>docketid2__c</fullName>
+        <externalId>false</externalId>
+        <label>docketid2</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>docketid3__c</fullName>
+        <externalId>false</externalId>
+        <label>docketid3</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>docketid4__c</fullName>
+        <externalId>false</externalId>
+        <label>docketid4</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>docketid__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>docketid</label>
+        <referenceTo>Case_Information__c</referenceTo>
+        <relationshipLabel>Referrals</relationshipLabel>
+        <relationshipName>Referrals</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>Referral</label>
+    <listViews>
+        <fullName>Admin_View</fullName>
+        <columns>NAME</columns>
+        <columns>Referral_Date__c</columns>
+        <columns>Screening_Date__c</columns>
+        <columns>Firstname__c</columns>
+        <columns>Lastname__c</columns>
+        <columns>NYSID__c</columns>
+        <columns>ContactId__c</columns>
+        <columns>Referral_is_Ineligible__c</columns>
+        <columns>Docket__c</columns>
+        <columns>CJA_Score__c</columns>
+        <columns>AccountID__c</columns>
+        <columns>Charge_A1__c</columns>
+        <columns>RA_Total_Score_Calc__c</columns>
+        <columns>Attorney_Consent__c</columns>
+        <columns>Client_Consent_to_Screening__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Admin View</label>
+    </listViews>
+    <listViews>
+        <fullName>Ineligible_Referrals_to_be_updated</fullName>
+        <columns>Referral_Date__c</columns>
+        <columns>NAME</columns>
+        <columns>Lastname__c</columns>
+        <columns>Firstname__c</columns>
+        <columns>NYSID__c</columns>
+        <columns>Screening_Date__c</columns>
+        <columns>Ineligible__c</columns>
+        <columns>Referral_is_Ineligible__c</columns>
+        <columns>Docket__c</columns>
+        <columns>Charge_A1__c</columns>
+        <columns>Top_Arraignment_Charge_CC_lu__c</columns>
+        <columns>Top_Charge__c</columns>
+        <columns>Age_at_Arrest__c</columns>
+        <columns>Arraignment_Outcome__c</columns>
+        <columns>OBJECT_ID</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ContactId__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Firstname__c</field>
+            <operation>equals</operation>
+            <value>TBD</value>
+        </filters>
+        <filters>
+            <field>Lastname__c</field>
+            <operation>equals</operation>
+            <value>TBD</value>
+        </filters>
+        <label>Ineligible Referrals to be updated</label>
+    </listViews>
+    <listViews>
+        <fullName>Not_Converted</fullName>
+        <columns>NAME</columns>
+        <columns>NYSID__c</columns>
+        <columns>Firstname__c</columns>
+        <columns>Lastname__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Arraignment_Outcome__c</columns>
+        <columns>Referral_is_Ineligible__c</columns>
+        <columns>Ineligible__c</columns>
+        <columns>Ineligible_Reason__c</columns>
+        <columns>Charge_Excludes_SRP__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Docket__c</columns>
+        <columns>MOCJ_Risk_Category__c</columns>
+        <columns>MOCJ_Supervision_Part1__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ContactId__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>Not Converted</label>
+    </listViews>
+    <listViews>
+        <fullName>Screening</fullName>
+        <columns>NAME</columns>
+        <columns>Firstname__c</columns>
+        <columns>Ineligible__c</columns>
+        <columns>Lastname__c</columns>
+        <columns>NYSID__c</columns>
+        <columns>RA_Total_Score_Calc__c</columns>
+        <columns>Screening_Date__c</columns>
+        <columns>Screening_Stage_Calc__c</columns>
+        <columns>Court_Part_global__c</columns>
+        <columns>Post_Arraignment_Referral__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Screening_Date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>Screening</label>
+    </listViews>
+    <nameField>
+        <displayFormat>REF-{0}</displayFormat>
+        <label>Referral Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Referrals</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Referral_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Firstname__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Lastname__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>NYSID__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Docket__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>DOB__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Court__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Court_Part__c</customTabListAdditionalFields>
+        <listViewButtons>Mass_Edit</listViewButtons>
+        <lookupDialogsAdditionalFields>Firstname__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Lastname__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>NYSID__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>NYSID__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Firstname__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Lastname__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Referral_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Screening_Stage_Calc__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Court_Representative__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Docket__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ContactId__c</searchResultsAdditionalFields>
+        <searchResultsCustomButtons>Mass_Edit</searchResultsCustomButtons>
+        <searchResultsCustomButtons>Mass_Update</searchResultsCustomButtons>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Arrest_Number_1_Validation</fullName>
+        <active>false</active>
+        <description>Format: 1 uppercase letter and 8 numbers CNNNNNNNN (no spaces).</description>
+        <errorConditionFormula>AND(NOT(REGEX(Arrest_Number__c, &quot;([A-Z]\\d{8})&quot;)))</errorConditionFormula>
+        <errorMessage>Arrest Numbers must be 1 UPPERCASE letter and 8 numbers: CNNNNNNNN (no spaces)</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Arrest_Number_2_Validation</fullName>
+        <active>false</active>
+        <description>Format: 1 uppercase letter and 8 numbers C######## (no spaces)</description>
+        <errorConditionFormula>AND(NOT(REGEX(Arrest_Number2__c, &quot;([A-Z]\\d{8})&quot;)))</errorConditionFormula>
+        <errorMessage>Format: 1 uppercase letter and 8 numbers C######## (no spaces).</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Arrest_Number_3_Validation</fullName>
+        <active>false</active>
+        <description>Format: 1 uppercase letter and 8 numbers C######## (no spaces)</description>
+        <errorConditionFormula>AND(NOT(REGEX(Arrest_Number3__c, &quot;([A-Z]\\d{8})&quot;)))</errorConditionFormula>
+        <errorMessage>Format: 1 uppercase letter and 8 numbers C######## (no spaces)</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Arrest_Number_4_Validation</fullName>
+        <active>false</active>
+        <description>Format: 1 uppercase letter and 8 numbers C######## (no spaces)</description>
+        <errorConditionFormula>AND(NOT(REGEX(Arrest_Number4__c, &quot;([A-Z]\\d{8})&quot;)))</errorConditionFormula>
+        <errorMessage>Format: 1 uppercase letter and 8 numbers C######## (no spaces)</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>BookAndCase</fullName>
+        <active>true</active>
+        <description>book and case number must be numeric</description>
+        <errorConditionFormula>IF (not(isblank(BookCaseNumber__c)), 
+    Not(isnumber(BookCaseNumber__c)),
+NULL)</errorConditionFormula>
+        <errorDisplayField>BookCaseNumber__c</errorDisplayField>
+        <errorMessage>Book &amp; Case must be a 10 digit number</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>CJA_Score_Range</fullName>
+        <active>true</active>
+        <description>between -12 and 12</description>
+        <errorConditionFormula>or(CJA_Score__c&lt;-12,CJA_Score__c&gt;12)</errorConditionFormula>
+        <errorDisplayField>CJA_Score__c</errorDisplayField>
+        <errorMessage>Valid CJA is between -12 and 12</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Indictment_No_Validation</fullName>
+        <active>false</active>
+        <errorConditionFormula>NOT(
+     OR(LEN(  Indictment__c ) = 0,
+     OR(
+     AND(
+ 
+  CONTAINS(&quot;S&quot;, LEFT( Indictment__c , 1)),
+  CONTAINS(&quot;C&quot;,  MID( Indictment__c, 2, 1)),
+  CONTAINS(&quot;I&quot;,  MID( Indictment__c, 3, 1)),
+  CONTAINS(&quot;0123456789&quot;, MID( Indictment__c , 4,1)), 
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 5, 1)),
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 6, 1)),
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 7, 1)),
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 8, 1)),
+  MID( Indictment__c, 9, 1) = &quot;-&quot;,
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 10, 1)),
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 11, 1)),
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 12, 1)),
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 13, 1))
+  ),
+
+  AND(
+  CONTAINS(&quot;0123456789&quot;, LEFT( Indictment__c , 1)), 
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 2, 1)),
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 3, 1)),
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 4, 1)),
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 5, 1)),
+  MID( Indictment__c, 6, 1) = &quot;-&quot;,
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 7, 1)),
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 8, 1)),
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 9, 1)),
+  CONTAINS(&quot;0123456789&quot;,  MID( Indictment__c, 10, 1)) 
+)
+ )
+)
+)</errorConditionFormula>
+        <errorDisplayField>Indictment__c</errorDisplayField>
+        <errorMessage>Valid Indictment # formats are : 99999-YYYY,   SCI99999-YYYY</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>NYSID_Format_Validation</fullName>
+        <active>true</active>
+        <description>Format: 8 numbers and 1 uppercase letter NNNNNNNNC (no spaces).</description>
+        <errorConditionFormula>AND (len(NYSID__c) &gt; 0, NOT(AND( LEN( NYSID__c ) = 9, CONTAINS(&quot;0123456789&quot;, LEFT( NYSID__c , 1)), CONTAINS(&quot;0123456789&quot;, MID( NYSID__c , 2, 1)), CONTAINS(&quot;0123456789&quot;, MID( NYSID__c , 3, 1)), CONTAINS(&quot;0123456789&quot;, MID( NYSID__c , 4, 1)), CONTAINS(&quot;0123456789&quot;, MID( NYSID__c , 5, 1)), CONTAINS(&quot;0123456789&quot;, MID( NYSID__c , 6, 1)), CONTAINS(&quot;0123456789&quot;, MID( NYSID__c , 7, 1)), CONTAINS(&quot;0123456789&quot;, MID( NYSID__c , 8, 1)), CONTAINS(&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;, MID( NYSID__c , 9, 1)) )))</errorConditionFormula>
+        <errorDisplayField>NYSID__c</errorDisplayField>
+        <errorMessage>NYSID format must be 8 numbers and 1 UPPERCASE character. NNNNNNNNC (no spaces).</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Client_Consents</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>page</linkType>
+        <masterLabel>Client Consents</masterLabel>
+        <openType>newWindow</openType>
+        <page>srp_referralV2_edit</page>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Delete</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Mass Delete</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/38.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/38.0/apex.js&quot;)}
+var records = {!GETRECORDIDS($ObjectType.Referral__c)};
+var RecordIds=&apos;&apos;;
+if (records[0] == null)
+{
+alert(&apos;Please select a record&apos;);
+}
+else
+{
+for (var n=0; n&lt;records.length; n++)
+{
+if(RecordIds== &apos;&apos;)
+RecordIds= records[n];
+else
+RecordIds= RecordIds+ &quot;,&quot; + records[n] ;
+}
+window.location.href =
+&apos;/apex/Kcloud_Actions__MassDelete?SObject=Referral__c&apos;+&apos;&amp;ToDeleteIds=&apos;+
+RecordIds + &apos;&amp;retURL=&apos;+ window.location.href;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Edit</fullName>
+        <availability>online</availability>
+        <description>Mass Edit/Update App from Salesforce Labs</description>
+        <displayType>massActionButton</displayType>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>page</linkType>
+        <masterLabel>Mass Edit</masterLabel>
+        <openType>newWindow</openType>
+        <page>MassEditReferral</page>
+        <position>none</position>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Update</fullName>
+        <availability>online</availability>
+        <description>Mass Update/Edit from Salesforce Labs</description>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Update</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassUpdateReferral</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+</CustomObject>

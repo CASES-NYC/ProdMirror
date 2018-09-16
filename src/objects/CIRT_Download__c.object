@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AccountID__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>AccountID</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>CIRT Downloads</relationshipLabel>
+        <relationshipName>CIRT_Downloads</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AddressId__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>AddressId</label>
+        <referenceTo>Address_Information__c</referenceTo>
+        <relationshipLabel>CIRT Downloads</relationshipLabel>
+        <relationshipName>CIRT_Downloads</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Address</label>
+        <length>200</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Arraignment_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Arraignment Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Attorney_Address_1__c</fullName>
+        <externalId>false</externalId>
+        <formula>substitute(ContactId__r.Attorney_Old__r.Account.BillingStreet, &quot;,&quot;, &quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Attorney Address 1</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attorney_Address_2__c</fullName>
+        <description>Used to create a blank field in the DOC File report</description>
+        <externalId>false</externalId>
+        <formula>&quot;&quot;</formula>
+        <label>Attorney Address 2</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attorney_Affiliation__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (ISPICKVAL(ContactId__r.Intake_Case__r.Affiliation__c, &quot;Legal Aid&quot;), &quot;LAS&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;Bronx Defenders&quot;), &quot;BXD&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;Brooklyn Defenders&quot;), &quot;BDS&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;New York County Defenders&quot;), &quot;NYD&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;Neighborhood Defenders of Harlem&quot;), &quot;NDS&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;Queens Law Associates&quot;), &quot;QLA&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;18-b&quot;), &quot;18B&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;Private&quot;), &quot;PVT&quot;,
+IF (ISPICKVAL (ContactId__r.Intake_Case__r.Affiliation__c, &quot;Not Entered&quot;), &quot;&quot;,
+TEXT(ContactId__r.Intake_Case__r.Affiliation__c))))))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Attorney Affiliation</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attorney_Consent__c</fullName>
+        <externalId>false</externalId>
+        <formula>case( ContactId__r.Attorney_Consent__c,
+&quot;Yes&quot;,  &quot;Yes&quot;,
+&quot;No&quot;, &quot;No&quot;,
+&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Attorney Consent</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attorney__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Attorney</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.RecordType.DeveloperName</field>
+                <operation>contains</operation>
+                <value>Attorney</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>CIRT Downloads (Attorney)</relationshipLabel>
+        <relationshipName>CIRT_Downloads1</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>BOOKCASENUMBER__c</fullName>
+        <externalId>false</externalId>
+        <label>BOOKCASENUMBER</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BOROUCH_COURT__c</fullName>
+        <externalId>false</externalId>
+        <label>BOROUCH_COURT</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bail_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Bail Amount</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Blank__c</fullName>
+        <description>Used to create a blank field in the DOC File report</description>
+        <externalId>false</externalId>
+        <formula>&quot;&quot;</formula>
+        <label>Blank</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Borough_Court__c</fullName>
+        <externalId>false</externalId>
+        <label>Borough Court</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CHARGE_NO1__c</fullName>
+        <externalId>false</externalId>
+        <label>CHARGE_NO1</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CHARGE_NO2__c</fullName>
+        <externalId>false</externalId>
+        <label>CHARGE_NO2</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CHARGE_NO3__c</fullName>
+        <externalId>false</externalId>
+        <label>CHARGE_NO3</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CHARGE_NO4__c</fullName>
+        <externalId>false</externalId>
+        <label>CHARGE_NO4</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CHARGE_NO__c</fullName>
+        <externalId>false</externalId>
+        <label>CHARGE_NO</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CIRT_Eligibility_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>CIRT Eligibility</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>CIRT_Eligible_Option__c</fullName>
+        <externalId>false</externalId>
+        <label>CIRT Eligible Option</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CIRT_Ordered_By_Court__c</fullName>
+        <externalId>false</externalId>
+        <formula>case(ContactId__r.Final_Outcome__c, &quot;Accepted for Intake&quot;, &quot;Yes&quot;,
+&quot;&quot;, &quot;&quot;,
+&quot;No&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CIRT Ordered By Court</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CITY__c</fullName>
+        <externalId>false</externalId>
+        <label>CITY</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CJASCORE__c</fullName>
+        <externalId>false</externalId>
+        <label>CJASCORE</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CJA_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>CJA Score</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Charge_s_Created__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Case Charge(s) Created?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Client_Consent__c</fullName>
+        <externalId>false</externalId>
+        <label>Client Consent</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ContactId__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>ContactId</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>CIRT Downloads</relationshipLabel>
+        <relationshipName>CIRT_Downloads</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Court_Date_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Court Date Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DA_CIRT_APPROVAL__c</fullName>
+        <externalId>false</externalId>
+        <formula>case( text(ContactId__r.District_Attorney_s_Consent__c),
+
+&quot;Yes&quot;, &quot;Yes&quot;,
+&quot;No&quot;, &quot;No&quot;,
+&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DA_CIRT_APPROVAL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DOB__c</fullName>
+        <externalId>false</externalId>
+        <label>DOB</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DOCKET__c</fullName>
+        <externalId>false</externalId>
+        <label>DOCKET</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DOCSCORE__c</fullName>
+        <externalId>false</externalId>
+        <label>DOCSCORE</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DOC_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>DOC Score</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Firstname__c</fullName>
+        <externalId>false</externalId>
+        <label>Firstname</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Gender__c</fullName>
+        <externalId>false</externalId>
+        <label>Gender</label>
+        <length>25</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Inmate_CIRT_Option1__c</fullName>
+        <externalId>false</externalId>
+        <formula>case( ContactId__r.Mandate_Type__c,
+&quot;Felony ATD&quot;, &quot;ATD – Felony&quot; ,
+&quot;Felony ATI&quot;, &quot;ATI – Felony&quot;,
+&quot;Misdemeanor ATD&quot;, &quot;ATD – Misdemeanor&quot; ,
+&quot;Misdemeanor ATI&quot;, &quot;ATI – Misdemeanor&quot; ,
+&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Inmate CIRT Option1</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Inmate_CIRT_Option2__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(ContactId__r.Current_Track__c = ContactId__r.Mandate_Type__c, &quot;&quot;, case(ContactId__r.Current_Track__c,
+&quot;Felony ATD&quot;, &quot;ATD – Felony&quot;,
+&quot;Felony ATI&quot;, &quot;ATI – Felony&quot;,
+&quot;Misdemeanor ATD&quot;, &quot;ATD – Misdemeanor&quot;,
+&quot;Misdemeanor ATI&quot;, &quot;ATI – Misdemeanor&quot;,
+&quot;&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Inmate CIRT Option2</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Inmate_CIRT_Option3__c</fullName>
+        <externalId>false</externalId>
+        <formula>&quot;&quot;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Inmate CIRT Option3</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Inmate_CIRT_Option4__c</fullName>
+        <externalId>false</externalId>
+        <formula>&quot;&quot;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Inmate CIRT Option4</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lastname__c</fullName>
+        <externalId>false</externalId>
+        <label>Lastname</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MOCJ_RA_SCORE__c</fullName>
+        <externalId>false</externalId>
+        <label>MOCJ RA SCORE</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>M_Designation__c</fullName>
+        <externalId>false</externalId>
+        <label>M Designation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unknown/Uncertain</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Middlename__c</fullName>
+        <externalId>false</externalId>
+        <label>Middlename</label>
+        <length>25</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NYSID__c</fullName>
+        <externalId>false</externalId>
+        <label>NYSID</label>
+        <length>9</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_Account__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>New Account?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>New_Docket__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>New Docket?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Next_Court_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Next Court Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>OldId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Old ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Program_Denial_Reasons__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( ContactId__r.Final_Outcome__c = &quot;Accepted for Intake&quot;, &quot;&quot;, ContactId__r.Final_Outcome__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Program Denial Reasons</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Program_Ordered__c</fullName>
+        <externalId>false</externalId>
+        <formula>case( ContactId__r.Mandate_Type__c, 
+&quot;Felony ATD&quot;, &quot;ATD – Felony&quot; , 
+&quot;Felony ATI&quot;, &quot;ATI – Felony&quot;, 
+&quot;Misdemeanor ATD&quot;, &quot;ATD – Misdemeanor&quot; , 
+&quot;Misdemeanor ATI&quot;, &quot;ATI – Misdemeanor&quot; , 
+&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Program Ordered</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ReferralSource__c</fullName>
+        <externalId>false</externalId>
+        <label>ReferralSource</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ReferralType__c</fullName>
+        <externalId>false</externalId>
+        <label>ReferralType</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Referral_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Referral Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Referral_Source__c</fullName>
+        <externalId>false</externalId>
+        <label>Referral Source</label>
+        <picklist>
+            <picklistValues>
+                <fullName>18B</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Attorney</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Attorney&apos;s Social Worker</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>District Attorney</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Judge</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Social Worker</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SRP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>STATE__c</fullName>
+        <externalId>false</externalId>
+        <label>STATE</label>
+        <length>2</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Upload_Date__c</fullName>
+        <defaultValue>TODAY()</defaultValue>
+        <description>Normally this would be the created date, but need this because of Brooklyn CIRT migration to capture actual created date, not migrated date</description>
+        <externalId>false</externalId>
+        <label>Upload Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>VersionDateTime__c</fullName>
+        <externalId>false</externalId>
+        <label>VersionDateTime</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ZIP__c</fullName>
+        <externalId>false</externalId>
+        <label>ZIP</label>
+        <length>14</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>currentStatus__c</fullName>
+        <externalId>false</externalId>
+        <label>currentStatus</label>
+        <length>25</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>docketid__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>docketid</label>
+        <referenceTo>Case_Information__c</referenceTo>
+        <relationshipLabel>CIRT Downloads</relationshipLabel>
+        <relationshipName>CIRT_Downloads</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>CIRT Download</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>ContactId__c</columns>
+        <columns>DOCKET__c</columns>
+        <columns>NYSID__c</columns>
+        <columns>Firstname__c</columns>
+        <columns>Lastname__c</columns>
+        <columns>Status__c</columns>
+        <columns>Next_Court_Date__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>CIRT-{0}</displayFormat>
+        <label>Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>CIRT Downloads</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Firstname__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Lastname__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>DOCKET__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ContactId__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Firstname__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Lastname__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>DOCKET__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ContactId__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CREATED_DATE</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Firstname__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Lastname__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>DOCKET__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ContactId__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CREATED_DATE</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Firstname__c</searchFilterFields>
+        <searchFilterFields>Lastname__c</searchFilterFields>
+        <searchFilterFields>DOCKET__c</searchFilterFields>
+        <searchFilterFields>ContactId__c</searchFilterFields>
+        <searchFilterFields>CREATED_DATE</searchFilterFields>
+        <searchResultsAdditionalFields>Firstname__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Lastname__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>DOCKET__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ContactId__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+</CustomObject>

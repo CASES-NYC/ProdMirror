@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>AssessmentContainerId__c</fullName>
+        <externalId>false</externalId>
+        <label>AssessmentContainerId</label>
+        <referenceTo>AssessmentContainer__c</referenceTo>
+        <relationshipName>BJMSH</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Legacy_Database_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Legacy Database Id</label>
+        <length>25</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q1_Mind_Control__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you currently believe that someone can control your mind by putting thoughts into your head or taking thoughts out of your head?</inlineHelpText>
+        <label>Q1 Mind Control</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Q2_Mind_Reading__c</fullName>
+        <description>Do you currently feel that other people know your thoughts and can read your mind?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you currently feel that other people know your thoughts and can read your mind?</inlineHelpText>
+        <label>Q2 Mind Reading</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Q3_weight_Gain__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you currently lost or gained as much as two pounds a week for several weeks without even trying?</inlineHelpText>
+        <label>Q3 weight Gain</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Q4_More_Active__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you or your family or friends noticed that you are currently much more active than you usually are?</inlineHelpText>
+        <label>Q4 More Active</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Q5_Talking_Slowly__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you currently feel like you have to talk or move more slowly than you usually do?</inlineHelpText>
+        <label>Q5 Talking Slowly</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Q6_Feel_Sinful__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have there currently been a few weeks when you felt like you were useless or sinful?</inlineHelpText>
+        <label>Q6 Feel Sinful</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Q7_Taking_Medication__c</fullName>
+        <description>Are you currently taking any medication prescribed for you by a physician for any emotional or mental health problems?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you currently taking any medication prescribed for you by a physician for any emotional or mental health problems?</inlineHelpText>
+        <label>Q7 Taking Medication</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Q8_Hospital__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever been in a hospital for emotional or mental health problems?</inlineHelpText>
+        <label>Q8 Hospital</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Referral_Recommended__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Result__c ==&apos;Yes&apos;, &apos;Referral Recommended&apos;, &apos;&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Referral Recommended</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Referral_Recommended_by_Assessment__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(or(
+ispickval(Q7_Taking_Medication__c, &quot;Yes&quot;) , 
+ispickval(Q8_Hospital__c, &quot;Yes&quot;) ,
+(if( ispickval(Q1_Mind_Control__c, &quot;Yes&quot;), 1, 0) + if( ispickval(Q2_Mind_Reading__c, &quot;Yes&quot;) , 1, 0) + if( ispickval(Q3_weight_Gain__c, &quot;Yes&quot;) , 1, 0) + if(ispickval(Q4_More_Active__c, &quot;Yes&quot;) , 1, 0) + if( 
+ispickval(Q5_Talking_Slowly__c, &quot;Yes&quot;) , 1, 0) + if(ispickval(Q6_Feel_Sinful__c, &quot;Yes&quot;) , 1, 0)) &gt;= 2
+), &quot;Yes&quot;, &quot;No&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>&quot;Yes&quot; will be set if the user who administered the screening believes the client should be referred to mental health services, regardless of the outcome of the BJMHS assessment.</inlineHelpText>
+        <label>Referral Recommended by Assessment</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Referral_Recommended_by_Screener__c</fullName>
+        <description>Select Yes if the user who administered the screening believes the client should be referred to mental health services, regardless of the outcome of the BJMHS assessment.</description>
+        <externalId>false</externalId>
+        <label>Referral Recommended by Screener?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Result__c</fullName>
+        <description>BJMHS Result (Referral Recommended?)</description>
+        <externalId>false</externalId>
+        <formula>if(or(ispickval(Referral_Recommended_by_Screener__c ,&quot;Yes&quot;),Referral_Recommended_by_Assessment__c = &quot;Yes&quot;),
+&quot;Yes&quot;,
+&quot;No&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Result</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Survey_Notes__c</fullName>
+        <description>Survey Notes</description>
+        <externalId>false</externalId>
+        <label>Survey Notes</label>
+        <length>5000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <label>aBJMHS</label>
+    <nameField>
+        <displayFormat>A-{000}</displayFormat>
+        <label>BJMHS Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>aBJMHSs</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

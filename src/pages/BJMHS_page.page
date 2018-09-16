@@ -1,0 +1,134 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="BJMHSpage" >
+ <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+  <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+
+ <apex:outPutPanel id="op" styleclass="span.resultContainer">
+ 
+	<!--                     EDIT BLOCK  -->
+<apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+  <apex:pageblocksection showheader="true" columns="2">
+    <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">Results</span> 
+    </apex:facet> 				
+	<apex:inputfield value="{!BJMHS.Referral_Recommended_by_Screener__c}"  >
+	  <apex:actionSupport event="onchange" action="{!doNothing}" rerender="recom1"  />
+	</apex:inputfield>
+	 <apex:outputfield value="{!BJMHS.Referral_Recommended_by_Assessment__c}" id="recom1"/>
+  </apex:pageblocksection>
+ <apex:pageblocksection showheader="true" columns="1">
+    <apex:inputfield value="{!BJMHS.Survey_Notes__c}" style="width:700px;height:60px;">
+    </apex:inputfield>
+ </apex:pageblocksection>   
+  <apex:pageblocksection showheader="true" columns="2">
+    <apex:facet name="header" >
+      <span style="color:black;font-size:14px;">Questions</span> 
+    </apex:facet> 				
+	<apex:inputfield value="{!BJMHS.Q1_Mind_Control__c}" >
+	  <apex:actionSupport event="onchange" action="{!doNothing}" rerender="recom1"  />
+	</apex:inputfield>
+	<apex:inputfield value="{!BJMHS.Q5_Talking_Slowly__c}"  >
+	  <apex:actionSupport event="onchange" action="{!doNothing}" rerender="recom1"  />
+	</apex:inputfield>
+	<apex:inputfield value="{!BJMHS.Q2_Mind_Reading__c}" >
+	  <apex:actionSupport event="onchange" action="{!doNothing}" rerender="recom1"  />
+
+	</apex:inputfield>
+	<apex:inputfield value="{!BJMHS.Q6_Feel_Sinful__c}" >
+	  <apex:actionSupport event="onchange" action="{!doNothing}" rerender="recom1"  />
+
+	</apex:inputfield>
+	<apex:inputfield value="{!BJMHS.Q3_weight_Gain__c}"  >
+	  <apex:actionSupport event="onchange" action="{!doNothing}" rerender="recom1"  />
+
+	</apex:inputfield>
+	<apex:inputfield value="{!BJMHS.Q7_Taking_Medication__c}" >
+	  <apex:actionSupport event="onchange" action="{!doNothing}" rerender="recom1"  />
+
+	</apex:inputfield>
+	<apex:inputfield value="{!BJMHS.Q4_More_Active__c}" >
+	  <apex:actionSupport event="onchange" action="{!doNothing}" rerender="recom1"  />
+
+	</apex:inputfield>
+	<apex:inputfield value="{!BJMHS.Q8_Hospital__c}"  >
+	  <apex:actionSupport event="onchange" action="{!doNothing}" rerender="recom1"  />
+
+	</apex:inputfield>
+  </apex:pageblocksection>
+</apex:pageblock>
+<!--                     VIEW BLOCK  -->
+<apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+  <apex:pageblocksection showheader="true" columns="2">
+	  <apex:facet name="header" >
+        <span style="color:black;font-size:14px;">Results</span> 
+      </apex:facet> 
+		<apex:inputtext value="{!BJMHS.Referral_Recommended_by_Screener__c}" styleclass="txt40" disabled="true"/> 
+		<apex:inputtext value="{!BJMHS.Referral_Recommended_by_Assessment__c}" styleclass="txt40" disabled="true"/>
+  </apex:pageblocksection>
+  <apex:pageblocksection columns="1">
+  
+   <apex:pageblocksectionItem >
+      <apex:outputlabel value="Survey Notes" for="e1"/> 
+      <apex:outputtext value="{!substitute(substitute(JSENCODE(BJMHS.Survey_Notes__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="e1"/>
+   </apex:pageblocksectionItem>
+   
+ <!--   <apex:inputTextarea value="{!BJMHS.Survey_Notes__c}" styleClass="textarea" readonly="true"/>-->
+  </apex:pageblocksection>
+  <apex:pageblocksection showheader="true" columns="2">
+	<apex:facet name="header" >
+      <span style="color:black;font-size:14px;">Questions</span> 
+    </apex:facet> 
+		<apex:inputtext value="{!BJMHS.Q1_Mind_Control__c}" styleclass="txt40" disabled="true"/>
+		<apex:inputtext value="{!BJMHS.Q5_Talking_Slowly__c}" styleclass="txt40"  disabled="true"/>
+		<apex:inputtext value="{!BJMHS.Q2_Mind_Reading__c}" styleclass="txt40" disabled="true" />
+		<apex:inputtext value="{!BJMHS.Q6_Feel_Sinful__c}" styleclass="txt40" disabled="true" />
+		<apex:inputtext value="{!BJMHS.Q3_weight_Gain__c}" styleclass="txt40" disabled="true" />
+		<apex:inputtext value="{!BJMHS.Q7_Taking_Medication__c}" styleclass="txt40" disabled="true"/> 
+		<apex:inputtext value="{!BJMHS.Q4_More_Active__c}" styleclass="txt40" disabled="true" />
+		<apex:inputtext value="{!BJMHS.Q8_Hospital__c}" styleclass="txt40" disabled="true" />
+	</apex:pageblocksection>
+</apex:pageblock>
+</apex:outPutPanel>
+
+<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+<table>
+  <tr>
+   <td width="400px" align="left">
+	<apex:outputLabel value="Created by:"/>&nbsp;
+	<apex:outputLabel value="{!createdInfo}"/>					
+   </td>
+   <td width="400px"  align="right">
+	 <apex:outputLabel value="Last modified by:" />&nbsp;
+	 <apex:outputLabel value="{!LastModifiedInfo}"/>
+   </td>
+ </tr>
+ </table> 
+</apex:outPutPanel>
+<br/>
+</apex:form>   
+</apex:page>

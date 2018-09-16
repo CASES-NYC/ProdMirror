@@ -1,0 +1,281 @@
+<apex:page controller="ChoicesComplTrackingController" cache="false" sidebar="true">
+ 
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+<!-- 
+    <apex:includeScript value="{!URLFOR($Resource.jQueryDCS,'/js/jquery-1.8.0.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQueryDCS,'/js/jquery-ui-1.8.23.custom.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQueryDCS,'/corners/jquery.corner.js')}" />
+  -->
+<script>
+ function setFocusOnLoad()
+{
+}
+</script>
+<style>
+        .fsBorders {
+        border-color:black;
+        border-style: solid;
+        border-width: 1px;
+    }
+    .selectPanel {
+        margin: 1px; 
+        margin-bottom: 10px;
+        padding: 5px;
+        border:1; 
+        border-top-color: black;
+        border-right-color: black;
+        border-bottom-color: black;
+        border-left-color: black;
+        float: left;
+        width: auto;
+        white-space: nowrap;
+    }
+    </style>
+<script>
+
+    function createapp(m, type, contid, docket)
+   {
+      savingChanges(1);
+      var appObj = document.getElementById(m);
+      var appstatus = appObj.options[appObj.selectedIndex].text; 
+      var saving = true; 
+      afCreateApp(type,appstatus,contid, docket, saving);
+      savingChanges(0);
+   }
+</script>
+    <script>
+           function  selectClients(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('selectClients').style.display = '';
+            } else {
+               rend = true;
+
+                document.getElementById('selectClients').style.display = 'none';
+            }
+        } 
+        function  savingChanges(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('savingChanges').style.display = '';
+            } else {
+                document.getElementById('savingChanges').style.display = 'none';
+            }
+        } 
+        var j$ = jQuery.noConflict();
+        function sortIt()     {         
+            j$("#infoTable").tablesorter(
+                {
+                    widgets: ['zebra'],
+                    headers: { 
+                            // assign the secound column (we start counting zero) 
+                            3: { sorter: false},
+                            4: { sorter: false},
+                            5: { sorter: false},
+                            6: { sorter: false},
+                            7: { sorter: false},
+                        },
+                    sortList: [[2,1],[0,0]] 
+                    }
+                );       
+            } 
+    </script>
+<apex:form > 
+    <apex:actionfunction name="afCreateApp" action="{!createApp}" rerender="infoTable,allRecords">
+       <apex:param name="apptype" assignTo="{!appType}" value=""/>
+       <apex:param name="appStatus" assignTo="{!appStatus}" value=""/>
+       <apex:param name="contid" assignTo="{!contid}" value=""/>
+       <apex:param name="docket" assignTo="{!docket}" value=""/>
+       <apex:param name="saving" assignTo="{!saving}" value=""/>
+     </apex:actionfunction> 
+    <apex:actionStatus startText=""  stopText="" id="selectClients" 
+      onstart="selectClients('1');" onstop="selectClients('0');"/> 
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/style.css')}" id="st"/>
+    <div> 
+     &nbsp;&nbsp; 
+     <table align="center">
+       <tr>
+         <td align="center">
+             <apex:outputText value="Compliance Tracking" id="h" style="font-size:20px;text-align:center"/>
+         </td>    
+       </tr>
+        </table>
+    </div> 
+    <apex:outPutPanel styleClass="selectPanel">
+     <fieldset id="fsCriteria" class="fsBorders">
+        <legend>Search Criteria</legend>
+    <table>
+      <tr>
+       <td align="left">
+         <apex:outPutText value=" Clients Active On: " style="font-size:14px;font-weight:bold;" >
+         </apex:outPutText>
+         <apex:inputField value="{!proxyObject.activitydate}" label="Select Date:" id="aptDate"/>
+        </td>
+      <td>
+      <apex:outputLabel value="{!IF(futureDate, "You cannot verify attendance for dates in the future.", "")}" id="text1" rendered="true"
+                   style="color:red; font-size:16px;font-weight:bold;" />
+      <apex:outputLabel value="{!IF(Result==0 && futureDate == false, "No Active Clients for this date.", "")}" id="text2" rendered="true"
+                   style="color:red; font-size:16px;font-weight:bold;" /> 
+
+     </td>
+ 
+       </tr>
+       <tr>
+        <td align="left">   
+         <apex:outPutText value="Case Coordinator: " style="font-size:14px;font-weight:bold;" />
+              <apex:selectList id="cmpl" value="{!cmNames}" style="width:180px" size="1">
+                 <apex:selectOptions value="{!CmItems}" rendered="true" id="s1"   />
+              </apex:selectList>
+        </td>
+   
+      </tr>
+      <tr>
+          <td>
+             <apex:outPutText value="Borough: " style="font-size:14px;font-weight:bold;" />
+                  <apex:selectList id="borough" value="{!userBorough}" style="width:180px" size="1">
+                     <apex:selectOptions value="{!lstBoroughs}" rendered="true" />
+                  </apex:selectList>  
+          </td>    
+        <td>
+        &nbsp;&nbsp; 
+              <apex:commandButton id="cmdResetDate" value="Go" action="{!doNothing}"
+                  accesskey="" status="selectClients"  rerender="infoTable,allRecords,pb,datedow,text1,text2">
+                </apex:commandButton>
+        </td>
+
+         <td id="selectClients" style="display:none;">
+            Select Clients ...Please wait
+            <apex:image value="/img/loading32.gif" />
+        </td>
+        <td id="savingChanges" style="display:none;">
+            Saving Changes ...Please wait
+            <apex:image value="/img/loading32.gif" />
+        </td>          
+      </tr>
+   </table>     
+   </fieldset>
+     </apex:outPutPanel>
+     <br/>
+              <apex:outputText value="{!datedow}" id="datedow" style="font-size:16px;text-align:center"/>
+<apex:pageBlock id="pb" >
+      <div id="div1" >
+          <apex:outputPanel id="allRecords" >
+            <table id="infoTable" class="tablesorter" border="0" cellpadding="0" cellspacing="2" width="700px" > 
+            <thead> 
+                <tr> 
+                    <th>Name</th>    
+                    <th>Borough</th>
+                    <th>Case Coordinator</th>     
+                    <th>Tier</th>     
+                    <th>Current Intake Date</th>     
+                    <th>Curfew Time</th>     
+                    <th>Verify Curfew</th>     
+                    <th>Verify After School</th>
+                    <th>External Account</th>
+                 </tr>  
+            </thead> 
+            <tBody>
+            <apex:repeat value="{!Contacts}" var="c" id="rows" > 
+            <tr>
+              <td width="200px" align="left" id="col1">
+                  <apex:outputLink value="/{!c.ContactsForDisplay.id}" id="dd" target="_blank"> 
+                    <apex:outputText value="{!c.ContactsForDisplay.Name}" style="width:200px;font-size:14px;"/>
+                  </apex:outputLink>
+              </td>
+              <td width="150px" align="left" id="col2">
+                  <apex:outputText value="{!c.Borough}" style="width:150px"/> 
+              </td>               
+              <td width="150px" align="left" id="col2">
+                  <apex:outputText value="{!c.ContactsForDisplay.Case_Coordinator__r.Name}" style="width:150px"/> 
+              </td> 
+              <td align="left" id="col3" width="60px">
+               <apex:outputText value="{!c.Current_Tier}" />
+              </td>   
+
+              <td align="left" id="col4" width="140px">
+              <apex:outPutText value="{!c.intakeDate}" />
+              </td>
+
+              <td width="190px" align="left" id="col5" >
+                 <apex:outPutText value="{!c.timefreq}" style="width:185px"/>
+              </td>
+
+              <td align="left" id="col6" style="width:100px">
+                 <apex:selectList value="{!c.curfew}" id="pl1" size="1" style="width:90px" 
+                 rendered="{!IF(c.displayCurFewApp == false && c.inDetention == false, true,false)}"
+                 onchange="createapp('{!$Component.pl1}', 'Curfew', '{!c.contId}', '{!c.docket}')">
+                    <apex:selectOptions value="{!StatusItems}" rendered="true" id="s1" />
+                 </apex:selectList>
+                 <apex:outputText value="In Detention" rendered="{!IF(c.inDetention, true,false)}"
+                 style="font-weight:bold;color:#C71585;font-size:14px;"/> 
+                 <apex:outputLink value="/{!c.curFewAppId}" id="cr"  target="_blank" title="Click to Open"
+                    rendered="{!c.displayCurFewApp == true && c.inDetention == false}">
+                      <apex:outPutText value="{!c.curFewStatus}" 
+                        style="font-size:14px;color:blue"/>
+                    </apex:outputLink>  
+              </td>
+ 
+              <td align="left" id="col7" >
+                 <apex:selectList value="{!c.afterSchool}" id="pl2" size="1" style="width:90px"
+                   rendered="{!IF(c.displayAafterSchoolApp == false && c.InDetention == false
+                   && c.displayExternalApp==false  && OR(CONTAINS(c.Current_Tier,'2'),CONTAINS(c.Current_Tier,'3'), 
+                   CONTAINS(c.Current_Tier,'4')),true, false)}"
+                   onchange="createapp('{!$Component.pl2}', 'AfterInternal', '{!c.contId}', '{!c.docket}')">
+                   <apex:selectOptions value="{!StatusItems}" rendered="true" id="s2"/>
+                 </apex:selectList>
+                 <apex:outputText value="In Detention" rendered="{!IF(c.inDetention, true,false)}"
+                 style="font-weight:bold;color:#C71585;font-size:14px;"/> 
+                   <apex:outputLink value="/{!c.AfterSchoolAppId}"  id="af"  target="_blank" title="Click to Open"
+                      rendered="{!c.displayAafterSchoolApp == true && c.inDetention == false  && OR(CONTAINS(c.Current_Tier,'2'),CONTAINS(c.Current_Tier,'3'), 
+                   CONTAINS(c.Current_Tier,'4'))}"> 
+                      <apex:outPutText value="{!c.afterSchoolStatus}" 
+                        style="font-size:14px;color:blue"/>
+                    </apex:outputLink> 
+              <apex:outputLink value="/{!c.AfterSchoolAppId}" id="ex"  target="_blank" title="Click to Open"
+                   rendered="{!c.displayExternalApp = true && c.inDetention == false && OR(CONTAINS(c.Current_Tier,'2'),CONTAINS(c.Current_Tier,'3'), 
+                   CONTAINS(c.Current_Tier,'4'))}"> 
+                    <apex:outPutText value="{!c.afterSchoolExternalStatus}"  
+                     style="font-size:14px;color:blue"/>
+              </apex:outputLink>                     
+              </td>
+              
+              <td  align="left" id="col8" >
+<!-- 
+               <apex:outputLink value="/{!c.ExternalAppId }" id="ex"  target="_blank" title="Click to Open"
+                   rendered="{!c.displayExternalApp = true && c.inDetention == false && OR(CONTAINS(c.Current_Tier,'2'),CONTAINS(c.Current_Tier,'3'), 
+                   CONTAINS(c.Current_Tier,'4'))}"> 
+                    <apex:outPutText value="{!c.afterSchoolExternalStatus}"  
+                     style="font-size:14px;color:blue"/>
+              </apex:outputLink>
+      -->
+                <apex:outputText value="In Detention" rendered="{!IF(c.inDetention, true,false)}"
+                 style="font-weight:bold;color:#C71585;font-size:14px;"/> 
+             <apex:outputText value="{!c.SchoolName}" 
+                 rendered="{!c.displayExternalApp = true && c.inDetention == false}"/>
+        <!-- 
+              <apex:outputLink value="/{!c.link2external}"
+               id="createExt"  target="_blank"
+              rendered="{!c.displayExternalApp = false && c.inDetention == false
+                      && c.displayAafterSchoolApp==false && OR(CONTAINS(c.Current_Tier,'2'),CONTAINS(c.Current_Tier,'3'), 
+                   CONTAINS(c.Current_Tier,'4'))}">
+                   <apex:outPutText value="Create External Appointment"  
+                     style="font-size:12px;color:blue"/>
+              </apex:outputLink>
+    -->
+   
+   
+              </td>
+            </tr>
+            </apex:repeat> 
+            </tBody>
+        </table>
+                <script type="Text/javascript">
+                   sortIt();
+                 </script>
+            </apex:outputPanel>
+            </div>
+            </apex:pageBlock>
+ 
+   </apex:form>
+ </apex:page>

@@ -1,0 +1,585 @@
+<apex:page standardcontroller="Assessment__c" extensions="assessPreloadCon">
+<apex:messages />
+<table width="1000px"><tr><td>
+    <apex:sectionheader subtitle="{!IF(ISNULL(Assessment__c.Contact__c), 'NO NAME FOUND', Assessment__c.Client_Name__c)}" title="UCLA PTSD DSM V"/>
+    <apex:form rendered="{!(Assessment__c.Locked__c=False)}" >
+        <apex:pageblock mode="edit" title="UCLA PTSD DSM V">
+            <apex:pageblockbuttons >
+                <apex:commandbutton value="Save" action="{!SaveAssessment}"/>
+                <apex:commandbutton value="Cancel" action="{!Cancel}"/>            
+            </apex:pageblockbuttons>
+                <apex:pageblocksection title="Information" showheader="true" columns="2">
+                    <apex:outputfield value="{!Assessment__c.Contact__c}"/>                   
+                    <apex:pageblocksectionitem >
+                        <apex:outputLabel value="Date Assessment Given" for="AssessmentDate" />
+                        <apex:inputField value="{!Assessment__c.Assessment_Date__c}" id="AssessmentDate"/>
+                    </apex:pageblocksectionitem>
+        </apex:pageblocksection>
+        <apex:pageBlockSection title="Trauma History Profile" showheader="true" columns="1"/>
+        <apex:panelGrid columns="1" cellpadding="5">
+            <apex:outputLabel value="Summary"/>
+            <apex:inputfield value="{!Assessment__c.UC_Trauma_History_Profile_Summary__c}" style="height:100px;width:600px"/>
+        </apex:panelGrid>
+        <apex:pageBlockSection title="Self-Report Trauma History" showheader="true" columns="1"/>
+        <apex:panelGrid columns="1" cellpadding="5">
+            <apex:outputLabel value="  1. Provide brief description of what happened:"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q01_History__c}" style="height:100px;width:600px;"/>
+        </apex:panelGrid>            
+        <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">
+            <apex:outputLabel value=" 2."/>
+            <apex:outputLabel value="Were you in a disaster, like an earthquake, wildfire, hurricane, tornado or flood?"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q02_disaster__c}" />
+            <apex:outputLabel value=" 3."/>
+            <apex:outputLabel value="Were you in a bad accident, like a serious car accident or fall?"/>       
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q03_accident__c}"/>
+            <apex:outputLabel value=" 4."/>
+            <apex:outputLabel value="Were you in a place where a war was going on around you?"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q04_war__c}"/>
+            <apex:outputLabel value=" 5."/>
+            <apex:outputLabel value="Were you hit, punched, or kicked very hard at home? (DO NOT INCLUDE play fighting between brothers and sisters.)?"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q05_Hit_hard__c}"/>
+            <apex:outputLabel value=" 6."/>
+            <apex:outputLabel value="Did you see a family member being hit, punched or kicked very hard at home.? (DO NOT INCLUDE play fighting between brothers and sister)?"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q06_family_member__c}"/>
+            <apex:outputLabel value=" 7."/>
+            <apex:outputLabel value="Were you beaten up, shot at, or threatened to be hurt badly in your school, neighborhood or town?"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q07_school__c}"/>
+            <apex:outputLabel value=" 8."/>
+            <apex:outputLabel value="Did you see someone who was beaten up, shot at or killed?"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q08_someone_beaten__c}"/>
+            <apex:outputLabel value=" 9."/>
+            <apex:outputLabel value="Did you see a dead body (do not include funerals)?"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q09_dead_body__c}"/>
+            <apex:outputLabel value="10."/>
+            <apex:outputLabel value="Did someone touch your private parts when you did not want them to? (DO NOT INCLUDE visits to the doctor.)?"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q10_touch__c}"/>
+            <apex:outputLabel value="11."/>
+            <apex:outputLabel value="Did you see or hear about the violent death or serious injury of a loved one or friend?"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q11_loved_one__c}"/>
+            <apex:outputLabel value="12."/>
+            <apex:outputLabel value="Did you have a painful or scary medical treatment when you were very sick or badly injured?"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q12_medical_treatment__c}"/>
+            <apex:outputLabel value="13."/>
+            <apex:outputLabel value="Were you ever forced to have sex with someone when you didn’t want to?"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q13_Forced_sex__c}"/>
+            <apex:outputLabel value="14."/>
+            <apex:outputLabel value="Has anyone close to you died?"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q14_Died__c}"/>
+            <apex:outputLabel value="15."/>
+            <apex:outputLabel value="OTHER than the things described above, has ANYTHING ELSE ever happened to you that was REALLY SCARY OR UPSETTING?"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Q15_Anything_else__c}"/>
+            <apex:outputText value=""/>
+            <apex:outputText ><hr/></apex:outputText>    
+            <apex:outputText value=""/>
+            <apex:outputText value=""/>
+            <apex:outputLabel value="If the answer is YES to MORE THAN ONE QUESTION, choose the thing that BOTHERS YOU THE MOST NOW and place the question number in this blank" />
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Most_Impacted_By__c}"/>
+            <apex:outputText value=""/>
+            <apex:outputLabel value="About how old were you when this bad thing happened?"/>
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Age_Impacted__c}"/>
+            <apex:outputText value=""/>
+        </apex:panelGrid>
+        <apex:panelGrid columns="1" cellpadding="5">      
+            <apex:outputLabel value="Clinician: Provide a brief description of what is most bothersome now (if different from #1 above):"/>                    
+            <apex:inputfield value="{!Assessment__c.UC_SelfRpt_Clinician_Description__c}" style="height:100px;width:600px"/>                    
+        </apex:panelGrid>
+        <apex:pageBlockSection title="How Much of the Time During the Past Month________________|0| None |1| Little |2| Some |3| Much |4| Most " showheader="true" columns="1"/>        
+            <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">                
+            <apex:outputLabel value=" 1."/> 
+            <apex:outputLabel value="I am on the lookout for danger or things that I am afraid of (like looking over my shoulder even when nothing is there)."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q01__c}"/>
+            <apex:outputLabel value="  2."/> 
+            <apex:outputLabel value="I have thoughts like 'I am bad'."/>    
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q02__c}"/>
+            <apex:outputLabel value="  3."/> 
+            <apex:outputLabel value="I try to stay away from people, places, or things that remind me about what happened."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q03__c}"/>
+            <apex:outputLabel value="  4."/> 
+            <apex:outputLabel value="I get upset easily or get into arguments or physical fights."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q04__c}"/>
+            <apex:outputLabel value=" 5."/> 
+            <apex:outputLabel value="I feel like I am back at the time when the bad thing happened, like it’s happening all over again."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q05__c}"/>
+            <apex:outputLabel value=" 6."/>
+            <apex:outputLabel value="I feel like what happened was sickening or gross."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q06__c}"/>
+            <apex:outputLabel value=" 7."/> 
+            <apex:outputLabel value="I don’t feel like doing things with my family or friends or other things that I liked to do."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q07__c}"/>
+            <apex:outputLabel value="  8."/>
+            <apex:outputLabel value="I have trouble concentrating or paying attention."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q08__c}"/>
+            <apex:outputLabel value="  9."/>
+            <apex:outputLabel value="I have thoughts like, 'The world is really dangerous.'"/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q09__c}"/>
+            <apex:outputLabel value="10."/>
+            <apex:outputLabel value="I have bad dreams about what happened, or other bad dreams."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q10__c}"/>
+            <apex:outputLabel value="11."/>
+            <apex:outputLabel value="When something reminds me of what happened I get very upset, afraid, or sad."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q11__c}"/>
+            <apex:outputLabel value="12."/>
+            <apex:outputLabel value="I have trouble feeling happiness or love."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q12__c}"/>
+            <apex:outputLabel value="13."/>
+            <apex:outputLabel value="I try not to think about or have feelings about what happened."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q13__c}"/>
+            <apex:outputLabel value="14."/>
+            <apex:outputLabel value="When something reminds me of what happened, I have strong feelings in my body like my heart beats fast, my head aches or my stomach aches."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q14__c}"/>
+            <apex:outputLabel value="15."/>
+            <apex:outputLabel value="I am mad with someone for making the bad thing happen, not doing more to stop it, or to help after."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q15__c}"/>
+            <apex:outputLabel value="16."/>
+            <apex:outputLabel value="I have thoughts like 'I will never be able to trust other people'."/> 
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q16__c}"/>
+            <apex:outputLabel value="17."/>
+            <apex:outputLabel value="I feel alone even when I am around other people."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q17__c}"/>
+            <apex:outputLabel value="18."/>
+            <apex:outputLabel value="I have upsetting thoughts, pictures or sounds of what happened come into my mind when I don’t want them to."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q18__c}"/>
+            <apex:outputLabel value="19."/>
+            <apex:outputLabel value="I feel that part of what happened was my fault."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q19__c}"/>
+            <apex:outputLabel value="20."/>
+            <apex:outputLabel value="I hurt myself on purpose."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q20__c}"/>
+            <apex:outputLabel value="21."/>
+            <apex:outputLabel value="I have trouble going to sleep, wake up often, or have trouble getting back to sleep."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q21__c}"/>
+            <apex:outputLabel value="22."/>
+            <apex:outputLabel value="I feel ashamed or embarrassed over what happened."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q22__c}"/>
+            <apex:outputLabel value="23."/>
+            <apex:outputLabel value="I have trouble remembering important parts of what happened."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q23__c}"/>
+            <apex:outputLabel value="24."/>
+            <apex:outputLabel value="I feel jumpy or startle easily, like when I hear a loud noise or when something surprises me."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q24__c}"/>
+            <apex:outputLabel value="25."/>
+            <apex:outputLabel value="I feel afraid or scared."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q25__c}"/>     
+            <apex:outputLabel value="26."/>
+            <apex:outputLabel value="I do risky or unsafe things that could really hurt me or someone else."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q26__c}"/>
+            <apex:outputLabel value="27."/>
+            <apex:outputLabel value="I want to get back at someone for what happened."/>
+            <apex:inputfield value="{!Assessment__c.UC_Reaction_Q27__c}"/>   
+            </apex:panelGrid>
+            <hr/>             
+            <apex:outputText value="With Dissociative Symptoms (Dissocative Subtype)"/>
+            <hr/>
+            <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">              
+                    <apex:outputLabel value="28."/> 
+                    <apex:outputLabel value="I feel like I am seeing myself or what I am doing from outside my body (like watching myself in a movie)."/>
+                    <apex:inputfield value="{!Assessment__c.UC_Reaction_Q28__c}"/>
+                    <apex:outputLabel value="29."/> 
+                    <apex:outputLabel value="I feel not connected to my body, like I’m not really there inside."/>
+                    <apex:inputfield value="{!Assessment__c.UC_Reaction_Q29__c}"/>
+                    <apex:outputLabel value="30."/> 
+                    <apex:outputLabel value="I feel like things around me look strange, different, or like I am in a fog."/>                    
+                    <apex:inputfield value="{!Assessment__c.UC_Reaction_Q30__c}"/>                    
+                    <apex:outputLabel value="31."/> 
+                    <apex:outputLabel value="I feel like things around me are not real, like I am in a dream."/>                    
+                    <apex:inputfield value="{!Assessment__c.UC_Reaction_Q31__c}"/>
+            </apex:panelGrid>                 
+            <apex:pageblocksection title="Clinically Significant Distress or Functional Impairment" showheader="true" columns="1"/>
+                <hr/>
+                <apex:outputText value="Clinically Significant Distress:"/>
+                <hr/>
+                <apex:panelGrid columns="2" columnClasses="col1,col2" cellpadding="3">
+                    <apex:outputLabel value="1. Do these reactions(thoughts and feelings) bother or upset you a lot?"/>
+                    <apex:inputfield value="{!Assessment__c.UC_Clinical_Distress_Q1__c}"/>
+                </apex:panelGrid>
+                <hr/>
+                <apex:outputText value="Clinically Significant Functional Impairment:"/>
+                <hr/>
+                <apex:outputText value="HOME"/>
+                <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">                                
+                    <apex:outputLabel value="1."/> 
+                    <apex:outputLabel value="Do these reactions (thoughts and feelings) make it harder for you to get along with people at home?"/>  
+                    <apex:inputfield value="{!Assessment__c.UC_Clinical_Home_Q1__c}"/>    
+                    <apex:outputLabel value="2."/>
+                    <apex:outputLabel value="Do these reactions (thoughts and feelings) get you into trouble at home?"/>                  
+                    <apex:inputfield value="{!Assessment__c.UC_Clinical_Home_Q2__c}"/>                    
+                    <apex:outputLabel value="3."/>
+                    <apex:outputLabel value="Do these reactions (thoughts and feelings) cause some other problem at home?"/>
+                    <apex:inputfield value="{!Assessment__c.UC_Clinical_Home_Q3__c}"/>
+                    <apex:outputLabel value=""/>
+                </apex:panelGrid>
+                <apex:panelGrid columns="1" cellpadding="5">                    
+                    <apex:outputLabel value="Describe:"/>                     
+                    <apex:inputfield value="{!Assessment__c.UC_Clinical_Home_Describe__c}" style="height:100px;width:600px"/>
+                </apex:panelGrid>
+                <apex:outputText value="SCHOOL"/>
+                <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">
+                    <apex:outputLabel value=" 1."/>   
+                    <apex:outputLabel value="Do these reactions (thoughts and feelings) make it harder for you to do well in school?"/>
+                    <apex:inputfield value="{!Assessment__c.UC_Clinical_School_Q1__c}"/>
+                </apex:panelGrid>
+                <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">                  
+                    <apex:outputLabel value="2."/>
+                    Do these reactions (thoughts and feelings) cause other problems at school?"/>    
+                    <apex:inputfield value="{!Assessment__c.UC_Clinical_School_Q2__c}"/>
+                </apex:panelGrid>
+                <apex:panelGrid columns="1" cellpadding="5">                     
+                    <apex:outputLabel value="Describe:"/>                                         
+                    <apex:inputfield value="{!Assessment__c.UC_Clinical_School_Describe__c}" style="height:100px;width:600px"/>
+                </apex:panelGrid>
+                <apex:outputText value="PEER RELATIONSHIPS"/>                    
+                <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">
+                    <apex:outputLabel value="1."/> 
+                    <apex:outputLabel value="Do these reactions (thoughts and feelings) make it harder for you to get along with your friends or make new friends?"/>
+                    <apex:inputfield value="{!Assessment__c.UC_Clinical_Peer_Q1__c}"/>
+                    <apex:outputLabel value=""/>
+                </apex:panelGrid>
+                <apex:panelGrid columns="1" cellpadding="5">                     
+                    <apex:outputLabel value="Describe:"/>    
+                    <apex:inputfield value="{!Assessment__c.UC_Clinical_Peer_Describe__c}" style="height:100px;width:600px"/>
+                </apex:panelGrid>
+                <apex:outputText value="DEVELOPMENTAL PROGRESSION"/>
+                <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">
+                    <apex:outputLabel value="1."/> 
+                    <apex:outputLabel value="Do these reactions (thoughts and feelings) make it harder for you to do important things that other kids your age are doing?"/>
+                    <apex:inputfield value="{!Assessment__c.UC_Clinical_Developmental_Q1__c}"/>
+                    <apex:outputLabel value="2."/>
+                    <apex:outputLabel value="Other"/>
+                    <apex:inputfield value="{!Assessment__c.UC_Clinical_Developmental_Other__c}"/>
+                    <apex:outputLabel value=""/>
+                </apex:panelGrid>
+                <apex:panelGrid columns="1" cellpadding="5">                     
+                    <apex:outputLabel value="Describe:"/>                                                                                                     
+                    <apex:inputfield value="{!Assessment__c.UC_CD2_OTHER_Describe__c}" style="width:600px;height:100px;"/>
+                </apex:panelGrid>
+                
+                <apex:pageblocksection title="System Information" showheader="false" collapsible="false" columns="2">
+                    <apex:pageblocksectionitem >
+                        <apex:outputlabel value="Created By"/>
+                        <apex:outputpanel >
+                            <apex:outputfield value="{!Assessment__c.CreatedById}"/>&nbsp;, 
+                            <apex:outputfield value="{!Assessment__c.CreatedDate}"/>
+                        </apex:outputpanel>
+                    </apex:pageblocksectionitem>
+                    <apex:pageblocksectionitem >
+                        <apex:outputlabel value="Last Modified By"/>
+                        <apex:outputpanel >
+                            <apex:outputfield value="{!Assessment__c.LastModifiedById}"/>&nbsp;, 
+                            <apex:outputfield value="{!Assessment__c.LastModifiedDate}"/>
+                        </apex:outputpanel>
+                    </apex:pageblocksectionitem>
+                </apex:pageblocksection>
+        </apex:pageblock>
+    </apex:form>
+<!-- ##################################################  Assessment Locked  ##################################################  -->    
+    <apex:form rendered="{!(Assessment__c.Locked__c==True)}" >
+        <apex:pageblock mode="edit" title="UCLA PTSD DSM V">
+            <apex:pageblockbuttons >
+                <apex:commandbutton value="Cancel" action="{!Cancel}"/>
+            </apex:pageblockbuttons>
+                <apex:pageblocksection title="Information" showheader="true" columns="2">
+                    <apex:outputText value="Assessment is Locked" style="font-size:1.2em; text-align:right;color:red"/>                     
+                    <apex:outputText value=""/>
+                    <apex:outputfield value="{!Assessment__c.Name}"/>
+                    <apex:outputField value="{!Assessment__c.Assessment_Completed_on__c}"/>
+                    <apex:outputField value="{!Assessment__c.Contact__c}"/>
+                    <apex:outputField value="{!Assessment__c.Assessment_Completed_by__c}"/>
+                    <apex:outputField value="{!Assessment__c.Locked__c}"/>
+                    <apex:pageblocksectionitem >
+                        <apex:outputLabel value="Date Assessment Given" for="AssessmentDate" />
+                        <apex:outputField value="{!Assessment__c.Assessment_Date__c}" id="AssessmentDate"/>
+                    </apex:pageblocksectionitem>                    
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>                    
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:outputField value="{!Assessment__c.UC_Category_B_Present__c}"/>
+                    <apex:outputField value="{!Assessment__c.UC_Category_C_Present__c}"/>
+                    <apex:outputField value="{!Assessment__c.UC_Category_D_Present__c}"/>
+                    <apex:outputField value="{!Assessment__c.UC_Category_E_Present__c}"/>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:outputField value="{!Assessment__c.UC_PTSD_RI__c}"/>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:outputField value="{!Assessment__c.UC_Reaction_Category_B_Sum__c}"/>
+                    <apex:outputField value="{!Assessment__c.UC_Reaction_Category_C_Sum__c}"/>
+                    <apex:outputField value="{!Assessment__c.UC_Reaction_Category_D_Sum__c}"/>
+                    <apex:outputField value="{!Assessment__c.UC_Reaction_Category_E_Sum__c}"/>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>                    
+                    <apex:outputField value="{!Assessment__c.UC_Reaction_A1__c}" rendered="false" />
+                    <apex:outputField value="{!Assessment__c.UC_Reaction_A2__c}" rendered="false" />
+                    <apex:outputField value="{!Assessment__c.UC_Reaction_D2__c}" rendered="false" />
+                    <apex:outputField value="{!Assessment__c.UC_Reaction_D3__c}" rendered="false" />
+                    <apex:outputField value="{!Assessment__c.UC_Reaction_D4__c}" rendered="false" />
+                    <apex:outputField value="{!Assessment__c.UC_Reaction_E2__c}" rendered="false" />
+                </apex:pageblocksection>
+        <apex:pageBlockSection title="Trauma History Profile" showheader="true" columns="1"/>
+        <apex:panelGrid columns="1" cellpadding="5">
+            <apex:outputLabel value="Summary"/>
+            <apex:outputfield value="{!Assessment__c.UC_Trauma_History_Profile_Summary__c}" style="height:100px;width:600px"/>
+        </apex:panelGrid>
+        <apex:pageBlockSection title="Self-Report Trauma History" showheader="true" columns="1"/>
+        <apex:panelGrid columns="1" cellpadding="5">
+            <apex:outputLabel value="  1. Provide brief description of what happened:"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q01_History__c}" style="height:100px;width:600px;"/>
+        </apex:panelGrid>            
+        <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">
+            <apex:outputLabel value=" 2."/>
+            <apex:outputLabel value="Were you in a disaster, like an earthquake, wildfire, hurricane, tornado or flood?"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q02_disaster__c}" />
+            <apex:outputLabel value=" 3."/>
+            <apex:outputLabel value="Were you in a bad accident, like a serious car accident or fall?"/>       
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q03_accident__c}"/>
+            <apex:outputLabel value=" 4."/>
+            <apex:outputLabel value="Were you in a place where a war was going on around you?"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q04_war__c}"/>
+            <apex:outputLabel value=" 5."/>
+            <apex:outputLabel value="Were you hit, punched, or kicked very hard at home? (DO NOT INCLUDE play fighting between brothers and sisters.)?"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q05_Hit_hard__c}"/>
+            <apex:outputLabel value=" 6."/>
+            <apex:outputLabel value="Did you see a family member being hit, punched or kicked very hard at home.? (DO NOT INCLUDE play fighting between brothers and sister)?"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q06_family_member__c}"/>
+            <apex:outputLabel value=" 7."/>
+            <apex:outputLabel value="Were you beaten up, shot at, or threatened to be hurt badly in your school, neighborhood or town?"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q07_school__c}"/>
+            <apex:outputLabel value=" 8."/>
+            <apex:outputLabel value="Did you see someone who was beaten up, shot at or killed?"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q08_someone_beaten__c}"/>
+            <apex:outputLabel value=" 9."/>
+            <apex:outputLabel value="Did you see a dead body (do not include funerals)?"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q09_dead_body__c}"/>
+            <apex:outputLabel value="10."/>
+            <apex:outputLabel value="Did someone touch your private parts when you did not want them to? (DO NOT INCLUDE visits to the doctor.)?"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q10_touch__c}"/>
+            <apex:outputLabel value="11."/>
+            <apex:outputLabel value="Did you see or hear about the violent death or serious injury of a loved one or friend?"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q11_loved_one__c}"/>
+            <apex:outputLabel value="12."/>
+            <apex:outputLabel value="Did you have a painful or scary medical treatment when you were very sick or badly injured?"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q12_medical_treatment__c}"/>
+            <apex:outputLabel value="13."/>
+            <apex:outputLabel value="Were you ever forced to have sex with someone when you didn’t want to?"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q13_Forced_sex__c}"/>
+            <apex:outputLabel value="14."/>
+            <apex:outputLabel value="Has anyone close to you died?"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q14_Died__c}"/>
+            <apex:outputLabel value="15."/>
+            <apex:outputLabel value="OTHER than the things described above, has ANYTHING ELSE ever happened to you that was REALLY SCARY OR UPSETTING?"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Q15_Anything_else__c}"/>
+            <apex:outputText value=""/>
+            <apex:outputText ><hr/></apex:outputText>    
+            <apex:outputText value=""/>
+            <apex:outputText value=""/>
+            <apex:outputLabel value="If the answer is YES to MORE THAN ONE QUESTION, choose the thing that BOTHERS YOU THE MOST NOW and place the question number in this blank" />
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Most_Impacted_By__c}"/>
+            <apex:outputText value=""/>
+            <apex:outputLabel value="About how old were you when this bad thing happened?"/>
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Age_Impacted__c}"/>
+            <apex:outputText value=""/>
+        </apex:panelGrid>
+        <apex:panelGrid columns="1" cellpadding="5">      
+            <apex:outputLabel value="Clinician: Provide a brief description of what is most bothersome now (if different from #1 above):"/>                    
+            <apex:outputfield value="{!Assessment__c.UC_SelfRpt_Clinician_Description__c}" style="height:100px;width:600px"/>                    
+        </apex:panelGrid>
+        <apex:pageBlockSection title="How Much of the Time During the Past Month________________|0| None |1| Little |2| Some |3| Much |4| Most " showheader="true" columns="1"/>        
+            <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">                
+            <apex:outputLabel value=" 1."/> 
+            <apex:outputLabel value="I am on the lookout for danger or things that I am afraid of (like looking over my shoulder even when nothing is there)."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q01__c}"/>
+            <apex:outputLabel value="  2."/> 
+            <apex:outputLabel value="I have thoughts like 'I am bad'."/>    
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q02__c}"/>
+            <apex:outputLabel value="  3."/> 
+            <apex:outputLabel value="I try to stay away from people, places, or things that remind me about what happened."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q03__c}"/>
+            <apex:outputLabel value="  4."/> 
+            <apex:outputLabel value="I get upset easily or get into arguments or physical fights."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q04__c}"/>
+            <apex:outputLabel value=" 5."/> 
+            <apex:outputLabel value="I feel like I am back at the time when the bad thing happened, like it’s happening all over again."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q05__c}"/>
+            <apex:outputLabel value=" 6."/>
+            <apex:outputLabel value="I feel like what happened was sickening or gross."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q06__c}"/>
+            <apex:outputLabel value=" 7."/> 
+            <apex:outputLabel value="I don’t feel like doing things with my family or friends or other things that I liked to do."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q07__c}"/>
+            <apex:outputLabel value="  8."/>
+            <apex:outputLabel value="I have trouble concentrating or paying attention."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q08__c}"/>
+            <apex:outputLabel value="  9."/>
+            <apex:outputLabel value="I have thoughts like, 'The world is really dangerous.'"/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q09__c}"/>
+            <apex:outputLabel value="10."/>
+            <apex:outputLabel value="I have bad dreams about what happened, or other bad dreams."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q10__c}"/>
+            <apex:outputLabel value="11."/>
+            <apex:outputLabel value="When something reminds me of what happened I get very upset, afraid, or sad."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q11__c}"/>
+            <apex:outputLabel value="12."/>
+            <apex:outputLabel value="I have trouble feeling happiness or love."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q12__c}"/>
+            <apex:outputLabel value="13."/>
+            <apex:outputLabel value="I try not to think about or have feelings about what happened."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q13__c}"/>
+            <apex:outputLabel value="14."/>
+            <apex:outputLabel value="When something reminds me of what happened, I have strong feelings in my body like my heart beats fast, my head aches or my stomach aches."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q14__c}"/>
+            <apex:outputLabel value="15."/>
+            <apex:outputLabel value="I am mad with someone for making the bad thing happen, not doing more to stop it, or to help after."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q15__c}"/>
+            <apex:outputLabel value="16."/>
+            <apex:outputLabel value="I have thoughts like 'I will never be able to trust other people'."/> 
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q16__c}"/>
+            <apex:outputLabel value="17."/>
+            <apex:outputLabel value="I feel alone even when I am around other people."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q17__c}"/>
+            <apex:outputLabel value="18."/>
+            <apex:outputLabel value="I have upsetting thoughts, pictures or sounds of what happened come into my mind when I don’t want them to."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q18__c}"/>
+            <apex:outputLabel value="19."/>
+            <apex:outputLabel value="I feel that part of what happened was my fault."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q19__c}"/>
+            <apex:outputLabel value="20."/>
+            <apex:outputLabel value="I hurt myself on purpose."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q20__c}"/>
+            <apex:outputLabel value="21."/>
+            <apex:outputLabel value="I have trouble going to sleep, wake up often, or have trouble getting back to sleep."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q21__c}"/>
+            <apex:outputLabel value="22."/>
+            <apex:outputLabel value="I feel ashamed or embarrassed over what happened."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q22__c}"/>
+            <apex:outputLabel value="23."/>
+            <apex:outputLabel value="I have trouble remembering important parts of what happened."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q23__c}"/>
+            <apex:outputLabel value="24."/>
+            <apex:outputLabel value="I feel jumpy or startle easily, like when I hear a loud noise or when something surprises me."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q24__c}"/>
+            <apex:outputLabel value="25."/>
+            <apex:outputLabel value="I feel afraid or scared."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q25__c}"/>     
+            <apex:outputLabel value="26."/>
+            <apex:outputLabel value="I do risky or unsafe things that could really hurt me or someone else."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q26__c}"/>
+            <apex:outputLabel value="27."/>
+            <apex:outputLabel value="I want to get back at someone for what happened."/>
+            <apex:outputfield value="{!Assessment__c.UC_Reaction_Q27__c}"/>   
+            </apex:panelGrid>
+            <hr/>             
+            <apex:outputText value="With Dissociative Symptoms (Dissocative Subtype)"/>
+            <hr/>
+            <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">              
+                    <apex:outputLabel value="28."/> 
+                    <apex:outputLabel value="I feel like I am seeing myself or what I am doing from outside my body (like watching myself in a movie)."/>
+                    <apex:outputfield value="{!Assessment__c.UC_Reaction_Q28__c}"/>
+                    <apex:outputLabel value="29."/> 
+                    <apex:outputLabel value="I feel not connected to my body, like I’m not really there inside."/>
+                    <apex:outputfield value="{!Assessment__c.UC_Reaction_Q29__c}"/>
+                    <apex:outputLabel value="30."/> 
+                    <apex:outputLabel value="I feel like things around me look strange, different, or like I am in a fog."/>                    
+                    <apex:outputfield value="{!Assessment__c.UC_Reaction_Q30__c}"/>                    
+                    <apex:outputLabel value="31."/> 
+                    <apex:outputLabel value="I feel like things around me are not real, like I am in a dream."/>                    
+                    <apex:outputfield value="{!Assessment__c.UC_Reaction_Q31__c}"/>
+            </apex:panelGrid>                 
+            <apex:pageblocksection title="Clinically Significant Distress or Functional Impairment" showheader="true" columns="1"/>
+                <hr/>
+                <apex:outputText value="Clinically Significant Distress:"/>
+                <hr/>
+                <apex:panelGrid columns="2" columnClasses="col1,col2" cellpadding="3">
+                    <apex:outputLabel value="1. Do these reactions(thoughts and feelings) bother or upset you a lot?"/>
+                    <apex:outputfield value="{!Assessment__c.UC_Clinical_Distress_Q1__c}"/>
+                </apex:panelGrid>
+                <hr/>
+                <apex:outputText value="Clinically Significant Functional Impairment:"/>
+                <hr/>
+                <apex:outputText value="HOME"/>
+                <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">                                
+                    <apex:outputLabel value="1."/> 
+                    <apex:outputLabel value="Do these reactions (thoughts and feelings) make it harder for you to get along with people at home?"/>  
+                    <apex:outputfield value="{!Assessment__c.UC_Clinical_Home_Q1__c}"/>    
+                    <apex:outputLabel value="2."/>
+                    <apex:outputLabel value="Do these reactions (thoughts and feelings) get you into trouble at home?"/>                  
+                    <apex:outputfield value="{!Assessment__c.UC_Clinical_Home_Q2__c}"/>                    
+                    <apex:outputLabel value="3."/>
+                    <apex:outputLabel value="Do these reactions (thoughts and feelings) cause some other problem at home?"/>
+                    <apex:outputfield value="{!Assessment__c.UC_Clinical_Home_Q3__c}"/>
+                    <apex:outputLabel value=""/>
+                </apex:panelGrid>
+                <apex:panelGrid columns="1" cellpadding="5">                    
+                    <apex:outputLabel value="Describe:"/>                     
+                    <apex:outputfield value="{!Assessment__c.UC_Clinical_Home_Describe__c}" style="height:100px;width:600px"/>
+                </apex:panelGrid>
+                <apex:outputText value="SCHOOL"/>
+                <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">
+                    <apex:outputLabel value=" 1."/>   
+                    <apex:outputLabel value="Do these reactions (thoughts and feelings) make it harder for you to do well in school?"/>
+                    <apex:outputfield value="{!Assessment__c.UC_Clinical_School_Q1__c}"/>
+                </apex:panelGrid>
+                <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">                  
+                    <apex:outputLabel value="2."/>
+                    Do these reactions (thoughts and feelings) cause other problems at school?"/>    
+                    <apex:outputfield value="{!Assessment__c.UC_Clinical_School_Q2__c}"/>
+                </apex:panelGrid>
+                <apex:panelGrid columns="1" cellpadding="5">                     
+                    <apex:outputLabel value="Describe:"/>                                         
+                    <apex:outputfield value="{!Assessment__c.UC_Clinical_School_Describe__c}" style="height:100px;width:600px"/>
+                </apex:panelGrid>
+                <apex:outputText value="PEER RELATIONSHIPS"/>                    
+                <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">
+                    <apex:outputLabel value="1."/> 
+                    <apex:outputLabel value="Do these reactions (thoughts and feelings) make it harder for you to get along with your friends or make new friends?"/>
+                    <apex:outputfield value="{!Assessment__c.UC_Clinical_Peer_Q1__c}"/>
+                    <apex:outputLabel value=""/>
+                </apex:panelGrid>
+                <apex:panelGrid columns="1" cellpadding="5">                     
+                    <apex:outputLabel value="Describe:"/>    
+                    <apex:outputfield value="{!Assessment__c.UC_Clinical_Peer_Describe__c}" style="height:100px;width:600px"/>
+                </apex:panelGrid>
+                <apex:outputText value="DEVELOPMENTAL PROGRESSION"/>
+                <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">
+                    <apex:outputLabel value="1."/> 
+                    <apex:outputLabel value="Do these reactions (thoughts and feelings) make it harder for you to do important things that other kids your age are doing?"/>
+                    <apex:outputfield value="{!Assessment__c.UC_Clinical_Developmental_Q1__c}"/>
+                    <apex:outputLabel value="2."/>
+                    <apex:outputLabel value="Other"/>
+                    <apex:outputfield value="{!Assessment__c.UC_Clinical_Developmental_Other__c}"/>
+                    <apex:outputLabel value=""/>
+                </apex:panelGrid>
+                <apex:panelGrid columns="1" cellpadding="5">                     
+                    <apex:outputLabel value="Describe:"/>                                                                                                     
+                    <apex:outputfield value="{!Assessment__c.UC_CD2_OTHER_Describe__c}" style="width:600px;height:100px;"/>
+                </apex:panelGrid>
+                
+                <apex:pageblocksection title="System Information" showheader="false" collapsible="false" columns="2">
+                    <apex:pageblocksectionitem >
+                        <apex:outputlabel value="Created By"/>
+                        <apex:outputpanel >
+                            <apex:outputfield value="{!Assessment__c.CreatedById}"/>&nbsp;, 
+                            <apex:outputfield value="{!Assessment__c.CreatedDate}"/>
+                        </apex:outputpanel>
+                    </apex:pageblocksectionitem>
+                    <apex:pageblocksectionitem >
+                        <apex:outputlabel value="Last Modified By"/>
+                        <apex:outputpanel >
+                            <apex:outputfield value="{!Assessment__c.LastModifiedById}"/>&nbsp;, 
+                            <apex:outputfield value="{!Assessment__c.LastModifiedDate}"/>
+                        </apex:outputpanel>
+                    </apex:pageblocksectionitem>
+                </apex:pageblocksection>
+        </apex:pageblock>
+    </apex:form>
+      
+</td></tr></table>
+<Script>
+    function setFocusOnLoad() {}
+</Script>
+<style type="text/css">
+    .col0 {width:50px; text-align:right;}
+    .col1 {width:400px; text-align:left;}
+    .col2 {width:450px; text-align:left;}
+    .col3 {width:100px; text-align:left;}    
+</style>
+</apex:page>

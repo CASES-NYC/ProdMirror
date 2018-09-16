@@ -1,0 +1,173 @@
+<apex:page standardController="Schedule__c" extensions="scheduleMethods" title="Edit Class Schedule">
+
+<script>
+
+    function setFocusOnLoad() {} 
+    
+</script>
+
+    <apex:form id="frmMain">
+    
+        <apex:sectionHeader title="{!clCurrent.Record_Type_RPT__c} Class Schedule Edit" />  
+    
+        <apex:messages />
+    
+        <apex:pageBlock >
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton action="{!saveSchedule}" id="cmdSave" value="Save" />
+                <apex:commandButton action="{!returnToClass}" id="cmdCancel" value="Return to Class" immediate="true" />
+                <apex:commandButton action="{!convertClass}" id="cmdConvert" value="Convert to Fixed" rendered="{!if(clCurrent.Record_Type_RPT__c == 'Ongoing',true,false)}" /> 
+            
+            </apex:pageBlockButtons>
+        
+            <apex:pageBlockSection title="Schedule Edit" columns="2">
+                <apex:inputField value="{!clCurrent.Class_Title__c}" />
+                <apex:inputField value="{!schCurrent.UI_Start_Date__c}" rendered="{!if(clCurrent.Record_Type_RPT__c == 'Single',false,true)}" required="true" />
+                <apex:inputField value="{!schCurrent.Start_Date__c}" rendered="{!if(clCurrent.Record_Type_RPT__c == 'Single',true,false)}" required="true" />
+                <apex:inputField value="{!schCurrent.Change_Schedule_As_Of__c}" required="true" />
+                <apex:inputField value="{!schCurrent.UI_End_Date__c}" rendered="{!if(clCurrent.Record_Type_RPT__c == 'Fixed',true,false)}" required="true" />
+                <apex:inputField value="{!schCurrent.End_Date__c}" rendered="{!if(clCurrent.Record_Type_RPT__c == 'Single',true,false)}" required="true" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Days" columns="1" rendered="{!if(clCurrent.Record_Type_RPT__c == 'Single',false,true)}" >
+                <apex:outputPanel id="opDays">
+                
+                    <table id="tblDays" border="0" cellSpacing="0" cellPadding="3" width="900px" align="center">
+                        <tr>
+                            <th width="150px">Day</th>
+                            <th width="50px"><br /></th>
+                            <th width="350px">Start Time</th>
+                            <th width="350px">End Time</th>
+                        </tr>
+                        <tr><td><br /></td></tr>
+                        <tr>
+                            <td>Monday:&nbsp;&nbsp;</td>
+                            <td><apex:inputField value="{!schCurrent.Monday__c}" /></td>
+                            <td>
+                                <apex:inputText value="{!strTimeStartMonday}" />&nbsp;&nbsp;
+                                <apex:selectList value="{!strStartMondayAMPM}" size="1">
+                                    <apex:selectOptions value="{!soStartAMPM}"/>
+                                </apex:selectList>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!strTimeEndMonday}" />&nbsp;&nbsp;
+                                <apex:selectList value="{!strEndMondayAMPM}" size="1">
+                                    <apex:selectOptions value="{!soEndAMPM}"/>
+                                </apex:selectList>                              
+                            </td>
+                        </tr>
+                        <tr bgColor="#d3d3d3">
+                            <td>Tuesday:&nbsp;&nbsp;</td>
+                            <td><apex:inputField value="{!schCurrent.Tuesday__c}" /></td>
+                            <td>
+                                <apex:inputText value="{!strTimeStartTuesday}" />&nbsp;&nbsp;
+                                <apex:selectList value="{!strStartTuesdayAMPM}" size="1">
+                                    <apex:selectOptions value="{!soStartAMPM}"/>
+                                </apex:selectList>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!strTimeEndTuesday}" />&nbsp;&nbsp;
+                                <apex:selectList value="{!strEndTuesdayAMPM}" size="1">
+                                    <apex:selectOptions value="{!soEndAMPM}"/>
+                                </apex:selectList>                              
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Wednesday:&nbsp;&nbsp;</td>
+                            <td><apex:inputField value="{!schCurrent.Wednesday__c}" /></td>
+                            <td>
+                                <apex:inputText value="{!strTimeStartWednesday}" />&nbsp;&nbsp;
+                                <apex:selectList value="{!strStartWednesdayAMPM}" size="1">
+                                    <apex:selectOptions value="{!soStartAMPM}"/>
+                                </apex:selectList>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!strTimeEndWednesday}" />&nbsp;&nbsp;
+                                <apex:selectList value="{!strEndWednesdayAMPM}" size="1">
+                                    <apex:selectOptions value="{!soEndAMPM}"/>
+                                </apex:selectList>                              
+                            </td>
+                        </tr>
+                        <tr bgColor="#d3d3d3">
+                            <td>Thursday:&nbsp;&nbsp;</td>
+                            <td><apex:inputField value="{!schCurrent.Thursday__c}" /></td>
+                            <td>
+                                <apex:inputText value="{!strTimeStartThursday}" />&nbsp;&nbsp;
+                                <apex:selectList value="{!strStartThursdayAMPM}" size="1">
+                                    <apex:selectOptions value="{!soStartAMPM}"/>
+                                </apex:selectList>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!strTimeEndThursday}" />&nbsp;&nbsp;
+                                <apex:selectList value="{!strEndThursdayAMPM}" size="1">
+                                    <apex:selectOptions value="{!soEndAMPM}"/>
+                                </apex:selectList>                              
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Friday:&nbsp;&nbsp;</td>
+                            <td><apex:inputField value="{!schCurrent.Friday__c}" /></td>
+                            <td>
+                                <apex:inputText value="{!strTimeStartFriday}" />&nbsp;&nbsp;
+                                <apex:selectList value="{!strStartFridayAMPM}" size="1">
+                                    <apex:selectOptions value="{!soStartAMPM}"/>
+                                </apex:selectList>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!strTimeEndFriday}" />&nbsp;&nbsp;
+                                <apex:selectList value="{!strEndFridayAMPM}" size="1">
+                                    <apex:selectOptions value="{!soEndAMPM}"/>
+                                </apex:selectList>                              
+                            </td>
+                        </tr>
+                        <tr bgColor="#d3d3d3">
+                            <td>Saturday:&nbsp;&nbsp;</td>
+                            <td><apex:inputField value="{!schCurrent.Saturday__c}" /></td>
+                            <td>
+                                <apex:inputText value="{!strTimeStartSaturday}" />&nbsp;&nbsp;
+                                <apex:selectList value="{!strStartSaturdayAMPM}" size="1">
+                                    <apex:selectOptions value="{!soStartAMPM}"/>
+                                </apex:selectList>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!strTimeEndSaturday}" />&nbsp;&nbsp;
+                                <apex:selectList value="{!strEndSaturdayAMPM}" size="1">
+                                    <apex:selectOptions value="{!soEndAMPM}"/>
+                                </apex:selectList>                              
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sunday:&nbsp;&nbsp;</td>
+                            <td><apex:inputField value="{!schCurrent.Sunday__c}" /></td>
+                            <td>
+                                <apex:inputText value="{!strTimeStartSunday}" />&nbsp;&nbsp;
+                                <apex:selectList value="{!strStartSundayAMPM}" size="1">
+                                    <apex:selectOptions value="{!soStartAMPM}"/>
+                                </apex:selectList>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!strTimeEndSunday}" />&nbsp;&nbsp;
+                                <apex:selectList value="{!strEndSundayAMPM}" size="1">
+                                    <apex:selectOptions value="{!soEndAMPM}"/>
+                                </apex:selectList>                              
+                            </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+        
+        
+        </apex:pageBlock>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </apex:form>
+
+
+</apex:page>

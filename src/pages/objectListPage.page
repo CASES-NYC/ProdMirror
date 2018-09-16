@@ -1,0 +1,127 @@
+<apex:page controller="objectList" sidebar="true" >
+<script> 
+  function setSelectedObject(objValue, print) {
+ //   alert('object: ' + objValue);
+ //     alert('print: ' + print);
+   if (print == false){
+         afdoNothing(objValue);
+ }
+  else {
+     var Objname = document.getElementById(objValue);
+     var pass = Objname.value;
+ //    alert('pass: ' + pass);
+     window.open('/apex/objListPrint?passPar='+pass, target='_blank');
+      }
+   }
+ </script> 
+ 
+    <style>
+           .headerStyle {
+
+               font-size:50px;
+
+               color:red;
+
+           }
+
+       </style>
+ 
+  <apex:form > 
+  
+  <apex:actionFunction name="afdoNothing" action="{!doNothing}" >
+     <apex:param name="objValue" assignTo="{!objValue}" value="" />
+ </apex:actionFunction>  
+  
+     <apex:outputText value="{!val}" id="obj" rendered="{!selectedObj<>null}"/>
+    <apex:outputText value="not passed" id="obj1" rendered="{!selectedObj==null}"/>
+  
+    <apex:SelectList value="{!val}" size="1" onchange="setSelectedObject(this.text,false)"
+       id="sel">
+      <apex:selectOptions value="{!objNames}" id="opt" >
+      </apex:selectOptions>
+    </apex:SelectList>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+
+<!--      <apex:commandButton onclick="setSelectedObject('{!$Component.sel}',true)" value="Print" /> -->
+ 
+    
+ 
+
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+  <apex:outputText value="SandBox:" style="font-size:20px;" rendered="{!sb}" />
+&nbsp;&nbsp;&nbsp;  
+  <apex:outputText value="{!env}" style="font-size:20px;"  />
+    <apex:pageBlock >
+    <script>
+      function gotoPrint(sel)
+      {
+ //      alert('in goto print');
+//       var tt = sel.value;
+ //        alert('object: ' + tt);
+//      var Objname = document.getElementById(sel);
+  //     alert('objname');
+
+ //    alert('obj: ' +Objname);
+     var objInput = ObjName.text;  
+  //   var objInput = 'Case_Information__c';  
+ //    alert('objInput');
+ //     window.open('/apex/objListPrint?passPar='+objInput, target='_blank');
+ //     alert('passed');
+     window.open('/apex/objListPrint, target='_blank');
+      }
+   </script>
+   
+    
+   
+   
+     <apex:pageBlockTable var="lab" value="{!lstDescr}" id="labels" cellspacing="0"
+        columnsWidth="2px,20px,10x,8px,30px,30px" > 
+        <apex:column headerClass="headerStyle" 
+            style="border-right:1px solid;border-color:Lightgray; font-size:12px;
+            background-color: {!lab.rowcolor}">
+       {!lab.fldNumber}
+       
+         </apex:column> 
+        <apex:column headerValue="Label" headerClass="headerStyle" 
+            style="border-right:1px solid;border-color:Lightgray; font-size:12px;
+            background-color: {!lab.rowcolor}">
+       {!lab.fldLabel}
+         </apex:column>
+        <apex:column headerValue="N a m e" headerClass="headerStyle" 
+            style="border-right:1px solid;border-color:Lightgray; font-size:12px;
+            background-color: {!lab.rowcolor}">
+       {!lab.fldName}
+ 
+       </apex:column>
+        <apex:column headerValue="T y p e" headerClass="headerStyle" 
+        style="border-right:1px solid;border-color:Lightgray; font-size:12px;
+         background-color: {!lab.rowcolor}">
+       {!lab.fldtype}
+       </apex:column>
+               <apex:column headerValue="Length" headerClass="headerStyle" 
+        style="border-right:1px solid;border-color:Lightgray; font-size:12px;
+         background-color: {!lab.rowcolor}">
+       {!lab.fieldlenght}
+        </apex:column>
+       
+         <apex:column headerValue="PickList/Formula"  headerClass="headerStyle" 
+        style="border-right:1px solid;border-color:Lightgray; font-size:12px;
+         background-color: {!lab.rowcolor}" >
+        <apex:outputText value="{!lab.pklist}" />
+                
+       </apex:column>
+         
+       
+         <apex:column headerValue="Description"  headerClass="headerStyle" 
+        style="border-right:1px solid;border-color:Lightgray; font-size:12px;
+         background-color: {!lab.rowcolor}">
+ 
+       </apex:column>
+
+
+       </apex:pageBlockTable>
+     </apex:pageBlock> 
+ 
+  </apex:form>
+</apex:page>

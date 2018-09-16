@@ -1,0 +1,58 @@
+<apex:page standardController="Referral__c" extensions="referralExtension" tabStyle="Referral__c">
+  <script>
+  function confirmCancel() {
+      var isCancel = confirm("Are you sure you wish to cancel?");
+      if (isCancel) return true;
+  
+     return false;
+  }  
+  </script>
+  <apex:sectionHeader title="New Customer Opportunity" subtitle="Step 3 of 4"/>
+  <apex:form >
+    <apex:pageBlock title="Confirmation">
+      <apex:pageBlockButtons >
+          <apex:commandButton action="{!step2}" value="Previous"/>
+        <apex:commandButton action="{!step4}" value="Next"/>
+          <apex:commandButton action="{!cancel}" value="Cancel" 
+                              onclick="return confirmCancel()" immediate="true"/>
+      </apex:pageBlockButtons>
+                <apex:pageblocksection title="MOCJ Risk Assessment" showheader="true" columns="1">
+                    <apex:outputField value="{!referral.MOCJ_Risk_Category__c}" /> 
+                    <apex:outputField value="{!referral.Age_at_Arrest_Calc__c}"/>
+                    <apex:selectRadio value="{!referral.RA_Open_Cases__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>
+                    <apex:selectRadio value="{!referral.RA_First_Arrest__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>
+                    <apex:selectRadio value="{!referral.Warrant_last_4yrs__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>
+                    <apex:selectRadio value="{!referral.RA_Misdemeanor_last_1yr__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>                    
+                    <apex:selectRadio value="{!referral.RA_Felony_last_9yrs__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>
+                    <apex:selectRadio value="{!referral.RA_Drug_last_9yrs__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>
+                    <apex:selectRadio value="{!referral.RA_CJA_Fulltime_Activity__c}" styleClass="radioClass">
+                        <apex:selectoption itemLabel="No" itemvalue="No"/>
+                        <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                    </apex:selectRadio>
+                </apex:pageblocksection> 
+                <apex:outputPanel layout="block" style="text-align:center">
+                    <hr/>
+                    <!-- apex:commandLink action="{!reloadPage}" value="CLICK TO REFRESH PAGE" id="reload1" style="color:#0000FF"/ -->
+                    <hr/>                
+                </apex:outputPanel>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

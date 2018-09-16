@@ -1,0 +1,59 @@
+<apex:page controller="AssessmentController" > 
+    <apex:form id="lscmi" >
+    <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+<apex:outPutPanel id="op" styleclass="span.resultContainer">
+ <apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+                <apex:pageblocksection columns="1">
+               <apex:inputfield value="{!LSIR.LSIRSV_Original_Assessment__c}" />
+               <apex:inputfield value="{!LSIR.LSI_R_SV_Score__c}" styleclass="txt40edit"/>
+               <apex:inputfield value="{!LSIR.Survey_Notes__c}" styleclass="textareashortedit"/>
+               </apex:pageblocksection>
+</apex:pageblock>              
+
+<apex:pageblock id="pbView" rendered="{!isEdit==false}" > 
+      <apex:pageblocksection columns="1">
+       <apex:inputText value="{!LSIR.LSIRSV_Original_Assessment__c}" styleclass="txt100" disabled="true"/>
+       <apex:inputText value="{!LSIR.LSI_R_SV_Score__c}" styleclass="txt40"  disabled="true"/>
+       <apex:inputTextarea value="{!LSIR.Survey_Notes__c}" styleclass="textareashort" readonly="true"/>
+  </apex:pageblocksection>
+  </apex:pageblock>
+ </apex:outPutPanel>   
+<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>      
+    </apex:form>
+    
+</apex:page>

@@ -1,0 +1,574 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="BPSpage" >
+ <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+  <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+
+<!--                     EDIT BLOCK  -->
+<apex:outPutPanel id="op" styleclass="span.resultContainer">
+<apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+ <apex:pageblocksection columns="1">
+   <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                HISTORY OF HEALTH ISSUES</span> 
+            </apex:facet>
+   <apex:outputlabel value="Mark if participant has had any of the following:"/>
+    <apex:inputfield value="{!BPS.Health_Issues__c}" />
+   <apex:inputfield value="{!BPS.Traumatic_Events__c}" styleClass="textareashortedit"/>
+    <apex:inputField value="{!BPS.Treatments__c}" styleClass="textareashortedit"/>
+    </apex:pageblocksection>
+     <apex:pageblocksection columns="1">
+     <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">PRESENT HEALTH CONDITION</span> 
+     </apex:facet>                
+     <apex:outputText value="Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in,
+                 and for what issues? Who/where are your care providers?"/>
+      <apex:pageblocksection columns="3">
+  <!--    <apex:panelGrid columns="3" columnClasses="col0,col1,col2" cellpadding="3">-->
+       <apex:inputtextarea value="{!BPS.Current_Treatments_Issues_1__c}" styleClass="textareafor3edit" />
+         <apex:inputtextarea value="{!BPS.Current_Treatments_1__c}"  styleClass="textareafor3edit"/>
+         <apex:inputtextarea value="{!BPS.Current_Treatments_Provider_1__c}" styleClass="textareafor3edit"/>
+
+         <apex:inputtextarea value="{!BPS.Current_Treatments_Issues_2__c}" styleClass="textareafor3edit"/>
+         <apex:inputtextarea value="{!BPS.Current_Treatments_2__c}" styleClass="textareafor3edit"/>
+         <apex:inputtextarea value="{!BPS.Current_Treatments_Provider_2__c}" styleClass="textareafor3edit"/>
+
+         <apex:inputtextarea value="{!BPS.Current_Treatments_Issues_3__c}" styleClass="textareafor3edit"/>
+         <apex:inputtextarea value="{!BPS.Current_Treatments_3__c}" styleClass="textareafor3edit"/>
+         <apex:inputtextarea value="{!BPS.Current_Treatments_Provider_3__c}" styleClass="textareafor3edit"/>
+
+         <apex:inputtextarea value="{!BPS.Current_Treatments_Issues_4__c}" styleClass="textareafor3edit"/>
+         <apex:inputtextarea value="{!BPS.Current_Treatments_4__c}" styleClass="textareafor3edit"/>
+         <apex:inputtextarea value="{!BPS.Current_Treatments_Provider_4__c}" styleClass="textareafor3edit"/>
+
+         <apex:inputtextarea value="{!BPS.Current_Treatments_Issues_5__c}" styleClass="textareafor3edit"/>
+         <apex:inputtextarea value="{!BPS.Current_Treatments_5__c}" styleClass="textareafor3edit"/>
+         <apex:inputtextarea value="{!BPS.Current_Treatments_Provider_5__c}" styleClass="textareafor3edit"/>
+<!--      </apex:panelGrid>-->
+      </apex:pageBlockSection>
+               
+       <apex:pageblocksection columns="1">
+                   <apex:inputfield value="{!BPS.Personal_Strengths__c}" styleClass="textareashortedit"/>
+                   <apex:inputfield value="{!BPS.Academic_Strengths__c}" styleClass="textareashortedit"/>
+                   <apex:inputfield value="{!BPS.Workforce_Strengths__c}"  styleClass="textareashortedit"/>
+                   <apex:inputfield value="{!BPS.Obstacles_to_Progress__c}" styleClass="textareashortedit"/>
+                   <apex:inputfield value="{!BPS.Spiritual_Identity__c}" styleClass="textareashortedit"/>
+                   <apex:inputfield value="{!BPS.Cultural_Identity__c}" styleClass="textareashortedit"/>
+       </apex:pageblocksection>
+     </apex:pageblocksection>              
+     <apex:pageblocksection title="FUTURE CARE" showheader="true" columns="1">
+             <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                FUTURE CARE</span> 
+            </apex:facet> 
+        <apex:outputLabel value="Question: What are the current, external care providers you are using and will be attending during your six months at CASES?">
+        </apex:outputLabel>
+        <apex:pageblocksection columns="3">
+          <apex:inputfield value="{!BPS.Current_External_Provider_1__c}" styleClass="textareafor3edit"/>
+         <apex:inputfield value="{!BPS.Current_External_Schedule_1__c}" styleClass="textareafor3edit"/>
+         <apex:inputfield value="{!BPS.Current_External_End_1__c}" styleClass="textareafor3edit"/>
+
+         <apex:inputfield value="{!BPS.Current_External_Provider_2__c}" styleClass="textareafor3edit"/>
+         <apex:inputfield value="{!BPS.Current_External_Schedule_2__c}" styleClass="textareafor3edit"/>
+         <apex:inputfield value="{!BPS.Current_External_End_2__c}" styleClass="textareafor3edit"/>
+
+         <apex:inputfield value="{!BPS.Current_External_Provider_3__c}" styleClass="textareafor3edit"/>
+         <apex:inputfield value="{!BPS.Current_External_Schedule_3__c}" styleClass="textareafor3edit"/>
+         <apex:inputfield value="{!BPS.Current_External_End_3__c}" styleClass="textareafor3edit"/>
+    
+         <apex:inputfield value="{!BPS.Current_External_Provider_4__c}" styleClass="textareafor3edit"/>
+         <apex:inputfield value="{!BPS.Current_External_Schedule_4__c}" styleClass="textareafor3edit"/>
+         <apex:inputfield value="{!BPS.Current_External_End_4__c}" styleClass="textareafor3edit"/>
+
+         <apex:inputfield value="{!BPS.Current_External_Provider_5__c}" styleClass="textareafor3edit"/>
+         <apex:inputfield value="{!BPS.Current_External_Schedule_5__c}" styleClass="textareafor3edit"/>
+         <apex:inputfield value="{!BPS.Current_External_End_5__c}" styleClass="textareafor3edit"/>
+                  
+   </apex:pageblocksection>
+  
+ <hr/>
+               
+  <apex:pageblocksection columns="1">
+        <apex:outputText value="How do you currently cope with stress/emotions, other than treatments
+             and medications? Are there any spiritual or cultural practices that you use?" />
+         <apex:inputfield value="{!BPS.Coping_with_Stress__c}" styleClass="textareashortedit"/>
+<hr/>
+   <apex:outputText >What goals do you have for yourself 6 months from now?</apex:outputText>
+   <apex:inputfield value="{!BPS.Six_Month_Goals__c}" styleClass="textareashortedit" />
+<hr/>
+       <apex:outputText >Would you like to meet with one of our counselors with the Nathaniel Clinic for further assessment?</apex:outputText>
+      <apex:inputfield value="{!BPS.Meet_with_Counselor__c}" styleClass="chk" />
+                </apex:pageblocksection>               
+</apex:pageblocksection>  
+<apex:pageblocksection columns="1">
+ <apex:facet name="header" >
+ <span style="color:black;font-size:14px;">DIAGNOSTIC IMPRESSIONS</span> </apex:facet>
+       <apex:inputfield value="{!BPS.Diagnostic_Impressions__c}" styleClass="textareashortedit" />
+</apex:pageblocksection>  
+<apex:pageblocksection collapsible="true" columns="1" >
+ <apex:facet name="header" >
+ <span style="color:black;font-size:14px;">RECOMMENDATIONS</span> </apex:facet>  
+                         <apex:outputText >Does the client present a need for mental health services?</apex:outputText>
+                        <apex:inputField value="{!BPS.Need_for_MHS__c}"/>
+        <hr/>
+                        <apex:outputText >If yes, what services are recommended?</apex:outputText>
+                        <apex:inputField value="{!BPS.Service_Recommendations__c}" style="height:100px;width:600px"/>
+                  </apex:pageblocksection>         
+ 
+         <apex:pageblocksection columns="1" id="t">
+<apex:facet name="header" >
+ <span style="color:black;font-size:14px;">FOLLOW UP</span> </apex:facet>         
+ 
+<apex:inputfield value="{!BPS.Referrals_Made_YN__c}" >
+     <apex:actionSupport event="onclick"  rerender="m,m1,n,n1"/>
+</apex:inputfield>
+ <apex:pageblocksectionItem > 
+
+ <apex:outputlabel value="Referrals Made To:" for="m" rendered="{!BPS.Referrals_Made_YN__c==true}"/>
+    <apex:inputfield value="{!BPS.Referrals_Made__c}" style="width:500px;" id="m1"
+    rendered="{!BPS.Referrals_Made_YN__c==true}" />
+</apex:pageblocksectionItem>
+
+ <apex:pageblocksectionItem > 
+ <apex:outputlabel value="Referrals Not Made Because::" for="n" rendered="{!BPS.Referrals_Made_YN__c<>true}"/>
+    <apex:inputfield value="{!BPS.Referrals_Not_Made__c}"   id="n1" 
+    rendered="{!BPS.Referrals_Made_YN__c<>true}" style="width:500px;"/>
+</apex:pageblocksectionItem>
+            </apex:pageblocksection>   
+   <apex:pageblocksection columns="1">
+<apex:facet name="header" >
+ <span style="color:black;font-size:14px;">ADDITIONAL COMMENTS - Physical health needs, need for further support (i.e. health insurance), etc.</span> </apex:facet>     
+    <apex:inputfield value="{!BPS.Additional_Comments__c}" styleClass="textareashortedit"  />
+                </apex:pageblocksection>
+  <apex:pageblocksection collapsible="true" columns="1">
+   <apex:facet name="header" >
+    <span style="color:black;font-size:14px;">LIVING SITUATION - 
+    Include comments on current living situation, history of housing, and any major events
+      that influenced a change in household and/or a move to a new location.</span> </apex:facet>     
+   <apex:inputField value="{!BPS.Living_Situation_Picklist__c}" />
+  <apex:inputField value="{!BPS.Living_Situation_Detail__c}" styleClass="textareashortedit" />
+ </apex:pageblocksection>
+
+<apex:pageblocksection columns="1">
+ <apex:facet name="header" >
+<span style="color:black;font-size:14px;">GENOGRAM/LIVING SITUATION</span> </apex:facet>     
+     <apex:inputfield value="{!BPS.Genogram__c}" styleclass="textareashortedit" />
+   <hr/>
+   <apex:outputlabel value="Include comments on current living situation, history of housing, and any major events
+   that influenced a change in household and/or a move to a new location."/>
+   <apex:inputfield value="{!BPS.Living_Situation_Picklist__c}"/>
+  <apex:inputfield value="{!BPS.Living_Situation_Detail__c}" styleClass="textareashortedit" />
+ </apex:pageblocksection>
+</apex:pageblock>
+
+<!--                     VIEW BLOCK  -->
+<apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+  <apex:pageblocksection columns="1">
+    <apex:facet name="header" ><span style="color:black;font-size:14px;"> HISTORY OF HEALTH ISSUES</span> 
+            </apex:facet>
+    <apex:pageblocksectionItem >
+       <apex:outputlabel value="Health Issues" for="i1"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Health_Issues__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:700px; " id="i1" />
+</apex:pageblocksectionItem>
+    <apex:pageblocksectionItem >
+      <apex:outputlabel value="Traumatic Events" for="i2"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Traumatic_Events__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:700px; " id="i2" />
+</apex:pageblocksectionItem>
+
+    <apex:pageblocksectionItem >
+      <apex:outputlabel value="Traumatic Events" for="i3"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Treatments__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:700px; " id="i3" />
+    </apex:pageblocksectionItem>
+ 
+   </apex:pageblocksection>
+   <apex:pageblocksection columns="1">
+     <apex:facet name="header" >
+       <span style="color:black;font-size:14px;">PRESENT HEALTH CONDITION</span> 
+     </apex:facet>                
+     <apex:outputText value="Q: What types of treatments, therapies, medications, or other forms of care are you currently engaged in,
+                 and for what issues? Who/where are your care providers?"/>
+     <apex:pageblocksection columns="3">
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments Issues-1" for="t1"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_Issues_1__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="t1" />
+    </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments-1" for="t2"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_1__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="t2" />
+    </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments Provider-1" for="t3"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_Provider_1__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="t3" />
+    </apex:pageblocksectionItem>
+ 
+      <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments Issues-2" for="p1"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_Issues_2__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="tp1" />
+    </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments-2" for="tp2"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_2__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="tp2" />
+    </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments Provider-2" for="p3"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_Provider_2__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="p3" />
+    </apex:pageblocksectionItem>
+
+   <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments Issues-3" for="a1"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_Issues_3__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="a1" />
+    </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments-3" for="a2"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_3__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="a2" />
+    </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments Provider-3" for="a3"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_Provider_3__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="a3" />
+    </apex:pageblocksectionItem>
+    
+   <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments Issues-4" for="b1"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_Issues_4__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="b1" />
+    </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments-4" for="b2"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_4__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="b2" />
+    </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments Provider-4" for="b3"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_Provider_4__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="b3" />
+    </apex:pageblocksectionItem>
+ 
+   <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments Issues-5" for="b5"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_Issues_5__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="b1" />
+    </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments-5" for="b51"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_5__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="b51" />
+    </apex:pageblocksectionItem>
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current Treatments Provider-5" for="b52"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_Treatments_Provider_5__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="bb52" />
+    </apex:pageblocksectionItem>
+      </apex:pageBlockSection>
+               
+      <apex:pageblocksection columns="1">
+        <apex:pageblocksectionItem >
+      <apex:outputlabel value="Personal Strengths" for="p1"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Personal_Strengths__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:700px; " id="p1" />
+    </apex:pageblocksectionItem>
+      <apex:pageblocksectionItem >
+      <apex:outputlabel value="Academic Strengths" for="p2"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Academic_Strengths__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:700px; " id="p2" />
+    </apex:pageblocksectionItem>
+
+      <apex:pageblocksectionItem >
+      <apex:outputlabel value="Workforce Strengths" for="p3"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Workforce_Strengths__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:700px; " id="p3" />
+    </apex:pageblocksectionItem>
+
+      <apex:pageblocksectionItem >
+      <apex:outputlabel value="Obstacles to Progress" for="p4"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Obstacles_to_Progress__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:700px; " id="p4" />
+    </apex:pageblocksectionItem>
+
+      <apex:pageblocksectionItem >
+      <apex:outputlabel value="Spiritual Identity" for="p5"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Spiritual_Identity__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:700px; " id="p5" />
+    </apex:pageblocksectionItem>
+
+      <apex:pageblocksectionItem >
+      <apex:outputlabel value="Cultural Identity" for="p6"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Cultural_Identity__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:700px; " id="p6" />
+    </apex:pageblocksectionItem>
+       </apex:pageblocksection>
+     </apex:pageblocksection>              
+     <apex:pageblocksection title="FUTURE CARE" showheader="true" columns="1">
+             <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                FUTURE CARE</span> 
+            </apex:facet> 
+        <apex:outputLabel value="Question: What are the current, external care providers you are using and will be attending during your six months at CASES?">
+        </apex:outputLabel>
+        <apex:pageblocksection columns="3">
+      <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current External Provider-1" for="e1"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_Provider_1__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e1" />
+    </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current External Schedule-1" for="e11"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_Schedule_1__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e11" />
+    </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+     <apex:outputlabel value="Current External End-1" for="e13"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_End_1__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e13" />
+    </apex:pageblocksectionItem>
+
+   <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current External Provider-2" for="e2"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_Provider_2__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e2" />
+    </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current External Schedule-2" for="e21"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_Schedule_2__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e21" />
+    </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+     <apex:outputlabel value="Current External End-2" for="e23"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_End_2__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e23" />
+    </apex:pageblocksectionItem>
+
+   <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current External Provider-3" for="e3"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_Provider_3__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e3" />
+    </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current External Schedule-3" for="e31"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_Schedule_3__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e31" />
+    </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+     <apex:outputlabel value="Current External End-3" for="e33"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_End_3__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e33" />
+    </apex:pageblocksectionItem>
+
+   <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current External Provider-4" for="e4"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_Provider_4__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e4" />
+    </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current External Schedule-4" for="e41"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_Schedule_4__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e41" />
+    </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+     <apex:outputlabel value="Current External End-4" for="e43"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_End_4__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e43" />
+    </apex:pageblocksectionItem>
+
+   <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current External Provider-5" for="e5"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_Provider_5__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e5" />
+    </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+      <apex:outputlabel value="Current External Schedule-5" for="e51"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_Schedule_5__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e51" />
+    </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+     <apex:outputlabel value="Current External End-5" for="e53"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Current_External_End_5__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:250px; " id="e53" />
+    </apex:pageblocksectionItem>
+
+   </apex:pageblocksection>
+   <hr/>
+               
+  <apex:pageblocksection columns="1">
+        <apex:outputText value="How do you currently cope with stress/emotions, other than treatments
+             and medications? Are there any spiritual or cultural practices that you use?" />
+   <apex:pageblocksectionItem >
+      <apex:outputlabel value="Coping with Stress" for="s"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Coping_with_Stress__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:700px; " id="s" />
+    </apex:pageblocksectionItem>
+    
+   <apex:outputText >What goals do you have for yourself 6 months from now?</apex:outputText>
+    <apex:pageblocksectionItem >
+      <apex:outputlabel value="Six Month Goals" for="s1"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Six_Month_Goals__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:700px; " id="s1" />
+    </apex:pageblocksectionItem>
+<hr/>
+       <apex:outputText >Would you like to meet with one of our counselors with the Nathaniel Clinic for further assessment?</apex:outputText>
+       <apex:outputfield value="{!BPS.Meet_with_Counselor__c}" />
+                </apex:pageblocksection>               
+</apex:pageblocksection>
+ <apex:pageblocksection columns="1">
+ <apex:facet name="header" >
+ <span style="color:black;font-size:14px;">DIAGNOSTIC IMPRESSIONS</span> </apex:facet>
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Diagnostic Impressions" for="d"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Diagnostic_Impressions__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:700px; " id="d" />
+    </apex:pageblocksectionItem>
+</apex:pageblocksection>
+ <apex:pageblocksection collapsible="true" columns="1">
+ <apex:facet name="header" >
+ <span style="color:black;font-size:14px;">RECOMMENDATIONS</span> </apex:facet>  
+                         <apex:outputText >Does the client present a need for mental health services?</apex:outputText>
+     <apex:outputfield value="{!BPS.Need_for_MHS__c}"/>
+     <hr/>
+                        <apex:outputText >If yes, what services are recommended?</apex:outputText>
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Service Recommendations" for="r"/> 
+     <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Service_Recommendations__c),'\\n','<br/>'),'\\r','')}" 
+         escape="false" style="color:blue;width:700px; " id="r" />
+    </apex:pageblocksectionItem>
+                  </apex:pageblocksection>         
+         
+         <apex:pageblocksection title="FOLLOW UP" showheader="true" columns="1" id="bsref">
+<apex:facet name="header" >
+ <span style="color:black;font-size:14px;">FOLLOW UP</span> </apex:facet>         
+ 
+<apex:outputfield value="{!BPS.Referrals_Made_YN__c}" />
+
+ <apex:pageblocksectionItem > 
+
+ <apex:outputlabel value="Referrals Made To:" for="made" rendered="{!BPS.Referrals_Made_YN__c==true}"/>
+    <apex:outputtext value="{!BPS.Referrals_Made__c}" style="width:500px; color:blue;background-color:white;" id="made"
+    rendered="{!BPS.Referrals_Made_YN__c==true}" />
+</apex:pageblocksectionItem>
+
+ <apex:pageblocksectionItem > 
+ <apex:outputlabel value="Referrals Not Made Because::" for="nomade" rendered="{!BPS.Referrals_Made_YN__c<>true}"/>
+    <apex:outputtext value="{!BPS.Referrals_Not_Made__c}"   id="nomade" 
+    rendered="{!BPS.Referrals_Made_YN__c<>true}" style="color:blue;width:500px;background-color:white; "/>
+</apex:pageblocksectionItem>
+            </apex:pageblocksection>   
+    <apex:pageblocksection columns="1">
+<apex:facet name="header" >
+ <span style="color:black;font-size:14px;">ADDITIONAL COMMENTS - Physical health needs, need for further support (i.e. health insurance), etc.</span> </apex:facet>     
+<apex:pageblocksectionItem >    
+     <apex:outputlabel value="Additional Comments" for="c"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Additional_Comments__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="c" />
+    </apex:pageblocksectionItem>
+        </apex:pageblocksection>
+ 
+ <apex:pageblocksection columns="1">
+ <apex:facet name="header" >
+<span style="color:black;font-size:14px;">GENOGRAM/LIVING SITUATION</span> </apex:facet>   
+
+<apex:pageblocksectionItem > 
+           
+      <apex:outputlabel value="Genogram" for="g"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Genogram__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="g" />
+    </apex:pageblocksectionItem>
+
+
+<apex:pageblocksectionItem > 
+           
+      <apex:outputlabel value="Living Situation" for="g1"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Living_Situation_Picklist__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;;background-color:white;" id="g1" />
+    </apex:pageblocksectionItem>
+   <apex:pageblocksectionItem >    
+     <apex:outputlabel value="Living Situation (Detail)" for="g2"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(BPS.Living_Situation_Detail__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="g2" />
+    </apex:pageblocksectionItem>
+
+ <!-- 
+     <apex:inputTextarea value="{!BPS.Genogram__c}" styleClass="textareashort"  readonly="true"/>
+   <apex:inputTextarea value="{!BPS.Living_Situation_Picklist__c}" 
+   title="Include comments on current living situation, history of housing, and any major events
+   that influenced a change in household and/or a move to a new location." styleClass="textareashort"  readonly="true"/>
+  <apex:inputTextarea value="{!BPS.Living_Situation_Detail__c}" styleClass="textareashort"  readonly="true"/>
+ -->
+ </apex:pageblocksection>
+
+</apex:pageblock>
+<apex:pageblock id="opaction1" >
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an1" 
+   style="font-size:14px;color:blue;"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad1" 
+   style="font-size:14px;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+    <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}" status="selectData"
+ id="btnEdit1" rerender="opaction,op,pbEdit,opaction1,pbEdit1" immediate="true"/>
+
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel1" rerender="aPage,m,opTop,opaction,op" />
+
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+ <apex:commandButton value="Save" id="btnSave1" rendered="{!isedit}" action="{!saveAssessment}" rerender="opaction,op" status="selectData">
+ </apex:commandButton>
+</apex:pageblock>  
+</apex:outPutPanel>
+	<apex:outPutPanel id="sysinfo" styleclass="span.resultContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>  
+</apex:form>
+
+</apex:page>

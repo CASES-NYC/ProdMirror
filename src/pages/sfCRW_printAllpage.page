@@ -1,0 +1,477 @@
+<apex:page controller="sfDocumentcontroller" renderAs="pdf" showHeader="false" cache="false">
+
+ <apex:form >
+<apex:pageblock rendered="{!docType!='Letter'&&docType!='narrOnly'}">
+     <apex:outPutPanel rendered="{!docType=='CP'||docType=='all'}"> 
+        <c:sfReportHeader />
+  <!--       <c:CRW_coverPage />-->
+     <table cellspacing="4" cellpadding="2">
+         <tr> 
+            <td align="center" width="600px" >
+               <apex:outputlabel value="{!reportType} TO THE COURT FOR" />
+            </td>
+        </tr>
+        <br/>  
+        <tr>
+          <td align="center" width="600px" >
+             <apex:outputlabel value="{!clientname}" />
+          </td>
+       </tr>
+       <tr rendered="{!aka!=''}">
+         <td align="center" width="600px" >
+            <apex:outputlabel value="aka" rendered="{!aka!=''}"/>
+         </td>
+       </tr>   
+       <tr rendered="{!aka!=''}">
+          <td align="center" width="600px" >
+             <apex:outputlabel value="{!aka}" rendered="{!aka!=''}"/>
+          </td>
+         <br/>
+       </tr>
+      <tr>
+          <td align="center" width="600px" >
+          <apex:outputlabel value="PRESENTED TO THE" />
+          </td>
+       </tr>
+       <br/>     
+           <tr>
+          <td align="center" width="600px" >
+          <apex:outputlabel value="Honorable Judge {!caseJudge}" />&nbsp;  
+          </td>
+       </tr>
+   <!--     <br/> -->    
+       <tr>
+          <td align="center" width="600px" >
+          <apex:outputlabel value="{!CourtName} of the State of New York" />&nbsp;
+          </td>
+       </tr>      
+         <tr>
+          <td align="center" width="600px" >
+          <apex:outputlabel value="{!boro}" /> 
+          </td>
+       </tr>
+       <br/>         
+    </table>
+     <div id="d" style="height:250px; border: 1px solid #aaa">
+     <table cellspacing="5" cellpadding="8">
+           <tr>
+           <td style="width:200px"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Court Date
+              </td>
+              <td>:
+              </td>
+              <td>
+                <apex:outputlabel value="{!courtDate}" /> 
+              </td>
+           </tr>    
+       
+            <tr>
+              <td style="width:200px">  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                 <apex:outputlabel value="Indictment" rendered="{!indictment!=''}"/>
+                 <apex:outputlabel value="Docket" rendered="{!indictment==''}"/>
+              </td>
+              <td>:
+              </td>
+              <td>
+                 <apex:outputlabel value="{!indictment}" rendered="{!indictment!=''}"/>  
+                 <apex:outputlabel value="{!docket}" rendered="{!indictment==''}"/>  
+
+              </td>   
+           </tr>   
+     
+           <tr>    
+              <td style="width:200px"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Charges
+              </td>
+              <td>:
+              </td>
+              <td>
+                 <apex:outputlabel value="{!charges}"/>
+              </td>
+           </tr>
+                   
+           <tr>
+              <td style="width:200px"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;CEP Intake Date
+              </td>
+              <td>:
+              </td>
+              <td>
+                 <apex:outputlabel value="{!intakeDate}"/>
+              </td>
+
+           </tr>
+               <tr>
+              <td style="width:200px"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Status of Case at Intake
+              </td>
+              <td>:
+              </td>
+              <td>
+                 <apex:outputlabel value="{!intakeStatus}"/>
+              </td>
+           </tr>   
+      
+           <tr>
+              <td style="width:200px"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Current Status of Case
+              </td>
+              <td>:
+              </td>
+              <td>
+                 <apex:outputlabel value="{!currentStatus}"/>
+              </td>
+           </tr>    
+        </table>
+     
+     </div>
+<br/>
+     <div id="d" style="height:100px; border: 1px solid #aaa">
+         <table cellspacing="5" cellpadding="8">
+                  <tr>
+              <td style="width:200px"> 
+               &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Current Report Date
+              </td>
+              <td>:<apex:outputlabel value="{!docDate}"/>
+              </td>
+           </tr> 
+           <tr>
+              <td style="width:200px">  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Previous Reports
+              </td>
+              <td>: <apex:outputlabel value="{!prevReports}"/>
+              </td>
+           </tr> 
+         </table>
+     </div>
+<br/><br/><br/><br/><br/><br/>
+
+<!-- 
+       <apex:outputLabel value="The Court Employment Project, a program of the Center for Alternative Sentencing and Employment Services, offers an alternative to incarceration for defendants charged with 
+       felony offenses that includes daily supervision, academic and vocational training, employment opportunities , and drug relapse prevention services."
+          style="font-size:10px"/>
+          <br/>
+       <apex:outputLabel value="Pursuant to 42 CFR Part 2, which governs confidentiality of alcohol and drug abuse patient records, information concerning substance abuse and its treatment may be redisclosed 
+              by the recipients of such information only in connection with their official duties."
+              style="font-size:10px"/>
+-->
+      <c:sfReportfooter />        
+
+ </apex:outPutPanel> 
+   <!--                          End cover Page      -->
+  <!--                           Narrative in All     -->
+     <apex:outPutPanel rendered="{!docType=='all'}">
+      <div style="page-break-before:always" />
+          <apex:outputLabel value="Narrative" style="font-weight:bold;font-size:20px"/>
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+     <apex:outputlabel value="{!repstage}" style="font-weight:bold;font-size:22px" 
+       rendered="{!repstage!='Final'}"/>
+     <br/><br/> 
+            <apex:outPutText value="{!pdfTextNarrative}" escape="false" style="font-size:14px" /> 
+      <br/><br/> 
+    </apex:outPutPanel>
+ <br/><br/>
+  <apex:outPutPanel rendered="{!docType=='all'}">
+       <apex:outputLabel value="Team Leader:_________________________"/>
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+     <apex:outputLabel value="Case Manager:_________________________"/>
+     <br/>
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<apex:outputLabel value="{!teamleader}" style="font-size:18px"/>
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<apex:outputLabel value="{!casecoordinator}" style="font-size:18px"/>
+      <br/><br/>
+     <apex:outputLabel value="Court Representative:________________________" />
+     <br/>
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+   <!--   <apex:outputLabel value="{!courtrep}" style="font-size:18px"/><br/><br/> -->
+ 
+  </apex:outPutPanel>
+ 
+    <!--                       End    Narrative      -->
+    <!--                 Legal Page    -->
+        <apex:outPutPanel rendered="{!docType=='all'}"> 
+          <div style="page-break-before:always" />
+     
+      <c:sfReportHeader />
+       <br/><br/><br/>
+              <apex:repeat value="{!LegalInfoToShow}" var="li">
+       <br/>
+              <apex:outPutLabel value="{!li.CaseType}" style="font-size:16px;font-weight:bold"/>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     
+   <!--
+            <apex:outPutLabel value="{!li.repDate}" style="font-size:16px;font-weight:bold"/>
+    -->
+              <div id="d" style="height:150px; border: 1px solid #aaa">
+          <table value="{!LegalInfoToShow}" var="li">
+<!--             <apex:repeat value="{!LegalInfoToShow}" var="li"> -->
+            
+               <tr>
+               <!-- 
+                 <td>
+                  <apex:outPutLabel value="{!li.CaseType}" />
+                 </td>
+                  --> 
+                 <td >  
+                 <apex:outputlabel value="Indictment" rendered="{!li.indictment!=''}"/>
+                 <apex:outputlabel value="Docket" rendered="{!li.indictment==''}"/>
+              </td>
+               <td>:
+                 <apex:outputlabel value="{!li.indictment}" rendered="{!li.indictment!=''}"/>  
+                 <apex:outputlabel value="{!li.docket}" rendered="{!li.indictment==''}"/>  
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <!--     <apex:outPutLabel value="County:" /> -->
+                 <apex:outPutLabel value="{!li.ArrestCounty}"/>
+</td>
+               </tr>
+               <tr>  
+               <td>
+                 <apex:outputLabel value="Arrest Date" />
+                 </td>
+                <td>:
+                <apex:outPutLabel value="{!li.ArrestDate}" />
+                </td>
+            
+            </tr>
+            <tr>
+            <td>
+                 <apex:outputLabel value="Arrest Charges" />
+                 </td>
+                <td style="width:250px">:
+                <apex:outPutLabel value="{!li.ArrestCharges}"  />
+                </td>
+               </tr>
+            <tr>
+            <td>
+                 <apex:outputLabel value="Conviction Charges" />
+                 </td>
+                <td style="width:250px">:
+                <apex:outPutLabel value="{!li.convCharges}" />
+                </td>
+               </tr>
+           <tr>
+            <td>
+                 <apex:outputLabel value="Status" />
+                 </td>
+                <td style="width:500px">:
+                <apex:outPutLabel value="{!li.status}" />
+                </td>
+               </tr>
+           <tr>
+            <td>
+                 <apex:outputLabel value="Last court Date" />
+                 </td>
+                <td style="width:500px">:
+                <apex:outPutLabel value="{!li.action}" rendered="{!li.LastCourtDate<>''}" />
+                </td>
+               </tr>
+               
+ 
+ 
+         </table>      
+</div>
+          </apex:repeat> 
+   
+  </apex:outPutPanel>
+  <!--                      End Legal Page   -->
+
+
+</apex:pageblock>  
+
+  <!--                      Letter Page   -->
+  <apex:outPutPanel rendered="{!docType=='letter'}">
+           <c:sfReportHeader rendered="{!docType=='letter'}"/>
+  <br/><br/>
+  
+   <div id="d" rendered="{!docType=='letter'}">
+      <table cellspacing="4" cellpadding="2" style="height:220px;">
+       <tr>
+           <td style="width:100px" align="right"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+               <apex:outputlabel value="Date:" style="font-weight:bold;"/> 
+              </td>
+           <td style="width:400px" align="left"> 
+               <apex:outputlabel value="{!docDate}" /> 
+              </td>
+           </tr>  
+      <tr>
+           <td style="width:100px" align="right"> 
+                <apex:outputlabel value="To    :" style="font-weight:bold;"/> 
+              </td>
+           <td style="width:600px" align="left"> 
+                <apex:outputlabel value="Honorable Judge {!caseJudge}" /> 
+              </td>
+      </tr>
+      <tr/>
+      <tr>
+           <td style="width:100px"/>
+           <td style="width:600px" align="left">
+            <apex:outputlabel value="{!CourtName} of the State of New York" />&nbsp;
+         </td>
+      </tr>      
+      <tr>
+          <td style="width:100px"/>
+         <td style="width:600px" align="left">
+            <apex:outputlabel value="{!boro}" /> 
+         </td>
+   
+
+      </tr>
+      <tr>
+          <td style="width:100px" align="right"> 
+                <apex:outputlabel value="Re    :" style="font-weight:bold;"/>  
+              </td>
+        <td style="width:600px" align="left">
+            <apex:outputlabel value="{!LetterDescr}" />&nbsp;
+        </td>
+      </tr>
+      <tr>
+       <td style="width:100px"/>
+        <td style="width:600px" align="left">
+          <apex:outputlabel value="Indictment # {!indictment}" rendered="{!indictment!=''}"/>
+          <apex:outputlabel value="Docket # {!docket}" rendered="{!indictment==''}"/>
+       </td>
+      </tr>
+      </table>
+      <br/>
+  <!-- 
+        <table >
+      <tr>   
+  
+      <td style="width:650px"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+  -->
+              <apex:outPutText value="{!pdfTextNarrative}" escape="false" style="font-size:14px;width:650px"/> 
+   <!-- 
+          </td>
+      </tr>
+   </table>
+   -->
+   <br/>
+   <table>
+      <tr>
+        <td style="width:650px">
+    <c:sfReportfooter />
+       </td>
+     </tr>  
+    </table> 
+</div>
+ 
+</apex:outPutPanel>
+ <!--                  end    Letter Page   -->
+
+  <!--                           Narrative  only    -->
+     <apex:outPutPanel rendered="{!docType=='narrOnly'}">
+          <apex:outputLabel value="Narrative" style="font-weight:bold;font-size:20px"/>
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+     <apex:outputlabel value="{!repstage}" style="font-weight:bold;font-size:22px" 
+       rendered="{!repstage!='Final'}"/>
+     <br/><br/> 
+            <apex:outPutText value="{!pdfTextNarrative}" escape="false" style="font-size:14px" /> 
+      <br/><br/> 
+    </apex:outPutPanel>
+ <br/><br/>
+  <apex:outPutPanel rendered="{!docType=='narrOnly'}">
+       <apex:outputLabel value="Team Leader:_________________________"/>
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+     <apex:outputLabel value="Case Manager:_________________________"/>
+     <br/>
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<apex:outputLabel value="{!teamleader}" style="font-size:18px"/>
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<apex:outputLabel value="{!casecoordinator}" style="font-size:18px"/>
+      <br/><br/>
+     <apex:outputLabel value="Court Representative:________________________" />
+     <br/>
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  <!--    <apex:outputLabel value="{!courtrep}" style="font-size:18px"/><br/><br/>-->
+ 
+  </apex:outPutPanel>
+
+    <!--                       End    Narrative  Only    -->
+   <!--                 Legal Page  Only  -->
+       <apex:outPutPanel rendered="{!docType=='legalOnly'}"> 
+     
+        <c:sfReportHeader />
+       <br/><br/><br/>
+              <apex:repeat value="{!LegalInfoToShow}" var="li">
+       <br/>
+              <apex:outPutLabel value="{!li.CaseType}" style="font-size:16px;font-weight:bold"/>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     
+   <!--
+            <apex:outPutLabel value="{!li.repDate}" style="font-size:16px;font-weight:bold"/>
+    -->
+              <div id="d" style="height:150px; border: 1px solid #aaa">
+          <table value="{!LegalInfoToShow}" var="li">
+<!--             <apex:repeat value="{!LegalInfoToShow}" var="li"> -->
+            
+               <tr>
+               <!-- 
+                 <td>
+                  <apex:outPutLabel value="{!li.CaseType}" />
+                 </td>
+                  --> 
+                 <td >  
+                 <apex:outputlabel value="Indictment" rendered="{!li.indictment!=''}"/>
+                 <apex:outputlabel value="Docket" rendered="{!li.indictment==''}"/>
+              </td>
+               <td>:
+                 <apex:outputlabel value="{!li.indictment}" rendered="{!li.indictment!=''}"/>  
+                 <apex:outputlabel value="{!li.docket}" rendered="{!li.indictment==''}"/>  
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <!--     <apex:outPutLabel value="County:" /> -->
+                 <apex:outPutLabel value="{!li.ArrestCounty}"/>
+</td>
+               </tr>
+               <tr>  
+               <td>
+                 <apex:outputLabel value="Arrest Date" />
+                 </td>
+                <td>:
+                <apex:outPutLabel value="{!li.ArrestDate}" />
+                </td>
+            
+            </tr>
+            <tr>
+            <td>
+                 <apex:outputLabel value="Arrest Charges" />
+                 </td>
+                <td style="width:250px">:
+                <apex:outPutLabel value="{!li.ArrestCharges}"  />
+                </td>
+               </tr>
+           <tr>
+            <td>
+                 <apex:outputLabel value="Conviction Charges" />
+                 </td>
+                <td style="width:250px">:
+                <apex:outPutLabel value="{!li.convCharges}" />
+                </td>
+               </tr>
+           <tr>
+            <td>
+                 <apex:outputLabel value="Status" />
+                 </td>
+                <td style="width:500px">:
+                <apex:outPutLabel value="{!li.status}" />
+                </td>
+               </tr>
+           <tr>
+            <td>
+                 <apex:outputLabel value="Last court Date" />
+                 </td>
+                <td style="width:500px">:
+                <apex:outPutLabel value="{!li.action}" rendered="{!li.LastCourtDate<>''}" />
+                </td>
+               </tr>
+               
+ 
+ 
+         </table>      
+</div>
+          </apex:repeat> 
+   
+  </apex:outPutPanel>
+  <!--                      End Legal Page  Only  -->
+
+    
+</apex:form>
+</apex:page>

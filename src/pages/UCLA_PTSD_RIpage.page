@@ -1,0 +1,227 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="UCLA_RIpage" >
+  <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+<!--                     EDIT BLOCK  -->
+<apex:outPutPanel id="op" styleclass="span.resultContainer">
+
+<apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+<apex:pageblocksection columns="2">
+	  <apex:facet name="header" >
+        <span style="color:black;font-size:14px;">Results</span> 
+      </apex:facet>
+            <apex:outputfield value="{!UCLA_RI.Criterion_A_Met__c}" />
+         <apex:outputfield value="{!UCLA_RI.PTSD_Severity_Score__c}" />
+        <apex:outputfield value="{!UCLA_RI.Criterion_B_Met__c}" />
+        <apex:inputfield value="{!UCLA_RI.Full_PTSD_Diagnosis_Likely__c}" />
+        <apex:outputfield value="{!UCLA_RI.Criterion_D_Met__c}" />
+        <apex:inputfield value="{!UCLA_RI.Partial_PTSD_Diagnosis_Likely__c}"  />
+       <apex:outputfield value="{!UCLA_RI.Criterion_C_Met__c}" />
+        <apex:outputfield value="{!UCLA_RI.UCLA_PTSD_RI_Flag__c}" />
+   
+ </apex:pageblocksection>
+<apex:pageblocksection columns="2">
+	  <apex:facet name="header" >
+        <span style="color:black;font-size:14px;">Narrative</span></apex:facet> 
+         <apex:inputfield value="{!UCLA_RI.UCLA_Most_Impacted_By__c}" />
+        <apex:inputfield value="{!UCLA_RI.UCLA_How_Long_Ago__c}" />
+        <apex:inputfield value="{!UCLA_RI.Description_of_traumatic_event__c}" styleclass="textareaedit"/>
+    </apex:pageblocksection> 
+<apex:pageblocksection columns="2">
+<apex:facet name="header" >
+        <span style="color:black;font-size:14px;">Section 1</span></apex:facet> 
+    <apex:inputfield value="{!UCLA_RI.UCLA_S1Q1_In_a_disaster__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S1Q8_Seeing_dead_body__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S1Q2_In_a_bad_accident__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S1Q9_Having_adult_touch_you__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S1Q3_In_a_place_at_war__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S1Q10_Violent_injury_of_loved_one__c}" />
+     <apex:inputfield value="{!UCLA_RI.UCLA_S1Q4_Hit_hard_at_home__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S1Q11_Painful_medical_treatment__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S1Q5_Seeing_family_member_hit__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S1Q12_Forced_to_have_sex__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S1Q6_Beaten_shot_at_threatened__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S1Q13_Anything_else__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S1Q7_Seeing_someone_beaten_etc__c}" />
+</apex:pageblocksection>
+<apex:pageblocksection columns="2">
+<apex:facet name="header" >
+        <span style="color:black;font-size:14px;">Section 2</span></apex:facet> 
+    <apex:inputfield value="{!UCLA_RI.UCLA_S2Q14_Scared_you_would_die__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S2Q19_Scared_someone_would_die__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S2Q15_Scared_of_being_hurt__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S2Q20_Did_someone_die__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S2Q16_Hurt_badly__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S2Q21_Were_you_very_scared__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S2Q17_Scared_someone_else_hurt__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S2Q22_Felt_you_couldn_t_stop_it__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S2Q18_Someone_else_hurt_badly__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S2Q23_Disgusting_or_gross__c}" />
+
+	</apex:pageblocksection>
+<apex:pageblocksection columns="2">
+<apex:facet name="header" >
+        <span style="color:black;font-size:14px;">Section 3</span></apex:facet> 
+   <apex:inputfield value="{!UCLA_RI.UCLA_S3Q1_I_watch_out_for_danger__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S3Q12_I_feel_jumpy__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S3Q2_I_get_upset_when_reminded__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S3Q13_I_have_trouble_sleeping__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S3Q3_Memories_come_to_mind__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S3Q14_I_think_it_s_partly_my_fault__c}" />
+     <apex:inputfield value="{!UCLA_RI.UCLA_S3Q4_I_feel_angry__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S3Q15_Cant_remember_important_parts__c}" />
+   <apex:inputfield value="{!UCLA_RI.UCLA_S3Q5_I_have_bad_dreams__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S3Q16_I_have_trouble_concentrating__c}" />
+
+    <apex:inputfield value="{!UCLA_RI.UCLA_S3Q6_I_feel_I_relive_experience__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S3Q17_I_avoid_things_that_remind_me__c}" />
+     <apex:inputfield value="{!UCLA_RI.UCLA_S3Q7_I_feel_like_staying_by_myself__c}" />
+     <apex:inputfield value="{!UCLA_RI.UCLA_S3Q18_I_have_physical_reactions__c}" />
+     <apex:inputfield value="{!UCLA_RI.UCLA_S3Q8_I_feel_alone__c}" />
+     <apex:inputfield value="{!UCLA_RI.UCLA_S3Q19_I_think_I_won_t_live_long__c}" />
+     <apex:inputfield value="{!UCLA_RI.UCLA_S3Q9_I_try_not_to_talk_or_think__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S3Q20_I_have_arguments_or_fights__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S3Q10_I_have_trouble_feeling_happy__c}" />
+     <apex:inputfield value="{!UCLA_RI.UCLA_S3Q21_I_feel_worried_about_future__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S3Q11_Trouble_feeling_sadness_anger__c}" />
+    <apex:inputfield value="{!UCLA_RI.UCLA_S3Q22_Afraid_it_will_happen_again__c}" />
+ <!-- 
+     <apex:inputtext value="{!UCLA_RI.Hospitalized_resd_prgm_for_MH_reasons__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.Ever_recvd_counseling_other_MH_services__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.Full_PTSD_Diagnosis_Likely__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.Prescribe_take_med_to_treat_MH_problem__c}" styleclass="txt60" disabled="true"/>
+-->
+  </apex:pageblocksection>
+</apex:pageblock>
+<!--                     VIEW BLOCK  -->
+<apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+<apex:pageblocksection columns="2">
+	  <apex:facet name="header" >
+        <span style="color:black;font-size:14px;">Results</span> 
+      </apex:facet>
+        <apex:outputfield value="{!UCLA_RI.Criterion_A_Met__c}" />
+         <apex:outputfield value="{!UCLA_RI.PTSD_Severity_Score__c}" />
+        <apex:outputfield value="{!UCLA_RI.Criterion_B_Met__c}" />
+        <apex:outputfield value="{!UCLA_RI.Full_PTSD_Diagnosis_Likely__c}" />
+        <apex:outputfield value="{!UCLA_RI.Criterion_D_Met__c}" />
+        <apex:outputfield value="{!UCLA_RI.Partial_PTSD_Diagnosis_Likely__c}"  />
+       <apex:outputfield value="{!UCLA_RI.Criterion_C_Met__c}" />
+        <apex:outputfield value="{!UCLA_RI.UCLA_PTSD_RI_Flag__c}" />
+  </apex:pageblocksection>
+<apex:pageblocksection columns="2">
+	  <apex:facet name="header" >
+        <span style="color:black;font-size:14px;">Narrative</span></apex:facet> 
+        <apex:outputfield value="{!UCLA_RI.UCLA_Single_Traumatic_Event__c}" />
+        <apex:outputfield value="{!UCLA_RI.UCLA_Most_Impacted_By__c}" />
+        <apex:outputfield value="{!UCLA_RI.UCLA_How_Long_Ago__c}" />
+        <apex:pageblocksectionItem >
+           <apex:outputlabel value="Description of traumatic event" for="p1"/>
+           <apex:outputtext value="{!substitute(substitute(JSENCODE(UCLA_RI.Description_of_traumatic_event__c),'\\n','<br/>'),'\\r','')}" 
+           escape="false" style="color:blue;width:400px;background-color:white;" id="p1"  />
+        </apex:pageblocksectionItem>   
+    </apex:pageblocksection> 
+<apex:pageblocksection columns="2">
+<apex:facet name="header" >
+        <span style="color:black;font-size:14px;">Section 1</span></apex:facet> 
+    <apex:inputtext value="{!UCLA_RI.UCLA_S1Q1_In_a_disaster__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S1Q8_Seeing_dead_body__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S1Q2_In_a_bad_accident__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S1Q9_Having_adult_touch_you__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S1Q3_In_a_place_at_war__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S1Q10_Violent_injury_of_loved_one__c}" styleclass="txt60" disabled="true"/>
+     <apex:inputtext value="{!UCLA_RI.UCLA_S1Q4_Hit_hard_at_home__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S1Q11_Painful_medical_treatment__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S1Q5_Seeing_family_member_hit__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S1Q12_Forced_to_have_sex__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S1Q6_Beaten_shot_at_threatened__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S1Q13_Anything_else__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S1Q7_Seeing_someone_beaten_etc__c}" styleclass="txt60" disabled="true"/>
+</apex:pageblocksection>
+<apex:pageblocksection columns="2">
+<apex:facet name="header" >
+        <span style="color:black;font-size:14px;">Section 2</span></apex:facet> 
+    <apex:inputtext value="{!UCLA_RI.UCLA_S2Q14_Scared_you_would_die__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S2Q19_Scared_someone_would_die__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S2Q15_Scared_of_being_hurt__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S2Q20_Did_someone_die__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S2Q16_Hurt_badly__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S2Q21_Were_you_very_scared__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S2Q17_Scared_someone_else_hurt__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S2Q22_Felt_you_couldn_t_stop_it__c}" styleclass="txt60" disabled="true"/>
+     <apex:inputtext value="{!UCLA_RI.UCLA_S2Q18_Someone_else_hurt_badly__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S2Q23_Disgusting_or_gross__c}" styleclass="txt60" disabled="true"/>
+
+	</apex:pageblocksection>
+<apex:pageblocksection columns="2">
+<apex:facet name="header" >
+        <span style="color:black;font-size:14px;">Section 3</span></apex:facet> 
+ <apex:inputtext value="{!UCLA_RI.UCLA_S3Q1_I_watch_out_for_danger__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S3Q12_I_feel_jumpy__c}"  styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S3Q2_I_get_upset_when_reminded__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S3Q13_I_have_trouble_sleeping__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S3Q3_Memories_come_to_mind__c}"  styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S3Q14_I_think_it_s_partly_my_fault__c}" styleclass="txt60" disabled="true"/>
+     <apex:inputtext value="{!UCLA_RI.UCLA_S3Q4_I_feel_angry__c}" styleclass="txt60" disabled="true" />
+    <apex:inputtext value="{!UCLA_RI.UCLA_S3Q15_Cant_remember_important_parts__c}" styleclass="txt60" disabled="true"/>
+   <apex:inputtext value="{!UCLA_RI.UCLA_S3Q5_I_have_bad_dreams__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S3Q16_I_have_trouble_concentrating__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S3Q6_I_feel_I_relive_experience__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S3Q17_I_avoid_things_that_remind_me__c}" styleclass="txt60" disabled="true"/>
+     <apex:inputtext value="{!UCLA_RI.UCLA_S3Q7_I_feel_like_staying_by_myself__c}" styleclass="txt60" disabled="true"/>
+     <apex:inputtext value="{!UCLA_RI.UCLA_S3Q18_I_have_physical_reactions__c}" styleclass="txt60" disabled="true"/>
+     <apex:inputtext value="{!UCLA_RI.UCLA_S3Q8_I_feel_alone__c}" styleclass="txt60" disabled="true"/>
+     <apex:inputtext value="{!UCLA_RI.UCLA_S3Q19_I_think_I_won_t_live_long__c}" styleclass="txt60" disabled="true"/>
+     <apex:inputtext value="{!UCLA_RI.UCLA_S3Q9_I_try_not_to_talk_or_think__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S3Q20_I_have_arguments_or_fights__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S3Q10_I_have_trouble_feeling_happy__c}" styleclass="txt60" disabled="true"/>
+     <apex:inputtext value="{!UCLA_RI.UCLA_S3Q21_I_feel_worried_about_future__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S3Q11_Trouble_feeling_sadness_anger__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.UCLA_S3Q22_Afraid_it_will_happen_again__c}" styleclass="txt60" disabled="true"/>
+
+ <!-- 
+     <apex:inputtext value="{!UCLA_RI.Hospitalized_resd_prgm_for_MH_reasons__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.Ever_recvd_counseling_other_MH_services__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.Full_PTSD_Diagnosis_Likely__c}" styleclass="txt60" disabled="true"/>
+    <apex:inputtext value="{!UCLA_RI.Prescribe_take_med_to_treat_MH_problem__c}" styleclass="txt60" disabled="true"/>
+-->
+  </apex:pageblocksection>
+</apex:pageblock>
+</apex:outPutPanel>
+<br/>
+		<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>
+</apex:form>
+</apex:page>

@@ -1,0 +1,508 @@
+<apex:page controller="DOCreaderController" id="pgMain" > 
+
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191, '/jQueryUI-1.10.3/ui/jquery-ui.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/corners/jquery.corner.js')}" /> 
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/css/ui-lightness/jquery-ui-1.8.13.custom.css')}" />
+
+<script type='text/javascript'>
+   function noenter(ev)  {
+      if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+            doSearchAF();  
+            return false;
+         } else {
+              return true;
+         }
+     }
+</script> 
+ 
+<style type="text/css">
+    .col1 {width:400px}
+    .col2 {width:600px}
+      
+</style>
+
+<script>
+
+  (function() {
+    var windowOnload = window.onload;
+    window.onload = function() {
+      if (windowOnload) windowOnload();
+      var select = document.getElementById('calYearPicker');
+      if (!select) return;
+ //alert('start: ' + new Date().getFullYear());
+      select.innerHTML = '';
+      var startYear = new Date().getFullYear() - 60;
+      for (var year = startYear; year < startYear + 62; year++) {
+        select.options[select.options.length] = new Option(year, year);
+      }
+    }
+  }());
+</script>
+
+ <style>
+   span.inputContainer {
+        margin: 1px; 
+        margin-bottom: 10px;
+        background: #FFF8DC ; 
+        padding: 5px;
+        border:0; 
+        float: left;
+        width: auto;
+        clear: both;
+        white-space: nowrap;
+    }
+</style>
+<script>  
+        function showProcessing(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('loadingGifData').style.display = '';
+            } else {
+                document.getElementById('loadingGifData').style.display = 'none';
+            }
+        } 
+</script> 
+<!--<apex:outPutText value="{!attName}" id="att"/>-->
+  
+     <apex:pageMessages />
+      <span id="loadingGifData" style="display:none;" >
+        <table> 
+          <tr>
+             <td>
+               Processing.Please wait...
+                            <apex:image value="/img/loading32.gif" />
+             </td>
+       </tr>
+       </table>
+    </span> 
+    <apex:form id="frmSelect"> 
+    <table>
+      <tr> 
+       <td width="450px">
+       <apex:selectRadio id="selInput"  style="font-size:16px" 
+                  value="{!inputType}" >
+                     <apex:selectOptions value="{!inputTypeitems}" id="item" >
+      </apex:selectOptions>      
+      <apex:actionSupport event="onchange" rerender="in,frmResult,frmNot,pb,opInput,pg1,pbNot,pb2,frmDOC,chg"
+         action="{!checkinputType}" status="waitStatus"/>
+
+     <apex:actionStatus startText=""  stopText="" id="waitStatus" 
+   onstart="showProcessing('1');" onstop="showProcessing('0');"/>
+  
+     </apex:selectRadio>
+     </td>
+          <td align="bottom">
+<br/>
+          <apex:outPutLabel value="{!inputType}" id="in" style="font-size:16px;color:blue;font-weight:bold"/> 
+       </td>
+     </tr>
+     </table>
+  </apex:form>   
+  <apex:form id="frmDOC"> 
+     <apex:pageBlock id="pbDOC" rendered="{!displayNotDoc==false}" > 
+    <apex:outputPanel > 
+        <apex:inputFile value="{!csvFileBody}"  filename="{!csvDOC_file}" /> 
+         <apex:commandButton value="Upload DOC file" action="{!generateDOCreferral}" onClick="showProcessing(1)"
+         id="cmd" style="font-size:16px;" />
+        <!--         <apex:outPutLabel value="{!csvFileBody}" />-->
+      </apex:outputPanel>
+      </apex:pageBlock>
+ </apex:form>
+    <apex:form id="frmResult" >
+    <apex:outPutPanel id="outResult">  
+       <apex:pageBlock id="pb" title="Results" rendered="{!uploaded==true}">
+      <apex:pageblocktable value="{!listLoads}" var="rec1" columns="5" rendered="{!uploaded}" id="tblResult">
+         <apex:column headerValue="Name/Account">
+             <apex:outputLink value="/{!rec1.dAcctId}" id="a" target="_blank"> 
+               <apex:outPutText value="{!rec1.accountname}" style="font-size:16px;"/>
+              </apex:outputLink> 
+         </apex:column> 
+          <apex:column headerValue="NYSID">
+              <apex:outPutText value="{!rec1.nysid}" style="font-size:16px;"/>
+         </apex:column>
+         <apex:column headerValue="Docket">
+            <apex:outputLink value="/{!rec1.docketId}" id="d" target="_blank">
+               <apex:outPutText value="{!rec1.docketname}" style="font-size:16px;"/>
+            </apex:outputLink>
+         </apex:column>
+         <apex:column headerValue="BookCase">
+             <apex:outPutText value="{!rec1.bookcase}" style="font-size:16px;"/>
+         </apex:column>
+         <apex:column headerValue="Notes">
+             <apex:outPutText value="{!rec1.notes}" style="font-size:12px;color:black"/>
+             &nbsp;
+             <apex:outPutText value="{!rec1.missingInfo}" style="font-size:12px;color:red"/>
+             &nbsp;
+             <apex:outputLink value="/{!rec1.dAcctId}" id="ai"  target="_blank" rendered="{!rec1.newClient==false}"> 
+             <apex:OutPutLabel value="View client history here" rendered="{!rec1.newClient==false}"/>
+             </apex:outputLink> 
+         </apex:column>
+     </apex:pageblocktable>
+  </apex:pageBlock>
+ </apex:outPutPanel>
+  <apex:outPutPanel id="frmNot">
+  <apex:actionFunction name="afFindAttorney" action="{!findAttorney}"  rerender="att">
+      <apex:param name="attName" assignTo="{!attName}" value="" />
+   </apex:actionFunction>
+  
+   
+   
+   <apex:pageBlock id="pb2" rendered="{!displayNotDoc}">
+  
+    <apex:panelGrid columns="2" id="pg1" columnClasses="col1,col2" >   
+     <apex:pageBlock id="pbNot" >
+ 
+  <script>
+    function refreshPage(){
+    alert('in refresh');
+      afRefreshPage();
+     }
+  </script>
+ 
+        <apex:outputPanel id="opInput"  rendered="{!displayNotDoc}" >
+             <table width="100%px" border="0" cellPadding="2" cellSpacing="2">
+                 <tr>
+                    <td>
+                        <table width="100%" border="0" cellPadding="2" cellSpacing="2">
+    <tr>
+     <td align="right" >
+         
+                <apex:outputLabel value="Referral Source: "/>
+     </td>
+     <td align="left">      
+        <div class="requiredInput">
+                <div class="requiredBlock"></div>      
+                 <apex:selectList size="1" required="false" value="{!clsInput.Referral_Source}"
+                 style="width:150px" onchange="referral(this.value)" id="plSt">
+                      <apex:selectOptions value="{!refItems}"  rendered="true" />  
+                    </apex:selectList>
+        </div>            
+ <script>
+      function referral(){ 
+        } 
+     </script>   
+    
+    </td>
+    </tr>
+
+                                <tr>
+                                    <td align="right" >
+                                        <apex:outputLabel value="Docket #:" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputText value="{!clsInput.Docket}" id="txtDocket" onkeypress="return noented(event);"/>
+                                     </td>
+                                                             </tr>
+                                <tr>
+                                       <td align="right" >
+                                        <apex:outputLabel value="NYSID #:" />
+                                    </td>
+                                    <td align="left">
+                                                                                <div class="requiredInput">
+                <div class="requiredBlock"></div>
+                                        <apex:inputText value="{!clsInput.NYSID}" id="txtNYSID"  onkeypress="return noented(event);"/>
+</div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                       <td align="right">
+                                        <apex:outputLabel value="BookCase #:" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputText value="{!clsInput.bookcase}" id="txtbookcase" 
+                                        style="color:{!bookcaseColor}" onkeypress="return noented(event);"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                       <td align="right" >
+                                        <apex:outputLabel value="First Name:" />
+                                    </td>
+                                    <td align="left">
+                                     <div class="requiredInput">
+                <div class="requiredBlock"></div>  
+
+                                        <apex:inputText value="{!clsInput.fName}" id="txtFirstName" onkeypress="return noented(event);"/>
+</div>
+                                    </td>
+                                </tr>
+                                <tr> 
+                                      <td align="right">
+                                        <apex:outputLabel value="Middle Name:" />
+                                    </td>
+                                    <td align="left">
+                                        <apex:inputText value="{!clsInput.mName}" id="txtmName"  onkeypress="return noented(event);"/>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                        <td align="right">
+                                        <apex:outputLabel value="Last Name:" />
+                                    </td>
+                                    <td align="left">
+                                     <div class="requiredInput">
+                <div class="requiredBlock"></div>
+
+                                        <apex:inputText value="{!clsInput.LName}" id="txtLastName" onkeypress="return noented(event);"/>
+</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                       <td align="right" >
+                                        <apex:outputLabel value="Date of Birth:" />
+                                    </td>
+
+                                    <td align="left">
+             
+
+                                      <apex:inputText style="color:{!dobColor}"
+                                          value="{!clsInput.dob}" size="10" id="dob" onfocus="DatePicker.pickDate(false, this, false);"
+                                          onkeypress="return noented(event);"/>
+                                          
+                                    
+  <br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                     <td align="right" >
+                                   <apex:outputLabel value="Gender:" />
+                                  </td>  
+                  <td>
+                     <apex:selectlist value="{!clsInput.gender}" size="1"> 
+                        <apex:selectOption itemValue="" itemLabel=""/> 
+                        <apex:selectOption itemValue="Female" itemLabel="Female"/> 
+                        <apex:selectOption itemValue="Male" itemLabel="Male"/> 
+                        <apex:selectOption itemValue="Transgender Man" itemLabel="Transgender Man"/> 
+                        <apex:selectOption itemValue="Transgender Woman" itemLabel="Transgender Woman"/> 
+                     </apex:selectlist>
+                 </td>
+                 </tr>
+              </table>
+            </td>
+           </tr>
+        
+       </table>
+<hr/>
+<br/>
+               <apex:outputLabel value="Address" style="font-size:14px;text-decoration:underline"/>
+<table border="0" cellPadding="3" cellSpacing="2">
+
+          <tr>  
+            <td allign="right" width="120px">
+                 <apex:outputLabel value="Building,Street, Apt:" />
+            </td>
+            <td width="250px" allign="left">
+                 <apex:inputText value="{!clsInput.address}" id="addr" 
+                 style="color:{!addrColor};width:250px" onkeypress="return noented(event);"/> 
+             </td>
+             </tr>
+             <tr>        
+                <td allign="right" width="120px"> 
+                    <apex:outputText value="City:"  />
+                </td>
+                <td>
+                   <apex:inputText value="{!clsInput.city}" id="city" 
+                      onkeypress="return noented(event);"/> 
+                </td>
+             </tr>
+             <tr>                           
+                <td allign="right" width="120px">
+                   <apex:outputLabel value="State:" />&nbsp;&nbsp;
+                      <apex:outputLabel value="New York" id="state" style="color:blue;"/>                  
+                     </td>
+             </tr>
+             <tr>   
+                       <td allign="right" width="80px">
+                         <apex:outputText value="ZIP:" />
+                   </td>
+                   <td allign="left" width="40px">
+                      <apex:inputText value="{!clsInput.zip}" id="zip" onkeypress="return noented(event);"/>
+</td>
+</tr>
+</table>
+              </apex:outputPanel>
+      <br/> 
+           
+    </apex:pageBlock>
+    <apex:pageBlock >
+             <apex:outputPanel rendered="{!displayNotDoc}" id="legal">
+                <table border="0" cellPadding="2" cellSpacing="2">
+                      <tr>
+                         <td align="right">
+                          <apex:outputLabel value="Charge 1:" />  
+                         </td>
+                      <td align="left" >
+                  <apex:selectList size="1" required="false" value="{!clsInput.charge1}" > 
+                           <apex:selectOptions value="{!CodesItems}"  rendered="true" />  
+                        </apex:selectList> 
+                        </td>                         
+                     <td align="right" >
+                           <apex:outputLabel value="Charge 2:" />  
+                         </td> 
+                      <td align="left" >
+    <apex:selectList size="1" required="false" value="{!clsInput.charge2}" > 
+                           <apex:selectOptions value="{!CodesItems}"  rendered="true" />  
+                        </apex:selectList>                 
+                        </td>
+       </tr>
+       <tr>
+                                                 
+                     <td align="right" >
+                           <apex:outputLabel value="Charge 3:" /> 
+                         </td>
+                      <td align="left" >
+   <apex:selectList size="1" required="false" value="{!clsInput.charge3}" > 
+                           <apex:selectOptions value="{!CodesItems}"  rendered="true" />  
+                        </apex:selectList> 
+                        </td>                         
+                     <td align="right">
+                      <apex:outputLabel value="Charge 4:" />  
+                         </td>
+                      <td align="left" >
+ <apex:selectList size="1" required="false" value="{!clsInput.charge4}" > 
+                           <apex:selectOptions value="{!CodesItems}"  rendered="true" />  
+                        </apex:selectList> 
+                        </td>                         
+</tr>
+                      <tr>                   
+                     <td align="right">
+                           <apex:outputLabel value="Charge 5:" /> 
+                         </td>
+                      <td align="left" >
+ <apex:selectList size="1" required="false" value="{!clsInput.charge5}" > 
+                           <apex:selectOptions value="{!CodesItems}"  rendered="true" />  
+                        </apex:selectList> 
+                        </td>                         
+                      </tr>
+
+  <tr>
+       <td align="right" ><br/>
+         
+                <apex:outputLabel value="M Designation: "/>
+      </td>
+      <td><br/>
+      <apex:selectList size="1" required="false" value="{!clsInput.Designation}"
+                 style="width:150px"  id="plDSG">
+                      <apex:selectOptions value="{!desigItems}"  rendered="true" />  
+                    </apex:selectList>
+     <script>
+      function designation(){ 
+        } 
+     </script> 
+      </td>
+     
+             <td align="right" ><br/>
+             <apex:outputLabel value="Date of Arraignment:" />
+           </td>
+          <td align="left"><br/>
+            <apex:inputText style="color:{!arrColor}"
+                value="{!clsInput.darraign}" size="10" id="da" onfocus="DatePicker.pickDate(false, this, false);" onkeypress="return noented(event);"/>
+           </td>
+         </tr>
+   
+        <tr>
+                     <td align="right" >
+            <apex:outputText value="DOC Score:" />
+         </td>
+         <td align="left" >
+             <apex:inputText value="{!clsInput.docscore}"  style="color:{!docColor};width:60px" onkeypress="return noented(event);"/>
+         </td>
+                     <td align="right" >
+              <apex:outputLabel value="Next Court date:" />
+         </td>
+         <td align="left">
+         <apex:inputText style="color:{!nextColor}" 
+                value="{!clsInput.nextcourtdate}" size="10" id="next" onfocus="DatePicker.pickDate(false, this, false);" onkeypress="return noented(event);"/>
+          </td> 
+        </tr> 
+        <tr/>
+        <tr> 
+                     <td align="right">
+             <apex:outputLabel value="CJA Score:" />
+         </td>
+         <td align="left" >
+             <apex:inputText value="{!clsInput.cjascore}"  style="color:{!cjacolor};width:60px" onkeypress="return noented(event);"/>
+          </td>
+                     <td align="right" >
+            <apex:outputLabel value="Bail Amount:" />
+         </td>
+                      <td align="left" width="60px">
+             <apex:inputText value="{!clsInput.bail}" onkeypress="return noented(event);" style="width:60px"/>
+           </td>
+         </tr>
+         <tr/> 
+         <tr>
+             <td align="right" >
+               <apex:outputLabel value="MOCJ Score:" />
+         </td>
+         <td align="left" >
+             <apex:inputText value="{!clsInput.MOCJscore}"  style="color:{!moccolor};width:60px" onkeypress="return noented(event);"/>
+         </td>
+ 
+       <td align="right">
+           <apex:outputLabel value="Referral Date:" />
+          </td>
+          <td align="left" width="150px">
+          <apex:inputField value="{!proxyObject.Closing_Date__c}"  id="el" />
+</td>              
+           </tr> 
+              <tr>
+                        <td>Attorney</td>
+                        <td><apex:inputField value="{!proxyObj1.Defense_Attorney_Law_Guardian__c}"
+                                onchange="findAttorney(this.value)" id="inputAtt"/></td>
+                        </tr>
+                        <tr>
+                        <td colspan="2">
+                            <apex:commandButton id="btnNewAtt" value="Add New Attorney" rerender="emptyRerender" 
+      onclick="window.open('/003/e?RecordType=012600000004zCA&ent=Contact','height=700,width=1100',1);"/>
+                     
+                        <script>
+                           function findAttorney(a){
+                      //        alert('att: ' + a);
+                              afFindAttorney(a);
+                           }
+                        </script>
+                        </td>
+                        <td>
+                        </td>
+                     <td>
+  
+     <apex:commandButton value="Upload entered info" action="{!nonDOCreferral}" 
+         style="color:blue;font-size:12px;" rendered="{!displayNotDoc}" id="cmd1" onClick="showProcessing(1)"/>
+ 
+<!--
+     <apex:commandButton value="Upload entered info" style="color:blue;font-size:12px;" oncomplete="doNothing()"
+        rendered="{!displayNotDoc}" id="cmd1" onClick="uploadNonDoc()" rerender="frmResult,outResult"/>
+   
+  <apex:actionFunction name="afnonDOCreferral" action="{!nonDOCreferral}" rerender="frmResult,outResult"/> 
+-->
+     <script>
+      function uploadNonDoc(){ 
+        showProcessing(1);
+        afnonDOCreferral();
+  //   showProcessing(0);        
+        } 
+     function doNothing(){ 
+        //afnonDOCreferral();
+        showProcessing(0);
+        }         
+     </script>  
+                  <br/>
+                  <br/>
+             <br/>
+                  <br/>                  
+         <apex:commandButton value="Clear" action="{!clearLists}" 
+       rendered="{!displayNotDoc}" id="cmdclear" rerender="frmResult,pb2,inputAtt"/>
+     
+     <!-- onclick="window.location.href='/apex/docReaderPage'"-->
+     
+                          </td>
+                        </tr> 
+        </table>
+       </apex:outputPanel>       
+    </apex:pageBlock>
+    </apex:panelGrid>
+    </apex:pageBlock>
+    </apex:outPutPanel>
+  </apex:form>
+ 
+</apex:page>

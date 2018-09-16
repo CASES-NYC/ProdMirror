@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Assessment for CHOICES. 
+     LEC Blake, Weathers, Nagy, Kaloupek, Charney, &amp; Keane, 1995</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>AssessmentContainerId__c</fullName>
+        <externalId>false</externalId>
+        <label>AssessmentContainerId</label>
+        <referenceTo>AssessmentContainer__c</referenceTo>
+        <relationshipLabel>aLifeEventsAssm</relationshipLabel>
+        <relationshipName>LifeEventsAssm</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>LEC_Q01__c</fullName>
+        <description>Natural disaster (for example, flood, hurricane, tornado, earthquake)</description>
+        <externalId>false</externalId>
+        <label>Natural disaster</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q02__c</fullName>
+        <description>Fire or explosion</description>
+        <externalId>false</externalId>
+        <label>Fire or explosion</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q03__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Transportation accident (for example, car accident, boat accident, train wreck, plane crash)</inlineHelpText>
+        <label>Transportation accident</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q04__c</fullName>
+        <description>Serious accident at work, home, or during recreational activity</description>
+        <externalId>false</externalId>
+        <label>Serious accident</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q05__c</fullName>
+        <description>Exposure to toxic substance</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Exposure to toxic substance (for example, dangerous chemicals, radiation)</inlineHelpText>
+        <label>Exposure to toxic substance</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q06__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Physical assault (for example, being attacked, hit, slapped, kicked, beaten up)</inlineHelpText>
+        <label>Physical assault</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q07__c</fullName>
+        <description>Assault with a weapon (for example, being shot, stabbed, threatened with a knife, gun, bomb)</description>
+        <externalId>false</externalId>
+        <label>Assault with a weapon</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q08__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Sexual assault (rape, attempted rape, made to perform any type of sexual act through force or threat of harm)</inlineHelpText>
+        <label>Sexual assault</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q09__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Other unwanted or uncomfortable sexual experience</inlineHelpText>
+        <label>Other unwanted experience</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q10__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Combat or exposure to a war-zone (in the military or as a civilian)</inlineHelpText>
+        <label>Combat or exposure to a war-zone</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q11__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Captivity (for example, being kidnapped, abducted, held hostage, prisoner of war)</inlineHelpText>
+        <label>Captivity</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q12__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Life-threatening illness or injury</inlineHelpText>
+        <label>Life-threatening illness or injury</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q13__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Severe human suffering</inlineHelpText>
+        <label>Severe human suffering</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q14__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Sudden, violent death (for example, homicide, suicide)</inlineHelpText>
+        <label>Sudden, violent death</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q15__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Sudden, unexpected death of someone close to you</inlineHelpText>
+        <label>Sudden unexpected death someone...</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q16__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Serious injury, harm, or death you caused to someone else</inlineHelpText>
+        <label>Serious injury</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LEC_Q17__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Any other very stressful event or experience</inlineHelpText>
+        <label>Any other very stressful</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Happened to me</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Witnessed it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Learned about it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doesn’t apply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>aLifeEventsAssm</label>
+    <nameField>
+        <label>LifeEventsAssm Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>aLifeEventsAssm</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

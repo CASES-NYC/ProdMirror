@@ -1,0 +1,100 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="MHSFpage" >
+   <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+
+
+<apex:outPutPanel id="op" styleclass="span.resultContainer">
+  <apex:outputLabel value="MHSF total score:" />&nbsp;
+<apex:outputLabel value="{!MHSF.MHSF_Total_Score__c}" id="mhsfScore"
+ style="width:40px;color:blue;font-size:14px;background-color:white;font-weight:bold;border:none;"/>
+<apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+            <apex:pageblocksection showheader="true" columns="2">
+  <apex:facet name="header" >
+  <span style="color:black;font-size:14px;"> Questions</span> 
+  </apex:facet> 
+    <apex:inputfield value="{!MHSF.MHSF_Q01_Talked_to_psychiatrist__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q09_Given_in_to_an_aggressive_urge__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q02_Felt_you_needed_help__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q10_People_are_against_you__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q03_Ever_been_advised_to_take_meds__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q11_Emotional_problems_with_sex__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q04_Been_hospitalized_for_psych__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q12_Worried_about_gaining_weight__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q05_Heard_voices__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q13_Full_of_energy__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q06a_Been_depressed__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q14_Attacks_of_anxiety__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q06b_Ever_attempt_to_kill_yourself__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q15_Persistent_repetitive_impulse__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q07_Have_you_ever_had_nightmares__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q16_Gambling_impulse__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q08_Experienced_any_strong_fears__c}"/>
+    <apex:inputfield value="{!MHSF.MHSF_Q17_Special_Learning_Problem__c}"/>            
+ </apex:pageblocksection>           
+</apex:pageblock>
+
+<apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+            <apex:pageblocksection showheader="true" columns="2">
+  <apex:facet name="header" >
+  <span style="color:black;font-size:14px;"> Questions</span> 
+  </apex:facet> 
+    <apex:inputtext value="{!MHSF.MHSF_Q01_Talked_to_psychiatrist__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q09_Given_in_to_an_aggressive_urge__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q02_Felt_you_needed_help__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q10_People_are_against_you__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q03_Ever_been_advised_to_take_meds__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q11_Emotional_problems_with_sex__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q04_Been_hospitalized_for_psych__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q12_Worried_about_gaining_weight__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q05_Heard_voices__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q13_Full_of_energy__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q06a_Been_depressed__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q14_Attacks_of_anxiety__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q06b_Ever_attempt_to_kill_yourself__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q15_Persistent_repetitive_impulse__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q07_Have_you_ever_had_nightmares__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q16_Gambling_impulse__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q08_Experienced_any_strong_fears__c}" styleclass="txt40" disabled="true"/>
+    <apex:inputtext value="{!MHSF.MHSF_Q17_Special_Learning_Problem__c}" styleclass="txt40" disabled="true"/>            
+ </apex:pageblocksection>  
+</apex:pageblock>
+
+</apex:outPutPanel>
+<apex:outPutPanel id="sysinfo" styleclass="resultContainer">
+                <table>
+                   <tr>
+                     <td width="400px" align="left">
+                       <apex:outputLabel value="Created by:"/>&nbsp;
+                       <apex:outputLabel value="{!createdInfo}"/>                   
+                     </td>
+                     <td width="400px"  align="right">
+                      <apex:outputLabel value="Last modified by:" />&nbsp;
+                      <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>  
+    </apex:form>
+</apex:page>

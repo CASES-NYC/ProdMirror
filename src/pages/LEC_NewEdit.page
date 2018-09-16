@@ -1,0 +1,256 @@
+<apex:page standardcontroller="Life_Events_Checklist__c" docType="html-5.0" sidebar="false">
+<apex:messages />
+<vs:importvisualstrap theme="paper"/>
+    <apex:form >
+    <vs:visualstrapblock >
+    <!--apex:sectionheader title="Life Events Checklist" subtitle="{!IF(ISNULL(Life_Events_Checklist__c.Name), Life_Events_Checklist__c.AssessmentId__c , Life_Events_Checklist__c.Participant__r.Name)}"/ -->
+        <div class="row"><h3 style="margin: 20px;">LIFE EVENTS CHECKLIST</h3></div>
+        <div class="row"><h4 style="margin: 20px;">{!Life_Events_Checklist__c.Participant__r.Name}</h4></div>
+        <div class="row-fluid">
+        <div class="text-center col-md-4 col-md-offset-4">
+            <apex:commandLink styleClass="btn btn-primary" style="padding: 10px 40px; text-decoration: none; font-size: 1.25em;width: 150px;" 
+                  value="Save" action="{!save}"></apex:commandLink>
+            <apex:commandLink styleClass="btn btn-primary" style="padding: 10px 40px; text-decoration: none; font-size: 1.25em;width: 150px;" 
+                  value="Cancel" action="{!cancel}"></apex:commandLink>
+        </div>
+        </div>
+        <div class="row"><div class="col-md-12">
+            <div class="col-md-2" style="background:#eee;">
+                <div>Created By</div>
+                <div>Created Date</div>
+                <div>Last Modified By</div>
+                <div>Last Modified Date</div>
+            </div>
+            <div class="col-md-2">
+                <apex:outputField value="{!Life_Events_Checklist__c.CreatedById}"/><br/>
+                <apex:outputField value="{!Life_Events_Checklist__c.CreatedDate}"/><br/>
+                <apex:outputField value="{!Life_Events_Checklist__c.LastModifiedById}"/><br/>
+                <apex:outputField value="{!Life_Events_Checklist__c.LastModifiedDate}"/>                        
+            </div>
+            <div class="col-md-2">
+            </div> 
+            <div class="col-md-2">                       
+            </div>
+            <div class="col-md-2" style="background:#eee;" >
+                <div>Complete?</div>
+                <div>Completed By</div>
+                <div>Completed Date</div>
+                <div>&nbsp;</div>
+            </div>
+            <div class="col-md-2">                       
+                <apex:outputField value="{!Life_Events_Checklist__c.IsComplete__c}"/><br/>
+                <apex:outputField value="{!Life_Events_Checklist__c.Completed_By__c}"/><br/>
+                <apex:outputField value="{!Life_Events_Checklist__c.Completed_Date__c}"/><br/>
+            </div> 
+        </div></div>       
+    </vs:visualstrapblock>
+    <apex:pageblock >
+    <apex:outputpanel >
+        <div style="background-color: #E0DBF0;"><p>CHECKLIST</p></div>
+        <apex:pageblocksection showheader="false" title="Checklist" columns="1">
+            <apex:PanelGrid columns="2" columnclasses="colstyle1,colstyle2" rowclasses="oddrow, evenrow">                
+                <apex:outputLabel value="Natural disaster (for example, flood, hurricane, tornado, earthquake)" style="font-size:14px"/>              
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q01__c}" layout="lineDirection" styleclass="checkboxgroup" required="true">
+                    <apex:selectOption itemLabel="Happened to me" itemValue="Happened to me" />
+                    <apex:selectOption itemLabel="Witnessed it" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="Learned about it" itemValue="Learned about it" />
+                    <apex:selectOption itemLabel="Not sure" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="Doesn’t apply" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>
+                    
+                <apex:outputLabel value="Fire or explosion" style="font-size:14px"/>                                    
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q02__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>                        
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>                    
+                
+                <apex:outputLabel value="Transportation accident (for example, car accident, boat accident, train wreck, plane crash)" style="font-size:14px"/>
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q03__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>                        
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>
+                
+                <apex:outputLabel value="Serious accident at work, home, or during recreational activity" style="font-size:14px"/>                                    
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q04__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>
+            
+                <apex:outputLabel value="Exposure to toxic substance (for example, dangerous chemicals, radiation)" style="font-size:14px"/>  
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q05__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>
+
+                <apex:outputLabel value="Physical assault (for example, being attacked, hit, slapped, kicked, beaten up)" style="font-size:14px"/>
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q06__c}" layout="lineDirection" required="true">
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>                    
+            
+                <apex:outputLabel value="Assault with a weapon (for example, being shot, stabbed, threatened with a knife, gun, bomb)" style="font-size:14px"/>
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q07__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>
+                
+                <apex:outputLabel value="Sexual assault (rape, attempted rape, made to perform any type of sexual act through force or threat of harm)" style="font-size:14px"/>                                    
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q08__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>
+            
+                <apex:outputLabel value="Other unwanted or uncomfortable sexual experience" style="font-size:14px"/>                                    
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q09__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>
+                
+                <apex:outputLabel value="Combat or exposure to a war-zone (in the military or as a civilian)" style="font-size:14px"/>
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q10__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>                    
+                
+                <apex:outputLabel value="Captivity (for example, being kidnapped, abducted, held hostage, prisoner of war)" style="font-size:14px"/>
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q11__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>
+
+                <apex:outputLabel value="Life-threatening illness or injury" style="font-size:14px"/>                                    
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q12__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>
+        
+                <apex:outputLabel value="Severe human suffering" style="font-size:14px"/>
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q13__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>
+    
+                <apex:outputLabel value="Sudden, violent death (for example, homicide, suicide)" style="font-size:14px"/>                                    
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q14__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>                    
+
+                <apex:outputLabel value="Sudden, unexpected death of someone close to you" style="font-size:14px"/>                                    
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q15__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>
+
+                <apex:outputLabel value="Serious injury, harm, or death you caused to someone else" style="font-size:14px"/>                                    
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q16__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>
+            
+                <apex:outputLabel value="Any other very stressful event or experience" style="font-size:14px"/>                                    
+                <apex:selectRadio value="{!Life_Events_Checklist__c.LEC_Q17__c}" layout="lineDirection" required="true" >
+                    <apex:selectOption itemLabel="" itemValue="Happened to me"/>
+                    <apex:selectOption itemLabel="" itemValue="Witnessed it"/>
+                    <apex:selectOption itemLabel="" itemValue="Learned about it"/>
+                    <apex:selectOption itemLabel="" itemValue="Not sure"/>
+                    <apex:selectOption itemLabel="" itemValue="Doesn’t apply"/>
+                </apex:selectRadio>
+            </apex:panelGrid>
+    <hr style="width: 100%; color: darkslateblue; height: 2px; background-color:darkslateblue;" />               
+        </apex:pageblocksection>
+    </apex:outputpanel>
+        
+        
+               <apex:outputLabel value="Life Events Checklist: Notes" style="font-size:14px; font-weight: bold"/>   <br/> <br/>
+               <apex:inputfield value="{!Life_Events_Checklist__c.Life_Events_Checklist_Notes__c}" style="width: 100%"/> <br/><br/>
+        
+      <hr style="width: 100%; color: darkslateblue; height: 2px; background-color:darkslateblue;" />           
+        
+        
+    </apex:pageblock>
+    <vs:visualstrapblock >
+        <div class="row-fluid">
+        <div class="text-center col-md-4 col-md-offset-4">
+            <apex:commandLink styleClass="btn btn-primary" style="padding: 10px 40px; text-decoration: none; font-size: 1.25em;width: 150px;" 
+                  value="Save" action="{!save}"></apex:commandLink>
+            <apex:commandLink styleClass="btn btn-primary" style="padding: 10px 40px; text-decoration: none; font-size: 1.25em;width: 150px;" 
+                  value="Cancel" action="{!cancel}"></apex:commandLink>
+        </div>
+        </div>
+    </vs:visualstrapblock>  
+    </apex:form>
+
+<style>
+    input[type=radio] {margin-right: 100px;}
+
+    .colstyle1 {width:40%;};
+    .colstyle2 {width:60%;};
+    .colstyle3 {width:1%;};
+    .colstyle4 {width:50%;};
+    .oddrow {background-color: #00FFFF; } 
+    .evenrow {background-color: #7FFFD4;}
+    
+</style>
+
+<style>
+    .checkboxgroup {
+
+    }
+    .checkboxgroup label {
+        display: block;
+        width: auto;
+        margin-top: -3rem;
+        margin-bottom: 3rem;
+        margin-right: 3rem;
+        margin-left: -3rem;
+        font-size: 1.105em;
+        text-align: center;   
+    }
+</style>  
+</apex:page>

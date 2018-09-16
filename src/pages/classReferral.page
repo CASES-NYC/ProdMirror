@@ -1,0 +1,58 @@
+<apex:page standardController="Class__c" extensions="classMethods" title="Career Ex Referral" action="{!verifyCareerExReferral}" >
+
+    <apex:sectionHeader title="Create Career Exploration Referral" />
+        <apex:pageBlock >
+            <apex:pageBlockSection collapsible="true" title="Referral Creation Information">
+                <apex:form id="frmExpired">
+                    
+                    <apex:outputPanel id="opEligibleReferral" rendered="{!if(intReferralOpen == 0,true,false)}">
+                        <div align="left">
+                            Please select the Client that you want to refer:<br />
+                            <br />
+                            <apex:inputField id="ifWhoId" value="{!tskRef.WhoId}" /><br />
+                            <font color="red"><apex:messages ></apex:messages></font>
+                            <apex:commandButton id="cmdCreateReferral" value="Create Referral" action="{!createCareerExReferral}" />
+                        
+                        </div>
+                    </apex:outputPanel> 
+                
+                    <apex:outputPanel id="opIneligibleReferral" rendered="{!if(intReferralOpen == 1,true,false)}">
+                        <div align="left">
+                            You cannot create Referrals for a Class that is not designated as a "Career Exploration Training" 
+                            Category.  Please review the Class and try again or choose another Class.<br />
+                            <br />
+                            Please click on this button to return to the Class screen<br />
+                            <br />
+                            <apex:commandButton action="{!returnToClass}" value="Return to Class" id="btnReturn1" /> 
+                        </div>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel id="opClosedReferral" rendered="{!if(intReferralOpen == 2,true,false)}">
+                        <div align="left">
+                            You can no longer create Career Exploration referrals for this class; the class started on
+                            &nbsp;<apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                <apex:param value="{!clCurrent.First_Session_On__c}" /> 
+                            </apex:outputText> and {!intDaysLapsed} days have passed.<br />
+                            <br />
+                            Please click on this button to return to the Class screen<br />
+                            <br />
+                            <apex:commandButton action="{!returnToClass}" value="Return to Class" id="btnReturn2" /> 
+                        </div>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel id="opClassSchedule" rendered="{!if(intReferralOpen == 3,true,false)}">
+                        <div align="left">
+                            You must create a schedule for this class before creating Referrals. 
+                            <br />
+                            Please click on this button to return to the Class screen<br />
+                            <br />
+                            <apex:commandButton action="{!returnToClass}" value="Return to Class" id="btnReturn3" /> 
+                        </div>
+                    </apex:outputPanel>
+                    
+                </apex:form>
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+
+</apex:page>

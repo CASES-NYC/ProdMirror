@@ -1,0 +1,46 @@
+<apex:page standardcontroller="Contact" extensions="srpSupervisionLevelExt" showHeader="false" sidebar="false">
+<apex:pageMessages />
+    <apex:variable var="srpCon" value="{!Contact}" />
+    <apex:sectionheader title="Set Starting Supervision Level" 
+    subtitle="{!IF(!ISNULL(Contact.Name), srpCon.Name,Contact.Name)}"/>
+    <apex:form id="theForm">
+        <apex:pageblock mode="edit" title="Set Supervision Level" id="thePageBlock">
+        <div id="InternalDiv" style="width:500px;">
+            <apex:pageblockbuttons >
+                <apex:commandbutton value="Save" action="{!Save}"/>
+                <apex:commandbutton value="Cancel" action="{!Cancel}"/>
+            </apex:pageblockbuttons>
+            <apex:outputpanel layout="block" >
+            <apex:pageBlockSection title="Supervision Level - Aggravating Factors" columns="3">
+                <apex:outputLabel >Are there aggravating factors?</apex:outputLabel>
+                <apex:actionRegion id="aggravating">
+                    <apex:inputfield value="{!Contact.Aggravating_Factors__c}" required="true">
+                        <apex:actionSupport event="onchange" reRender="theForm" status="status"/>                
+                    </apex:inputfield>
+                </apex:actionRegion>
+                <apex:inputfield value="{!srpCon.Aggravating_Factors_Description__c}"/>                                 
+            </apex:pageBlockSection>
+
+            <apex:pageblocksection title="Select Intake Supervision Level" showheader="true" columns="2" rendered="{!srpCon.Aggravating_Factors__c != ''}">
+                <apex:pageBlockSectionItem id="suprvsLvlwAF" >
+                    <apex:outputLabel >Supervision Level (Matrix)</apex:outputLabel>
+                    <apex:outputField value="{!srpCon.Supervision_Level_Matrix__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Intake Supervision Level (Program Staff decision)</apex:outputLabel>                    
+                    <apex:inputfield value="{!srpCon.Supervision_Level__c}" required="true"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >If supervision level is HIGHER than matrix, give three word explanation</apex:outputLabel>                    
+                    <apex:inputfield value="{!srpCon.Override_Reason__c}"/>                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >If supervision level is LOWER than matrix, give three word explanation</apex:outputLabel>                    
+                    <apex:inputfield value="{!srpCon.Underride_Reason__c}"/>                    
+                </apex:pageBlockSectionItem>
+            </apex:pageblocksection>
+            </apex:outputpanel>
+        </div>
+        </apex:pageblock>
+    </apex:form>
+</apex:page>

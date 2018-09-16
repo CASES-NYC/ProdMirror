@@ -1,0 +1,210 @@
+<apex:page controller="AssessmentController" >
+<apex:form id="cmpage" >
+ <apex:pageMessages id="mess"/>
+ <apex:outPutPanel id="opaction" styleclass="topContainer">
+  
+  <apex:outPutLabel value="{!assessmentName} Assessment" id="an" 
+   style="font-size:16px;font-weight:bold;color:blue"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <apex:outPutLabel value="Date:" style="font-size:16px;"/>&nbsp; 
+  <apex:outPutLabel value="{!assessmentDate}" id="ad" rendered="{!isEdit==false}"
+   style="font-size:16px;font-weight:bold;color:blue"/>
+    &nbsp;&nbsp;&nbsp;
+  
+         <apex:inputField value="{!proxyobject.Closing_Date__c}" id="ed" rendered="{!isEdit==true}"/>
+  &nbsp;&nbsp;&nbsp;
+  <!-- 
+    <apex:outPutLabel value="Completed:" style="width:5px"/>
+    <apex:inputCheckbox value="{!completed}" id="chkCompl" disabled="{!isedit==false}" style="width:20px"/>
+    -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:commandButton value="Edit" rendered="{!isedit==false&&noEdit==false}" action="{!buttonShow}"
+ id="btnEdit" rerender="opaction,op" status="selectData"/>
+<apex:commandButton value="Cancel" rendered="{!isedit}" action="{!cancelEdit}"
+ id="btnCancel" rerender="opaction,op,mess" status="selectData"/>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <apex:commandButton value="Save" id="btnSave" rendered="{!isedit}" 
+    action="{!saveAssessment}" rerender="opaction,op,mess">
+ </apex:commandButton>
+</apex:outPutPanel>
+<apex:outPutPanel id="op" styleclass="span.resultContainer">
+<apex:pageblock id="pbEdit" rendered="{!isEdit==true}"> 
+	<apex:pageblocksection columns="1">
+	  <apex:facet name="header" >
+        <span style="color:black;font-size:14px;">Health</span> 
+      </apex:facet>
+	  <apex:inputfield value="{!CCM.Drugs_Used__c}"  />
+	  <apex:inputfield value="{!CCM.Drugs_Used_Other__c}"   style="width:600px"/>
+	  <apex:inputfield value="{!CCM.Mental_Health_Issues__c}"  />
+	  <apex:inputfield value="{!CCM.Other_Mental_Health_Issues__c}" style="width:600px"  />
+	  <apex:inputfield value="{!CCM.Neurodevelopmental_Disorders__c}" />
+	  <apex:inputfield value="{!CCM.Other_Neurodevelopmental_Disorders__c}" style="width:600px" />
+	  </apex:pageblocksection>
+	  <apex:pageblocksection columns="2">
+	  <apex:facet name="header" >
+        <span style="color:black;font-size:14px;">Education</span> 
+      </apex:facet>
+	  <apex:inputfield value="{!CCM.Highest_Level_of_Education_Completed__c}"  styleclass="txt300edit"/>
+	  <apex:inputfield value="{!CCM.Suspended_or_expelled_at_least_once__c}" styleclass="txt60edit" />
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="2">
+				<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Leisure</span> 
+            </apex:facet>
+        	<apex:inputfield value="{!CCM.Have_any_of_your_friends_been_arrested__c}"  styleclass="txt60edit" />
+		 		<apex:inputfield value="{!CCM.Absence_of_organized_activities__c}"  styleclass="txt60edit"/>
+						<apex:inputfield value="{!CCM.Have_3_of_your_friends_been_arrested__c}" styleclass="txt60edit" />
+     
+         </apex:pageblocksection>
+		 <apex:pageblocksection columns="1" >
+					<apex:inputfield value="{!CCM.Leisure_Recreation_Notes__c}"  
+					style="width:600px;height:60px;"/>
+				</apex:pageblocksection>
+				<apex:pageblocksection columns="1">
+				<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Family</span> 
+            </apex:facet>
+					<apex:inputfield value="{!CCM.Family_Background__c}"   style="width:600px"/>
+					<apex:inputfield value="{!CCM.Has_your_partner_ever_pushed_hit_you__c}"   style="width:600px"/>
+					<apex:inputfield value="{!CCM.Has_your_intimate_partner_ever_hurt_you__c}"   style="width:600px"/>
+					<apex:inputfield value="{!CCM.Partner_forced_you_to_do_something__c}"   style="width:600px"/>
+					<apex:inputfield value="{!CCM.Feel_afraid_at_home__c}"   style="width:600px"/>
+					<apex:inputfield value="{!CCM.Does_your_partner_endanger_your_health__c}"   style="width:600px"/>
+					<apex:inputfield value="{!CCM.Partner_hurt_pets_destroyed_objects__c}"   style="width:600px"/>
+					<apex:inputfield value="{!CCM.Has_your_partner_taken_hurt_your_kids__c}"   style="width:600px"/>
+				</apex:pageblocksection>
+		
+			</apex:pageblock>
+
+ <apex:pageblock id="pbView" rendered="{!isEdit==false}"> 
+ <apex:pageblocksection columns="1">
+ <apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Health</span> 
+            </apex:facet>
+	<apex:inputtext value="{!CCM.Drugs_Used__c}" styleclass="txt600" disabled="true"/> 
+	<apex:inputtext value="{!CCM.Drugs_Used_Other__c}" styleclass="txt600" disabled="true"/>
+	<apex:inputtext value="{!CCM.Mental_Health_Issues__c}" styleclass="txt600" disabled="true"/>
+	
+	       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Other Mental Health Issues" for="o2"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CCM.Other_Mental_Health_Issues__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="o2"/>
+    </apex:pageblocksectionItem>
+ 	
+	  <apex:inputtext value="{!CCM.Neurodevelopmental_Disorders__c}"  styleclass="txt600" disabled="true"/>
+       <apex:pageblocksectionItem >
+      <apex:outputlabel value="Other Neurodevelopmental Disorders" for="o1"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CCM.Other_Neurodevelopmental_Disorders__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="o1"/>
+    </apex:pageblocksectionItem>
+
+</apex:pageblocksection>
+	<apex:pageblocksection columns="2">
+	<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Education</span> 
+            </apex:facet>
+               
+	<apex:inputtext value="{!CCM.Highest_Level_of_Education_Completed__c}" styleclass="txt300"  disabled="true"/>
+	
+	<apex:inputtext value="{!CCM.Suspended_or_expelled_at_least_once__c}" styleclass="txt60"  disabled="true"/>
+
+</apex:pageblocksection>
+					<apex:pageblocksection columns="2">
+				<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Leisure</span> 
+            </apex:facet>
+			<apex:inputtext value="{!CCM.Have_any_of_your_friends_been_arrested__c}" styleclass="txt60"  disabled="true"/>
+			<apex:inputtext value="{!CCM.Absence_of_organized_activities__c}" styleclass="txt60"  disabled="true"/>
+			<apex:inputtext value="{!CCM.Have_3_of_your_friends_been_arrested__c}" styleclass="txt60" disabled="true"/>
+    </apex:pageblocksection>
+  
+    <apex:pageblocksection columns="1" >
+ 	<apex:inputTextArea value="{!CCM.Leisure_Recreation_Notes__c}" 
+	styleclass="textarea" readonly="true"
+	 title="{!CCM.Leisure_Recreation_Notes__c}" /> 
+	 </apex:pageblocksection> 
+				<apex:pageblocksection columns="1">
+				<apex:facet name="header" >
+               <span style="color:black;font-size:14px;">
+                Family</span> 
+     </apex:facet>
+     
+        <apex:pageblocksectionItem >
+      <apex:outputlabel value="Family Background" for="f1"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CCM.Family_Background__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f1"/>
+    </apex:pageblocksectionItem>
+     
+	      <apex:pageblocksectionItem >
+      <apex:outputlabel value="Has your partner ever pushed/hit you?" for="f2"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CCM.Has_your_partner_ever_pushed_hit_you__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f2"/>
+    </apex:pageblocksectionItem>
+  
+     <apex:pageblocksectionItem >
+      <apex:outputlabel value="Has your intimate partner ever hurt you?" for="f4"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CCM.Has_your_intimate_partner_ever_hurt_you__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f4"/>
+    </apex:pageblocksectionItem>
+
+     <apex:pageblocksectionItem >
+      <apex:outputlabel value="Partner forced you to do something?" for="f5"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CCM.Partner_forced_you_to_do_something__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f5"/>
+    </apex:pageblocksectionItem>
+
+     <apex:pageblocksectionItem >
+      <apex:outputlabel value="Feel afraid at home?" for="f6"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CCM.Feel_afraid_at_home__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f6"/>
+    </apex:pageblocksectionItem>
+
+  <apex:pageblocksectionItem >
+      <apex:outputlabel value="Does your partner endanger your health?" for="f7"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CCM.Does_your_partner_endanger_your_health__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f7"/>
+    </apex:pageblocksectionItem>
+
+  <apex:pageblocksectionItem >
+      <apex:outputlabel value="Feel afraid at home?" for="f8"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CCM.Feel_afraid_at_home__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f8"/>
+    </apex:pageblocksectionItem>
+
+  <apex:pageblocksectionItem >
+      <apex:outputlabel value="Partner hurt pets/destroyed objects?" for="f6"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CCM.Partner_hurt_pets_destroyed_objects__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f6"/>
+    </apex:pageblocksectionItem>
+
+  <apex:pageblocksectionItem >
+      <apex:outputlabel value="Has your partner taken/hurt your kids?" for="f6"/> 
+    <apex:outputtext value="{!substitute(substitute(JSENCODE(CCM.Has_your_partner_taken_hurt_your_kids__c),'\\n','<br/>'),'\\r','')}" 
+      escape="false" style="color:blue;width:700px;background-color:white;" id="f6"/>
+    </apex:pageblocksectionItem>
+				</apex:pageblocksection> 
+ </apex:pageblock>
+</apex:outPutPanel>
+<br/>
+		<apex:outPutPanel id="sysinfo" styleclass="bottomContainer">
+				<table>
+                   <tr>
+                     <td width="400px" align="left">
+					   <apex:outputLabel value="Created by:"/>&nbsp;
+				       <apex:outputLabel value="{!createdInfo}"/>					
+                     </td>
+                     <td width="400px"  align="right">
+					  <apex:outputLabel value="Last modified by:" />&nbsp;
+					  <apex:outputLabel value="{!LastModifiedInfo}"/>
+                     </td>
+                   </tr>
+                 </table> 
+     </apex:outPutPanel>  
+
+	</apex:form>
+
+</apex:page>

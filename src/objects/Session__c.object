@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This custom object is a one to many relationship to the Schedule object. Sessions are operational instances of a Schedule.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Assigned_To__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Instructor 1</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>relSessionsUserAssigned</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Cancelled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates the session was cancelled, most likely by the instructor</inlineHelpText>
+        <label>Cancelled</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ClassId__c</fullName>
+        <externalId>false</externalId>
+        <formula>Schedule__r.Class__r.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ClassId</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Course_Area__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT( Schedule__r.Class__r.Course__r.Area__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Course Area</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Course_Category__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT( Schedule__r.Class__r.Course__r.Category__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Course Category</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Course_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Schedule__r.Class__r.Course__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Course Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Course_RecordType__c</fullName>
+        <externalId>false</externalId>
+        <formula>Schedule__r.Class__r.RecordTypeId</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Course RecordType</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Day_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE( MOD(DATEVALUE( Session_Start__c ) - DATE(1900, 1, 7), 7), 0, &quot;Sunday&quot;, 1, &quot;Monday&quot;, 2, &quot;Tuesday&quot;, 3, &quot;Wednesday&quot;, 4, &quot;Thursday&quot;, 5, &quot;Friday&quot;, 6, &quot;Saturday&quot;,&quot;&quot;)</formula>
+        <label>Day Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EST_ETD__c</fullName>
+        <description>Very simple calculator for EST vs ETD but only for 2015 and 2016 right now</description>
+        <externalId>false</externalId>
+        <formula>case(Year(datevalue(Session_Start__c)),
+2015,if(and(datevalue(Session_Start__c)&gt;=date(2015,03,08),datevalue(Session_Start__c)&lt;=date(2015,11,1)),-4,-5),
+2016,if(and(datevalue(Session_Start__c)&gt;=date(2016,03,13),datevalue(Session_Start__c)&lt;=date(2016,11,6)),-4,-5),
+0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EST/ETD</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Group_Note__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If a value is entered here, a progress note for each contact linked to this session is either created or updated with this value.</inlineHelpText>
+        <label>Group Note</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>OldId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Old ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Schedule__c</fullName>
+        <externalId>false</externalId>
+        <label>Schedule</label>
+        <referenceTo>Schedule__c</referenceTo>
+        <relationshipLabel>Sessions</relationshipLabel>
+        <relationshipName>relScheduleSessions</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Session_Count_RPT__c</fullName>
+        <description>Formula = 1 for counting number of sessions when joining with children in reports</description>
+        <externalId>false</externalId>
+        <formula>1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Session Count RPT</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Session_End__c</fullName>
+        <externalId>false</externalId>
+        <label>Session End</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Session_Start__c</fullName>
+        <externalId>false</externalId>
+        <label>Session Start</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Session_Timeframe__c</fullName>
+        <description>Display session start time</description>
+        <externalId>false</externalId>
+        <formula>Schedule__r.Class__r.Subtitle__c &amp; &apos; (&apos;&amp;
+text(value(mid(TEXT(Session_Start__c),12,2))+(EST_ETD__c ))&amp;mid(TEXT(Session_Start__c),15,2)&amp;&apos; - &apos;&amp;
+text(value(mid(TEXT(Session_End__c),12,2))+(EST_ETD__c ))&amp;mid(TEXT(Session_End__c),15,2)&amp;&apos;)&apos;</formula>
+        <label>Session Timeframe</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>start_time_temp_greenwich__c</fullName>
+        <description>delete me</description>
+        <externalId>false</externalId>
+        <formula>text( Session_Start__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>start time temp greenwich</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ym_session__c</fullName>
+        <description>month buckets for reporting</description>
+        <externalId>false</externalId>
+        <formula>text(year(datevalue(Session_Start__c))) &amp; &apos;-&apos;&amp; lpad(text(month(datevalue(Session_Start__c))),2,&apos;0&apos;)</formula>
+        <label>ym session</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Session</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Course_Name__c</columns>
+        <columns>Course_Area__c</columns>
+        <columns>Course_Category__c</columns>
+        <columns>Schedule__c</columns>
+        <columns>Session_Start__c</columns>
+        <columns>Session_End__c</columns>
+        <columns>Assigned_To__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Course_Name__c</field>
+            <operation>startsWith</operation>
+            <value>js empowerment</value>
+        </filters>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Education_Class_Sessions</fullName>
+        <columns>NAME</columns>
+        <columns>Course_Name__c</columns>
+        <columns>Course_Area__c</columns>
+        <columns>Course_Category__c</columns>
+        <columns>Schedule__c</columns>
+        <columns>Session_Start__c</columns>
+        <columns>Session_End__c</columns>
+        <columns>Assigned_To__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Education Class Sessions</label>
+    </listViews>
+    <listViews>
+        <fullName>JS_Empowermrnt</fullName>
+        <columns>NAME</columns>
+        <columns>Course_Name__c</columns>
+        <columns>Course_Area__c</columns>
+        <columns>Course_Category__c</columns>
+        <columns>Schedule__c</columns>
+        <columns>Session_Start__c</columns>
+        <columns>Session_End__c</columns>
+        <columns>Assigned_To__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Course_Name__c</field>
+            <operation>startsWith</operation>
+            <value>js empowerment</value>
+        </filters>
+        <label>JS Empowerment</label>
+    </listViews>
+    <listViews>
+        <fullName>Pick_a_date</fullName>
+        <columns>NAME</columns>
+        <columns>Course_Name__c</columns>
+        <columns>Course_Area__c</columns>
+        <columns>Course_Category__c</columns>
+        <columns>Schedule__c</columns>
+        <columns>Session_Start__c</columns>
+        <columns>Session_End__c</columns>
+        <columns>Assigned_To__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Session_Start__c</field>
+            <operation>equals</operation>
+            <value>LAST_MONTH</value>
+        </filters>
+        <label>Pick a date</label>
+    </listViews>
+    <nameField>
+        <displayFormat>CSS-{00000000}</displayFormat>
+        <label>Session ID</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Sessions</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

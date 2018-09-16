@@ -1,0 +1,64 @@
+<apex:page controller="uploadAssessmentController" cache="false" sidebar="false">
+   <apex:form > 
+      <apex:pageBlock > 
+         <apex:inputFile value="{!csvFileBody}"  filename="{!csvFile}"/> 
+         <apex:commandButton value="Upload LS/CMI file" action="{!readcsvLSCMI}" id="cmd" />
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <apex:commandButton value="Upload LSI-R:SV file" action="{!readcsvLSIR}" id="cmd1"  />
+       <!-- 
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <apex:commandButton value="Upload TABE Adaptive file" action="{!readcsvTABE}" id="cmd2"  />
+     -->
+     </apex:pageBlock>
+     <apex:pageBlock id="pb1">  
+      <apex:pageblocktable value="{!lstLoads}" var="rec1" columns="6" id="pbt"> 
+         <apex:column headerValue="Contact">
+             <apex:outputLink value="/{!rec1.contactId}" id="a" target="_blank"> 
+               <apex:outPutText value="{!rec1.fullname}" style="font-size:16px;" rendered="true"/>
+              </apex:outputLink> 
+         </apex:column> 
+         <apex:column headerValue="P/C ID">  
+            <apex:outPutText value="{!rec1.pcid}"/> 
+         </apex:column>   
+        <apex:column headerValue="Assessment">  
+            <apex:outPutText value="{!rec1.assName}"/>
+         </apex:column>   
+
+          <apex:column headerValue="Overall Risk Category " rendered="{!lscmi=true}">  
+            <apex:outPutText value="{!rec1.overallRisk}" rendered="{!lscmi=true}"/>
+         </apex:column>   
+         <apex:column headerValue="{!if(ltabe=false,"Assessment Date","Test Date")}">  
+            <apex:outPutText value="{!rec1.dAssess}"/>
+         </apex:column>   
+   
+   <apex:column headerValue="Upload result">  
+            <apex:outPutText value="{!rec1.uploadresult}"/>
+      <apex:commandLink value="View record here" id="ai" 
+          onclick="openAssessment1('{!rec1.contactId}','{!rec1.assId}')" > 
+      </apex:commandLink>   
+ 
+      <script>
+  function openAssessment1(contactPassed,assId){  
+  //  alert('client: ' + contactPassed + ' assId: ' + assId);
+       window.open('/apex/AssessmentPage?contactPassed='+contactPassed+'&assmFromContact='+assId);  }
+</script>    
+<!-- 
+      <apex:commandlink value="{!rec1.uploadresult}" id="ai" 
+         onclick="openAssessment('{!rec1.contactId}','A-021','{!rec1.assid}')" > 
+      </apex:commandlink>
+    -->
+
+      <script>
+  function openAssessment(contactPassed,selectedcode,openid){  
+    alert('client: ' + contactPassed + ' form: ' + selectedcode + ' id: ' + openId);
+//    window.open('/apex/AssessmentPage?contactPassed='+contactPassed+'&selectedCode='+selectedCode+'&openId='+openid, target='_blank');
+  }
+</script>
+      
+      </apex:column>            
+     </apex:pageblocktable>
+     </apex:pageBlock>
+   </apex:form>   
+<apex:pageMessages />
+
+</apex:page>

@@ -1,0 +1,1713 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Activity_Date__c</fullName>
+        <description>Activity date from Event</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Scheduled date of event</inlineHelpText>
+        <label>Activity Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Activity_Id_Admin__c</fullName>
+        <description>Stores the ID of the activity whose note field is used as the progress note (CCM only)</description>
+        <externalId>false</externalId>
+        <label>Appointment</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Area__c</fullName>
+        <externalId>false</externalId>
+        <label>Area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Benefits</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Case Coordination</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Case Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Community Escort</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Community Monitoring</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Crisis Intervention</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Empowerment and Self Help</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Entitlements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Family Life and Social Relationships</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Family Work</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Healthcare Coordination</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Healthcare Linkage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health Homes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health Insurance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Housing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Income Support Facilitation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Interview</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Judicial and Civic Accountability</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Legal/Recidivism Risk</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Legal Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Linkage To Services (Other)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medical</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medical ER Referral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medication Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mental Health Treatment Linkage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Money Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OWDS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Peer Support</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prosocial Activity</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Psychiatric ER Referral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Psychiatric Initiation Of Medication</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rearrest Check</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Referral To Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seeking Safety</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Service Planning and Coordination</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Substance Abuse</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Substance Abuse Treatment Linkage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Supportive Counseling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vocation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Case_Coordinator_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Program_Plan__r.Client_Name__r.Case_Coordinator__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Case Coordinator Id</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Class_Session_Date_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Class Session Date/Time</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Class__c</fullName>
+        <externalId>false</externalId>
+        <label>Class</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Program_Plan__r.Client_Name__r.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Client Id</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Program_Plan__r.Client_Name__r.FirstName &amp; &apos; &apos; &amp; Program_Plan__r.Client_Name__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Client Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Court_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Program_Plan__r.Client_Name__r.Next_Court_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Court Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date__c</fullName>
+        <defaultValue>today()</defaultValue>
+        <description>Date w/ default date created. Read-only except for System Administrators</description>
+        <externalId>false</externalId>
+        <label>Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Goals_del__c</fullName>
+        <description>Goals areas that the progress note pertains to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please select the goals this note pertains to</inlineHelpText>
+        <label>APT Goals</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Hashtags__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>This field is for reporting only, it cannot be edited by users. It lists all of the hashtags which were included at the bottom of the note itself.</inlineHelpText>
+        <label>Hashtags</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Incident_Participant__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Incident Lookup</label>
+        <lookupFilter>
+            <active>true</active>
+            <errorMessage>This client has not been involved in any Incidents.</errorMessage>
+            <filterItems>
+                <field>Incident_Participation__c.Program_Plan__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Program_Plan__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Incident_Participation__c</referenceTo>
+        <relationshipLabel>Progress Notes</relationshipLabel>
+        <relationshipName>Progress_Notes</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Incident_Report__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Incident Report</label>
+        <referenceTo>Incident_Report__c</referenceTo>
+        <relationshipLabel>Progress Notes</relationshipLabel>
+        <relationshipName>Progress_Notes</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>OldId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Old ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Program_Plan__c</fullName>
+        <externalId>false</externalId>
+        <label>Program Plan</label>
+        <referenceTo>Program_Plan__c</referenceTo>
+        <relationshipLabel>Progress Notes</relationshipLabel>
+        <relationshipName>Progress_Notes</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Progress_Note__c</fullName>
+        <externalId>false</externalId>
+        <label>Progress Note</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>SRP_Import_ID__c</fullName>
+        <description>Temp field for srp id for migration 9-12-16. Delete when not needed.</description>
+        <externalId>false</externalId>
+        <label>SRP Import ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Session__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Session</label>
+        <referenceTo>Session__c</referenceTo>
+        <relationshipLabel>Progress Notes</relationshipLabel>
+        <relationshipName>Progress_Notes</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>System_Generated__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>System Generated</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Written_by__c</fullName>
+        <description>Person who wrote progress note. Added because of migration</description>
+        <externalId>false</externalId>
+        <label>Written by</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Progress Note</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Program_Plan__c</columns>
+        <columns>RECORDTYPE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>P_Note-{0000}</displayFormat>
+        <label>Progress Note Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Progress Notes</pluralLabel>
+    <recordTypes>
+        <fullName>CC_CRS_Note</fullName>
+        <active>true</active>
+        <label>CC CRS Note</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Case Coordination</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judicial and Civic Accountability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Abuse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>CC_Progress_Note</fullName>
+        <active>true</active>
+        <label>CC Progress Note</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Case Coordination</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judicial and Civic Accountability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Abuse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Case_Note</fullName>
+        <active>true</active>
+        <description>CJC/JS</description>
+        <label>Case Note</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Case Coordination</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judicial and Civic Accountability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Abuse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Court_Rep_Note</fullName>
+        <active>true</active>
+        <label>Court Rep Note</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Case Coordination</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judicial and Civic Accountability</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Abuse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Group_Note</fullName>
+        <active>true</active>
+        <label>Group Note</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Case Coordination</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judicial and Civic Accountability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Abuse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Incident_Report</fullName>
+        <active>false</active>
+        <description>CJC/JS</description>
+        <label>Incident Report</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Case Coordination</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judicial and Civic Accountability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Abuse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Incident_Report_Note</fullName>
+        <active>true</active>
+        <description>Follow-up for all clients involved in an incident.</description>
+        <label>Incident Report Note</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Case Coordination</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judicial and Civic Accountability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Abuse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Internal_Communication</fullName>
+        <active>true</active>
+        <description>CJC/JS - written communications tied to participant</description>
+        <label>Internal Communication</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Case Coordination</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judicial and Civic Accountability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Abuse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Monthly_Particpant_Report</fullName>
+        <active>true</active>
+        <description>CJC for montly updates to probation</description>
+        <label>Monthly Particpant Report</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Case Coordination</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Old_Incident_Report</fullName>
+        <active>false</active>
+        <description>CJC/JS. Replaced by incident report record type, 5/20/13.</description>
+        <label>Old Incident Report</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Case Coordination</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judicial and Civic Accountability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Abuse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>PS_CRS_Note</fullName>
+        <active>true</active>
+        <label>PS CRS Note</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Benefits</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Case Coordination</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judicial and Civic Accountability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Abuse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>PS_Progress_Note</fullName>
+        <active>true</active>
+        <label>PS Progress Note</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Benefits</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Case Coordination</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judicial and Civic Accountability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Abuse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Progress_Note_APT</fullName>
+        <active>true</active>
+        <description>Progress Note for APT Event Records</description>
+        <label>Progress Note (APT)</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Benefits</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Case Coordination</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Case Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Community Escort</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Community Monitoring</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Crisis Intervention</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Empowerment and Self Help</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Entitlements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Life and Social Relationships</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Homes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Insurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Healthcare Coordination</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Healthcare Linkage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Income Support Facilitation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Interview</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judicial and Civic Accountability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal%2FRecidivism Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Linkage To Services %28Other%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medical</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medical ER Referral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medication Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health Treatment Linkage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Money Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>OWDS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Peer Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Prosocial Activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Psychiatric ER Referral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Psychiatric Initiation Of Medication</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Referral To Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seeking Safety</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Planning and Coordination</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Abuse</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Abuse Treatment Linkage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Supportive Counseling</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vocation</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Progress_Note_CCM</fullName>
+        <active>true</active>
+        <label>Progress Note (CCM)</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Empowerment and Self Help</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Entitlements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Life and Social Relationships</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Homes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Insurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Housing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal%2FRecidivism Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medical</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Money Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>OWDS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Prosocial Activity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seeking Safety</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Planning and Coordination</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Progress_Note_CIRT</fullName>
+        <active>true</active>
+        <label>Progress Note (CIRT)</label>
+        <picklistValues>
+            <picklist>Area__c</picklist>
+            <values>
+                <fullName>Case Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Community Escort</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Community Monitoring</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Crisis Intervention</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Empowerment and Self Help</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Life and Social Relationships</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Healthcare Coordination</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Healthcare Linkage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Income Support Facilitation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Interview</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Linkage To Services %28Other%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medical ER Referral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medication Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health Treatment Linkage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Peer Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Psychiatric ER Referral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Psychiatric Initiation Of Medication</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rearrest Check</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Referral To Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Screening</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Planning and Coordination</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Abuse Treatment Linkage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Supportive Counseling</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vocation</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Goals_del__c</picklist>
+            <values>
+                <fullName>Avoid Placement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Functioning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Substance Use</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <lookupDialogsAdditionalFields>RECORDTYPE</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Client_Name__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Area__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Progress_Note__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Program_Plan__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>RECORDTYPE</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Client_Name__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Area__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Date__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Progress_Note__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Program_Plan__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Client_Name__c</searchFilterFields>
+        <searchFilterFields>Area__c</searchFilterFields>
+        <searchFilterFields>Date__c</searchFilterFields>
+        <searchFilterFields>RECORDTYPE</searchFilterFields>
+        <searchResultsAdditionalFields>Activity_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Area__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Written_by__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATEDBY_USER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Attach_note_to_most_recent_program_plan</fullName>
+        <active>true</active>
+        <description>Must use the program plan with the Most Recent Program Plan flag at the time of note creation.</description>
+        <errorConditionFormula>and(Program_Plan__r.Most_Recent_Program_Plan_Old__c = false, ISNEW())</errorConditionFormula>
+        <errorMessage>You must attach this note to the most recent program plan.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Cannott_edit_incident_once_created</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(ischanged( Incident_Participant__c ), not(isnew()))</errorConditionFormula>
+        <errorDisplayField>Incident_Participant__c</errorDisplayField>
+        <errorMessage>You cannot change the Incident Report that this note is related to. Contact IS for assistance.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Date_can_not_be_in_the_future</fullName>
+        <active>true</active>
+        <description>Progress Note date can not be in the future</description>
+        <errorConditionFormula>and(Date__c &gt; today(), DateValue(CreatedDate) &gt; Date(2014,3,25))</errorConditionFormula>
+        <errorDisplayField>Activity_Id_Admin__c</errorDisplayField>
+        <errorMessage>Date can not be in the future.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Open_Source_Appointment</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Open Source Appointment</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/{!Progress_Note__c.Activity_Id_Admin__c}</url>
+    </webLinks>
+</CustomObject>

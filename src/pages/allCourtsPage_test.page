@@ -1,0 +1,642 @@
+<apex:page controller="allCourtsController" sidebar="false"  cache="false"  id="pgMain" action="{!saveLogin}">
+ 
+ <!--    applyBodyTag="false" >-->
+
+<!-- End of Javascript files -->
+<script> 
+  function setFocusOnLoad() 
+   {
+   }
+</script> 
+ <script>
+  $(document).ready(function(){
+    $("#tree").treeview();
+  });
+  </script>
+  <style>
+    .resultCell {
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+  </style>
+<style>
+    span.topContainer {
+        margin: 2px; 
+        margin-bottom: 10px;
+        background: #BBFFFF; 
+        padding: 5px;
+        border:0; 
+        float: left;
+        width: auto;
+        clear: both;
+        white-space: nowrap;
+    }
+ </style>   
+
+<style type="text/css"> 
+       .customPopup{
+            background-color:   white;
+            border-style: solid;
+            border-width: 3px;
+            border-color:blue;
+            left: 10%;
+            padding:10px;
+            position:absolute;
+            height: 250px;
+            z-index:9999;
+            width:300px;
+            margin-left:100px;
+            top:120px;
+            modal:true;
+         }
+</style>  
+<script>  
+        function showProcessing(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('loadingGifData').style.display = '';
+            } else {
+                document.getElementById('loadingGifData').style.display = 'none';
+            }
+        } 
+</script> 
+<style>
+        .fsBorders {
+        border-color:black;
+        border-style: solid;
+        border-width: 1px;
+    }
+  </style>
+    <script>
+               function openContact(url){
+                window.open(url, target='_blank');
+               }
+             </script> 
+<script>
+   function inputLimiter(e,allow) {
+   var AllowableCharacters = '';
+   if (allow == 'Numbers'){AllowableCharacters='1234567890';}
+   var k = document.all?parseInt(e.keyCode): parseInt(e.which);
+            if (k!=13 && k!=8 && k!=0){
+                if ((e.ctrlKey==false) && (e.altKey==false)) {
+                return (AllowableCharacters.indexOf(String.fromCharCode(k))!=-1);
+                } else {
+                return true;
+                }
+            } else {
+                return true;
+            }
+}
+</script>
+
+ <script>
+        function openAssessm(url){
+       //      alert('assessm');
+       //     alert('url: ' + url);              
+            window.open(url, target='_blank');
+           }
+         
+                  </script> 
+
+  <!-- Tree --> 
+   <apex:outputPanel id="opScripts">
+<script>
+    function bindCriteriaValidations() { 
+    
+        var elDocket = document.getElementById('{!$Component.pgMain:frmMain:txtDocket}');
+        var elNYSID = document.getElementById('{!$Component.pgMain:frmMain:txtNYSID}');
+        var elFirstName = document.getElementById('{!$Component.pgMain:frmMain:txtFirstName}');
+        var elLastName = document.getElementById('{!$Component.pgMain:frmMain:txtLastName}');
+        var elDOB = document.getElementById('{!$Component.pgMain:frmMain:txtPCID}');
+   }
+    function noenter(ev)  {
+        if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+            afSubmitSearch();
+                return false;
+            } 
+        }
+     }
+     
+     function bindSelectOption(){
+            var elBoro = document.getElementById('{!$Component.pgMain:frmMain:plboro}');
+            var elTeam = document.getElementById('{!$Component.pgMain:frmMain:plt}');
+     }  
+     
+</script>
+
+</apex:outputPanel>
+ 
+
+ 
+<apex:form id="frmMain">
+ 
+
+<apex:pageMessages id="mess"/>
+    <apex:actionFunction name="afSubmitSearch" action="{!selectClient}"  
+        oncomplete="bindCriteriaValidations();"  /> 
+      <apex:actionStatus startText=""  stopText="" id="selectData" onstart="showProcessing('1');" onstop="showProcessing('0');"/>
+
+ <apex:outputPanel styleClass="topContainer" id="opSearch">
+     <table>
+
+     <tr>
+       <td>
+        <span id="s1">
+       <td>
+         <fieldset class="fsBorders">
+           <legend style="color:blue" >
+                 <apex:commandLink value="Print" style="color:black" 
+           action="{!deliverAsPDF}" target="_blank" id="prn" rendered="{!searchValue==null}"/>    
+           Filter   
+        <table >
+         <tr>
+         <td>
+            Boro:
+         <apex:selectList size="1" required="false" value="{!BoroValue}" style="width:90px" id="plboro" >
+         <!-- onChange="boro()" -->
+             <apex:selectOptions value="{!BoroItems}" />   
+         </apex:selectList>
+       <script>  
+        function donothing(){ 
+             afdonothing();
+        } 
+     </script>
+    CR: 
+                 <apex:selectList size="1" required="false" value="{!CRvalue}" id="CR" 
+                 disabled="{!CCvalue!='All'}" style="width:130px" onchange="donothing()">
+                      <apex:selectOptions value="{!CRitems}" id="plcr" rendered="true" />  
+  <!--                        <apex:actionSupport event="onchange" reRender="CC" />-->
+ <apex:actionFunction name="afdonothing"  action="{!doNothing}" reRender="CC,CR"/>
+                    </apex:selectList>                      
+CC: 
+        <apex:selectList size="1" required="false" value="{!CCvalue}" id="CC" 
+          disabled="{!CRvalue!='All'}" style="width:130px" onchange="donothing()">
+                      <apex:selectOptions value="{!ccItems}" id="plcc" rendered="true" />  
+          </apex:selectList>
+
+</td>
+<td>
+
+   Status:
+                 <apex:selectList size="1" required="false" value="{!stageValue}"
+                 style="width:140px"  id="plStatus">
+                      <apex:selectOptions value="{!StageItems}"  rendered="true" />  
+                    </apex:selectList>    
+ 
+        </td>
+        </tr>   
+        <tr>
+         <td>
+            Dates from:   
+            <apex:inputField value="{!proxyobject.Closing_Date__c}" />  
+               to:
+               <apex:inputField value="{!proxyObject.Catalog_End_Date__c}" />
+        </td>
+         <td> 
+   
+               <apex:selectCheckboxes id="selprg1" border="1" style="font-size:10px" 
+                  layout="lineDirection"  value="{!Programs}" rendered="true">
+                     <apex:selectOptions value="{!programitems}" id="item1"  /> 
+                  </apex:selectCheckboxes>
+         </td>
+         <td>
+          <apex:commandButton value="Go"  onclick="filter()" 
+           oncomplete="bindSelectOption()"> 
+        </apex:commandButton>
+    <script>
+     function filter(){
+     showProcessing(1);
+      afselectData();
+  //     window.setTimeout(afselectData(),500000);
+     }
+ </script>
+ <apex:actionFunction name="afselectData" action="{!RequeryInfo}" />
+        </td>
+       
+        </tr>
+       </table> 
+       </legend>
+       </fieldset>
+       </td>
+        </span>
+      </td>
+       <td>
+       <span id="s1">
+         <fieldset class="fsBorders">
+           <legend>
+             <apex:outputText value="Search" style="color:blue;font-size:12px;text-decoration:underline"/> 
+           <table>
+             <tr>
+                <td>
+                 <apex:selectRadio value="{!searchValue}"  id="selectObj">
+                 <apex:selectOptions value="{!SearchItems}" />
+                    <apex:actionSupport event="onchange" reRender="opSearch" />
+                 </apex:selectRadio>
+              </td>
+              <td>
+               <apex:commandButton value="Go"  onclick="selClient()" accesskey="" status="selectData"
+           oncomplete="bindCriteriaValidations()"> 
+        </apex:commandButton>
+      
+ <script>
+     function selClient(){
+  //   alert('in search');
+  //   showProcessing(1);
+     afsearchData();
+  //   window.setTimeout(afsearchData(),500000);
+  //   alert('in search');
+
+  //  showProcessing(1);
+
+     }
+ 
+ </script>
+ <apex:actionFunction name="afsearchData" action="{!selectClient}" status="selectData" />
+         
+         
+              </td>
+             </tr>
+             <tr>
+   <td>
+   
+    <apex:outPutLabel value="Docket:" rendered="{!searchValue=='Docket'}" id="lblDocket"/>
+    <apex:inputText id="txtdocket" value="{!docketValue}" 
+    style="width:100px" rendered="{!searchValue=='Docket'}" onkeypress="return noenter(event);" />  
+     <apex:outPutLabel value="Docket format: 1234"  rendered="{!searchValue=='Docket'}" />
+    
+   <apex:outPutLabel value="NY" style="color:red"   rendered="{!searchValue=='Docket'}" />
+   <apex:outPutLabel value="123456 (4 digits, 2 letters, 6 digits)" rendered="{!searchValue=='Docket'}" />
+
+    <apex:outPutLabel value="PCID:" rendered="{!searchValue=='PCID'}" id="lblPCID"/>
+    <apex:inputText id="txtpcid" value="{!pcidValue}" 
+    style="width:100px" rendered="{!searchValue=='PCID'}" onkeypress="return inputLimiter(event,'Numbers')"  />   
+    <apex:outPutLabel value="123456 (6 digits)" rendered="{!searchValue=='PCID'}" />
+  
+  <apex:outPutLabel value="NYSID:" rendered="{!searchValue=='NYSID'}" id="lblNYSID"/>
+   <apex:inputText id="txtnysid" value="{!nysidValue}" 
+   style="width:100px" rendered="{!searchValue=='NYSID'}" onkeypress="return noenter(event);" />  
+  <apex:outPutLabel value="12345678" 
+     rendered="{!searchValue=='NYSID'}" />
+    <apex:outPutLabel value="A" style="color:red" rendered="{!searchValue=='NYSID'}" />
+    <apex:outPutLabel value="(8 digits, 1 letter)" rendered="{!searchValue=='NYSID'}" />
+    
+   <apex:outPutLabel value="First Name:" rendered="{!searchValue=='Name'}" id="lblfname"/>
+   <apex:inputText id="txtFirstName" value="{!fnameValue}" 
+   style="width:100px" rendered="{!searchValue=='Name'}" onkeypress="return noenter(event);" />    
+     
+    <apex:outPutLabel value="Last Name:" rendered="{!searchValue=='Name'}" id="lbllname"/>
+    <apex:inputText id="txtLastName" value="{!lnameValue}"
+    style="width:100px" rendered="{!searchValue=='Name'}"  onkeypress="return noenter(event);" />     
+   </td>
+  
+ 
+   </tr>
+   </table>
+
+   </legend>
+   </fieldset>
+   </span>
+ </td>
+ </tr>
+ </table>
+  </apex:outPutPanel>        
+  
+        <span id="loadingGifData" style="display:none;" >
+           Processing.Please wait...
+                            <apex:image value="/img/loading32.gif" />
+   </span> 
+      
+ <link rel="stylesheet" href="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.treeview.css')}"/>
+   <script src="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.js')}" type="text/javascript"></script>
+     <script src="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.cookie.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.treeview.js')}" type="text/javascript"></script>
+<apex:pageBlock >
+<!-- <apex:outPutPanel >-->
+   <apex:panelGrid columns="2" id="pg1" >
+ <apex:pageblock id="content" >
+
+<html>
+<head> 
+ <style type='text/css'>
+   html, body {height: 800px; margin: 0}
+   #content {width: 100%; height: 100%; background-color:#BBFFFF;}
+   #content1 {width: 100%; height: 100%}
+   #left {width: 700px; height: 1000px; float: left; background-color:#BBFFFF;}
+   #left1 {width: 700px; height: 100%; float: left; background-color:#B4EEB4;}
+</style>  
+
+
+<script type="text/javascript">
+        $(function() {
+            $("#tree").treeview({ 
+                collapsed: false,
+     animated: "medium",
+                control:"#sidetreecontrol",  
+                persist: "location"
+            });
+        })
+</script>
+          <script>
+              function openFlows(url){
+         //     alert('in click');
+         //    alert('url: ' + url);              
+            window.open(url, target='_parent');
+           }
+         
+                  </script> 
+</head>
+   <body id="info">
+     <apex:outputPanel layout="block" style="width:700px;height:1000px;overflow-y: scroll; background-color:#BBFFFF;" id="left" > 
+                 <ul id="tree" class="treeview" > 
+                      <div id="sidetreecontrol" ><a href="?#"><font style="color:blue;font-size:10px">Collapse All</font></a> | <a href="?#"><font style="color:black;">Expand All</font></a></div> 
+                       <apex:repeat value="{!mainnodes}" var="parent1" id="nodes" >
+                           <li > 
+                              <strong>
+                                <apex:outputtext style="font-size:12px" escape="false" 
+                                    value="{!parent1.d.courtdate}-{!parent1.d.DayofWeek}" rendered="{!parent1.d.dateadded}"/>
+                              </strong>
+                              <ul >
+                              <apex:repeat value="{!parent1.e}" var="child" id="clients" 
+                              rendered="{!parent1.d.dateadded}">
+                              <apex:outPutPanel rendered="{!child.courtDate==parent1.d.CourtDate}"
+                                 style="width=:650pxheight:1000px;"> 
+                                       <span class="formattextcon" >    
+                                          <table cellspacing="0" cellpadding="0">
+                                             <tr height="10px">
+                                       
+                                             <td width="36x" align="left" height="10px"  >
+                                                 <apex:outputLabel value="{!child.courtcode}" 
+                                 style="font-size:12px" 
+                                 title="Boro - Court name - Court part"/> 
+                                             </td>
+ <td width="50px" align="left"  >
+                 <apex:outputLabel value="{!child.courtpart}" title="{!child.toolpart}"
+                                    style="color:{!child.partcolor};font-size:12px"/>
+                                  </td>
+                                  <td width="130x" align="left" id="tdid">
+             <apex:commandLink value="{!child.clientname}" style="font-weight:bold;font-size:13px" 
+                 id="pid" onclick="openContact('/{!child.clientId}')" />
+                  
+
+                 </td>
+           <td width="55px" align="right"  >
+                                <apex:outputtext style="font-size:11px;color:blue" escape="false" value="{!child.cr}" 
+                                  title="{!child.crtext}" />
+          &nbsp;
+                              <apex:outputtext style="font-size:11px;color:blue" escape="false" value="{!child.cc}" 
+                                  title="{!child.cctext}" />
+                                </td>                               
+
+                                  <td width="25px" align="right"  >
+                                  <apex:outputtext style="font-size:11px;width:22px"
+                                   value="{!child.pcid}" />  
+                                </td>
+                                <td width="60px" align="right"  >
+&nbsp;                          <apex:outputtext style="font-size:12px;width:60px"
+                                            value="{!child.cnysid}" 
+                                            title="NYSID #"/>
+                             </td>
+                             <td width="95px" align="right"  >
+          <apex:commandLink value="{!child.documentname}" style="font-size:12px;" title="{!child.tooldocket}" 
+                 id="doc" onclick="openContact('/{!child.caseId}')" />
+                             </td>
+                      <td width="55px" align="right"  >
+              
+               <apex:commandButton value="Court" onclick="openCourtUpdate('{!child.courtUrl}')"
+                  style="font-size:9px;width:40px;" title="Open/Update Court Info Page"/>
+           <script>
+              function openCourtUpdate(url){
+           //     alert('client: ' + client);
+  //         alert('eventid ' + url);
+  //           if (client != '')
+//            window.open('/apex/updateCourtDate?courtdate='+eid, target='_blank');
+          window.open(url, target='_blank');
+           }
+         
+                  </script> 
+                    </td>                   
+                              
+                      <td width="45px" align="right"  >
+               <apex:commandButton value="Note" onclick="openNote('{!child.NoteURL}')"
+                  style="font-size:9px;width:40px;" title="Open Progress Note Edit Page"/>
+           <script>
+              function openNote(noteUrl){
+       //       alert('noteUrl ' + noteUrl);
+            window.open(noteUrl, target='_blank');
+           }  
+         
+                  </script> 
+          </td>
+          <td width="65px" align="right">
+      <!--     <apex:outPutPanel >-->
+          <apex:commandButton value="{!child.btnProblemCaption}" 
+          rendered="{!child.btnProblemCaption!=''&& child.lintakeCase==true}"
+            style="background-color:{!child.btnProblemBackColor};background-image:none;width:65px;color:{!child.btnProblemColor}"
+            onclick="openFlows('{!child.btnUrl}')" />
+ 
+          <apex:outPutText value="{!child.casetype}" rendered="{!child.lintakeCase==false}" style="font-size:11px"/>          
+          <apex:outPutText value="Active" rendered="{!child.isActive&&child.lintakeCase==true}" style="font-size:11px"/>
+         <!--     </apex:outPutPanel>-->
+           </td>
+           <td width="35px" align="right"  >
+             <apex:commandLink value="Other" action="{!showPopup}" status="selectData" 
+             rendered="{!child.lintakeCase==true}" rerender="popup,op" style="width:35px" >
+               <apex:param name="selectedClient" value="{!child.clientId}" assignTo="{!selectedClient}"/>
+               <apex:param name="courtId" value="{!child.eventId}" assignTo="{!courtId}"/>
+             </apex:commandLink>
+           </td>
+       
+             </tr>
+          </table>
+           </span>
+           </apex:outPutPanel>
+          </apex:repeat>
+           </ul> 
+         </li> 
+             </apex:repeat>
+                   </ul>
+              <br/><br/> 
+ </apex:outputPanel>
+ </body>
+  
+ 
+ </html>
+ </apex:pageblock> 
+  
+   <apex:pageblock id="block2" >
+           <script>
+              function openActivity(url){
+       //       alert('url: ' + url);
+                if (url == '')
+                   return;
+                window.open(url, target='_blank');
+             }
+             </script>
+
+    <apex:outputPanel layout="block" style="overflow:scroll;width:500px;height:1000px;background-color:#BBFFFF"  >
+           <apex:pageBlockSection collapsible="true" columns="1" > 
+           <apex:facet name="header" >
+        <span style="color:black;font-size:14px;background-color:#BBFFFF">
+                      No Court Date    
+                           CEP: {!CEPnotSched} </span> 
+            </apex:facet> 
+           <apex:pageBlockTable id="ptt" value="{!lstSchedShowCEP}" var="s" style="background-color:white"
+            columnsWidth="40%,10%,10&,40%" cellspacing="0"  columns="4">
+           <apex:column > 
+                <apex:commandLink value="{!s.clientname}" style="font-size:13px" 
+                 id="cep" onclick="openContact('/{!s.clientId}')" />
+              </apex:column>
+              
+         <apex:column >
+                           <apex:commandButton value="Court" onClick="openActivity('{!s.newCourtDateURL}')"  
+                  style="font-size:9px;width:40px;" title="Create Court Date"/>
+            </apex:column>          
+              
+              <apex:column > 
+                  <apex:outputText value="{!s.pcid}" /> 
+               </apex:column>
+               <apex:column >
+           <apex:commandButton value="{!s.btnProblemCaption}" rendered="{!s.btnProblemCaption!=''}"
+            style="background-color:{!s.btnProblemBackColor};background-image:none;width:65px;color:{!s.btnProblemColor}"
+            onclick="openFlows('{!s.btnUrl}')"/>
+            <apex:outPutText value="{!s.statusCaption}" rendered="{!s.statusCaption!=''}" style="font-size:11px" />
+            
+               </apex:column>
+            </apex:pageBlockTable>
+     </apex:pageBlockSection>
+           <apex:pageBlockSection collapsible="true" columns="1" > 
+           <apex:facet name="header" >
+               <span style="color:black;font-size:14px;background-color:#BBFFFF">
+                      No Court Date    
+                           CIRT: {!CRTnotSched} </span> 
+            </apex:facet> 
+            <apex:pageBlockTable id="ptt" value="{!lstSchedShowCRT}" var="s" style="background-color:white"
+            columnsWidth="40%,10%,10&,40%" cellspacing="0"  columns="4">
+              <apex:column > 
+              
+               <apex:commandLink value="{!s.clientname}" style="font-size:13px" 
+                 id="doc" onclick="openContact('/{!s.clientId}')" />
+              </apex:column>
+              
+            <apex:column >
+               <apex:commandButton value="Court" onClick="openActivity('{!s.newCourtDateURL}')" 
+                  style="font-size:9px;width:40px;" title="Create Court Date"/>
+       
+            </apex:column>   
+              <apex:column > 
+                  <apex:outputText value="{!s.pcid}" /> 
+               </apex:column>
+               <apex:column >
+           <apex:commandButton value="{!s.btnProblemCaption}" rendered="{!s.btnProblemCaption!=''}"
+            style="background-color:{!s.btnProblemBackColor};background-image:none;width:65px;color:{!s.btnProblemColor}"
+            onclick="openFlows('{!s.btnUrl}')"/>
+            <apex:outPutText value="{!s.statusCaption}" rendered="{!s.statusCaption!=''}" style="font-size:11px"/>
+               </apex:column>
+            </apex:pageBlockTable>
+     </apex:pageBlockSection>
+ 
+           <apex:pageBlockSection collapsible="true" columns="1" > 
+           <apex:facet name="header" >
+               <span style="color:black;font-size:14px;background-color:#BBFFFF">
+                      No Court Date    
+                           SRP: {!SRPnotSched} </span> 
+            </apex:facet> 
+            <apex:pageBlockTable id="ptt" value="{!lstSchedShowSRP}" var="s" style="background-color:white"
+            columnsWidth="40%,10%,10&,40%" cellspacing="0"  columns="4">
+                <apex:column > 
+                  <apex:commandLink value="{!s.clientname}" style="font-size:13px" 
+                 id="doc" onclick="openContact('/{!s.clientId}')" />
+              </apex:column>
+            <apex:column >
+               <apex:commandButton value="Court" onClick="openActivity('{!s.newCourtDateURL}')" 
+                  style="font-size:9px;width:40px;" title="Create Court Date"/>
+      <!-- 
+               <script>
+      
+              function openActivity(url){
+                if (url == '')
+                   return;
+                window.open(url, target='_blank');
+             }
+             </script>
+           -->
+            </apex:column>   
+              <apex:column > 
+                  <apex:outputText value="{!s.pcid}" /> 
+               </apex:column>
+               <apex:column >
+           <apex:commandButton value="{!s.btnProblemCaption}" rendered="{!s.btnProblemCaption!=''}"
+            style="background-color:{!s.btnProblemBackColor};background-image:none;width:65px;color:{!s.btnProblemColor}"
+            onclick="openFlows('{!s.btnUrl}')"/>
+            <apex:outPutText value="{!s.statusCaption}" rendered="{!s.statusCaption!=''}" style="font-size:11px"/>
+               </apex:column>
+            </apex:pageBlockTable>
+     </apex:pageBlockSection>
+ 
+ </apex:outputPanel>
+     </apex:pageblock> 
+  </apex:panelGrid>
+ 
+ <!-- </apex:outPutPanel>--> 
+ </apex:pageBlock>
+<!-- </apex:form>
+<apex:form id="frmPopUp">
+ -->
+ <!--    POPUP OTHER -->   
+<apex:actionRegion id="region2">
+        <apex:outputPanel id="popup"  >
+         <apex:outputPanel styleClass="customPopup" layout="block" id="op" rendered="{!displayPopup}">
+         <table>
+         <tr>
+           <td width="10%"> 
+              <apex:outPutText value="{!progOther}" />
+         </Td>
+           <td width="80%" align="middle">
+           <apex:outPutText value="{!clientOther}" style="font-weight:bold;font-size:14px" escape="false"/>
+         </td>
+           <td width="10%">
+         <apex:commandLink value="Close" style="color:blue" status="selectData" 
+                              rerender="popup,op" action="{!closePopUp}"/>   
+         </td>
+         </tr>
+         </table> 
+         <br/>  
+           <br/>                   
+           <apex:commandbutton value="{!if(ass2complete==false,"Assessment","Complete Assessment")}" 
+           onclick="openPage('{!assURL}')" disabled="{!progOther=='CRT'}" action="{!closePopUp}"
+            style="width:200px;" rendered="{!assCompleted==false}"/>
+           <apex:commandbutton value="Assessment Completed" 
+            style="width:200px;background-color:green;color:white;background-image:none"
+            rendered="{!assCompleted==true&&progOther=='CEP'}" disabled="{!progOther!='CEP'}"/>
+         <br/>
+           <br/>                   
+           <apex:commandbutton value="Immediate Notification" disabled="true" style="width:200px"/>
+         <br/>
+           <br/>                   
+           <apex:commandbutton value="Legal Info" disabled="{!progOther<>'CRT'}" style="width:200px"
+           onclick="openPage('{!legalURL}')" action="{!closePopUp}" /> 
+         <br/>
+           <br/>                   
+           <apex:commandbutton value="Stop Tracking" style="width:200px" disabled="{!anableStopTracking==false&&progOther<>'CEP'}"
+             onclick="openPage('{!stopURL}')" action="{!closePopUp}"/>
+     <br/>
+           <br/> 
+           <apex:commandbutton value="SRP Report" style="width:200px" 
+           disabled="{!progOther<>'SRP'||anableSRPreport==false}"
+             onclick="openPage('{!srpRepURL}')" action="{!closePopUp}"/>
+       <script>
+        function openPage(url){
+       //     alert('url: ' + url);              
+            window.open(url, target='_blank');
+           }
+       </script>     
+         </apex:outputPanel>
+</apex:outputPanel>
+</apex:actionRegion>> 
+  </apex:form>
+<!--    END POPUP -->
+ <apex:outPutText value="time : {!timeAll}"/> 
+
+ 
+ 
+ </apex:page>

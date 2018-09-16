@@ -1,0 +1,246 @@
+<apex:page controller="STRT_ProgramRepController" cache="false" >
+ 
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery-1.9.1.min.js')}" type="text/javascript" />
+    <script src="{!URLFOR($Resource.jQuery_191,'/jQuery-191/jquery.tablesorter.min.js')}" type="text/javascript" />
+    <link href="{!URLFOR($Resource.jQuery_191,'jQuery-191/css/theme.default.css')}" rel="stylesheet"/>    
+       
+<script>
+ function setFocusOnLoad() 
+{
+}
+</script>
+<style>
+        .fsBorders { 
+        border-color:black;
+        border-style: solid;
+        border-width: 1px;
+    }
+    .selectPanel {
+        margin: 1px; 
+        margin-bottom: 10px;
+        padding: 5px;
+        border:1; 
+        border-top-color: black;
+        border-right-color: black;
+        border-bottom-color: black;
+        border-left-color: black;
+        float: left;
+        width: auto;
+        white-space: nowrap;
+    }
+    </style>
+<script>
+   function selectGroup(gr)
+   {
+   var grObj = document.getElementById(gr);
+      var programs = grObj.options[grObj.selectedIndex].text;
+ //     alert('programs: ' + programs); 
+      if (programs == '')
+         programs = 'a';
+      afShowGroup(programs);
+   }
+
+    function createapp(m, contid)
+   {
+      savingChanges(1);
+      var appObj = document.getElementById(m);
+      var appstatus = appObj.options[appObj.selectedIndex].text; 
+      afCreateApp(appstatus,contid);
+      
+ //     alert('appstatus: '+ appstatus + ' contid: ' + contid);
+      savingChanges(0);
+   }
+   
+   function saveGroupAtt(grpStatus, contid, grpid,gr)
+    {var grObj = document.getElementById(gr);
+       var grp2save = grObj.options[grObj.selectedIndex].Text;
+    //   alert('group: ' + grp2save);
+   //    alert('chkValue: ' + grpStatus + ' id: ' + contid + ' grpid: ' + grpid); 
+         afcreateGroupAtt(grpStatus, contid, grpid);
+   }
+</script>
+    <script>
+           function  selectClients(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('selectClients').style.display = '';
+            } else {
+               rend = true;
+
+                document.getElementById('selectClients').style.display = 'none';
+            }
+        } 
+        function  savingChanges(dir) {
+            if(dir == '1') {
+               rend = true;
+               document.getElementById('savingChanges').style.display = '';
+            } else {
+                document.getElementById('savingChanges').style.display = 'none';
+            }
+        } 
+        var j$ = jQuery.noConflict();
+
+    </script>
+<apex:form > 
+   <apex:actionfunction name="afCreateApp" action="{!createApp}" rerender="infoTable,allRecords">
+      <apex:param name="appStatus" assignTo="{!appStatus}" value=""/>
+      <apex:param name="contid" assignTo="{!contid}" value=""/>
+   </apex:actionfunction> 
+   <apex:actionfunction name="afShowGroup" action="{!buildcontacts}" rerender="infoTable,allRecords">
+      <apex:param name="programs" assignTo="{!programs}" value=""/>
+   </apex:actionfunction>
+   <apex:actionfunction name="afcreateGroupAtt" action="{!createGroupAtt}" rerender="infoTable,allRecords">
+      <apex:param name="grpStatus" assignTo="{!grpStatus}" value=""/>
+      <apex:param name="contid" assignTo="{!contid}" value=""/>
+      <apex:param name="grpid" assignTo="{!groupAppId}" value=""/>
+   </apex:actionfunction>
+   <apex:actionStatus startText=""  stopText="" id="selectClients" 
+      onstart="selectClients('1');" onstop="selectClients('0');"/> 
+   <apex:stylesheet value="{!URLFOR($Resource.jQuery_191,'/jQuery-191/style.css')}" id="st"/>
+      <div> 
+      &nbsp;&nbsp; 
+         <table align="center">
+            <tr>
+               <td align="center">
+                  <apex:outputText value="newSTART Program Reporting" id="h" style="font-size:20px;text-align:center"/>
+               </td>
+            </tr>
+         </table>
+      </div> 
+   <apex:outPutPanel styleClass="selectPanel">
+      <fieldset id="fsCriteria" class="fsBorders">
+         <legend>Search Criteria</legend>
+         <table>
+            <tr>
+               <td align="left">
+                  <apex:outPutText value=" Clients Active On: " style="font-size:14px;font-weight:bold;"/>
+                  <apex:inputField value="{!proxyObject.activitydate}" label="Select Date:" id="aptDate"/>
+               </td>
+               <td>
+                  <apex:outputLabel value="{!IF(futureDate, "You cannot verify attendance for dates in the future.", "")}" id="text1" rendered="true"
+                   style="color:red; font-size:16px;font-weight:bold;" />
+                  <apex:outputLabel value="{!IF(Result==0 && futureDate == false, "No Active Clients for this date.", "")}" id="text2" rendered="true"
+                   style="color:red; font-size:16px;font-weight:bold;" /> 
+               </td>
+               <td>Programs:
+        <apex:selectList id="chooseProgram" value="{!selectProgs}" size="1">
+            <apex:selectOption itemValue="ALL" itemLabel="ALL"/>
+            <apex:selectOption itemValue="ONE" itemLabel="ONE"/>
+            <apex:selectOption itemValue="CCM" itemLabel="CCM"/>
+            <apex:selectOption itemValue="CEO" itemLabel="CEO"/>
+            <apex:selectOption itemValue="DTC" itemLabel="DTC"/>            
+        </apex:selectList> 
+               </td>
+               <td>
+                 &nbsp;&nbsp; 
+                  <apex:commandButton id="cmdResetDate" value="Go" action="{!buildcontacts}"
+                    accesskey="" status="selectClients"  rerender="infoTable,allRecords,datedow,text1,text2">
+                  </apex:commandButton>
+               </td>
+               <td id="selectClients" style="display:none;">
+                   Select Clients ...Please wait
+                   <apex:image value="/img/loading32.gif" />
+               </td>
+               <td id="savingChanges" style="display:none;">
+                  Saving Changes ...Please wait
+                  <apex:image value="/img/loading32.gif" />
+               </td>
+            </tr> 
+         </table>
+      </fieldset>
+   </apex:outPutPanel>
+   <br/>
+   <apex:outputText value="{!datedow}" id="datedow" style="font-size:18px;text-align:center"/>
+   <br/><br/>
+   <apex:outputText value="Group: " id="plgrp" />
+   <apex:selectList value="{!programs}" id="gr" size="1" style="width:400px"
+      onchange="selectGroup('{!$Component.gr}')" >
+      <apex:selectOptions value="{!GroupsItems}" rendered="true" id="plg" />
+   </apex:selectList> 
+   <apex:pageBlock >
+       <div id="div1" style="height:600px; overflow-y: scroll;">
+         <apex:outputPanel id="allRecords" >
+            <table id="infoTable" class="tablesorter" border="0" cellpadding="0" cellspacing="2"> 
+               <thead> 
+                  <tr> 
+                     <th>Name</th>
+                     <th>P/C ID</th>    
+                     <th>Case Coordinator</th>     
+                     <th>Start Date</th>     
+                     <th>Compl Date </th>     
+                     <th>Days Remaining</th>     
+                     <th>Program Reporting</th>     
+                     <th>Attended Group</th> 
+                     <th>Group Summary</th>      
+                  </tr>  
+               </thead>
+               <apex:repeat value="{!Contacts}" var="c" id="rows" > 
+                  <tr>
+                     <td align="left" id="col1">
+                        <apex:outputLink value="/{!c.ContactsForDisplay.id}" id="dd" target="_blank"> 
+                        <apex:outputText value="{!c.ContactsForDisplay.Name}" style="font-size:14px;"/> 
+                        </apex:outputLink>
+                     </td>
+                     <td align="left" id="col1a"> 
+                        <apex:outputText value="{!c.ContactsForDisplay.P_C_ID__c}" style="font-size:14px;"/> 
+                     </td>                     
+                     <td width="150px" align="left" id="col2">
+                        <apex:outputText value="{!c.ContactsForDisplay.Case_Coordinator__r.Name}" style="width:150px"/> 
+                     </td> 
+                     <td  align="left" id="col1" >
+                        <apex:outputText value="{!c.StartDate}" style="font-size:14px;"/>
+                     </td>
+                     <td align="left" id="col1" >
+                        <apex:outputText value="{!c.ComplianceDate}" style="font-size:14px;"/>
+                     </td>
+                     <td align="left" id="col1" >
+                        <apex:outputText value="{!c.DaysRemaining}" style="font-size:14px;"/>
+                     </td>
+                     <td align="left" id="col6" > 
+                        <apex:selectList value="{!c.status}" id="pls" size="1" rendered="{!c.displayStatus = false}"
+                             onchange="this.disabled = true;createapp('{!$Component.pls}', '{!c.contId}')">
+                           <apex:selectOptions value="{!StatusItems}" rendered="true" id="s1" />
+                        </apex:selectList>
+                        <apex:outputLink value="/{!c.eventId}" id="cr"  target="_blank" title="Click to Open"
+                          rendered="{!c.displayStatus}">
+                           <apex:outPutText value="{!c.Status}" 
+                              style="font-size:14px;color:blue"/>  
+                        </apex:outputLink>  
+                     </td>
+                     <td>
+                        <apex:inputCheckbox id="checkAtt" value="{!c.groupAtt}" 
+                           disabled="{!programs=='a' || c.canVerify == false}"  
+                           onChange="saveGroupAtt(this.checked,'{!c.contId}', '{!c.grpEventid}','{!$Component.gr}')"/> 
+                     </td>
+                     <td>
+                        <apex:repeat id="s" value="{!c.lstSTRT_Events}"  var="strtToday" >
+                           <apex:outputText value="{!strtToday}" /><br />
+                        </apex:repeat> 
+                     </td>
+                  </tr>
+               </apex:repeat>  
+            </table> 
+            <script type="Text/javascript">
+                j$("#infoTable").tablesorter(
+                    {
+                        widgets: ['zebra'],
+                        headers: { 
+                                // assign the first column (we start counting zero) 
+                                0: { sorter: true},
+                                1: { sorter: false},
+                                2: { sorter: true},
+                                3: { sorter: "shortDate", dateFormat:"MM/dd/yyyy"},
+                                4: { sorter: "shortDate", dateFormat:"MM/dd/yyyy"},
+                                5: { sorter: false},
+                                6: { sorter: false},
+                                7: { sorter: false},
+                                8: { sorter: false},
+                               }
+                        }
+                );    
+         </script>
+         </apex:outputPanel>
+      </div>
+   </apex:pageBlock>
+</apex:form>
+ </apex:page>

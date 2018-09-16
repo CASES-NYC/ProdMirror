@@ -1,0 +1,1123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Class_Id_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Class Id 1</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Class_Id_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Class Id 2</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Class_Id_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Class Id 3</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Class_Id_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Class Id 4</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Class_Id_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Class Id 5</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Class_Title_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Class Title 1</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Class_Title_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Class Title 2</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Class_Title_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Class Title 3</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Class_Title_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Class Title 4</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Class_Title_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Class Title 5</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Credits_Attempted_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Credits Attempted 1</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Credits_Attempted_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Credits Attempted 2</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Credits_Attempted_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Credits Attempted 3</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Credits_Attempted_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Credits Attempted 4</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Credits_Attempted_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Credits Attempted 5</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Credits_Completed_1__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(ispickval(Result_1__c,&quot;Passed&quot;),Credits_Attempted_1__c,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Credits Completed 1</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Credits_Completed_2__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(ispickval(Result_2__c,&quot;Passed&quot;),Credits_Attempted_2__c,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Credits Completed 2</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Credits_Completed_3__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(ispickval(Result_3__c,&quot;Passed&quot;),Credits_Attempted_3__c,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Credits Completed 3</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Credits_Completed_4__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(ispickval(Result_4__c,&quot;Passed&quot;),Credits_Attempted_4__c,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Credits Completed 4</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Credits_Completed_5__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(ispickval(Result_5__c,&quot;Passed&quot;),Credits_Attempted_5__c,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Credits Completed 5</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Education__c</fullName>
+        <externalId>false</externalId>
+        <label>Education</label>
+        <referenceTo>Education__c</referenceTo>
+        <relationshipLabel>Semesters</relationshipLabel>
+        <relationshipName>Semesters</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Grade_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Grade 1</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Grade_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Grade 2</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Grade_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Grade 3</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Grade_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Grade 4</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Grade_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Grade 5</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Major_Credit_1__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Major Credit 1</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Major_Credit_2__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Major Credit 2</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Major_Credit_3__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Major Credit 3</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Major_Credit_4__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Major Credit 4</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Major_Credit_5__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Major Credit 5</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>OldId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Old ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Period__c</fullName>
+        <externalId>false</externalId>
+        <label>Period</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fall</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spring</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Summer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Winter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Result_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Result 1</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Passed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Failed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Withdrawn</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lost Contact</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Result_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Result 2</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Passed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Failed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Withdrawn</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lost Contact</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Result_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Result 3</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Passed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Failed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Withdrawn</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lost Contact</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Result_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Result 4</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Passed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Failed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Withdrawn</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lost Contact</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Result_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Result 5</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Passed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Failed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Withdrawn</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lost Contact</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Semester_Date_RPT__c</fullName>
+        <externalId>false</externalId>
+        <formula>Date(value(text(Year__c)), 
+case(text(Period__c), &quot;Fall&quot;,9,&quot;Winter&quot;,12,&quot;Spring&quot;, 3,&quot;Summer&quot;, 6, 9),
+1
+)</formula>
+        <label>Semester Date RPT</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Semester_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>text(Period__c) + &quot; &quot; + text(Year__c)</formula>
+        <label>Semester Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subject_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Subject 1</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Accounting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Communications and Speech</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Computer Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Criminal Justice and Law</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>English</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health and Nursing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Language</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mathematics</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Music, Theater and Visual Arts</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Social Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Student Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Subject_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Subject 2</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Accounting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Communications and Speech</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Computer Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Criminal Justice and Law</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>English</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health and Nursing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Language</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mathematics</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Music, Theater and Visual Arts</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Social Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Student Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Subject_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Subject 3</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Accounting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Communications and Speech</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Computer Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Criminal Justice and Law</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>English</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health and Nursing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Language</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mathematics</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Music, Theater and Visual Arts</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Social Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Student Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Subject_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Subject 4</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Accounting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Communications and Speech</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Computer Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Criminal Justice and Law</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>English</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health and Nursing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Language</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mathematics</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Music, Theater and Visual Arts</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Social Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Student Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Subject_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Subject 5</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Accounting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Communications and Speech</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Computer Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Criminal Justice and Law</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>English</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health and Nursing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Language</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mathematics</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Music, Theater and Visual Arts</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Social Science</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Student Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Total_Classes_Attempted__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Classes Attempted</label>
+        <summaryForeignKey>School_Class__c.Semester__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Classes_Completed__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Classes Completed</label>
+        <summaryFilterItems>
+            <field>School_Class__c.Result__c</field>
+            <operation>equals</operation>
+            <value>Passed</value>
+        </summaryFilterItems>
+        <summaryForeignKey>School_Class__c.Semester__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Credits_Completed_Toward_Major__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Credits Completed Toward Major</label>
+        <summarizedField>School_Class__c.Credits_Completed__c</summarizedField>
+        <summaryFilterItems>
+            <field>School_Class__c.Major_Credit__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryForeignKey>School_Class__c.Semester__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Credits_Completed__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Credits Completed Toward Degree</label>
+        <summarizedField>School_Class__c.Credits_Completed__c</summarizedField>
+        <summaryForeignKey>School_Class__c.Semester__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Year</label>
+        <picklist>
+            <picklistValues>
+                <fullName>2008</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2009</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2010</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2011</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2012</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2013</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2014</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2015</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Semester</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>SEM-{00000}</displayFormat>
+        <label>Semester Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Semesters</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Class_1_Needs_Complete_Info</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(
+
+or(
+ispickval(Result_1__c,&quot;&quot;), isblank(Class_Title_1__c), 
+isblank(Credits_Attempted_1__c), ispickval(Subject_1__c,&quot;&quot;)
+),
+
+or(
+not(ispickval(Result_1__c,&quot;&quot;)), not(isblank(Class_Title_1__c)), 
+not(isblank(Credits_Attempted_1__c)),  not(ispickval(Subject_1__c,&quot;&quot;))
+)
+
+)</errorConditionFormula>
+        <errorDisplayField>Class_Title_1__c</errorDisplayField>
+        <errorMessage>For each class, you need to enter the Title, Subject, Result, and Credits Attempted. Make Credits Attempted = 0 if there is no value.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Class_2_Needs_Complete_Info</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(
+
+or(
+ispickval(Result_2__c,&quot;&quot;), isblank(Class_Title_2__c), 
+isblank(Credits_Attempted_2__c), ispickval(Subject_2__c,&quot;&quot;)
+),
+
+or(
+not(ispickval(Result_2__c,&quot;&quot;)), not(isblank(Class_Title_2__c)), 
+not(isblank(Credits_Attempted_2__c)), not(ispickval(Subject_2__c,&quot;&quot;))
+)
+
+)</errorConditionFormula>
+        <errorDisplayField>Class_Title_2__c</errorDisplayField>
+        <errorMessage>For each class, you need to enter the Title, Subject, Result, and Credits Attempted. Make Credits Attempted = 0 if there is no value.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Class_3_Needs_Complete_Info</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(
+
+or(
+ispickval(Result_3__c,&quot;&quot;), isblank(Class_Title_3__c), 
+isblank(Credits_Attempted_3__c), ispickval(Subject_3__c,&quot;&quot;)
+),
+
+or(
+not(ispickval(Result_3__c,&quot;&quot;)), not(isblank(Class_Title_3__c)), 
+not(isblank(Credits_Attempted_3__c)), not(ispickval(Subject_3__c,&quot;&quot;))
+)
+
+)</errorConditionFormula>
+        <errorDisplayField>Class_Title_3__c</errorDisplayField>
+        <errorMessage>For each class, you need to enter the Title, Subject, Result, and Credits Attempted. Make Credits Attempted = 0 if there is no value.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Class_4_Needs_Complete_Info</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(
+
+or(
+ispickval(Result_4__c,&quot;&quot;), isblank(Class_Title_4__c), 
+isblank(Credits_Attempted_4__c), ispickval(Subject_4__c,&quot;&quot;)
+),
+
+or(
+not(ispickval(Result_4__c,&quot;&quot;)), not(isblank(Class_Title_4__c)), 
+not(isblank(Credits_Attempted_4__c)), not(ispickval(Subject_4__c,&quot;&quot;))
+)
+
+)</errorConditionFormula>
+        <errorDisplayField>Class_Title_4__c</errorDisplayField>
+        <errorMessage>For each class, you need to enter the Title, Subject, Result, and Credits Attempted. Make Credits Attempted = 0 if there is no value.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Class_5_Needs_Complete_Info</fullName>
+        <active>true</active>
+        <errorConditionFormula>and( 
+
+or( 
+ispickval(Result_5__c,&quot;&quot;), isblank(Class_Title_5__c), 
+isblank(Credits_Attempted_5__c), ispickval(Subject_5__c,&quot;&quot;) 
+), 
+
+or( 
+not(ispickval(Result_5__c,&quot;&quot;)), not(isblank(Class_Title_5__c)), 
+not(isblank(Credits_Attempted_5__c)), not(ispickval(Subject_5__c,&quot;&quot;)) 
+) 
+
+)</errorConditionFormula>
+        <errorDisplayField>Class_Title_5__c</errorDisplayField>
+        <errorMessage>For each class, you need to enter the Title, Subject, Result, and Credits Attempted. Make Credits Attempted = 0 if there is no value.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Date_must_be_before_credits_as_of_date</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(
+Semester_Date_RPT__c &lt;  Education__r.Credits_as_of_Date_RPT__c,
+not(isblank(Education__r.Credits_as_of_Date_RPT__c))
+)</errorConditionFormula>
+        <errorDisplayField>Period__c</errorDisplayField>
+        <errorMessage>You cannot create a semester which begins before the &quot;Credits Completed as of&quot; date on the Education record.</errorMessage>
+    </validationRules>
+</CustomObject>

@@ -1,0 +1,97 @@
+<apex:page standardController="Contact" extensions="caseCoordinatorTransferController" action="{!init}">
+
+<style>
+    .goButton (
+        .background: green;
+    }
+</style>
+
+<script language="javascript">
+
+    function toggleLists(val) {
+    
+        var taskBlock = document.getElementById('tasks');
+        
+        if (val == 'custom') {
+            taskBlock.style.display = "block";
+        } else {
+            taskBlock.style.display = "none";
+        }
+    
+    }
+    
+</script>
+
+<apex:sectionHeader title="Transfer Records to Case Coordinator" subtitle="Assign New or Transfer Existing Records"/>
+
+    <apex:form id="frmMassTransfer">
+        <apex:pageblock >
+            
+            <apex:pageblockbuttons >
+                <apex:commandButton action="{!transferRecords}" value="Proceed with Transfer" styleClass="buttonStyle" style="background:lightgreen;" />
+                <apex:commandButton action="{!cancelAction}" value="Cancel Transfer" />
+            </apex:pageblockbuttons>
+            
+            <p>
+                This action will reassign all Tasks and Scheduled Events to the new Case Coordinator that you 
+                select below.  A note will also be automatically attached to the Client record describing that 
+                a Case Coordinator assignment / reassignment has been performed.<br />
+                <br />
+                Please select a new Case Coordinator from the picklist below and press "Proceed with Transfer" to 
+                continue.  To cancel this action, press "Cancel Transfer".
+            </p>
+            <br />
+            
+            <apex:pageblocksection title="Select New Case Coordinator">
+                <apex:pageblocksectionItem >
+                    <apex:outputLabel value="Case Coordinators" for="cbxCoordinator"></apex:outputLabel>
+                    <apex:selectList id="cbxCoordinator" size="1" title="Case Coordinators" value="{!newCoordinator}">
+                        <apex:selectOptions value="{!caseCoordStaff}"></apex:selectOptions>
+                    </apex:selectList>
+                </apex:pageblocksectionItem>
+            </apex:pageblocksection>
+
+            <apex:pageblockSection title="Select Method of Transfer">
+                <apex:pageblocksectionItem >
+                    <apex:selectRadio id="radTransferMethod" title="Transfer Methods" value="{!newTransferMethod}" onClick="javascript:toggleLists(this.value);">
+                        <apex:selectOptions value="{!transferMethods}" />
+                    </apex:selectRadio>            
+                </apex:pageblocksectionItem>
+            </apex:pageblockSection>
+
+            <apex:outputPanel id="opTasks">
+
+                <apex:actionStatus id="taskStatus" startText="Loading Tasks...please wait!" />
+                            
+                <apex:pageblockSection title="Select Tasks to be Transferred" columns="1">
+                  <apex:pageBlocktable value="{!taskResults}" var="t" rendered="{!NOT(ISNULL(taskResults))}" >
+                    <apex:column width="25px">
+                        <apex:inputCheckbox value="{!t.checked}" />
+                    </apex:column>
+                    <apex:column value="{!t.tsk.Subject}" headerValue="Task Subject" />
+                    <apex:column value="{!t.tsk.Status}" headerValue="Status" />
+                    <apex:column value="{!t.tsk.ActivityDate}" headerValue="Date" />
+                    <apex:column value="{!t.tsk.Unit__c}" headerValue="Unit" />
+                  </apex:pageBlocktable>
+                </apex:pageBlockSection>
+                
+                <apex:actionStatus id="eventStatus" startText="Loading Events...please wait!" />
+                            
+                <apex:pageblockSection title="Select Events to be Transferred" columns="1">
+                  <apex:pageBlocktable value="{!eventResults}" var="e" rendered="{!NOT(ISNULL(eventResults))}" >
+                    <apex:column width="25px">
+                        <apex:inputCheckbox value="{!e.checked}" />
+                    </apex:column>
+                    <apex:column value="{!e.evt.Subject}" headerValue="Event Subject" />
+                    <apex:column value="{!e.evt.Status__c}" headerValue="Status" />
+                    <apex:column value="{!e.evt.ActivityDate}" headerValue="Date" />
+                    <apex:column value="{!e.evt.IsRecurrence}" headerValue="Recurrence Header" />
+                  </apex:pageBlocktable>
+                </apex:pageBlockSection>
+            
+            </apex:outputPanel>
+                   
+        
+        </apex:pageblock>
+    </apex:form>
+</apex:page>
