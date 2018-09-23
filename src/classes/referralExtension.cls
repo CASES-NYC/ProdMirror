@@ -84,10 +84,10 @@ public with sharing class referralExtension
    
     public pagereference reloadPage()
     {
-        String nysid = referral.NYSID__c;
-        nysid.toUpperCase();
-        referral.NYSID__c = nysid;
-        Upsert referral;
+      String nysid = referral.NYSID__c;
+      nysid.toUpperCase();
+      referral.NYSID__c = nysid;
+      Upsert referral;
       Boolean OK2Continue = true;        
       if((referral.Docket__c == NULL || referral.Docket__c == '') && (referral.Indictment__c == NULL || referral.Indictment__c == '') )
       {
