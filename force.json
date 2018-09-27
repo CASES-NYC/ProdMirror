@@ -1,0 +1,23 @@
+{
+    "checkForFileChanges": true,
+    "autoRefresh": false,
+    "showTestCoverage": true,
+    "showTestLog": true,
+    "showFilesOnOpen": true,
+    "showFilesOnOpenMax": 3,
+    "browser": "Google Chrome Canary",
+    "pollTimeout": 1200,
+    "debugOnly": true,
+    "debugFilter": "USER_DEBUG|FATAL_ERROR",
+    "apiVersion": "43.0",
+    "handleMetaFiles": false,
+    "deployOptions": {
+        "checkOnly": false,
+        "testLevel": "runlocaltests",
+        "ignoreWarnings": true,
+        "rollbackOnError": true
+    },
+    "username": "probinson@cases.org.prodmirror",
+    "url": "https://test.salesforce.com",
+    "autoCompile": false
+}
