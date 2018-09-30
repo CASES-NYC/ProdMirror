@@ -1,0 +1,16 @@
+<apex:page standardController="Referral__c" showHeader="true" tabStyle="account">
+    <apex:sectionHeader title="{!Referral__c.Screening_Stage__c} Account" subtitle="{!Referral__c.Firstname__c +' '+Referral__c.Lastname__c}" />
+    <style>
+     .myActiveTab { background-color: #236FBD; color:white; background-image:none; }
+     .myInactiveTab { background-color: white; color:black; background-image:none; }
+     .whiteBG { background-color: white; }
+    </style>
+ 
+    <apex:tabPanel switchType="client" selectedTab="name2" id="theTabPanel" tabClass="myActiveTab" inactiveTabClass="myInactiveTab">
+        <apex:tab label="Details" name="AccDetails" id="tabdetails">
+            <apex:outputPanel styleClass="whiteBG">
+                <apex:detail relatedList="true" relatedListHover="true" title="false"/>
+            </apex:outputPanel> 
+        </apex:tab>
+    </apex:tabPanel>
+</apex:page>

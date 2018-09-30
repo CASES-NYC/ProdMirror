@@ -4,114 +4,128 @@ public with sharing class referralExtension
     private ApexPages.StandardController sc;
     public Referral__c referral;
     public Boolean isEdit {get; set;}
-    public MAP<id, Penal_Code__c> mapPenalCodes {
+    public Boolean isNew {get; set;}
+    public String referralId {get; set;}
+    public String retURL {get; set;}
+    public MAP<id, Penal_Code__c> mapPenalCodes 
+    {
       get {
         if (mapPenalCodes == null)
-          mapPenalCodes = new MAP<id, Penal_Code__c>([SELECT Id, Name, Numeric_Charge_Value__c,
-                                        Class__c, Degree__c, Description__c, Drug_Related__c, Level__c, 
-                                        SRP_Exclusion__c, Top_Charge_Calculation__c, Violent__c
-                                        FROM Penal_Code__c]);
+          mapPenalCodes = new MAP<id, Penal_Code__c>(
+                          [SELECT Id, Name, Class__c, Degree__c, Description__c, Level__c, 
+                               SRP_Exclusion__c, Top_Charge_Calculation__c
+                          FROM Penal_Code__c]);
         return mapPenalCodes;
       } set;
     }
     public String pcValue {get; set;}
-    //Lets instantiate the Module helper here
-    //Public ModuleHelper mh = new ModuleHelper();
+    public String pcName {get;set;}
+    public String getPcNumChgVal() 
+    {
+        return null;
+    }
+    public string pcClass {get;set;}
+    public String pcSrpExclusion {get;set;}
+    public String pcLevel {get;set;}
+    public String pcDegree {get;set;}
+
+    public Map<String, String> pageParameters = new Map<String, String>();
+    public String detectedMode {get;set;}
+    public String saveNew {get;set;}
 
     public referralExtension(ApexPages.StandardController sc) 
     {
         if (!Test.isRunningTest())         
         sc.addFields(new List<String> {'ContactId__c','DocketId__c', 'Attorney_Consent_Date__c','RA_Total_Score_Calc__c', 'Ineligible__c'});
         referral = (Referral__c)sc.getRecord();
-
+        pageParameters = ApexPages.currentPage().getParameters();
+        referralId = PageParameters.get('id');
+        retURL = PageParameters.get('retURL');
+        saveNew = PageParameters.get('save_new');
+        if (referralId == null)
+            { DetectedMode = 'New';  } 
+        else if (referralId != null &  retURL!= null)
+            { DetectedMode = 'Edit'; } 
+        else if (referralId != null & retURL == null)
+            { DetectedMode = 'View'; }
     }
 
-
-        public String pcName {get;set;}
-        public String getPcNumChgVal() 
+    public PageReference save() 
+    {
+       /*  
+        system.debug('Screening Stage: ' + referral.Screening_Stage__c);
+        if(referral.Screening_Stage__c == '')
         {
-          return null;
+            String nysid = referral.NYSID__c;
+            nysid.toUpperCase();
+            referral.NYSID__c = nysid;
+            referral.Screening_Stage__c = 'Eligibility Testing';
+            Upsert referral;
         }
-        public string pcClass {get;set;}
-        public String pcSrpExclusion {get;set;}
-        public String pcLevel {get;set;}
-        public String pcDegree {get;set;}
+        if basic info
+                create record
+                validate nysid
+                check age
+                change screening stage to eligibility testing
+                rerender show basic view /eligibility edit
 
+            if eligibility testing
 
-   public Referral__c getReferral() {
-      if(referral == null) referral = new Referral__c();
-      return referral;
-   }
-
-
-   // The next three methods control navigation through
-   // the wizard. Each returns a PageReference for one of the three pages
-   // in the wizard. Note that the redirect attribute does not need to
-   // be set on the PageReference because the URL does not need to change
-   // when users move from page to page.
-   public PageReference step1() {
-      return Page.opptyStep1;
-   }
-
-   public PageReference step2() {
-      return Page.opptyStep2;
-   }
-
-   public PageReference step3() {
-      return Page.opptyStep3;
-   }
-
-   public PageReference step4() {
-      return Page.opptyStep4;
-   }
-
-   // This method cancels the wizard, and returns the user to the 
-   // Opportunities tab
-    public PageReference cancel() {
-            PageReference referralPage = new ApexPages.StandardController(referral).view();
-            referralPage.setRedirect(true);
-            return referralPage; 
+            
+            if Additional Information
+            if Completed Evaluation 
+            
+            
+    */        
+        if(DetectedMode == 'New')
+        {
+            String nysid = referral.NYSID__c;
+            referral.NYSID__c = nysid.toUpperCase();
+            referral.Screening_Stage__c = 'Eligibility Testing';        
+            if(referral.Screening_Date__c == NULL){referral.Screening_Date__c = referral.Referral_Date__c;}
+            if(referral.Court_Representative__c == NULL){referral.Court_Representative__c = UserInfo.getUserId();}
+            referral.Screening_Stage__c = 'Eligibility Testing';
+            Upsert referral;
+        }
+        PageReference referralPage = new PageReference('/'+referral.id);
+        return referralPage;
     }
 
-   // This method performs the final save for all four objects, and
-   // then navigates the user to the detail page for the new
-   // opportunity.
-   public PageReference save() 
-   {
-            PageReference referralPage = new ApexPages.StandardController(referral).view();
-    return referralPage;
-   }
+    public Referral__c getReferral() 
+    {
+        if(referral == null) referral = new Referral__c();
+        return referral;
+    }
+
+    public PageReference cancel() 
+    {
+                if(referralId != NULL && referralId !='' && detectedMode != 'View')
+                {
+                        PageReference referralPage1 = new PageReference('/'+ referral.Id);
+                        return referralPage1;
+                }
+                else
+                {
+                        PageReference referralPage2 = new PageReference('/a1G/o');
+                        return referralPage2;
+                }
+    }
+
+    // This method performs the final save for all four objects, and
+    // then navigates the user to the detail page for the new
+    // opportunity.
+
    
     public pagereference reloadPage()
     {
-      String nysid = referral.NYSID__c;
-      nysid.toUpperCase();
-      referral.NYSID__c = nysid;
-      Upsert referral;
-      Boolean OK2Continue = true;        
-      if((referral.Docket__c == NULL || referral.Docket__c == '') && (referral.Indictment__c == NULL || referral.Indictment__c == '') )
-      {
-        ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'Enter Docket/Indictment #.'));
-        OK2Continue = false;       
-      }      
-      
-      if(referral.Arrest_Date__c == NULL)
-      {
-        ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'Enter arrest date.'));
-        OK2Continue = false;     
-      }    
-      
-      if(referral.Arrest_Number__c == NULL ||referral.Arrest_Number__c == '')
-      {
-        ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'Enter arrest number.'));
-        OK2Continue = false;       
-      }         
+    
         return new PageReference('/'+referral.id+'/e');
     }
 
-    public void fieldValidation()
+    public pagereference fieldValidation()
     {
       Boolean OK2Continue = true;
+        /*
       upsert referral;
       if(referral.Ineligible__c != NULL && referral.Ineligible__c != '' && referral.Ineligible__c != 'Eligible')
       {
@@ -159,12 +173,13 @@ public with sharing class referralExtension
       {
           ClientConsented();
       }
-   } 
-
+        */
+        return null;  //////////delete this line    
+    }
+    
     public PageReference ClientConsented()
     {     
-
-      
+        /*
       String acctId;
       List<Account> checkAccount = [SELECT Id FROM Account WHERE NYSID_Number__c =: referral.NYSID__c];
 
@@ -327,128 +342,6 @@ public with sharing class referralExtension
               caseChrgB5.type__c = 'Criminal Court Arraignment Charges';                 
               insert caseChrgB5;                          
             }
-          }
-
-////////     DOCKET C (3)  AND CASE CHARGES   //////////////////////////////////////////////
-
-          if(referral.Charge_C1__c != '' && referral.Charge_C1__c != NULL)
-          {
-            Case_Information__c caseInfo3 = new Case_Information__c();
-            caseInfo3.Client_Account__c = acctId;
-            caseInfo3.Arrest_Date__c = referral.Arrest_Date3__c;
-            caseInfo3.Arrest_Number__c = referral.Arrest_Number3__c;
-            caseInfo3.Criminal_Court_Arraignment_Date__c = referral.Arraignment_Date__c;
-            caseInfo3.Name = referral.Docket3__c;
-            if(caseInfo3.Name == 'Docket NA') 
-               caseInfo3.No_Docket__c = true;
-            caseInfo3.Borough__c = referral.Court_Borough__c;
-            caseInfo3.RecordTypeId = Utility_ID__c.getValues('Case - Criminal Court').RecordType_Id__c;
-            insert caseInfo3;
-            referral.docketid3__c = caseInfo3.Id;
-
-            Case_Charges__c caseChrgC1 = new Case_Charges__c();
-            caseChrgC1.Charge__c = referral.Charge_C1__c;
-            caseChrgC1.Docket_No__c = referral.docketid3__c;
-            caseChrgC1.type__c = 'Criminal Court Arraignment Charges';  
-            insert caseChrgC1;
-
-            if(referral.Charge_C2__c != '')
-            {          
-              Case_Charges__c caseChrgC2 = new Case_Charges__c();
-              caseChrgC2.Charge__c = referral.Charge_C2__c;
-              caseChrgC2.Docket_No__c = referral.docketid3__c;
-              caseChrgC2.type__c = 'Criminal Court Arraignment Charges';  
-              insert caseChrgC2;
-            }
-
-            if(referral.Charge_C3__c != '')
-            {
-              Case_Charges__c caseChrgC3 = new Case_Charges__c();
-              caseChrgC3.Charge__c = referral.Charge_C3__c;
-              caseChrgC3.Docket_No__c = referral.docketid3__c;
-              caseChrgC3.type__c = 'Criminal Court Arraignment Charges'; 
-              insert caseChrgC3;                          
-            } 
-
-            if(referral.Charge_C4__c != '')
-            {
-              Case_Charges__c caseChrgC4 = new Case_Charges__c();
-              caseChrgC4.Charge__c = referral.Charge_C4__c;
-              caseChrgC4.Docket_No__c = referral.docketid3__c;
-              caseChrgC4.type__c = 'Criminal Court Arraignment Charges'; 
-              insert caseChrgC4;                          
-            }
-
-            if(referral.Charge_C5__c != '')
-            {
-              Case_Charges__c caseChrgC5 = new Case_Charges__c();
-              caseChrgC5.Charge__c = referral.Charge_C5__c;
-              caseChrgC5.Docket_No__c = referral.docketid3__c;
-              caseChrgC5.type__c = 'Criminal Court Arraignment Charges';                 
-              insert caseChrgC5;                          
-            }
-          }
-
-////////     DOCKET D (4)  AND CASE CHARGES   //////////////////////////////////////////////
-
-
-          if(referral.Charge_D1__c != ''&& referral.Charge_D1__c != NULL)
-          {
-            Case_Information__c caseInfo4 = new Case_Information__c();
-            caseInfo4.Client_Account__c = acctId;
-            caseInfo4.Arrest_Date__c = referral.Arrest_Date4__c;
-            caseInfo4.Arrest_Number__c = referral.Arrest_Number4__c;
-            caseInfo4.Criminal_Court_Arraignment_Date__c = referral.Arraignment_Date__c;
-            caseInfo4.Name = referral.Docket4__c;
-            if(caseInfo4.Name == 'Docket NA') 
-               caseInfo4.No_Docket__c = true;
-            caseInfo4.Borough__c = referral.Court_Borough__c;
-            caseInfo4.RecordTypeId = Utility_ID__c.getValues('Case - Criminal Court').RecordType_Id__c;
-            insert caseInfo4;
-            referral.docketid4__c = caseInfo4.Id;
-
-            Case_Charges__c caseChrgD1 = new Case_Charges__c();
-            caseChrgD1.Charge__c = referral.Charge_D1__c;
-            caseChrgD1.Docket_No__c = referral.docketid4__c;
-            caseChrgD1.type__c = 'Criminal Court Arraignment Charges';  
-            insert caseChrgD1;
-
-            if(referral.Charge_D4__c != '')
-            {          
-              Case_Charges__c caseChrgD2 = new Case_Charges__c();
-              caseChrgD2.Charge__c = referral.Charge_D4__c;
-              caseChrgD2.Docket_No__c = referral.docketid4__c;
-              caseChrgD2.type__c = 'Criminal Court Arraignment Charges';  
-              insert caseChrgD2;
-            }
-
-            if(referral.Charge_D3__c != '')
-            {
-              Case_Charges__c caseChrgD3 = new Case_Charges__c();
-              caseChrgD3.Charge__c = referral.Charge_D3__c;
-              caseChrgD3.Docket_No__c = referral.docketid4__c;
-              caseChrgD3.type__c = 'Criminal Court Arraignment Charges'; 
-              insert caseChrgD3;                          
-            } 
-
-            if(referral.Charge_D4__c != '')
-            {
-              Case_Charges__c caseChrgD4 = new Case_Charges__c();
-              caseChrgD4.Charge__c = referral.Charge_D4__c;
-              caseChrgD4.Docket_No__c = referral.docketid4__c;
-              caseChrgD4.type__c = 'Criminal Court Arraignment Charges'; 
-              insert caseChrgD4;                          
-            }
-
-            if(referral.Charge_D5__c != '')
-            {
-              Case_Charges__c caseChrgD5 = new Case_Charges__c();
-              caseChrgD5.Charge__c = referral.Charge_D5__c;
-              caseChrgD5.Docket_No__c = referral.docketid4__c;
-              caseChrgD5.type__c = 'Criminal Court Arraignment Charges';                 
-              insert caseChrgD5;                          
-            }
-          }
         }
 
         Criminal_and_Legal_History__c legalHistory = new Criminal_and_Legal_History__c();
@@ -472,6 +365,8 @@ public with sharing class referralExtension
         upsert contact;
 
       return (new PageReference('/apex/CourtPortal_SRP'));    
+        */
+        return null;  //////////delete this line
     }
 
     public List<Penal_Code__c> penalCodeList {
@@ -540,4 +435,5 @@ public with sharing class referralExtension
       return true;
     }
 */
+
 }

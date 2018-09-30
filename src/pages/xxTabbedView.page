@@ -1,0 +1,68 @@
+<apex:page controller="TabbedViewControl">
+    <apex:tabPanel value="{!selecttab1}" switchType="client" id="theTabPanel">
+    <!-----------Customer personal information------------>
+        <apex:tab label="Basic information" name="per" id="one">
+            <apex:form >
+                <apex:pageBlock >
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton value="next" action="{!next1}"/>
+                    </apex:pageBlockButtons>
+                    <fieldset>
+                    <legend>Basic Referral Information</legend>
+                        <table cellspacing='15'>
+                            <tr><th>First Name</th>
+                                <td><apex:inputField value="{!r.Firstname__c}"/></td>
+                                <th>Last Name</th>
+                                <td><apex:inputField value="{!r.Lastname__c}"/></td></tr>
+                            <tr><th>Email</th>
+                                <td><apex:inputField value="{!r.DOB__c}"/></td>
+                                <th>Mobile Number</th>
+                                <td><apex:inputField value="{!r.NYSID__c}"/></td></tr>
+                            <tr><th>Product Image</th>
+                                <td><apex:inputField value="{!r.Screening_Stage__c}">
+                                    </apex:inputField>
+                                </td></tr>
+                        </table>
+                    </fieldset>
+                </apex:pageBlock>
+            </apex:form>
+        </apex:tab>
+ 
+        <apex:tab label="Address" name="add12" id="two">
+            <apex:form >
+                <apex:pageBlock rendered="{!input}">
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton value="Save" action="{!save}"/>
+                    </apex:pageBlockButtons>
+                    <fieldset>
+                    <legend>Customer Address</legend>
+                     <table cellspacing='15'>
+                        <tr>
+                            <th>Billing Street</th><td><apex:inputField value="{!r.RA_Open_Cases_Calc__c}"/> </td>
+                            <th>Billing City</th><td><apex:inputField value="{!r.RA_First_Arrest_Calc__c}"/></td>
+                        </tr>
+ 
+                        <tr>
+                            <th>Billing State</th>
+                            <td><apex:inputField value="{!r.RA_Drug_last_9yrs__c}"/></td>
+                            <th>Postal Code</th><td><apex:inputField value="{!r.RA_Felony_last_9yrs__c}"/></td>
+                        </tr>
+                    </table>
+                    </fieldset>
+                </apex:pageBlock>
+                <apex:pageBlock >
+                    <apex:pageBlockSection rendered="{!output}">
+                        <apex:outputField value="{!r.Firstname__c}"/>
+                        <apex:outputField value="{!r.Lastname__c}"/>
+                        <apex:outputField value="{!r.NYSID__c}"/>
+                        <apex:outputField value="{!r.DOB__c}"/>
+                        <apex:outputField value="{!r.RA_Open_Cases_Calc__c}"/>
+                        <apex:outputField value="{!r.RA_First_Arrest_Calc__c}"/>
+                        <apex:outputField value="{!r.RA_Prior_Warrant_Calc__c}"/>
+                        <apex:outputField value="{!r.RA_Felony_Calc__c}"/>
+                    </apex:pageBlockSection>
+               </apex:pageBlock>
+            </apex:form>
+        </apex:tab>
+    </apex:tabPanel>
+</apex:page>
