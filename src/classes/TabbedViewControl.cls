@@ -1,5 +1,10 @@
 public with sharing class TabbedViewControl
 {
+
+    public TabbedViewControl(ApexPages.StandardController controller) {
+
+    }
+
     public boolean input { get; set; }
     public String selecttab1 { get; set; }
     public boolean output { get; set; }
