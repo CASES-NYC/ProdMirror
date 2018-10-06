@@ -14,6 +14,7 @@ public with sharing class referralExtension
     public String retURL {get; set;}
     public String detectedMode {get;set;}
     public String saveNew {get;set;}
+    private String selectedTab;
 
     public MAP <id, Penal_Code__c> mapPenalCodes
     {
@@ -52,7 +53,8 @@ public with sharing class referralExtension
             { DetectedMode = 'Edit'; } 
         else if (referralId != null & retURL == null)
             { DetectedMode = 'View'; }
-        selecttab1 ='name1';
+        //selecttab1 ='name1';
+        selectedTab = 'tabOne';
         output=false;
         input=true;
 
@@ -439,6 +441,80 @@ public with sharing class referralExtension
         }
       set{penalCodes = this.penalCodes;}
     }    
+
+//////////////////////  TAB MANAGEMENT  ////////////////////////////////
+    
+    public string getSelectedTab() 
+    {
+        return selectedTab;
+    }
+    
+    public boolean getIsTabOneDisabled() 
+    {
+        return selectedTab <> 'tabOne';
+    }
+
+    public boolean getIsTabTwoDisabled() 
+    {
+        return selectedTab <> 'tabTwo';
+    }
+    
+    public boolean getIsTabThreeDisabled() 
+    {
+        return selectedTab <> 'tabThree';
+    }
+
+    public boolean getIsTabFourDisabled() 
+    {
+        return selectedTab <> 'tabFour';
+    }
+    
+
+    public boolean getIsTabFiveDisabled() 
+    {
+        return selectedTab <> 'tabFive';
+    }
+    
+    public void enableTabOne() 
+    {
+        selectedtab = 'tabOne';
+    }
+
+    public void enableTabTwo() 
+    {
+        selectedtab = 'tabTwo';
+    }
+    
+    public void enableTabThree() 
+    {
+        selectedtab = 'tabThree';
+    }
+
+    public void enableTabFour() 
+    {
+        selectedtab = 'tabFour';
+    }   
+
+    public void enableTabFive() 
+    {
+        selectedtab = 'tabFive';
+    }
+
+  public boolean getistab1disabled() {
+    return selectedTab <> 'tab1';
+  }
+
+  public boolean getistab2disabled() {
+    return selectedTab <> 'tab2';
+  }
+
+  public void enabletab1() {
+    selectedtab = 'tab1';
+  }
+
+  public void enabletab2() {
+    selectedtab = 'tab2';
+  }
 
 /*
     public boolean validateDocketformat(string s)

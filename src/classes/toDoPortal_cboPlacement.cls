@@ -42,7 +42,7 @@ public with sharing class toDoPortal_cboPlacement {
                                         Where isClosed = false 
                                         AND recordTypeId = :util.CBOPlacementTask  
                                         Order By Who.Name ASC LIMIT 1000];          
-            
+ system.debug('CBOTASKS: ' + cboTasks);           
         List<SelectOption> caseLoadLists = new List<SelectOption>();
         
         for(Task thisTask:cboTasks) {

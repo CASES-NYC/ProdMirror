@@ -435,7 +435,7 @@ public class utilityIds {
         toDoTabList.add(new SelectOption(caseCoordinatorAssessmentTask + ';' + CBOPlacementTask + ';' + initialProgramPlanTask 
         + ';' + initialProgramPlanTask + ';' + exitNotificationTask + ';' + mandatoryClassesTask + ';'
         + rearrestCheckTask,'Case Coordination (All)'));
-        toDoTabList.add(new SelectOption(caseCoordinatorAssessmentTask,' >Case Coordinator Assessment'));
+        //toDoTabList.add(new SelectOption(caseCoordinatorAssessmentTask,' >Case Coordinator Assessment'));
         toDoTabList.add(new SelectOption(CBOPlacementTask,' >CBO Placement'));
         toDoTabList.add(new SelectOption(initialProgramPlanTask,' >Initial Program Plan'));  
         toDoTabList.add(new SelectOption(exitNotificationTask,' >Exit Notification'));
@@ -444,13 +444,14 @@ public class utilityIds {
         toDoTabList.add(new SelectOption(outReachNeeded,' >CASES Outreach Needed'));     
   
         // Education
-        toDoTabList.add(new SelectOption(schoolVisitTask + ';' + educationAssessmentTask + ';' 
+        toDoTabList.add(new SelectOption(schoolVisitTask + ';' //+ educationAssessmentTask + ';' 
         + STARTestMathTask + ';' + STARTestReadingTask,'Education (All)')); 
         toDoTabList.add(new SelectOption(schoolVisitTask,' >Ed Program Visit Request'));  
-        toDoTabList.add(new SelectOption(educationAssessmentTask,' >Education Assessment')); 
+        //toDoTabList.add(new SelectOption(educationAssessmentTask,' >Education Assessment')); 
         toDoTabList.add(new SelectOption(STARTestMathTask,' >STAR Test - Math'));
         toDoTabList.add(new SelectOption(STARTestReadingTask,' >STAR Test - Reading'));       
         
+        /*
         //Employment
         toDoTabList.add(new SelectOption(alumniSurveyTask + ';' + careerExplorationReferralTask
         + ';' + employmentAssessmentTask,'Employment (All)'));  
@@ -466,7 +467,7 @@ public class utilityIds {
         toDoTabList.add(new SelectOption(mentalHealthAssessmentTask,' >Mental Health Assessment'));  
         toDoTabList.add(new SelectOption(PHQ9Task,' >PHQ-9 Assessment')); 
         toDoTabList.add(new SelectOption(UCLATask,' >UCLA PTSD RI Assessment'));            
-        
+        */
         //Progress Notes 
         toDoTabList.add(new SelectOption(ccCRSNoteTask + ';' + ccProgressNoteTask + ';' + PSCRSNoteTask + ';' 
         + psProgressNoteTask + ';' + incidentReportNoteTask,'Progress Notes (All)'));                
@@ -482,7 +483,7 @@ public class utilityIds {
         toDoTabList.add(new SelectOption(exitDrugTestTask,' >Exit Drug Test'));     
         toDoTabList.add(new SelectOption(initialDrugTestTask,' >Initial Drug Test'));
         toDoTabList.add(new SelectOption(nextDrugTestTask,' >Next Drug Test'));     
-        toDoTabList.add(new SelectOption(substanceAbuseAssessmenTask,' >Substance Abuse Assessment')); 
+        //toDoTabList.add(new SelectOption(substanceAbuseAssessmenTask,' >Substance Abuse Assessment')); 
                   
      }  //EOF - utilityIds()
 }
