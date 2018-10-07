@@ -617,7 +617,7 @@ public with sharing class srp_NotificationController{
     addRec.Appointment_Date__c = date.parse(appDate.trim());
     addRec.pcid__c = pcid;
     addRec.Case_relationship__c = CaseRel_Id;
-    addRec.client__c = clientId;
+ //   addRec.client__c = clientId;
     insert addRec;
     system.Debug('\n\n XXX addRec: ' + addRec);
     if (docName == 'Rearrest'){
@@ -625,6 +625,10 @@ public with sharing class srp_NotificationController{
       updateCR.DelinquencyTrackingLKID__c = addRec.id;
       update updateCR;
     }
+   if (docName == 'Letter' || docName == 'Report'){ 
+      Event ev = new Event(id=courtId);
+      ev.Delinquency__c = addRec.id;
+      update ev;}
     }
    else{
    //record already created
@@ -644,11 +648,14 @@ public with sharing class srp_NotificationController{
       updateRec.Outcome__c = OutcomeValue;
     if (ReturnedValue <> ReturnedValueOld)        
        updateRec.Returned_to_Program__c = ReturnedValue;
-   /// if (lUpdate || updatecaseRel)
        update updateRec;
+   
+    if (docName == 'Letter' || docName == 'Report'){ 
+      Event ev = new Event(id=courtId);
+      ev.Delinquency__c = recid;
+      update ev;}    
    }
- 
-    lstDeliqToShow = checkDeliqTrack();
+ //   lstDeliqToShow = checkDeliqTrack();
    closePopUp();
    }
    

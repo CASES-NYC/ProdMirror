@@ -106,6 +106,10 @@ margin-top:0.1in;
       <apex:param name="idProgDelete" assignTo="{!idProgDelete}" value="" />
    </apex:actionFunction>
  
+  <apex:actionFunction name="afsaveOutcomeValue" action="{!saveOutcomeValue}" rerender="repOutcome"/>
+
+
+
  <apex:actionFunction name="afchangeType" action="{!donothing}" 
    rerender="lstResponse,resp,lblresp,lblmade,lbltest,op"> 
 </apex:actionFunction>
@@ -228,53 +232,13 @@ margin-top:0.1in;
       style="font-size:10px" rendered="{!Chooserender==null}"/>
    <br/>     
    <apex:outputlabel value="New York, NY 10013" />
- &nbsp;&nbsp;
-   
- <apex:outputPanel id="fta" layout="block" 
-   rendered="{!docType=='Report'&&Chooserender==null&&showFTA==true}"
-         style="position:absolute;left:300px;">
-         
-   <apex:outPutLabel value="FTA reason:"  
-   rendered="{!Chooserender==null&&docType=='Report'&&showFTA==true}"/>
-    <apex:selectList size="1" required="false" value="{!FTAValue}" style="width:150px" id="plF" 
-          rendered="{!Chooserender==null&&((docType=='Report'&&showFTA==true)||docType<>'Report')}" onChange="saveFTA()">
-             <apex:selectOptions value="{!ReasonItems}" />   
-      </apex:selectList> 
- 
-   &nbsp;&nbsp;&nbsp;&nbsp;
-   <apex:outPutLabel value="Outcome:"  />
-   <apex:selectList size="1" required="false" value="{!OutcomeValue}" style="width:220px"  
-          rendered="{!Chooserender==null&&docType=='Report'&&showFTA==true}" onChange="saveoutcomeValue()">
-     <apex:selectOptions value="{!if(docType=='Report',ReasonItems,WarrantItems)}" />
-      </apex:selectList> 
- 
-     <apex:actionFunction name="afsaveFTA" action="{!saveFTA}"/>
-     <script>  
-        function saveFTA(){ 
-   //        alert('in save fta');
-          //afsaveWarrant(w);
-          afsaveFTA();
-        } 
-     </script>
-     
-  <apex:actionFunction name="afsaveOutcomeValue" action="{!saveOutcomeValue}"/>
-     <script>  
-        function saveoutcomeValue(){ 
-     //      alert('in save fta out');
-          //afsaveWarrant(w);
-          afsaveoutcomeValue();
-        } 
-     </script>     
-     
-   </apex:outputPanel>  
- 
- <apex:outputPanel id="clock" layout="block" rendered="{!docType!='Report'&&Chooserender==null}"
-         style="position:absolute;left:300px;">
+ <br/>  
+<apex:outputPanel id="info" rendered="{!Chooserender==null}">
 <apex:outputLabel value="{!if(clockValue==true&&docType=='Letter','Clock Stopped',
     if(docType=='Letter','Clock Running',''))}" 
      style="font-size:20px;color:{!clockColor}" />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   <!--   <apex:outPutLabel value="Warrant: {!WarrantValue}" id="war"/>&nbsp;-->
+  &nbsp;&nbsp;&nbsp;&nbsp;
+
     <apex:outPutLabel value="Warrant issued:" rendered="{!Chooserender==null&&docType!='Report'}"/>
    
     <apex:selectList size="1" required="false" value="{!WarrantValue}" style="width:50px" id="plW" 
@@ -290,14 +254,19 @@ margin-top:0.1in;
         } 
      </script>
  &nbsp;&nbsp;&nbsp;
- <!-- &&showOutcome -->
-  <apex:outPutLabel value="Outcome:" 
-     rendered="{!Chooserender==null&&docType!='Report'}"/>
-  <apex:selectList size="1" required="false" value="{!OutcomeValue}" style="width:150px" id="plO" 
-          rendered="{!Chooserender==null&&docType!='Report'}" onChange="saveOutcome()">
-   <!--        <apex:actionSupport event="onChange" action="{!saveOutcome}" />--> 
-             <apex:selectOptions value="{!OutcomeItems}" />   
-      </apex:selectList>
+ <apex:outPutLabel value="FTA reason:"  rendered="{!docType=='Report'}"/>
+    <apex:selectList size="1" required="false" value="{!FTAValue}" style="width:150px" id="plF" 
+          rendered="{!docType=='Report'}" onChange="saveFTA()">
+             <apex:selectOptions value="{!ReasonItems}" />   
+      </apex:selectList> 
+ 
+ &nbsp;&nbsp;&nbsp;
+  <apex:outPutLabel value="Outcome:" />
+    <apex:selectList size="1" required="false" value="{!outcomeValue}" style="width:220px" onChange="saveOutcome()">  
+             <apex:selectOptions value="{!if(docType=='Report',FTAOutcomeItems,LetterOutcomeItems)}" />   
+      </apex:selectList> 
+  
+  
      <apex:actionFunction name="sendOutcometocontroller" action="{!saveOutcome}" rerender="plw"/>
      <script>  
         function saveOutcome(){ 
@@ -308,9 +277,9 @@ margin-top:0.1in;
      </script>
  
  &nbsp;&nbsp;&nbsp;
-  <apex:outPutLabel value="Returned to Program:" rendered="{!Chooserender==null&&docType!='Report'}"/>
+  <apex:outPutLabel value="Returned to Program:" />
   <apex:selectList size="1" required="false" value="{!ReturnedValue}" style="width:50px" id="plR" 
-          rendered="{!Chooserender==null&&docType!='Report'}" onChange="saveReturned()">
+           onChange="saveReturned()">
              <apex:selectOptions value="{!ReturnItems}" />   
       </apex:selectList>
      <apex:actionFunction name="sendReturnedtocontroller" action="{!saveReturned}"/>
@@ -321,10 +290,8 @@ margin-top:0.1in;
           sendReturnedtocontroller();
         } 
      </script>
-   
-   </apex:outPutPanel>
-   <br/><br/><br/>  
-
+</apex:outputPanel>   
+   <br/> 
    <apex:panelGrid columns="2" id="pg1"  columnClasses="col1,col2" cellpadding="3" cellspacing="3">
      <apex:pageblock id="blockdocument">
       <table cellspacing="0" cellpadding="3" border="1">
@@ -354,12 +321,6 @@ margin-top:0.1in;
           <apex:outputlabel value="{!casetitle}" style="font-weight:bold;font-size:12px" id="ct"/>&nbsp;
         </td>
         <td style="width:300px" align="left">
-    <!-- 
-          <apex:selectList size="1" required="false" value="{!docketValue}" style="width:120px;font-size:12px" id="pldocket"
-             onChange="selectDocket()" rendered="{!Chooserender==null&&docType!='Report'}">
-             <apex:selectOptions value="{!docketItems}" />   
-          </apex:selectList>
-      -->
           <apex:selectList size="1" required="false" value="{!docketValue}" style="width:120px;font-size:12px" id="pldocket"
              onChange="selectDocket(this.value)" rendered="{!Chooserender==null}">
              <apex:selectOptions value="{!docketItems}" />   
@@ -367,7 +328,6 @@ margin-top:0.1in;
 
           <apex:actionFunction name="afSelectDocket" action="{!refreshDocket}" 
           rerender="cr,chg,d1,c1,c2,apps,ct">
-  <!--          <apex:param name="selectedDocket" assignTo="{!actionPassed}" value="" />-->
           </apex:actionFunction>
           <script>  
             function selectDocket(selectedDocket){ 
@@ -380,22 +340,7 @@ margin-top:0.1in;
             rendered="{!Chooserender==null}">
             <apex:outputText value="{!casename}" />        
           </apex:outputLink>             
-      <!-- 
-      <apex:outputText value="{!casename}" 
-            rendered="{!Chooserender!=null&&docType!='Report'}" id="c2" />
-      
-          <apex:outputText value="{!casename}" 
-            rendered="{!Chooserender==null&&docType!='Report'}" id="c1" />
-      
-          <apex:outputLink value="/{!caseid}" id="cr" target="_blank" 
-            rendered="{!Chooserender==null&&docType=='Report'}">
-            <apex:outputText value="{!casename}" />        
-          </apex:outputLink>
-           <apex:outputText value="{!casename}" rendered="{!Chooserender!=null&&docType=='Report'}"  />     
-      -->
            <apex:outputText value="{!casename}"   id="dname" rendered="{!Chooserender!=null}"/>   
-
-
         </td>
       </tr>     
       <tr>
@@ -510,11 +455,6 @@ margin-top:0.1in;
 
      <apex:outPutLabel value="Please enter text for this type" rendered="{!showTextBox==true&&Chooserender!=null&&notes==''}"
       style="font-weight:bold;font-size:20px"/> 
-<!-- 
-<div rendered="{!docType!='Rearrest'}" >
-<br/>
-</div>
--->
     <apex:outputLabel value="The above named defendant was released by the Court on {!dintake} 
     to participate in the Manhattan Supervised Release program." />
    <apex:outputLabel value="However, our records indicate that {!salutName} " rendered="{!docType=='Letter'}"/>
@@ -534,7 +474,6 @@ margin-top:0.1in;
             <apex:outputlabel value="Appointments Dates" 
             style="font-weight:bold;"/>
          <br/>
-<!--          <apex:outputlabel value="{!prevCourtDate}-{!courtDate}"/>-->   
          <apex:outputlabel value="{!repPeriod}"/>   
          </td> 
          <td style="width:220px" align="center" >
@@ -674,13 +613,7 @@ margin-top:0.1in;
         style="font-style:italic;" rendered="{!Chooserender!=null}"/></div>
      </div>
  <apex:form rendered="{!Chooserender!=null}">
- 
- 
- 
- 
- 
      <div style="page-break-before:always;"/>
-
     <br/>
       <apex:image id="theImage" value="{!$Resource.cases_small}" rendered="{!Chooserender!=null}"/>
 <br/>
@@ -690,7 +623,6 @@ margin-top:0.1in;
     <apex:outPutText value="Notification of Non-Compliance" style="font-weight:bold;font-size:20px" rendered="{!docType=='Letter'}"/>
     <apex:outPutText value="PROGRAM STATUS REPORT" style="font-weight:bold;font-size:20px" rendered="{!docType=='Report'}"/>
    </div>
-<!--    <br/><br/>-->
   <apex:pageBlock >
             <apex:outputlabel value="{!casetitle}" style="font-weight:bold;"/>&nbsp;
             <apex:outputText value="{!casename}" />
@@ -745,14 +677,10 @@ margin-top:0.1in;
     <apex:outPutLabel value="Signature of Judge:_______________________________________"/>
     <br/><br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <!--     <apex:outPutLabel value="Judge:"/>-->
     <br/> <br/>
      
     <apex:outPutText value="*Note: Please advise the CASES Supervised Release Program staff of Presiding Judge's decision."/>
     <br/>
     <apex:outPutText value="*Note: Upon return to program, program staff will update Presiding Judge of graduated sanction imposed in next court update letter."/>
-    
- <!--    <apex:outputLabel value="|__|"/>-->   
 </apex:outPutPanel>
-<!-- </apex:form>-->
 </apex:page>

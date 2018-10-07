@@ -132,13 +132,12 @@ function sortIt()     {
         </td>
        <td align="left">
                     <apex:commandButton value="Save" style="color:blue" status="selectData" title="Save & Close"
-                    
-                              rerender="opmain,popup,op " action="{!saveFTA}"/>  
+                          action="{!saveFTA}" rerender="opmain"/>  
        </td>
        <td align="right">
        
-      <apex:commandLink value="Cancel" style="color:blue" status="selectData" 
-                             rerender="opmain,popup,op " action="{!closePopUp}"/>  
+      <apex:commandLink value="Cancel" style="color:blue" status="selectData" immediate="true" 
+                             action="{!closePopUp}"  rerender="opmain"/>  
         </td>
                 
      </tr>

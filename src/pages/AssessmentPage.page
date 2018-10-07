@@ -137,7 +137,7 @@ function sortIt()     {
                  <th><FONT SIZE="2px">Assessment</FONT></th>    
                  <th><FONT SIZE="2">Result</FONT></th>    
                  <th><FONT SIZE="2">Program/Status</FONT></th>    
-                 <th><FONT SIZE="2">Completed On</FONT></th>    
+                 <th><FONT SIZE="2">Date</FONT></th>    
                  <th><FONT SIZE="2">Completed By</FONT></th>    
                  <th><FONT SIZE="2"></FONT></th>    
                   </tr>  
@@ -154,7 +154,9 @@ function sortIt()     {
                   </td>
                   
             <td>
-                <apex:outPutLabel value="{!m.result}" style="font-weight:bold;font-size:12px;"/>
+              <apex:inputcheckbox value="{!m.flag}" title="Flag" rendered="{!m.flag==true}" 
+              style="width:16px;height:16px;color:red" disabled="true"/>
+ &nbsp;             <apex:outPutLabel value="{!m.result}" style="font-weight:bold;font-size:12px;"/>
             </td>
                   <td width="100px">
              <apex:outputLink value="/{!m.clientSFId}" id="dd" target="_blank" title="open contact">
@@ -166,7 +168,7 @@ function sortIt()     {
                 <apex:outputText value="{!m.Status}" style="font-size:10px;"/> 
                   </td>
                 <td width="100px">
-                   <apex:outPutLabel value="{!m.assDate}" /> 
+                   <apex:outPutLabel value="{!m.assDate}" title="Assessment Date"/> 
                 </td>   
                 <td width="150px">
                    <apex:outPutLabel value="{!m.assBy}" />

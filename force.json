@@ -30,8 +30,8 @@
     "srcDefault": "",
     "srcs": {},
     "handleMetaFiles": false,
-    "username": "probinson@cases.org.prodmirror",
-    "url": "https://test.salesforce.com",
+    "username": "probinson@cases.org",
+    "url": "https://login.salesforce.com",
     "autoCompile": false,
     "src": "src"
 }

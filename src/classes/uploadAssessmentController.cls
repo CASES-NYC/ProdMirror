@@ -15,7 +15,7 @@ public class uploadAssessmentController {
    Map<string,string>  mapNameCode = new Map<string,string>();
    Map<string,string>  mapContactAccount = new Map<string,string>();
    public uploadAssessmentController(){
-   	  for (assessmentList__c lu :[Select assessmentName__c,name,pageName__c,programs__c
+       for (assessmentList__c lu :[Select assessmentName__c,name,pageName__c,programs__c
          From assessmentList__c where isActive__c =: true order by assessmentName__c]){
         mapNameCode.put(lu.assessmentName__c.trim(),lu.name);}
       csvfilelines = new String[]{};
@@ -191,12 +191,15 @@ public class uploadAssessmentController {
           
        lstContainerAll.add(assm);
           uploadedClients.add(assm.client__c); 
-          uploadedLegacy.add(assm.Legacy_Database_Id__c) ;
+ //         uploadedLegacy.add(assm.Legacy_Database_Id__c) ;
          if (SetLegacyId_inSF != null){   
-            if (SetLegacyId_inSF.contains(assm.Legacy_Database_Id__c) == false)
-               lstContainerAdd.add(assm);}
-           else 
-             lstContainerAdd.add(assm);
+            if (SetLegacyId_inSF.contains(assm.Legacy_Database_Id__c) == false){
+              lstContainerAdd.add(assm);
+             uploadedLegacy.add(assm.Legacy_Database_Id__c) ;
+            }}
+        //   else 
+         //    lstContainerAdd.add(assm);
+           
    //       lstContainerAdd.add(assm);
     //       uploadedClients.add(assm.client__c); 
       //    uploadedLegacy.add(assm.Legacy_Database_Id__c) ;
@@ -206,7 +209,7 @@ public class uploadAssessmentController {
          System.Debug('\n\n XXX lstContainerAdd: ' +lstContainerAdd);
   
         if (MHtype == 'LSCMI'){
-          	    System.Debug('\n\n\n XXX in LSCMI: ');
+                System.Debug('\n\n\n XXX in LSCMI: ');
             oneLSCMI= new LSCMI__c();
             oneLSCMI.LSCMI_Strengths__c = csvRecordData[5]; 
             oneLSCMI.LSCMI_Subscale_1_Risk_Level__c = decimal.ValueOf(csvRecordData[6].trim()); 
@@ -233,11 +236,12 @@ public class uploadAssessmentController {
             oneLSCMI.Survey_Notes__c = fixednotes.replaceall('XZXZ', '\r\n');}
             catch (Exception e) {badDate = true;}
             oneLSCMI.Weight__c = '2';
-            lstLCMI.add(oneLSCMI);
+            if (SetLegacyId_inSF.contains(assm.Legacy_Database_Id__c) == false)
+               lstLCMI.add(oneLSCMI);
           }
           else {if (MHtype == 'Y_LSCMI'){
-          	     oneY = new LSCMI_Y__c();
-          	            oneLSCMI.LSCMI_Strengths__c = csvRecordData[5]; 
+                 oneY = new LSCMI_Y__c();
+                        oneLSCMI.LSCMI_Strengths__c = csvRecordData[5]; 
             oneY.LSCMI_Subscale_1_Risk_Level__c = decimal.ValueOf(csvRecordData[6].trim()); 
             oneY.LSCMI_Subscale_2_Risk_Level__c = decimal.ValueOf(csvRecordData[7].trim()); 
             oneY.LSCMI_Subscale_3_Risk_Level__c = decimal.ValueOf(csvRecordData[8].trim());   
@@ -262,7 +266,7 @@ public class uploadAssessmentController {
             oneY.Survey_Notes__c = fixednotes.replaceall('XZXZ', '\r\n');}
             catch (Exception e) {badDate = true;}
             oneY.Weight__c = '2';
-/*          	     
+/*                 
             oneY.LSCMI_Strengths__c = csvRecordData[5]; 
             oneY.LSCMI_Subscale_1_Risk_Level__c = decimal.ValueOf(csvRecordData[5].trim()); 
             oneY.LSCMI_Subscale_2_Risk_Level__c = decimal.ValueOf(csvRecordData[6].trim()); 
@@ -289,6 +293,7 @@ public class uploadAssessmentController {
      //       catch (Exception e) {badDate = true;}
          //   oneY.Weight__c = '2';
   */
+           if (SetLegacyId_inSF.contains(assm.Legacy_Database_Id__c) == false)
             lstY.add(oneY);
           }
           
@@ -298,6 +303,7 @@ public class uploadAssessmentController {
             oneLSIR.LSI_R_SV_Score__c = decimal.ValueOf(csvRecordData[3].trim()); 
             try{oneLSIR.Survey_Date__c = date.parse(csvRecordData[2].trim());} 
             catch (Exception e){badDate = true;}
+           if (SetLegacyId_inSF.contains(assm.Legacy_Database_Id__c) == false)
             lstLSIR.add(oneLSIR);
           }} 
        lstContainerAll.add(assm); 
@@ -308,7 +314,7 @@ public class uploadAssessmentController {
    string containerId;
   List<AssessmentContainer__c> contAdded = [select id, Legacy_Database_Id__c,assmresult__c from AssessmentContainer__c 
       where Legacy_Database_Id__c in: uploadedLegacy];
-  for (Integer a = 0; a < contAdded.Size(); a++){
+ for (Integer a = 0; a < contAdded.Size(); a++){
       containerId = contAdded[a].id;      
       if (MHtype == 'LSCMI'){
             lstLCMI[a].AssessmentContainerId__c = containerId;  
@@ -316,11 +322,11 @@ public class uploadAssessmentController {
       }
       else{
          if (MHtype == 'Y_LSCMI'){
-      	  lstY[a].AssessmentContainerId__c = containerId; 
+          lstY[a].AssessmentContainerId__c = containerId; 
     //      contAdded[a].assmResult__c = 'Overall Risk Category: ' + lstY[a].Overall_Risk_Category__c;
          }
-      	 else
-      	   lstLSIR[a].AssessmentContainerId__c = containerId; 
+         else
+           lstLSIR[a].AssessmentContainerId__c = containerId; 
          
     }}
        if (MHtype == 'LSCMI'){
@@ -329,9 +335,9 @@ public class uploadAssessmentController {
        }
       else
          if (MHtype == 'Y_LSCMI')
-      	 upsert lstY;
+         upsert lstY;
      else
-      	 upsert lstLSIR; 
+         upsert lstLSIR; 
     
   System.Debug('\n\n XXX lstLCMI: ' + lstLCMI); 
 // lstContainerAll,
@@ -491,7 +497,7 @@ public class uploadAssessmentController {
        MAP<id,string>  mapIdPcId = new MAP<id,string>();
        List<AssessmentContainer__c> retList = new List<AssessmentContainer__c>();
        AssessmentContainer__c oneRecord = new AssessmentContainer__c();
-    	
+      
     }
     */          
 }

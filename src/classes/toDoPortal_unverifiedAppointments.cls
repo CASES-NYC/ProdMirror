@@ -148,9 +148,12 @@ global with sharing class toDoPortal_unverifiedAppointments {
                     if(UserInfo.getProfileId() != THIS_UTILITY.cepDeputyDirector && UserInfo.getProfileId() != THIS_UTILITY.cepDirector ){
                         if(THIS_USER.Unit__c != THIS_EVENT.Unit__c){
                             Editable = FALSE;
-                        }
-                    }
-                }
+                }}}
+                
+                // changes by LZ 9/25/2018 - curfewVerify__c in user profile is set to TRUE
+              //      if (THIS_EVENT.subject == 'Curfew' && THIS_USER.curfewVerify__c == true){
+               //      	Editable = TRUE;}
+               //         //  changes by LZ      
                 
                 if(THIS_EVENT.ActivityDate < System.Today()){               
                     Color = '#FF0000';  // RED

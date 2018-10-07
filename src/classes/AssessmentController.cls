@@ -106,7 +106,7 @@ public class AssessmentController{
   public AssessmentController()
     {        Event e = new Event();    
             proxyObject = e;
-    	  isCancel = false;
+        isCancel = false;
       completed = false;
         isedit = false;
         Id userProfId = userInfo.getProfileId();
@@ -185,6 +185,7 @@ public class AssessmentController{
      public string clientSFid{get;set;}
      public boolean completed{get;set;} 
      public string courtRepName{get;set;}
+     public boolean flag{get;set;}
      public string recIdFromOld{get;set;}}
     
     boolean oldCompleted = true;
@@ -192,7 +193,7 @@ public class AssessmentController{
     public List<asmCreated> allShow{get;set;}
     void selectAssessmentHistory()
     {
-        aCreated = new List<AssessmentContainer__c>([select id,Assessment_Completed_by__r.name,source__c,
+        aCreated = new List<AssessmentContainer__c>([select id,Assessment_Completed_by__r.name,source__c,flag__c,
          assmResult__c,Assessment_Date__c,Assessment_Completed_on__c,assessmentCode__c,assessmentName__c,completed__c,
         LastModifiedDate, LastModifiedById,CreatedDate,CreatedById,client__c,recIdFromassessment__c,Uploaded__c
             from AssessmentContainer__c where assessmentCode__c !=: null and client__c in: contactIds order by assessmentName__c]);
@@ -204,14 +205,16 @@ public class AssessmentController{
             {   oneAsm = new asmCreated();
                 Program = '';   
                 oneAsm.source = '';
+                oneAsm.flag = false;
                 oneAsm.otherProgram = false;
                 oneAsm.recIdFromOld = a.recIdFromassessment__c;
                 oneAsm.assCode = a.assessmentCode__c;           
                 oneAsm.assName = a.assessmentName__c;
+                oneAsm.flag = a.flag__c;
                 oneAsm.result = a.assmResult__c;  
                 oneAsm.assBy = a.Assessment_Completed_by__r.name;
-                if (a.Assessment_Completed_on__c != null)
-                    oneAsm.assDate = a.Assessment_Completed_on__c.format();
+                if (a.Assessment_Date__c != null)
+                    oneAsm.assDate = a.Assessment_Date__c.format();
                 oneAsm.assId = a.id; 
                 if (a.assessmentName__c == 'LSI R' || a.assessmentName__c == 'LS/CMI' ||
                   a.assessmentName__c == 'Y-LS/CMI'){
@@ -299,6 +302,7 @@ public class AssessmentController{
         newAssessment = false;
         boolOpen = false; 
         isedit = false; 
+        noEdit = false;
         if (fromContact == true)
         asmOpen = System.currentPagereference().getParameters().get('assmFromContact');
         AssessmentContainer__c an = [select name, assessmentCode__c,Assessment_Date__c,CreatedDate,
@@ -505,11 +509,11 @@ public class AssessmentController{
     //////  SAVE Assessment   
     public void saveAssessment()
     { 
-    	if (proxyobject.Closing_Date__c > date.today()){
-    	          ApexPages.addMessage(new ApexPages.message(ApexPages.Severity.ERROR, 'Date of Assessment can not be after today.'));
-    	  return;
-    	}
-    	  strMissed = '';
+      if (proxyobject.Closing_Date__c > date.today()){
+                ApexPages.addMessage(new ApexPages.message(ApexPages.Severity.ERROR, 'Date of Assessment can not be after today.'));
+        return;
+      }
+        strMissed = '';
     
         boolean lnew = false;
         AssessmentContainer__c c = new AssessmentContainer__c();
@@ -593,6 +597,7 @@ public class AssessmentController{
                cResult  = p.Result__c;
             System.Debug('\n\n XXX cResult: ' + cResult);
             c.assmResult__c  = cResult;
+            c.flag__c = p.PHQ_9_Flag__c;
             update c;
             showPage(false);}            
         else{
@@ -606,6 +611,7 @@ public class AssessmentController{
                cResult  = p.Result__c;
             System.Debug('\n\n XXX cResult: ' + cResult);
             c.assmResult__c  = cResult;
+            c.flag__c = p.PHQ_9_Flag__c;
             update c;
             showPage(false);}            
         else{
