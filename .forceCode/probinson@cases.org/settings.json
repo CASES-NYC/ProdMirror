@@ -1,0 +1,33 @@
+{
+    "apiVersion": "43.0",
+    "autoRefresh": false,
+    "browser": "Google Chrome Canary",
+    "checkForFileChanges": true,
+    "debugFilter": "USER_DEBUG|FATAL_ERROR",
+    "debugOnly": true,
+    "deployOptions": {
+        "allowMissingFiles": true,
+        "checkOnly": false,
+        "ignoreWarnings": true,
+        "purgeOnDelete": false,
+        "rollbackOnError": true,
+        "runTests": [],
+        "singlePackage": true,
+        "testLevel": "NoTestRun"
+    },
+    "maxFileChangeNotifications": 15,
+    "outputQueriesAsCSV": false,
+    "overwritePackageXML": false,
+    "poll": 1500,
+    "pollTimeout": 1200,
+    "prefix": "",
+    "revealTestedClass": false,
+    "showFilesOnOpen": true,
+    "showFilesOnOpenMax": 3,
+    "showTestCoverage": true,
+    "showTestLog": true,
+    "spaDist": "",
+    "src": "src",
+    "username": "probinson@cases.org",
+    "url": "https://login.salesforce.com"
+}
