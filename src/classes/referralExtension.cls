@@ -1,8 +1,21 @@
 public with sharing class referralExtension 
 {
-
     private ApexPages.StandardController sc;
     public Referral__c referral;
+    public Boolean isEdit {get; set;}
+    public Boolean isNew {get; set;}
+    public String screeningStage {get; set;}
+    public boolean input { get; set; }
+    public String selecttab1 { get; set; }
+    public boolean output { get; set; }
+    public Map<String, String> pageParameters = new Map<String, String>();
+    public String referralId {get; set;}
+    public String retURL {get; set;}
+    public String detectedMode {get;set;}
+    public String saveNew {get;set;}
+    private String selectedTab;
+    public Boolean sryAgeRange {get; set;}  //in Supervised Release Youth's age range
+
     public MAP<id, Penal_Code__c> mapPenalCodes {
       get {
         if (mapPenalCodes == null)
@@ -13,28 +26,79 @@ public with sharing class referralExtension
         return mapPenalCodes;
       } set;
     }
-    public String pcValue {get; set;}
-    //Lets instantiate the Module helper here
-    //Public ModuleHelper mh = new ModuleHelper();
+    public String pcValue {get; set;}    
+    public String pcName {get;set;}
+    public string pcClass {get;set;}
+    public String pcSrpExclusion {get;set;}
+    public String pcLevel {get;set;}
+    public String pcDegree {get;set;}
+    public String getPcNumChgVal() 
+    {
+      return null;
+    }
 
     public referralExtension(ApexPages.StandardController sc) 
     {
         if (!Test.isRunningTest())         
         sc.addFields(new List<String> {'ContactId__c','DocketId__c', 'Attorney_Consent_Date__c','RA_Total_Score_Calc__c', 'Ineligible__c'});
         referral = (Referral__c)sc.getRecord();
-
+        pageParameters = ApexPages.currentPage().getParameters();
+        referralId = PageParameters.get('id');
+        retURL = PageParameters.get('retURL');
+        saveNew = PageParameters.get('save_new');
+        if (referralId == null)
+            { DetectedMode = 'New';  } 
+        else if (referralId != null &  retURL!= null)
+            { DetectedMode = 'Edit'; } 
+        else if (referralId != null & retURL == null)
+            { DetectedMode = 'View'; }
+        //selecttab1 ='name1';
+        selectedTab = 'tabOne';
+        output=false;
+        input=true;
     }
 
-
-        public String pcName {get;set;}
-        public String getPcNumChgVal() 
+    public PageReference saveBasicInfo() 
+    {
+       /*  
+        system.debug('Screening Stage: ' + referral.Screening_Stage__c);
+        if(referral.Screening_Stage__c == '')
         {
-          return null;
+            String nysid = referral.NYSID__c;
+            nysid.toUpperCase();
+            referral.NYSID__c = nysid;
+            referral.Screening_Stage__c = 'Eligibility Testing';
+            Upsert referral;
         }
-        public string pcClass {get;set;}
-        public String pcSrpExclusion {get;set;}
-        public String pcLevel {get;set;}
-        public String pcDegree {get;set;}
+        if basic info
+                create record
+                validate nysid
+                check age
+                change screening stage to eligibility testing
+                rerender show basic view /eligibility edit
+
+            if eligibility testing
+
+            
+            if Additional Information
+            if Completed Evaluation 
+    */        
+        if(DetectedMode == 'New')
+        {
+            String nysid = referral.NYSID__c;
+            referral.NYSID__c = nysid.toUpperCase();
+            referral.Screening_Stage__c = 'Eligibility Testing';        
+            if(referral.Screening_Date__c == NULL){referral.Screening_Date__c = referral.Referral_Date__c;}
+            if(referral.Court_Representative__c == NULL){referral.Court_Representative__c = UserInfo.getUserId();}
+            referral.Screening_Stage__c = 'Eligibility Testing';
+            Upsert referral;
+        }
+        selecttab1 ='name2';
+        return null;
+        //PageReference referralPage = new PageReference('/'+referral.id);
+        //return referralPage;
+    }
+
 
     public pagereference reloadPage()
     {
@@ -47,26 +111,80 @@ public with sharing class referralExtension
 
     public void fieldValidation()
     {
+
+        
+//age invalid
+//<16
+//>80
+//>18 <18
+//risk score invalid
+//charge invalid Assault 2, Robbery 2
+/* 
+    , 
+    IF( Domestic_Violence_Charges__c =TRUE,"Ineligible - Domestic Violence", 
+
+    IF(len( Ineligible_Reason__c )>0,"Ineligible - Other", 
+    IF(Len(Text(Referral_is_Ineligible__c))>0,Text(Referral_is_Ineligible__c), 
+    IF( NOT(ISPICKVAL( ContactId__r.Screening_Outcome_srp__c , "Eligible")),Text( ContactId__r.Screening_Outcome_srp__c ), 
+    "")))))))
+*/
+// FORMULA FOR Ineligible__c
       Boolean OK2Continue = true;
       upsert referral;
+
+        if((referral.Age_at_Arrest_Calc__c>=0 && referral.Age_at_Arrest_Calc__c<16) || referral.Age_at_Arrest_Calc__c > 80)
+        {
+            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.FATAL,'Invalid Age.'));
+            OK2Continue = false;
+        } 
+        else if(referral.Age_at_Arrest_Calc__c < 18)
+        {
+            sryAgeRange = TRUE;
+        }
+        
+        if(referral.Top_Arraignment_Charge_CC_lu__r.SRP_Exclusion__c)
+        {
+          ApexPages.addmessage(new ApexPages.message(ApexPages.severity.FATAL,'Charge Ineligible.'));
+          OK2Continue = false;
+        }
+
+        if(referral.MOCJ_Risk_Category__c.substring(0,3) == 'High')
+        {
+          ApexPages.addmessage(new ApexPages.message(ApexPages.severity.FATAL,'Ineligible High Risk Score.'));
+          OK2Continue = FALSE;
+        }
+
       if(referral.Ineligible__c != NULL && referral.Ineligible__c != '' && referral.Ineligible__c != 'Eligible')
       {
         ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'Client not eligible.'));
         OK2Continue = false;      
       }
-        
+
+
+
+
+//otherwise stopping data errors/omissions
+           
+
+
       if(referral.MOCJ_Risk_Category__c == 'INCOMPLETE')
       {
-        ApexPages.addmessage(new ApexPages.message(ApexPages.severity.FATAL,'Risk assessment not completed.'));
+        ApexPages.addmessage(new ApexPages.message(ApexPages.severity.FATAL,'Risssessment not completed.'));
         OK2Continue = false;       
       } 
             
+    
+      
+      
+      
+//PROCEDURAL ERRORS
+      
       if (referral.Client_Consent_to_Screening__c  != 'Yes' )
       {
         ApexPages.addmessage(new ApexPages.message(ApexPages.severity.FATAL,'Client not consented.'));
         OK2Continue = false;       
-      }    
-      
+      }
+
       if (referral.Attorney_Consent__c  != 'Yes' )
       {
         ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'Attorney not consented.'));
@@ -90,12 +208,86 @@ public with sharing class referralExtension
         ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'Enter arrest number.'));
         OK2Continue = false;       
       }   
-     
+
       if(OK2Continue)
       {
           ClientConsented();
       }
    } 
+
+//////////////////////  TAB MANAGEMENT  ////////////////////////////////
+    
+    public string getSelectedTab() 
+    {
+        return selectedTab;
+    }
+    
+    public boolean getIsTabOneDisabled() 
+    {
+        return selectedTab <> 'tabOne';
+    }
+
+    public boolean getIsTabTwoDisabled() 
+    {
+        return selectedTab <> 'tabTwo';
+    }
+    
+    public boolean getIsTabThreeDisabled() 
+    {
+        return selectedTab <> 'tabThree';
+    }
+
+    public boolean getIsTabFourDisabled() 
+    {
+        return selectedTab <> 'tabFour';
+    }
+    
+
+    public boolean getIsTabFiveDisabled() 
+    {
+        return selectedTab <> 'tabFive';
+    }
+    
+    public void enableTabOne() 
+    {
+        selectedtab = 'tabOne';
+    }
+
+    public void enableTabTwo() 
+    {
+        selectedtab = 'tabTwo';
+    }
+    
+    public void enableTabThree() 
+    {
+        selectedtab = 'tabThree';
+    }
+
+    public void enableTabFour() 
+    {
+        selectedtab = 'tabFour';
+    }   
+
+    public void enableTabFive() 
+    {
+        selectedtab = 'tabFive';
+    }
+
+  public boolean getistab1disabled() {
+    return selectedTab <> 'tab1';
+  }
+
+  public boolean getistab2disabled() {
+    return selectedTab <> 'tab2';
+  }
+
+  public void enabletab1() {
+    selectedtab = 'tab1';
+  }
+
+  public void enabletab2() {
+    selectedtab = 'tab2';
+  }
 
     public PageReference ClientConsented()
     {     
@@ -262,127 +454,6 @@ public with sharing class referralExtension
               caseChrgB5.Docket_No__c = referral.docketid2__c;
               caseChrgB5.type__c = 'Criminal Court Arraignment Charges';                 
               insert caseChrgB5;                          
-            }
-          }
-
-////////     DOCKET C (3)  AND CASE CHARGES   //////////////////////////////////////////////
-
-          if(referral.Charge_C1__c != '' && referral.Charge_C1__c != NULL)
-          {
-            Case_Information__c caseInfo3 = new Case_Information__c();
-            caseInfo3.Client_Account__c = acctId;
-            caseInfo3.Arrest_Date__c = referral.Arrest_Date3__c;
-            caseInfo3.Arrest_Number__c = referral.Arrest_Number3__c;
-            caseInfo3.Criminal_Court_Arraignment_Date__c = referral.Arraignment_Date__c;
-            caseInfo3.Name = referral.Docket3__c;
-            if(caseInfo3.Name == 'Docket NA') 
-               caseInfo3.No_Docket__c = true;
-            caseInfo3.Borough__c = referral.Court_Borough__c;
-            caseInfo3.RecordTypeId = Utility_ID__c.getValues('Case - Criminal Court').RecordType_Id__c;
-            insert caseInfo3;
-            referral.docketid3__c = caseInfo3.Id;
-
-            Case_Charges__c caseChrgC1 = new Case_Charges__c();
-            caseChrgC1.Charge__c = referral.Charge_C1__c;
-            caseChrgC1.Docket_No__c = referral.docketid3__c;
-            caseChrgC1.type__c = 'Criminal Court Arraignment Charges';  
-            insert caseChrgC1;
-
-            if(referral.Charge_C2__c != '')
-            {          
-              Case_Charges__c caseChrgC2 = new Case_Charges__c();
-              caseChrgC2.Charge__c = referral.Charge_C2__c;
-              caseChrgC2.Docket_No__c = referral.docketid3__c;
-              caseChrgC2.type__c = 'Criminal Court Arraignment Charges';  
-              insert caseChrgC2;
-            }
-
-            if(referral.Charge_C3__c != '')
-            {
-              Case_Charges__c caseChrgC3 = new Case_Charges__c();
-              caseChrgC3.Charge__c = referral.Charge_C3__c;
-              caseChrgC3.Docket_No__c = referral.docketid3__c;
-              caseChrgC3.type__c = 'Criminal Court Arraignment Charges'; 
-              insert caseChrgC3;                          
-            } 
-
-            if(referral.Charge_C4__c != '')
-            {
-              Case_Charges__c caseChrgC4 = new Case_Charges__c();
-              caseChrgC4.Charge__c = referral.Charge_C4__c;
-              caseChrgC4.Docket_No__c = referral.docketid3__c;
-              caseChrgC4.type__c = 'Criminal Court Arraignment Charges'; 
-              insert caseChrgC4;                          
-            }
-
-            if(referral.Charge_C5__c != '')
-            {
-              Case_Charges__c caseChrgC5 = new Case_Charges__c();
-              caseChrgC5.Charge__c = referral.Charge_C5__c;
-              caseChrgC5.Docket_No__c = referral.docketid3__c;
-              caseChrgC5.type__c = 'Criminal Court Arraignment Charges';                 
-              insert caseChrgC5;                          
-            }
-          }
-
-////////     DOCKET D (4)  AND CASE CHARGES   //////////////////////////////////////////////
-
-
-          if(referral.Charge_D1__c != ''&& referral.Charge_D1__c != NULL)
-          {
-            Case_Information__c caseInfo4 = new Case_Information__c();
-            caseInfo4.Client_Account__c = acctId;
-            caseInfo4.Arrest_Date__c = referral.Arrest_Date4__c;
-            caseInfo4.Arrest_Number__c = referral.Arrest_Number4__c;
-            caseInfo4.Criminal_Court_Arraignment_Date__c = referral.Arraignment_Date__c;
-            caseInfo4.Name = referral.Docket4__c;
-            if(caseInfo4.Name == 'Docket NA') 
-               caseInfo4.No_Docket__c = true;
-            caseInfo4.Borough__c = referral.Court_Borough__c;
-            caseInfo4.RecordTypeId = Utility_ID__c.getValues('Case - Criminal Court').RecordType_Id__c;
-            insert caseInfo4;
-            referral.docketid4__c = caseInfo4.Id;
-
-            Case_Charges__c caseChrgD1 = new Case_Charges__c();
-            caseChrgD1.Charge__c = referral.Charge_D1__c;
-            caseChrgD1.Docket_No__c = referral.docketid4__c;
-            caseChrgD1.type__c = 'Criminal Court Arraignment Charges';  
-            insert caseChrgD1;
-
-            if(referral.Charge_D4__c != '')
-            {          
-              Case_Charges__c caseChrgD2 = new Case_Charges__c();
-              caseChrgD2.Charge__c = referral.Charge_D4__c;
-              caseChrgD2.Docket_No__c = referral.docketid4__c;
-              caseChrgD2.type__c = 'Criminal Court Arraignment Charges';  
-              insert caseChrgD2;
-            }
-
-            if(referral.Charge_D3__c != '')
-            {
-              Case_Charges__c caseChrgD3 = new Case_Charges__c();
-              caseChrgD3.Charge__c = referral.Charge_D3__c;
-              caseChrgD3.Docket_No__c = referral.docketid4__c;
-              caseChrgD3.type__c = 'Criminal Court Arraignment Charges'; 
-              insert caseChrgD3;                          
-            } 
-
-            if(referral.Charge_D4__c != '')
-            {
-              Case_Charges__c caseChrgD4 = new Case_Charges__c();
-              caseChrgD4.Charge__c = referral.Charge_D4__c;
-              caseChrgD4.Docket_No__c = referral.docketid4__c;
-              caseChrgD4.type__c = 'Criminal Court Arraignment Charges'; 
-              insert caseChrgD4;                          
-            }
-
-            if(referral.Charge_D5__c != '')
-            {
-              Case_Charges__c caseChrgD5 = new Case_Charges__c();
-              caseChrgD5.Charge__c = referral.Charge_D5__c;
-              caseChrgD5.Docket_No__c = referral.docketid4__c;
-              caseChrgD5.type__c = 'Criminal Court Arraignment Charges';                 
-              insert caseChrgD5;                          
             }
           }
         }
