@@ -28,6 +28,8 @@
     "showTestLog": true,
     "spaDist": "",
     "src": "src",
+    "staticResourceCacheControl": "Private",
     "username": "probinson@cases.org",
-    "url": "https://login.salesforce.com"
+    "url": "https://login.salesforce.com",
+    "autoCompile": false
 }

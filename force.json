@@ -1,24 +1,3 @@
 {
-    "checkForFileChanges": true,
-    "autoRefresh": false,
-    "showTestCoverage": true,
-    "showTestLog": true,
-    "showFilesOnOpen": true,
-    "showFilesOnOpenMax": 3,
-    "browser": "Google Chrome Canary",
-    "pollTimeout": 1200,
-    "debugOnly": true,
-    "debugFilter": "USER_DEBUG|FATAL_ERROR",
-    "apiVersion": "43.0",
-    "handleMetaFiles": false,
-    "deployOptions": {
-        "checkOnly": false,
-        "runAllTests": false,
-        "ignoreWarnings": true
-    },
-    "lastUsername": "probinson@cases.org",
-    "src": "src",
-    "username": "probinson@cases.org.prodmirror",
-    "url": "https://test.salesforce.com",
-    "autoCompile": false
+    "lastUsername": "probinson@cases.org"
 }

@@ -193,10 +193,13 @@ public class AssessmentController{
     public List<asmCreated> allShow{get;set;}
     void selectAssessmentHistory()
     {
-        aCreated = new List<AssessmentContainer__c>([select id,Assessment_Completed_by__r.name,source__c,flag__c,
+    	string[] legacyId;
+    	string assmNo;
+        aCreated = new List<AssessmentContainer__c>([select id,Assessment_Completed_by__r.name,source__c,flag__c,Legacy_Database_Id__c,
          assmResult__c,Assessment_Date__c,Assessment_Completed_on__c,assessmentCode__c,assessmentName__c,completed__c,
         LastModifiedDate, LastModifiedById,CreatedDate,CreatedById,client__c,recIdFromassessment__c,Uploaded__c
-            from AssessmentContainer__c where assessmentCode__c !=: null and client__c in: contactIds order by assessmentName__c]);
+            from AssessmentContainer__c where assessmentCode__c !=: null and client__c in: contactIds 
+            order by assessmentName__c,Assessment_Date__c]);
         List<asmCreated> asmList = new List<asmCreated>();
         asmCreated oneAsm = new asmCreated();
         string program, status,assmUpload;
@@ -218,8 +221,13 @@ public class AssessmentController{
                 oneAsm.assId = a.id; 
                 if (a.assessmentName__c == 'LSI R' || a.assessmentName__c == 'LS/CMI' ||
                   a.assessmentName__c == 'Y-LS/CMI'){
-                  if (a.Uploaded__c == true)
-                   oneAsm.source =  'Uploaded';
+                  if (a.Uploaded__c == true){
+                     oneAsm.source =  'Uploaded';
+                     if (a.Legacy_Database_Id__c <> null){
+                      legacyId = a.Legacy_Database_Id__c.split('_');
+                      oneAsm.source =  'Uploaded #:' + legacyId[1];
+                   }
+                  } 
                    else oneAsm.source =  'Manual';}  
                 oneAsm.assCode = a.assessmentCode__c;
                 oneAsm.completed = a.Completed__c;

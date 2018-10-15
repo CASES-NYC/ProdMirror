@@ -170,15 +170,13 @@ public class uploadAssessmentController {
         else{
             assm.assessmentCode__c = mapNameCode.get('LSI R');
             assm.assessmentName__c = 'LSI R';
+            assm.assmresult__c = 'Risk Category: '+ csvRecordData[4].trim();
             assm.Legacy_Database_Id__c = csvRecordData[1].trim();
          assm.Assessment_Date__c = date.parse(csvRecordData[2].trim());
        //   assm.assmresult__c = 'Risk Category: '+ csvRecordData[21].trim();
           try{assm.Assessment_Completed_on__c = date.parse(csvRecordData[2].trim());}
           catch (Exception e){badDate = true;}
-            
-            
-            }  
-       }
+            }}
        
           assm.Uploaded__c = true;
           //assm.Source__c = 'Upload';
