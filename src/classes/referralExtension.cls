@@ -7,6 +7,7 @@ public with sharing class referralExtension
     public String screeningStage {get; set;}
     public boolean input { get; set; }
     public String selecttab1 { get; set; }
+    public String currentTab {get; set;}
     public boolean output { get; set; }
     public Map<String, String> pageParameters = new Map<String, String>();
     public String referralId {get; set;}
@@ -53,7 +54,7 @@ public with sharing class referralExtension
         else if (referralId != null & retURL == null)
             { DetectedMode = 'View'; }
         //selecttab1 ='name1';
-        selectedTab = 'tabOne';
+        currentTab = '1';
         output=false;
         input=true;
     }
@@ -222,57 +223,64 @@ public with sharing class referralExtension
         return selectedTab;
     }
     
-    public boolean getIsTabOneDisabled() 
+    public boolean getIsTab1Disabled() 
     {
-        return selectedTab <> 'tabOne';
+        return selectedTab <> 'Tab1';
     }
 
-    public boolean getIsTabTwoDisabled() 
+    public boolean getIsTab2Disabled() 
     {
-        return selectedTab <> 'tabTwo';
+        return selectedTab <> 'Tab2';
     }
-    
+  
     public boolean getIsTabThreeDisabled() 
     {
-        return selectedTab <> 'tabThree';
+        return selectedTab <> 'Tab3';
     }
 
     public boolean getIsTabFourDisabled() 
     {
-        return selectedTab <> 'tabFour';
+        return selectedTab <> 'Tab4';
     }
     
 
     public boolean getIsTabFiveDisabled() 
     {
-        return selectedTab <> 'tabFive';
-    }
-    
-    public void enableTabOne() 
-    {
-        selectedtab = 'tabOne';
+        return selectedTab <> 'Tab5';
     }
 
+    public void enableTab1() 
+    {
+        selectedtab = 'Tab1';
+    }
+
+    
     public void enableTabTwo() 
     {
-        selectedtab = 'tabTwo';
+        selectedtab = 'Tab1';
+    }
+
+    public void enableTab2() 
+    {
+        selectedtab = 'Tab2';
     }
     
     public void enableTabThree() 
     {
-        selectedtab = 'tabThree';
+        selectedtab = 'Tab3';
     }
 
     public void enableTabFour() 
     {
-        selectedtab = 'tabFour';
+        selectedtab = 'Tab4';
     }   
 
     public void enableTabFive() 
     {
-        selectedtab = 'tabFive';
+        selectedtab = 'Tab5';
     }
 
+/*
   public boolean getistab1disabled() {
     return selectedTab <> 'tab1';
   }
@@ -288,7 +296,7 @@ public with sharing class referralExtension
   public void enabletab2() {
     selectedtab = 'tab2';
   }
-
+*/    
     public PageReference ClientConsented()
     {     
 
@@ -505,6 +513,8 @@ public with sharing class referralExtension
       set{penalCodes = this.penalCodes;}
     }    
 
+    public void nextTab() { currentTab = String.valueOf(Integer.valueOf(currentTab)+1); }
+    public void prevTab() { currentTab = String.valueOf(Integer.valueOf(currentTab)-1); }
 /*
     public boolean validateDocketformat(string s)
     {

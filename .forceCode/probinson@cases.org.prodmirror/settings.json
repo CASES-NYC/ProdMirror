@@ -30,5 +30,6 @@
     "src": "src",
     "staticResourceCacheControl": "Private",
     "username": "probinson@cases.org.prodmirror",
-    "url": "https://test.salesforce.com"
+    "url": "https://test.salesforce.com",
+    "autoCompile": false
 }

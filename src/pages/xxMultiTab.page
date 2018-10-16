@@ -1,0 +1,213 @@
+<apex:page standardController="Referral__c" extensions="multiTabDisableController">
+    <apex:form >
+        <apex:tabPanel selectedTab="{!currentTab}" id="tabPanel" switchType="client" immediate="true">
+            <apex:tab label="Page 1" disabled="{!currentTab<>'1'}">
+ 
+            <apex:outputPanel id="buttons1">
+                <!-- apex:commandbutton value="Save" action="{!saveBasicInfo}" rendered="TRUE" rerender="theForm"/ -->                          
+                <apex:commandbutton value="Edit" action="{!edit}" rendered="{!DetectedMode=='View'}" rerender="theForm"/>
+                <apex:commandbutton value="Cancel" action="{!Cancel}" rendered="TRUE"/>
+                <apex:commandButton value="Next" action="{!nextTab}" rerender="tabPanel"/>               
+            </apex:outputPanel>
+                <apex:outputPanel id="basicInfo">
+                    <apex:outputPanel id="basicInfoEdit" rendered="{!DetectedMode=='New'}">
+                <table>
+                    <tr><th>Referral Date</th><th>Referred By</th><th>Screening Date</th></tr>
+                    <tr><td><div class="hideCurrDate"><apex:inputField value="{!Referral__c.Referral_Date__c}" /></div></td>
+                        <td><apex:inputField value="{!Referral__c.ReferredBy__c}"/></td>                      
+                        <td><div class="hideCurrDate"><apex:inputField value="{!Referral__c.Screening_Date__c}"/></div></td>
+                    </tr> 
+                    <tr><th>Court</th><th>Part</th><th>Borough</th></tr>
+                    <tr><td><apex:inputField value="{!Referral__c.Court__c}" /></td>
+                        <td><apex:inputField value="{!Referral__c.Court_Part_global__c}" /></td>                      
+                        <td><apex:inputField value="{!Referral__c.Court_Borough__c}"/></td>
+                    </tr>
+                    <tr><th>Court Representative</th><th>Shift</th><th></th></tr>
+                    <tr>
+                        <td><apex:inputField value="{!Referral__c.Court_Representative__c}" /></td>
+                        <td><apex:inputField value="{!Referral__c.Shift__c}" /></td>
+                        <td></td>
+                    </tr> 
+                </table>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="basicInfoView" rendered="{!DetectedMode=='View' || (DetectedMode=='Edit' && Referral__c.Screening_Stage__c!='Basic Info')}">
+                <table>
+                    <tr><th>Referral Date</th><th>Referred By</th><th>Screening Date</th><th>Court</th><th>Part</th><th>Borough</th><th>Court Representative</th><th>Shift</th><th></th></tr>
+                    <tr><td><div class="hideCurrDate"><apex:outputField value="{!Referral__c.Referral_Date__c}" /></div></td>
+                        <td><apex:outputField value="{!Referral__c.ReferredBy__c}"/></td>                      
+                        <td><apex:outputField value="{!Referral__c.Screening_Date__c}"/></td>
+                        <td><apex:outputField value="{!Referral__c.Court__c}" /></td>
+                        <td><apex:outputField value="{!Referral__c.Court_Part_global__c}" /></td>                      
+                        <td><apex:outputField value="{!Referral__c.Court_Borough__c}"/></td>
+                        <td><apex:outputField value="{!Referral__c.Court_Representative__c}" /></td>
+                        <td><apex:outputField value="{!Referral__c.Shift__c}" /></td>
+                    </tr> 
+                </table>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+
+            apex:outputText value="Candidate Information"/>
+                <apex:outputPanel id="candidateInfo">
+                    <apex:outputPanel id="candidateInfoEdit" rendered="{!DetectedMode=='New'}">
+                <table>
+                    <tr><th>First Name</th><th>Last Name</th><th>Date of Birth</th><th>NYSID</th></tr>
+                    <tr>
+                        <td><apex:inputField value="{!Referral__c.Firstname__c}" required="true"/></td>
+                        <td><apex:inputField value="{!Referral__c.Lastname__c}" required="true"/></td>
+                        <td><div class="hideCurrDate"><apex:inputField value="{!Referral__c.DOB__c}" required="true"/></div></td>
+                        <td><apex:inputField value="{!Referral__c.NYSID__c}" required="true"/></td>
+                    </tr>                
+                </table>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="candidateInfoView" rendered="{!DetectedMode=='View'}">
+                <table>
+                    <tr><th>First Name</th><th>Last Name</th><th>Date of Birth</th><th>NYSID</th></tr>
+                    <tr>
+                        <td><apex:outputField value="{!Referral__c.Firstname__c}"/></td>
+                        <td><apex:outputField value="{!Referral__c.Lastname__c}"/></td>
+                        <td><apex:outputField value="{!Referral__c.DOB__c}"/></td>
+                        <td><apex:outputField value="{!Referral__c.NYSID__c}" /></td>
+                    </tr>                
+                </table>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                This is tab 1 content.<br/>
+                <apex:inputText /><br/>
+                <apex:commandButton value="Next" action="{!nextTab}" reRender="tabPanel"/>
+            </apex:tab>
+            <apex:tab label="Page 2" disabled="{!currentTab<>'2'}">
+                <apex:outputPanel id="buttons2">
+                        <apex:commandbutton value="Save" action="{!save}" rendered="TRUE" rerender="theForm"/>                          
+                        <apex:commandbutton value="Edit" action="{!edit}" rendered="{!DetectedMode=='View'}" rerender="theForm"/>
+                        <apex:commandbutton value="Cancel" action="{!Cancel}" rendered="TRUE"/> 
+                        <apex:commandButton value="Previous" action="{!prevTab}" rerender="tabPanel" />
+                        <apex:commandButton value="Next" action="{!nextTab}" rerender="tabPanel"/>                             
+                    </apex:outputPanel>
+                <apex:outputText value="MOCJ Risk Score"/>
+                <apex:outputPanel id="mocjRisk">
+                    <apex:outputPanel id="mocjRiskEdit" rendered="true">
+                    <table>
+                    <tr><td>Open Cases</td>
+                        <td><apex:selectRadio value="{!Referral__c.RA_Open_Cases__c}" styleClass="radioClass">
+                                <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                            </apex:selectRadio>
+                    </td></tr>
+                    <tr><td>First Arrest</td>
+                        <td><apex:selectRadio value="{!Referral__c.RA_First_Arrest__c}" styleClass="radioClass">
+                                <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                            </apex:selectRadio>
+                    </td></tr>
+                    <tr><td>Warrant in Last 4 Years</td>
+                        <td><apex:selectRadio value="{!Referral__c.Warrant_last_4yrs__c}" styleClass="radioClass">
+                                <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                        </apex:selectRadio>
+                    </td></tr>
+                    <tr><td>Misdemeanor in Last 1 Year</td>
+                        <td><apex:selectRadio value="{!Referral__c.RA_Misdemeanor_last_1yr__c}" styleClass="radioClass">
+                                <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                            </apex:selectRadio>                    
+                    </td></tr>
+                    <tr><td>Felony in Last 9 Years</td>
+                        <td><apex:selectRadio value="{!Referral__c.RA_Felony_last_9yrs__c}" styleClass="radioClass" >
+                                <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                            </apex:selectRadio>
+                    </td></tr>
+                    <tr><td>Drug Arrest in Last 9 Years</td>
+                        <td><apex:selectRadio value="{!Referral__c.RA_Drug_last_9yrs__c}" styleClass="radioClass">
+                                <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                            </apex:selectRadio>
+                    </td></tr>
+                    <tr><td>CJA Fulltime Activity</td>
+                        <td><apex:selectRadio value="{!Referral__c.RA_CJA_Fulltime_Activity__c}" styleClass="radioClass">
+                                <apex:selectoption itemLabel="No" itemvalue="No"/>
+                                <apex:selectoption itemLabel="Yes" itemvalue="Yes"/>                    
+                            </apex:selectRadio>
+                    </td></tr>
+                    </table> 
+
+                    </apex:outputPanel>
+                    <apex:outputPanel id="mocjRiskView" rendered="true">
+                    <table>
+                    <tr><td>Risk Category</td><td><apex:outputField value="{!Referral__c.MOCJ_Risk_Category__c}" /></td></tr> 
+                    <tr><td>Age at Arrest</td><td><apex:outputField value="{!Referral__c.Age_at_Arrest_Calc__c}"/></td></tr>
+                    <tr><td>Open Cases</td><td><apex:outputField value="{!Referral__c.RA_Open_Cases__c}" styleClass="radioClass"/></td></tr>                                            
+                    <tr><td>First Arrest</td><td><apex:outputField value="{!Referral__c.RA_First_Arrest__c}" styleClass="radioClass"/></td></tr>
+                    <tr><td>Warrant in Last 4 Years</td><td><apex:outputField value="{!Referral__c.Warrant_last_4yrs__c}" styleClass="radioClass"/></td></tr>
+                    <tr><td>Misdemeanor in Last 1 Year</td><td><apex:outputField value="{!Referral__c.RA_Misdemeanor_last_1yr__c}" styleClass="radioClass"/></td></tr>
+                    <tr><td>Felony in Last 9 Years</td><td><apex:outputField value="{!Referral__c.RA_Felony_last_9yrs__c}" styleClass="radioClass"/></td></tr>
+                    <tr><td>Drug Arrest in Last 9 Years</td><td><apex:outputField value="{!Referral__c.RA_Drug_last_9yrs__c}" styleClass="radioClass"/></td></tr>
+                    <tr><td>CJA Fulltime Activity</td><td><apex:outputField value="{!Referral__c.RA_CJA_Fulltime_Activity__c}" styleClass="radioClass"/></td></tr>            
+                    </table>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                This is tab 2 content.<br/>
+                <apex:inputText /><br/>
+                <apex:commandButton value="Prev" action="{!prevTab}" reRender="tabPanel"/>
+                <apex:commandButton value="Next" action="{!nextTab}" reRender="tabPanel"/>
+            </apex:tab>
+            <apex:tab label="Page 3" disabled="{!currentTab<>'3'}">
+                This is tab 3 content.<br/>
+                <apex:inputText /><br/>
+                <apex:commandButton value="Prev" action="{!prevTab}" reRender="tabPanel"/>
+                <apex:commandButton value="Next" action="{!nextTab}" reRender="tabPanel"/>
+            </apex:tab>
+            <apex:tab label="Page 4" disabled="{!currentTab<>'4'}">
+                This is tab 4 content.<br/>
+                <apex:inputText /><br/>
+                <apex:commandButton value="Prev" action="{!prevTab}" reRender="tabPanel"/>
+            </apex:tab>
+        </apex:tabPanel>
+    </apex:form>
+<style>
+        div.hideCurrDate span.dateInput span.dateFormat
+        {
+           display:none;
+        }
+        .activeTab {background-color: #236FBD; color:white; background-image:none}
+        .inactiveTab { background-color: lightgrey; color:black; background-image:none}
+</style>
+<script>
+    function setFocusOnLoad() {}
+    
+    function calculateTopArraignment() {
+        var max = -1; var exclusion = false;
+        var id; var name;
+        $('.selectpicker option:selected').each(function() {
+            var $this = $(this),
+            $id = $this.attr('value'),
+            $name = $this.text(),
+            score = parseFloat($this.attr('data-score')),
+            $exclusion = $this.attr('data-exclusion') == "true";
+            if ($exclusion) exclusion = true;
+        
+            if ($id != undefined && (!exclusion || $exclusion) && max < score) {
+                max = score; id = $id; name = $name;
+                $('th:contains("Charge Information") + td').html($this.attr('data-subtext'));
+                $('th:contains("Charge Excludes SRP") + td').html(($exclusion) ? 'Yes' : '');
+                $('th:contains("Ineligible?")').css('width', 90);
+                $('th:contains("Ineligible?") + td').html(($exclusion) ? 'Yes' : '');
+            }
+        });
+    
+        if (id != null) {
+            $('.topArraignment input[type=hidden]').val(id);
+            $('.topArraignment p').html(name).attr('title', max);
+        }
+    
+    }
+
+    $(document).ready(function() {
+        $(".selectpicker").on('change', function() {
+            var val = $(this).val();
+            $(this).closest('.chargePanel').find('input[type=hidden]').val(val);
+            calculateTopArraignment();
+        });
+    });
+</script>
+</apex:page>

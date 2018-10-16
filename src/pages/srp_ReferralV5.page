@@ -18,28 +18,16 @@
     </apex:outputPanel>
 
 <!--   ////   TAB PANEL \\\\  -->
-    <apex:tabPanel switchType="client" selectedTab="{!selectedTab}" id="TabPanel" activeTabClass="activeTab" inactiveTabClass="inactiveTab">
-
+    <apex:tabPanel switchType="client" selectedTab="{!currentTab}" id="TabPanel" activeTabClass="activeTab" inactiveTabClass="inactiveTab" immediate="true">
 <!--   ////   TAB ONE - BASIC INFORMATION \\\\  -->        
-        <apex:tab label="Basic Information" name="tab1" id="tabOne" disabled="{!isTabOneDisabled}">
+        <apex:tab label="Basic Information" name="tab1" id="tab1" disabled="{!currentTab <> '1'}">
+ 
             <apex:outputPanel id="buttons1">
                 <apex:commandbutton value="Save" action="{!saveBasicInfo}" rendered="TRUE" rerender="theForm"/>                          
                 <apex:commandbutton value="Edit" action="{!edit}" rendered="{!DetectedMode=='View'}" rerender="theForm"/>
                 <apex:commandbutton value="Cancel" action="{!Cancel}" rendered="TRUE"/>
-                <apex:commandButton value="Next" action="{!enableTabTwo}" rerender="tabPanel"/>               
+                <apex:commandButton value="Next" action="{!nextTab}" rerender="tabPanel"/>               
             </apex:outputPanel>
-            <apex:outputText value="Eligibility \& Status"/>
-                    <apex:panelGrid columns="8" columnClasses="colstyle" width="800px">
-                        <apex:outputLabel value="Eligibility"/>
-                        <apex:outputField value="{!Referral__c.Ineligible__c}"/>
-                        <apex:outputLabel value="Screening Stage"/>
-                        <apex:outputField value="{!Referral__c.Screening_Stage_Calc__c}"/>
-                        <apex:outputLabel value="Screening Stage"/>
-                        <apex:outputField value="{!Referral__c.Screening_Stage__c}"/>
-                        <apex:outputLabel value="Age at Arrest"/>
-                        <apex:outputField value="{!Referral__c.Age_at_Arrest_Calc__c}"/>
-                    </apex:panelGrid>
-            apex:outputText value="Basic Informaton"/>
                 <apex:outputPanel id="basicInfo">
                     <apex:outputPanel id="basicInfoEdit" rendered="{!DetectedMode=='New'}">
                 <table>
@@ -105,13 +93,13 @@
         </apex:tab>
 
 <!--   ////   TAB TWO - MOCJ RISK SCORE \\\\  -->    
-        <apex:tab label="Risk Score" name="tab2" id="tabTwo" disabled="{!isTabTwoDisabled}">
+        <apex:tab label="Risk Score" name="tab2" id="tab2" disabled="{!currentTab <> '2'}">
                 <apex:outputPanel id="buttons2">
                         <apex:commandbutton value="Save" action="{!save}" rendered="TRUE" rerender="theForm"/>                          
                         <apex:commandbutton value="Edit" action="{!edit}" rendered="{!DetectedMode=='View'}" rerender="theForm"/>
                         <apex:commandbutton value="Cancel" action="{!Cancel}" rendered="TRUE"/> 
-                        <apex:commandButton value="Previous" action="{!enableTabOne}" rerender="tabPanel" />
-                        <apex:commandButton value="Next" action="{!enableTabThree}" rerender="tabPanel"/>                             
+                        <apex:commandButton value="Previous" action="{!prevTab}" rerender="tabPanel" />
+                        <apex:commandButton value="Next" action="{!nextTab}" rerender="tabPanel"/>                             
                     </apex:outputPanel>
                 <apex:outputText value="MOCJ Risk Score"/>
                 <apex:outputPanel id="mocjRisk">
@@ -179,13 +167,13 @@
     </apex:tab>
 
 <!--   ////   TAB THREE - DOCKETS \\\\  -->          
-    <apex:tab label="Docket(s)" name="name3" id="tabThree" disabled="{!isTabThreeDisabled}">
+    <apex:tab label="Docket(s)" name="name3" id="tab3" disabled="{!currentTab <> '3'}">
             <apex:outputPanel id="buttons3">
                 <apex:commandbutton value="Save" action="{!saveBasicInfo}" rendered="TRUE" rerender="theForm"/>                          
                 <apex:commandbutton value="Edit" action="{!edit}" rendered="{!DetectedMode=='View'}" rerender="theForm"/>
                 <apex:commandbutton value="Cancel" action="{!Cancel}" rendered="TRUE"/>
-                        <apex:commandButton value="Previous" action="{!enableTabTwo}" rerender="tabPanel" />
-                        <apex:commandButton value="Next" action="{!enableTabFour}" rerender="tabPanel"/>                    
+                        <apex:commandButton value="Previous" action="{!prevTab}" rerender="tabPanel" />
+                        <apex:commandButton value="Next" action="{!nextTab}" rerender="tabPanel"/>                    
             </apex:outputPanel>       
             <apex:outputText value="Docket(s)"/>
                 <apex:outputPanel id="dockets">
@@ -333,12 +321,12 @@
 
 <!--   ////   TAB FOUR- CHARGE INFORMATION \\\\  -->      
         
-        <apex:tab label="Charge Information" name="name4" id="tabFour" disabled="{!isTabFourDisabled}">
+        <apex:tab label="Charge Information" name="name4" id="tab4" disabled="{!currentTab <> '4'}">
                 <apex:commandbutton value="Save" action="{!saveBasicInfo}" rendered="TRUE" rerender="theForm"/>                          
                 <apex:commandbutton value="Edit" action="{!edit}" rendered="{!DetectedMode=='View'}" rerender="theForm"/>
                 <apex:commandbutton value="Cancel" action="{!Cancel}" rendered="TRUE"/>
-                        <apex:commandButton value="Previous" action="{!enableTabThree}" rerender="tabPanel" />
-                        <apex:commandButton value="Next" action="{!enableTabFive}" rerender="tabPanel"/>                    
+                        <apex:commandButton value="Previous" action="{!prevTab}" rerender="tabPanel" />
+                        <apex:commandButton value="Next" action="{!nextTab}" rerender="tabPanel"/>                    
             <apex:outputText value="Eligibility Determination"/>
                 <apex:outputPanel id="eligibility">
                     <apex:outputPanel id="eligibilityView" rendered="true">
@@ -361,12 +349,12 @@
         
 <!--   ////   TAB FIVE - OUTCOME \\\\  -->      
         
-        <apex:tab label="Outcome" name="name5" id="tabFive" disabled="{!isTabFiveDisabled}" >
+        <apex:tab label="Outcome" name="name5" id="tab5" disabled="{!currentTab <> '5'}" >
             <apex:outputPanel id="buttons6">
                 <apex:commandbutton value="Save" action="{!saveBasicInfo}" rendered="TRUE" rerender="theForm"/>                          
                 <apex:commandbutton value="Edit" action="{!edit}" rendered="{!DetectedMode=='View'}" rerender="theForm"/>
                 <apex:commandbutton value="Cancel" action="{!Cancel}" rendered="TRUE"/>
-                <apex:commandButton value="Previous" action="{!enableTabFour}" rerender="tabPanel" />             
+                <apex:commandButton value="Previous" action="{!prevTab}" rerender="tabPanel" />             
             </apex:outputPanel>
             <apex:outputText value="Outcome"/>
                 <apex:outputPanel id="outcome">
