@@ -3,12 +3,12 @@
         <apex:tabPanel selectedTab="{!currentTab}" id="tabPanel" switchType="client" immediate="true">
             <apex:tab label="Page 1" disabled="{!currentTab<>'1'}">
  
-            <apex:outputPanel id="buttons1">
+                <apex:outputPanel id="buttons1">
                 <!-- apex:commandbutton value="Save" action="{!saveBasicInfo}" rendered="TRUE" rerender="theForm"/ -->                          
                 <apex:commandbutton value="Edit" action="{!edit}" rendered="{!DetectedMode=='View'}" rerender="theForm"/>
                 <apex:commandbutton value="Cancel" action="{!Cancel}" rendered="TRUE"/>
                 <apex:commandButton value="Next" action="{!nextTab}" rerender="tabPanel"/>               
-            </apex:outputPanel>
+                </apex:outputPanel>
                 <apex:outputPanel id="basicInfo">
                     <apex:outputPanel id="basicInfoEdit" rendered="{!DetectedMode=='New'}">
                 <table>
@@ -46,7 +46,7 @@
                     </apex:outputPanel>
                 </apex:outputPanel>
 
-            apex:outputText value="Candidate Information"/>
+                <apex:outputText value="Candidate Information"/>
                 <apex:outputPanel id="candidateInfo">
                     <apex:outputPanel id="candidateInfoEdit" rendered="{!DetectedMode=='New'}">
                 <table>
@@ -75,6 +75,7 @@
                 <apex:inputText /><br/>
                 <apex:commandButton value="Next" action="{!nextTab}" reRender="tabPanel"/>
             </apex:tab>
+            
             <apex:tab label="Page 2" disabled="{!currentTab<>'2'}">
                 <apex:outputPanel id="buttons2">
                         <apex:commandbutton value="Save" action="{!save}" rendered="TRUE" rerender="theForm"/>                          
@@ -146,21 +147,236 @@
                     </table>
                     </apex:outputPanel>
                 </apex:outputPanel>
-                This is tab 2 content.<br/>
-                <apex:inputText /><br/>
                 <apex:commandButton value="Prev" action="{!prevTab}" reRender="tabPanel"/>
                 <apex:commandButton value="Next" action="{!nextTab}" reRender="tabPanel"/>
             </apex:tab>
+            
             <apex:tab label="Page 3" disabled="{!currentTab<>'3'}">
+                    <apex:outputPanel id="buttons3">
+                            <apex:commandbutton value="Save" action="{!saveBasicInfo}" rendered="TRUE" rerender="theForm"/>                          
+                            <apex:commandbutton value="Edit" action="{!edit}" rendered="{!DetectedMode=='View'}" rerender="theForm"/>
+                            <apex:commandbutton value="Cancel" action="{!Cancel}" rendered="TRUE"/>
+                                    <apex:commandButton value="Previous" action="{!prevTab}" rerender="tabPanel" />
+                                    <apex:commandButton value="Next" action="{!nextTab}" rerender="tabPanel"/>                    
+                        </apex:outputPanel>       
+                        <apex:outputText value="Docket(s)"/>
+                            <apex:outputPanel id="dockets">
+                                <apex:outputPanel id="docketsEdit" rendered="true">
+                                <table style="width:60%" id="docketTable" columns="2" border="2">
+                                    <tr>
+                                        <th>Docket 1</th>                            
+                                        <th>Docket 2</th>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <apex:panelGrid columns="2">
+                                                <apex:outputText value="Docket #: "/>
+                                                <apex:outputText value="Indictment #: "/>      
+                                                <apex:inputField value="{!Referral__c.Docket__c}" style="width:110px" required="false"/>
+                                                <apex:inputField value="{!Referral__c.Indictment__c}" style="width:110px" required="false"/>
+                                                <apex:outputText value="Arrest Date:"/>
+                                                <apex:inputField value="{!Referral__c.Arrest_Date__c}"  required="false"/>
+                                                <apex:outputText value="Arrest #:" />
+                                                <apex:inputField value="{!Referral__c.Arrest_Number__c}"  required="false"/>
+                                                <apex:outputText value="Complaint:" />
+                                                <apex:inputField value="{!Referral__c.Complaint_1__c}" style="width:210px"/>
+                                                <apex:outputText value="Charge 1:" />
+                                                <apex:outputPanel styleClass="chargePanel">
+                                                    <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                                    <apex:inputHidden required="false" value="{!Referral__c.Charge_A1__c}" />             
+                                                </apex:outputPanel>
+                                                
+                                                <apex:outputText value="Charge 2:" />
+                                                <apex:outputPanel styleClass="chargePanel">
+                                                    <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                                    <apex:inputHidden required="false" value="{!Referral__c.Charge_A2__c}" />             
+                                                </apex:outputPanel>
+            
+                                                <apex:outputText value="Charge 3:" />
+                                                <apex:outputPanel styleClass="chargePanel">
+                                                    <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                                    <apex:inputHidden required="false" value="{!Referral__c.Charge_A3__c}" />             
+                                                </apex:outputPanel>
+            
+                                                <apex:outputText value="Charge 4:" />
+                                                <apex:outputPanel styleClass="chargePanel">
+                                                    <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                                    <apex:inputHidden required="false" value="{!Referral__c.Charge_A4__c}" />             
+                                                </apex:outputPanel>
+            
+                                                <apex:outputText value="Charge 5:" />
+                                                <apex:outputPanel styleClass="chargePanel">
+                                                    <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                                    <apex:inputHidden required="false" value="{!Referral__c.Charge_A5__c}" />             
+                                                </apex:outputPanel>
+            
+                                                <apex:outputText value="Notes:" />
+                                                <apex:inputField value="{!Referral__c.Notes_1__c}" style="width:210px"/>
+                                            </apex:panelGrid>
+                                        </td>
+                                        <td width="50%">
+                                            <apex:panelGrid columns="1">
+                                                <apex:outputText value="Docket #: "/>
+                                                <apex:inputField value="{!Referral__c.Docket2__c}" style="width:110px" />                        
+                                                <apex:inputField value="{!Referral__c.Arrest_Date2__c}" />
+                                                <apex:inputField value="{!Referral__c.Arrest_Number2__c}" />
+                                                <apex:inputField value="{!Referral__c.Complaint_2__c}" style="width:210px"/>
+                                                <apex:outputPanel styleClass="chargePanel">
+                                                    <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                                    <apex:inputHidden required="false" value="{!Referral__c.Charge_B1__c}" />             
+                                                </apex:outputPanel>
+                                                <apex:outputPanel styleClass="chargePanel">
+                                                    <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                                    <apex:inputHidden required="false" value="{!Referral__c.Charge_B2__c}" />             
+                                                </apex:outputPanel>
+                                                <apex:outputPanel styleClass="chargePanel">
+                                                    <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                                    <apex:inputHidden required="false" value="{!Referral__c.Charge_B3__c}" />             
+                                                </apex:outputPanel>
+                                                <apex:outputPanel styleClass="chargePanel">
+                                                    <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                                    <apex:inputHidden required="false" value="{!Referral__c.Charge_B4__c}" />             
+                                                </apex:outputPanel>
+                                                <apex:outputPanel styleClass="chargePanel">
+                                                    <c:PenalCodeDropdown penalCodeList="{!penalCodeList}" />
+                                                    <apex:inputHidden required="false" value="{!Referral__c.Charge_B5__c}" />             
+                                                </apex:outputPanel>                                    
+                                                <apex:inputField value="{!Referral__c.Notes_2__c}" style="width:210px"/>
+                                            </apex:panelGrid>
+                                        </td>
+                                    </tr>
+                                    </table>
+                                </apex:outputPanel>
+                                <apex:outputPanel id="docketsView" rendered="true">
+                                <table style="width:100%" id="docketTable" columns="2" border="2">
+                                    <tr>
+                                        <th>Docket 1</th>                            
+                                        <th>Docket 2</th>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <apex:panelGrid columns="2">
+                                                <apex:outputText value="Docket #: "/>
+                                                <apex:outputText value="Indictment #: "/>      
+                                                <apex:outputField value="{!Referral__c.Docket__c}" style="width:110px"/>
+                                                <apex:outputField value="{!Referral__c.Indictment__c}" style="width:110px"/>
+                                                <apex:outputText value="Arrest Date:"/>
+                                                <apex:outputField value="{!Referral__c.Arrest_Date__c}" />
+                                                <apex:outputText value="Arrest #:" />
+                                                <apex:outputField value="{!Referral__c.Arrest_Number__c}" />
+                                                <apex:outputText value="Complaint:" />
+                                                <apex:outputField value="{!Referral__c.Complaint_1__c}" style="width:210px"/>
+                                                <apex:outputText value="Charge 1:" />
+                                                <apex:outputField value="{!Referral__c.Charge_A1__c}" />             
+                                                <apex:outputText value="Charge 2:" />
+                                                <apex:outputField value="{!Referral__c.Charge_A2__c}" />             
+                                                <apex:outputText value="Charge 3:" />
+                                                <apex:outputField value="{!Referral__c.Charge_A3__c}" />             
+                                                <apex:outputText value="Charge 4:" />
+                                                <apex:outputField value="{!Referral__c.Charge_A4__c}" />             
+                                                <apex:outputText value="Charge 5:" />
+                                                <apex:outputField value="{!Referral__c.Charge_A5__c}" />             
+                                                <apex:outputText value="Notes:" />
+                                                <apex:outputField value="{!Referral__c.Notes_1__c}" style="width:210px"/>
+                                            </apex:panelGrid>
+                                        </td>
+                                        <td width="50%">
+                                            <apex:panelGrid columns="1">
+                                                <apex:outputField value="{!Referral__c.Docket2__c}" style="width:110px" />                        
+                                                <apex:outputField value="{!Referral__c.Arrest_Date2__c}" />
+                                                <apex:outputField value="{!Referral__c.Arrest_Number2__c}" />
+                                                <apex:outputField value="{!Referral__c.Complaint_2__c}" style="width:210px"/>
+                                                <apex:outputField value="{!Referral__c.Charge_B1__c}" />             
+                                                <apex:outputField value="{!Referral__c.Charge_B2__c}" />             
+                                                <apex:outputField value="{!Referral__c.Charge_B3__c}" />             
+                                                <apex:outputField value="{!Referral__c.Charge_B4__c}" />             
+                                                <apex:outputField value="{!Referral__c.Charge_B5__c}" />             
+                                                <apex:outputField value="{!Referral__c.Notes_2__c}" style="width:210px"/>
+                                            </apex:panelGrid>
+                                            <apex:panelGrid columns="1">
+                                                <apex:outputField value="{!Referral__c.Domestic_Violence_Charges__c}" />
+                                            </apex:panelGrid> 
+                                        </td>
+                                    </tr>
+                                </table>
+                                </apex:outputPanel>
+                        </apex:outputPanel>
+            
                 This is tab 3 content.<br/>
                 <apex:inputText /><br/>
                 <apex:commandButton value="Prev" action="{!prevTab}" reRender="tabPanel"/>
                 <apex:commandButton value="Next" action="{!nextTab}" reRender="tabPanel"/>
             </apex:tab>
+            
             <apex:tab label="Page 4" disabled="{!currentTab<>'4'}">
+                    <apex:commandbutton value="Save" action="{!saveBasicInfo}" rendered="TRUE" rerender="theForm"/>                          
+                    <apex:commandbutton value="Edit" action="{!edit}" rendered="{!DetectedMode=='View'}" rerender="theForm"/>
+                    <apex:commandbutton value="Cancel" action="{!Cancel}" rendered="TRUE"/>
+                            <apex:commandButton value="Previous" action="{!prevTab}" rerender="tabPanel" />
+                            <apex:commandButton value="Next" action="{!nextTab}" rerender="tabPanel"/>                    
+                <apex:outputText value="Eligibility Determination"/>
+                    <apex:outputPanel id="eligibility">
+                        <apex:outputPanel id="eligibilityView" rendered="true">
+                        <apex:outputfield value="{!Referral__c.Top_arraignment_charge_Court_Docs__c}"/>
+                        <apex:outputfield value="{!Referral__c.Charge_Information_Court_Docs__c}" / >
+                        <table>
+                        <tr class="topArraignment">
+                            <th class="labelCol vfLabelColTextWrap">Top Arraignment Charge CC</th>
+                            <td>
+                                <p>No arraignment selected</p>
+                                <apex:inputHidden value="{!Referral__c.Top_Arraignment_Charge_CC_lu__c}" />
+                            </td>
+                        </tr>
+                        </table>
+                        <apex:outputfield styleClass="chargeInfo" value="{!Referral__c.Charge_Information__c}" / >                    
+                        <apex:outputfield styleClass="chargeExcludes" value="{!Referral__c.Charge_Excludes_SRP__c}" / >                           
+                        </apex:outputPanel>
+                    </apex:outputPanel>      
                 This is tab 4 content.<br/>
                 <apex:inputText /><br/>
                 <apex:commandButton value="Prev" action="{!prevTab}" reRender="tabPanel"/>
+                <apex:commandButton value="Next" action="{!nextTab}" reRender="tabPanel"/>
+            </apex:tab>
+
+            <apex:tab label="Page 5" disabled="{!currentTab<>'5'}">
+                    <apex:outputPanel id="buttons6">
+                            <apex:commandbutton value="Save" action="{!saveBasicInfo}" rendered="TRUE" rerender="theForm"/>                          
+                            <apex:commandbutton value="Edit" action="{!edit}" rendered="{!DetectedMode=='View'}" rerender="theForm"/>
+                            <apex:commandbutton value="Cancel" action="{!Cancel}" rendered="TRUE"/>
+                            <apex:commandButton value="Previous" action="{!prevTab}" rerender="tabPanel" />             
+                        </apex:outputPanel>
+                        <apex:outputText value="Outcome"/>
+                            <apex:outputPanel id="outcome">
+                                <apex:outputPanel id="outcomeEdit" rendered="true">
+                                    <apex:outputText value="Referral Outcome"/>
+                                    <apex:panelGrid columns="4" columnClasses="colstyle" width="1000px">
+                                    <apex:outputLabel value="Eligibility"/>
+                                    <apex:outputField value="{!Referral__c.Ineligible__c}"/>
+                                    <apex:outputLabel >Arraignment Outcome</apex:outputLabel>
+                                    <apex:inputField value="{!Referral__c.Arraignment_Outcome__c}"/>
+                                    </apex:panelGrid>
+                                    <apex:outputText value="Referral Outcome"/>
+                                    <apex:outputLabel value="Screening Outcome"/>
+                                    <apex:inputField value="{!Referral__c.Referral_is_Ineligible__c}"/>
+                                    <apex:outputLabel >Reason (if other)</apex:outputLabel>
+                                    <apex:inputField value="{!Referral__c.Ineligible_Reason__c}"/>
+                                </apex:outputPanel>
+                                <apex:outputPanel id="outcomeView" rendered="true">
+                                    <apex:outputText value="Referral Outcome"/>
+                                    <apex:panelGrid columns="4" columnClasses="colstyle" width="1000px">
+                                    <apex:outputLabel value="Eligibility"/>
+                                    <apex:outputField value="{!Referral__c.Ineligible__c}"/>
+                                    <apex:outputLabel >Arraignment Outcome</apex:outputLabel>
+                                    <apex:outputField value="{!Referral__c.Arraignment_Outcome__c}"/>
+                                    </apex:panelGrid>
+                                    <apex:outputText value="Referral Outcome"/>
+                                    <apex:outputLabel value="Screening Outcome"/>
+                                    <apex:outputField value="{!Referral__c.Referral_is_Ineligible__c}"/>
+                                    <apex:outputLabel >Reason (if other)</apex:outputLabel>
+                                    <apex:outputField value="{!Referral__c.Ineligible_Reason__c}"/> 
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                            <apex:commandButton value="Prev" action="{!prevTab}" reRender="tabPanel"/>
             </apex:tab>
         </apex:tabPanel>
     </apex:form>
