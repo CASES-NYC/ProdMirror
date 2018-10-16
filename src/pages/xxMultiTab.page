@@ -369,6 +369,7 @@
                                     <apex:outputLabel >Arraignment Outcome</apex:outputLabel>
                                     <apex:outputField value="{!Referral__c.Arraignment_Outcome__c}"/>
                                     </apex:panelGrid>
+                                    
                                     <apex:outputText value="Referral Outcome"/>
                                     <apex:outputLabel value="Screening Outcome"/>
                                     <apex:outputField value="{!Referral__c.Referral_is_Ineligible__c}"/>
